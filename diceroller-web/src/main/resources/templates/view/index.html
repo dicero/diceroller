@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge">
+    <meta name="renderer" content="webkit">
+    <title>自媒体平台</title>
+    <link rel="stylesheet" href="/static/css/common.css">
+    <link rel="stylesheet" href="/static/css/home.css">
+    <link rel="stylesheet" href="/static/css/login/login.css">
+</head>
+<body>
+    <!-- 头部 -->
+    #parse("templates/view/head.html")
+    
+    <div class="main_visual">
+        <div class="content">
+        	#if(!$user)
+        	<div class="loginBox">
+        		<div class="loginBox_title">登录</div>
+        		<div class="loginBox_center">
+        		    <form action="" method="post" id="loginBox">
+	        		    <p class="error-prompt"></p>
+		        		<div class="username"><input type="text" name="userName" id="userName" placeholder="请输入用户名"  autocomplete="off"/></div>
+		        		<div class="password"><input type="password" name="password" id="password" placeholder="请输入密码"  autocomplete="off"/></div>
+		        		<div class="imageCode_box clearfix">
+			        		<input type="text" name="imageCode" class="imageCode_input" maxlength="4" placeholder="验证码" id="imageCode">
+			        		<img src="/imageCode" onclick="Login._reloadCaptcha();" class="captchaPic" id="captchaPic" title="看不清，再来一张" />
+			        	</div>
+			        	<div class="clearfix">
+			        		<p class="forget_password fl"><a href="">忘记密码？</a></p>
+			        		<p class="goRegister fr"><a href="/register">免费注册广告主</a></p>
+		        	    </div>
+		        		<button class="login_button" type="button" id="login">登录</button>
+		        	</form>
+	        	</div>
+        	</div>
+        	#end
+        </div>
+		<div class="flicking_con">
+		    #foreach( $trunImg in $trunImgs )
+				<a href="javascript:void(0)">$velocityCount</a>
+			#end
+		</div>
+		<div class="main_image">
+			<ul>
+				#foreach( $trunImg in $trunImgs )
+    				<li>
+    					<a href="$trunImg.imgLink">
+    					<span  style="background:url($trunImg.imgUrl) center top no-repeat">
+    					</span>
+						</a>
+    				</li>
+				#end
+			</ul>
+			<a href="javascript:;" id="btn_prev"></a>
+			<a href="javascript:;" id="btn_next"></a>
+		</div>
+	</div>
+    <div class="main-content">
+    	<div class="content">
+    		<div class="mediaType">
+    			<ul class="mediaType_title clearfix">
+    				<li class="media1 active"><span></span>微博大号</li>
+    				<li class="media2"><span></span>微信公众号</li>
+    				<li class="media3"><span></span>陌陌</li>
+    				<li class="media4"><span></span>腾讯产品</li>
+    				<li class="media5"><span></span>今日头条</li>
+    				<li class="media6"><span></span>腾讯朋友圈</li>
+    				<li class="mediaMore"><a href="/goods/select?mediaType=2&fansNum=ALL&price=ALL&industryType=ALL&page=1">查看更多 ></a></li>
+    			</ul>
+                	 #foreach($good in $map.entrySet())
+                	 <ul class="starList clearfix starList$velocityCount" >
+       					<!--<li>$good.key - $good.value </li>-->
+       					#foreach( $g in $good.value )
+       						<li>
+		                	    <a href="/detail/$g.id">
+			                		<div class="starBox">
+			                			<img src="$g.headImgUrl" class="starImg"/>
+			                			<div class="starPro">
+			                				<p class="starName">$g.nickname</p>
+			                				<p class="starTitle">$g.summary</p>
+			                				<p class="starFansNum">粉丝数 $g.fansNum</p>
+			                			</div>
+			                		</div>
+		                		</a>
+		                	</li>
+       					#end
+       					</ul>
+     				 #end 
+    		</div>
+    		<div class="article clearfix">
+    			
+    			<div class="article_item industryNews fl">
+    				<div class="article_item_title industryNews_title">
+    					<p>行业动态</p>
+    					<span>Industry News</span>
+    					<a href="/article/more/1?page=1">更多 ></a>
+    				</div>
+    				<div class="article_content">
+    					<a href="/article/more/1?page=1">
+    						<img src="../img/home/a1.png" alt="" />
+    					</a>
+		   				#foreach( $dy in $industryDynamics )
+		   				    <a href="/article/detail/1/$dy.id">
+		    					<div class="article_content_description">
+		   							<p>$dy.title</p>
+			    				</div>
+			    			</a>
+			    		#end
+    				</div>
+    			</div>
+    			
+    			<div class="article_item promotionSkills fr">
+    				<div class="article_item_title promotionSkills_title">
+    					<p>推广技巧</p>
+    					<span>Promotion Skills</span>
+    					<a href="/article/more/2?page=1">更多 ></a>
+    				</div>
+    				<div class="article_content">
+    					<a href="/article/more/2?page=1">
+    						<img src="../img/home/a2.png" alt="" />
+    					</a>
+	    				#foreach( $ps in $promotedSkills )
+	    				    <a href="/article/detail/2/$ps.id">
+		    					<div class="article_content_description">
+	    							<p>$ps.title</p>
+			    				</div>
+			    			</a>
+			    		#end
+    				</div>
+    			</div>
+    		</div> 
+    		<div class="companyHonor">
+    			<div class="companyHonor_title content_title">
+    				<p>公司荣誉</p>
+    				<span>Enterprise Honor</span>
+    			</div>
+    			<div class="companyHonor_content">
+    				<ul class="clearfix">
+    					#foreach( $h in $honors )
+	    					<li>
+	    						<div class="companyHonor_item">
+	    						    <div class="companyHonor_img">
+	    							<!--  
+	    								<p class="year">2014年度</p>
+	    								<p>媒体微信版</p>
+	    							 -->
+	    							    <img src="$h.imgUrl"/>
+	    							</div>
+	    						</div>
+	    					</li>
+    					#end
+    				</ul>
+    			</div>
+    		</div>
+    		<div class="recruitment">
+    			<div class="recruitment_title content_title">
+    				<p>招贤纳士</p>
+    				<span>Talents Wanted</span>
+    			    <ul class="recruitment_item">
+    			    	#foreach( $jt in $jobTypes )
+    			    		<li class="jobTab$velocityCount">$jt.jobName</li>
+    			    	#end
+    			    </ul>
+    			</div>
+                <div class="recruitment_content ">
+                	<ul class="recruitment_content_title clearfix">
+                		<li class="positons">招聘岗位</li>
+                		<li class="jobExp">工作经验</li>
+                		<li class="education">学历要求</li>
+                		<li class="location">工作地点</li>
+                	</ul>
+                	
+                	#foreach($jobMap in $mapJob.entrySet())
+                	    <div class="jobDetails">
+                	        
+		                		#foreach( $ji in $jobMap.value )
+		                			<a href="/jobDetail/$ji.id">
+				                	<ul class="recruitment_requirement clearfix">
+				                		<li class="$jobMap.key">$ji.jobName</li>
+				                		<li>$ji.experience</li>
+				                		<li>$ji.degree</li>
+				                		<li>$ji.address</li>
+				                	</ul>
+				                	</a>
+		                		#end
+	                		
+                		</div>
+                	#end
+                	
+                </div>
+    		</div>
+    		<div class="friendLink">
+    			<div class="friendLink_title content_title">
+    				<p>友情链接</p>
+    				<span>Friendly Link</span>
+    			</div>
+    			<div class="friendLink_content_box" id="scrollWrap">
+    			    <div class="scroll">
+    			        <div id="scroll1" class="scroll1 fl">
+		    				<ul class="friendLink_content clearfix">
+		    					<li><a href=""><img src="../img/home/media1.png" alt=""></a></li>
+		    					<li><a href=""><img src="../img/home/media2.png" alt=""></a></li>
+		    					<li><a href=""><img src="../img/home/media3.png" alt=""></a></li>
+		    					<li><a href=""><img src="../img/home/media4.png" alt=""></a></li>
+		    					<li><a href=""><img src="../img/home/media5.png" alt=""></a></li>
+		    					<li><a href=""><img src="../img/home/media6.png" alt=""></a></li>
+		    				</ul>
+	    				</div>
+	    				<div id="scroll2" class="scroll2 fl">
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+    <!-- 尾部 -->
+    #parse("templates/view/footer.html")
+    <script type="text/javascript" src="../js/lib/jquery.js"></script>
+	<script type="text/javascript" src="../js/lib/jquery.touchSlider.js"></script>
+	<script type="text/javascript" src="../js/TabSwitch.js"></script>
+	<script type="text/javascript" src="../js/home.js"></script>
+	<script type="text/javascript" src="/static/js/login/common.js"></script>
+	<script type="text/javascript" src="/static/js/login/login.js"></script>
+</body>
+</html>

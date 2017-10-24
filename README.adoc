@@ -1,0 +1,302 @@
+== diceroller (工程名假设为: diceroller)
+基础架构,包含
+
+* diceroller-bean[基础实体类，工具类]
+* diceroller-dao[orm,业务类]
+* diceroller-core[核心组件]
+* diceroller-admin[web后台管理 网页web版]
+* diceroller-web[PC 网页web版]
+* diceroller-web-wap[手机 网页web版]
+
+
+
+
+== Web 版
+web 主要提供链接路由，前端数据交互
+
+* spring-boot 配置 resource/application.properties
+* 代码路由目录 com.diceroller,com.diceroller.controller
+* 静态文件目录 resource/static
+* html 目录   resource/templates
+* vm宏        resource/global_library.vm
+
+
+==== com.diceroller.controller 
+路由控制器
+
+====  AdminWelcome
+欢迎页面控制器
+
+==== AdminTableController
+示例：后台管理控制器
+
+==== AdminErrorController
+页面错误转向控制器
+
+== 一些示例
+运行diceroller-admin 后,可访问下列路由。
+
+运行方法:
+
+* 1.IDE Project->右键->run as->Spring-boot-app
+* 2.dicerollerAdminApplication->右键->run as->Java application
+[source,java,indent=0]
+----
+	@SpringBootApplication
+	public class dicerollerAdminApplication {
+		public static void main(String[] args) throws Exception {
+			SpringApplication.run(dicerollerAdminApplication.class, args);
+		}
+	}
+----
+
+页面路由访问:
+
+* 后台首页: localhost:8080
+* 后台登录: localhost:8080/login
+* 后台管理:
+	- 列表: localhost:8080/list
+	- 编辑: localhost:8080/edit
+	- 新增: localhost:8080/add
+
+== 权限
+例子：当访问localhost:8080 会提示“您无权操作”；访问localhost:8080/set 后，相当于登录，
+并得到权限，此时在访问localhost:8080 即可观看到页面。
+
+执行dao下边的import.sql，会自动产生一个超级管理员账号：admin密码admin01
+
+[source,java,indent=0]
+----
+	@AdminAccess({AdminRole.ADMIN})
+	@RequestMapping("/")
+	public String welcome(AdminLoginer adminLoginValue,Map<String, Object> model) {
+		model.put("time", new Date());
+		model.put("message", this.message);
+		logger.info("adminLoginValue=>"+adminLoginValue);
+		return "welcome";
+	}
+	
+	@RequestMapping("/set")
+	public String welcomea(HttpSession httpSession,Map<String, Object> model) {
+		UserPlatform userPlatform = new UserPlatform();
+		userPlatform.setId(1L);
+		userPlatform.setLoginUsername("hahha");
+		userPlatform.setRole(AdminRole.ADMIN);
+		AdminCookie.setLoginAdmin(httpSession, userPlatform);
+		return "welcome";
+	}
+----
+
+== 异常
+全局配置异常
+
+> 异常捕获
+[source,java,indent=0]
+----
+@ControllerAdvice
+public class dicerollerAdminExceptionHandler {
+	String DEFAULT_ERROR_VIEW = "error/exception"; // 异常页面
+
+    @ExceptionHandler(value = Exception.class)
+	public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("exception", e);  
+		mav.setViewName(DEFAULT_ERROR_VIEW);
+		return mav;
+	}
+}
+----
+
+> 异常输出页面
+[source,html,indent=0]
+----
+#set( $layout = 'layout/bank.html' )
+发生异常:$!exception，请通知管理员.
+----
+
+== 热部署
+加载devtools进行热部署
+
+[source,pom,indent=0]
+----
+ <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-devtools</artifactId>
+    <optional>true</optional>
+</dependency>
+----
+
+== 分页
+例子：
+
+> Controller
+
+[source,java,indent=0]
+----
+    @RequestMapping(value="/userPlatform/list", method=RequestMethod.GET)
+	public String userPlatformList(@RequestParam(value="page",defaultValue="1") int page, Model model) {
+		Page<UserPlatform> userPlatforms = userPlatformService.findAll(page - 1, pageSize);
+		model.addAttribute("userPlatforms", userPlatforms);
+		return "/userPlatform/list";
+	}
+----
+
+> template/userPlatform/list.html:
+
+[source,html,indent=0]
+----
+    <div>
+    	#pager("/manager/userPlatform/list" $userPlatforms)
+	</div>
+----
+
+> template/global_library.vm:
+
+[source,vm,indent=0]
+----
+#macro(pager $url $pager)
+<ul class="pagination">
+    #set($FRONT_LEN = 4)
+    #set($BEHIND_LEN = 5)
+    #set($PAGER_LEN = 10)
+    #set($PAGER_CENTER = $!{P_TOTALPAGES} - $!{BEHIND_LEN})
+    #set($P_NUMBER = $!{pager.number} + 1)
+    #set($P_TOTALPAGES = $!{pager.totalPages})
+    <li #if($!{P_NUMBER} == 1) class="disabled"#end>
+        <a href="$!{url}?page=1">&laquo;</a>
+    </li>
+    #if($!{P_TOTALPAGES} <= $!{PAGER_LEN})
+        #foreach($p in [1..$!{P_TOTALPAGES}])
+            <li #if($!{P_NUMBER} == $!{p}) class="active" #end>
+                <a href="$!{url}?page=$!{p}">$!{p}</a>
+            </li>
+        #end
+    #elseif($!{P_TOTALPAGES} > $!{PAGER_LEN})
+        #if($!{P_NUMBER} <= $!{FRONT_LEN})
+            #foreach($p in [1..10])
+                <li #if($!{P_TOTALPAGES} == $!{p}) class="active" #end>
+                    <a href="$!{url}?page=$!{p}">$!{p}</a>
+                </li>
+            #end
+        #elseif($!{P_NUMBER} < $!{PAGER_CENTER})
+            #set($header = $!{P_NUMBER} - $!{FRONT_LEN})
+            #set($ender = $!{P_NUMBER} + $!{BEHIND_LEN})
+            #foreach($p in [$!{header}..$!{ender}])
+                <li #if($!{P_NUMBER} == $!{p}) class="active" #end>
+                    <a href="$!{url}?page=$!{p}">$!{p}</a>
+                </li>
+            #end
+        #else
+            #set($begin = $!{P_TOTALPAGES} - $!{FRONT_LEN} - $!{BEHIND_LEN})
+            #foreach($p in [$!{begin}..$!{P_TOTALPAGES}])
+                <li #if($!{P_NUMBER} == $!{p}) class="active" #end>
+                    <a href="$!{url}?page=$!{p}">$!{p}</a>
+                </li>
+            #end
+        #end
+    #end
+    <li #if($!{P_NUMBER} == $!{P_TOTALPAGES}) class="disabled"#end>
+        <a href="$!{url}?page=$!{P_TOTALPAGES}">&raquo;</a>
+    </li>
+</ul>
+#end
+----
+
+== 文件上传
+启动diceroller-admin,进入 http://localhost:8082/upload上传文件界面
+
+> 上传文件配置:
+[source,properties,indent=0]
+----
+# 上传自定义way=local 则是上传到本地目录，本地目录要求有写和读权限
+# way=aliyun 则是上传到aliyun
+spring.upload.way=local
+spring.upload.location=/Users/zengningzhong/Documents/
+# spring 大小限制
+spring.http.multipart.enabled=true 
+spring.http.multipart.file-size-threshold=0
+spring.http.multipart.max-file-size=1Mb
+spring.http.multipart.max-request-size=10Mb
+----
+
+> 上传使用
+[source,html,indent=0]
+----
+<form action="/upload" method="post" enctype="multipart/form-data">	
+	<h1>文件上传</h1>			
+	<div class="login-fields">
+		<p class="text-error" style="color: red;">$!error&nbsp;</p>
+		<div class="field">
+			<label>选择文件</label>
+			<input type="file" name="file" class="login username-field" />
+		</div> <!-- /field -->
+	</div> 
+	
+	<div class="login-actions">	
+		<button class="button btn btn-success btn-large">上 传</button>
+	</div> <!-- .actions -->	
+</form>
+----
+[source,java,indent=0]
+----
+@RequestMapping(value="/upload",method=RequestMethod.POST)
+@ResponseBody public String upload(@RequestParam("file") MultipartFile file) {
+	String upfile = fileUpload.upload(file); // 返回路径
+	if(upfile != null){
+		return "upload ok. upfile文件地址 => http:localhost:8088/" + upfile;
+	} else {
+		return "upload fail";
+	}
+}
+----
+
+
+== 文档生成
+集成swagger2,访问地址:http://localhost:8080/swagger-ui.html
+参考:
+[参考1](http://heidloff.net/article/usage-of-swagger-2-0-in-spring-boot-applications-to-document-apis/)
+[参考2](http://www.baeldung.com/swagger-2-documentation-for-spring-rest-api)
+
+```java
+@RestController
+public class GreetingController {
+ 
+    private static final String template = "Hello, %s!";
+    private final AtomicLong counter = new AtomicLong();
+ 
+    @ApiOperation(value = "getGreeting", nickname = "getGreeting")
+    @RequestMapping(method = RequestMethod.GET, path="/greeting", produces = "application/json")
+    @ApiImplicitParams({
+        @ApiImplicitParam(name = "name", value = "User's name", required = false, dataType = "string", paramType = "query", defaultValue="Niklas")
+      })
+    @ApiResponses(value = { 
+            @ApiResponse(code = 200, message = "Success", response = Greeting.class),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Failure")}) 
+    public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name) {
+        return new Greeting(counter.incrementAndGet(),
+                String.format(template, name));
+    }
+}
+```
+
+== 支付
+* 1.支付宝支付-》选择及时[到账](https://doc.open.alipay.com/doc2/detail.htm?spm=a219a.7629140.0.0.Rw7eJg&treeId=62&articleId=103738&docType=1)
+* 2.快捷支付
+* 3.其他
+
+== 部署
+1.更新代码。2.部署代码。
+
+* 连接远程机器ssh dev@120.26.84.59
+* 进入工程目录cd ~/application/flx, git pull更新代码
+* 执行部署脚本sh deploy-#-#.sh,第一个#表示环境[dev是本地环境，pro是线下环境]，
+第二个#表示启动的项目如web，即为flx-web工程。
+
+== 监控
+1.集成javamelody
+(http://localhost:8080/monitoring)[http://localhost:8080/monitoring]
+2.并发测试
+ab -n 100 -c 10 http://localhost:8080/welcome

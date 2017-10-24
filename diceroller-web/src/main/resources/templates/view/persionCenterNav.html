@@ -1,0 +1,8 @@
+#set($layout="layout/bank.html") 			
+ 	<ul class="contactUs_left clearfix">
+         <li><a #active( $!nav, "personCerter", "class='active'") href="/personCerter">个人资料</a></li>
+         <li><a #active( $!nav, "personModify", "class='active'") href="">资料编辑</a></li>
+         <li><a #active( $!nav, "personModifyPass", "class='active'") href="personPasswordModify">修改密码</a></li>
+         <li><a #active( $!nav, "personOrders", "class='active'") href="/personOrders">历史订单</a></li>
+         <li><a #active( $!nav, "personRecharges", "class='active'") href="personRecharges" >充值</a></li>
+   </ul>

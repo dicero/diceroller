@@ -1,0 +1,19 @@
+.main {width: 1000px; margin: 0 auto;}
+.box {height: 36px; line-height: 36px; border: solid 1px #dfdede; margin-top: 10px; padding-left: 15px;}
+.crumb > li, .media-type > li, .fans > li, .price > li {float: left; font-size: 14px;}
+.m-type-select, .conds {padding: 5px 15px; border: solid 1px #dfdede;}
+.media-type > li, .fans > li, .price > li {margin-right: 8px; height: 30px; line-height: 30px; padding: 0 5px;}
+.fans, .price {display: inline-block;}
+.crumb > li > a:hover {color: red; text-decoration: underline;}
+.right-arrow {display: inline-block; margin: 0 5px;}
+.selected {background-color: #fcc741; border-radius: 5px;}
+.conds > label {display: inline-block; height: 30px; line-height: 30px; padding: 0 3px; background-color: #eeeeee; vertical-align: top; border-radius: 5px; margin-right: 8px;}
+.result {margin-top: 10px;}
+.result-list > li {float: left; width: 18%; margin-right: 2.5%; padding: 5px; border: solid 1px #dfdede; position: relative;}
+.result-list > li > .result-pic {width: 140px; height: 140px; margin: 10px auto;}
+.result-list > li:nth-child(5n) {margin-right: 0!important;}
+.result-list > li > h5 {padding-left: 15px; font-size: 16px;}
+.result-list > li > p {text-overflow: ellipsis; padding: 0 5px; margin: 8px 0; line-height: 1.4; font-size: 14px; text-indent: 8px;}
+.fans-num > * {font-size: 12px;}
+.fans-num i {display: inline-block; width: 20px; height: 20px; background: url("/static/img/fans.png") center center no-repeat; vertical-align: middle;}
+.watch-price {width: 44px; height: 44px; line-height: 17px; padding: 5px; font-size: 12px; color: #fff; background-color: #f6aa05; position: absolute; bottom: 0; right: 0; text-align: center; cursor: pointer;}

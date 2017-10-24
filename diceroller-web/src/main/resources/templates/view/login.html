@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset="utf-8">
+  <title>自媒体登录</title>  
+  <meta name="description" content="自媒体登录">
+  <link rel="stylesheet" type="text/css" href="/static/css/common.css">
+  <link rel="stylesheet" href="../css/header.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/login/login.css">
+</head>
+<body>
+  <!-- Header -->
+  #parse("templates/view/head.html")
+  <!-- Main Content -->
+  <div class="main">
+    <div class="main-body">
+      <div class='login-title'>
+        <img src="/static/img/login/login_title.png">
+      </div>
+      <div class="login-box">
+	      <h5>账户登录</h5>
+	      <form action="" method="post" id="loginBox">
+	        <p class="error-prompt"></p>
+	        <div class="login-inner-box">
+	          <div class="input-box">
+	            <input type="text" name="userName" placeholder="请输入帐号" id="userName" onchange="return Login._clearError();">
+	          </div>
+	          <div class="input-box">
+	            <input type="password" name="password" placeholder="请输入密码" id="password" onchange="return Login._clearError();">
+	          </div>
+	          <div class="image-code clearfix">
+	            <div>
+	              <input type="text" name="imageCode" maxlength="4" placeholder="验证码" id="imageCode" onchange="return Login._clearError();">
+	            </div>
+	            <div>
+	              <img src="/imageCode" onclick="Login._reloadCaptcha();" id="captchaPic" title="看不清，再来一张" />
+	            </div>
+	          </div>
+	          <div class="register clearfix">
+	            <p><a href="">忘记密码?</a></p>
+	            <p><a href="/register">免费注册</a></p>
+	          </div>
+	          <div class="login-btn" id="login">登&nbsp;&nbsp;录</div>
+        	</div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Footer -->
+ #parse("templates/view/footer.html")
+<script type="text/javascript" src="/static/js/lib/jquery.js"></script>
+<script type="text/javascript" src="/static/js/login/common.js"></script>
+<script type="text/javascript" src="/static/js/login/login.js"></script>
+</body>
+</html>

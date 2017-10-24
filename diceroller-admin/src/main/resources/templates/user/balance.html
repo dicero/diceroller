@@ -1,0 +1,37 @@
+<div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>#if($user.id) 更新  #end用户余额 <small>-</small></h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form action="/user/balance" method="post"  class="form-horizontal">
+                            #if($user.id)
+								#springBind("user.id")
+								<input type="hidden" name="${status.expression}" value="$!{status.value}" >
+							#end
+                            
+                            #springBind("user.balance")
+                            <div class="form-group #fieldHasError(${status.errorMessage})">
+                                <label class="col-sm-2 control-label">余额</label>
+                                <div class="col-sm-5">
+                                    <input type="text"  class="form-control" name="${status.expression}" value="$!{user.getBalanceMoney().toYuan()}" >
+                                    <span class="help-block m-b-none error-text">${status.errorMessage}</span>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            
+                          
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button class="btn btn-primary" type="submit">#if($user.id) 更 新 #end</button>
+                                    <button class="btn btn-white" type="button" onclick="history.go(-1);">返回上一页</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </div>
+

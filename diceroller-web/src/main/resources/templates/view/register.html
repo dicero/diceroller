@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>自媒体注册</title>
+  <meta name="description" content="自媒体注册">
+  <link rel="stylesheet" type="text/css" href="static/css/login/common.css">
+  <link rel="stylesheet" type="text/css" href="static/css/login/register.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="head-body">
+      <div class="logo">
+        <img src="../img/logo.png">
+      </div>
+      <ul class="nav clearfix">
+        <li>
+          <a href="/">首页</a>
+        </li>
+        <li>
+          <a href="/goods/more">微博自媒体</a>
+        </li>
+        <li>
+          <a href="/mySpread">我要推广</a>
+        </li>
+        <li>
+          <a href="/aboutUs">关于我们</a>
+        </li>
+        <li>
+        	<a href="/faq">帮助中心</a>
+        </li>
+      </ul>
+    </div>
+  </header>
+  <!-- Main -->
+  <div class="main">
+    <!-- Register Status -->
+    <div class="register-head clearfix">
+      <div class="current-status">
+        <span>1</span>
+        填写信息
+      </div>
+      <div class="">
+        <span>2</span>
+        注册成功
+      </div>
+    </div>
+    <!-- Register Info fill Box -->
+    <div class="register-info-box">
+      <div class="register-inner-box">
+        <form name="userInfo" id="userInfoF" action="" method="post">
+          <div class="form-input">
+            <label for="uName"><em>*</em>用户名：</label>
+            <input type="text" name="userName" placeholder="请输入用户名" id="uName">
+          </div>
+          <div class="form-input">
+            <label for="uPassword"><em>*</em>密码：</label>
+            <input type="password" name="password" placeholder="请输入密码" id="uPassword">
+          </div>
+          <div class="form-input">
+            <label for="uPasswordAgain"><em>*</em>密码确认：</label>
+            <input type="password" name="passwordAgain" placeholder="请再次输入密码" id="uPasswordAgain">
+          </div>
+          <div class="form-input">
+            <label for="uQQNum">QQ：</label>
+            <input type="tel" name="qq" placeholder="请输入您的QQ" id="uQQNum">
+          </div>
+          <div class="form-input">
+            <label for="uWechatAccount">公司名称：</label>
+            <input type="text" name="comName" placeholder="请输入您的公司名称" id="uWechatAccount">
+          </div>
+          <div class="form-input">
+            <label for="uMobile"><em>*</em>手机号码：</label>
+            <input type="text" name="mobile" placeholder="请输入您的手机号码" id="uMobile">
+          </div>
+          <div class="form-input">
+            <label for="uMobileCode"><em>*</em>手机验证码：</label>
+            <div class="get-code-btn" id="getMobileCode">获取验证码</div>
+            <input type="text" name="mobileCode" placeholder="请输入手机验证码" id="uMobileCode">
+          </div>
+          <div class="form-input agree">
+            <input type="checkbox" name="agree" id="agree" checked>
+            <span>我已经阅读并同意相关<a href="javascript:void(0);" id="userAgreement">《用户协议》</a></span>
+          </div>
+          <button class="register-btn" id="register" type="submit">注&nbsp;&nbsp;册</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="mask"></div>
+  <div class="user-agreement">
+    <h3>用户协议</h3>
+    <p>到如今 年复一年 我不能停止怀念滴滴答答滴滴答答滴滴答答滴滴答答滴滴答答滴滴答答</p>
+    <button class="close" id="closeAgree">关&nbsp;&nbsp;闭</button>
+  </div>
+  #parse("templates/view/footer.html")
+<script type="text/javascript" src="static/js/lib/jquery.js"></script>
+<script type="text/javascript" src="static/js/lib/jquery.validate.min.js"></script>
+<script type="text/javascript" src="static/js/login/common.js"></script>
+<script type="text/javascript" src="static/js/login/register.js"></script>
+</body>
+</html>

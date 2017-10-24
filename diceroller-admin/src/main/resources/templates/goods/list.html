@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<title>商品列表</title>
+	
+    <link href="/static/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="/static/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+    <link href="/static/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="/static/css/animate.min.css" rel="stylesheet">
+    <link href="/static/css/plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="/static/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+    <link href="/static/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+	
+</head>
+<body>
+	<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#create">新增</button>
+
+	<!-- 列表 开始 -->
+	<table data-toggle="table" data-url="/goods/listJson" 
+		data-side-pagination="server" 
+		data-pagination="true" 
+		data-page-list="[10, 20, 50, 100, 200]"
+		data-toolbar="#toolbar">
+	    <thead>
+	        <tr>
+	            <th data-field="nickname">名称</th>
+	            <th data-field="mediaId" data-formatter="formatType">分类</th>
+	            <th data-field="id" data-formatter="operation">操作</th>
+	        </tr>
+	    </thead>
+	</table>
+	<!-- 列表 结束 -->
+	
+	<!-- 新增模态框  开始 -->
+	<div class="modal fade" id="create" tabindex="-1" role="dialog" style="width:1000px;"
+	   aria-labelledby="myModalLabel" aria-hidden="true">
+	   <div class="modal-dialog">
+	      <div class="modal-content">
+	      	 <!-- 标题 -->
+	         <div class="modal-header">
+	            <button type="button" class="close" 
+	               data-dismiss="modal" aria-hidden="true">
+	                  &times;
+	            </button>
+	            <h4 class="modal-title" id="myModalLabel">
+	            	新增自媒体信息
+	            </h4>
+	         </div>
+	         
+	          <!-- 内容  -->
+	         <div class="modal-body">
+           		<form action="/goods/add" method="post" enctype="multipart/form-data" role="form" >
+                     <div class="form-group">
+                         <label>名称：</label>
+                         <input type="text" name="nickname" id="nickname" placeholder="请输入名称" class="form-control">
+                     </div>
+                     <div class="form-group">
+                         <label>粉丝数：</label>
+                         <input type="text" name="fansNum" id="fansNum" placeholder="请输入粉丝数" class="form-control">
+                     </div>
+                     <div class="form-group">
+                         <label>转发软广价格：</label>
+                         <input type="text" name="turnSoft" id="turnSoft" class="form-control">
+                     </div>
+                     <div class="form-group">
+                         <label>转发硬广价格：</label>
+                         <input type="text" name="turnHard" id="turnHard" class="form-control">
+                     </div>
+                     <div class="form-group">
+                         <label>直发软广价格：</label>
+                         <input type="text" name="directSoft" id="directSoft" class="form-control">
+                     </div>
+                     <div class="form-group">
+                         <label>直发硬广价格：</label>
+                         <input type="text" name="directHard" id="directHard" class="form-control">
+                     </div> 
+                     <div class="form-group">
+                         <label>软广价格：</label>
+                         <input type="text" name="price" id="price" class="form-control">
+                     </div>
+                     <div class="form-group">
+                         <label>硬广价格：</label>
+                         <input type="text" name="hard" id="hard" class="form-control">
+                     </div> 
+                     <!-- <div class="form-group">
+                         <label>价格：</label>
+                         <input type="number" name="price" id="price" placeholder="请输入价格" class="form-control">
+                     </div> -->
+                     <div class="form-group">
+                          <label>选择分类</label>
+                          <select class="form-control m-b" name="mediaId" id="mediaId">
+                          	  <option value="-1">请选择</option>
+                          	   #foreach( $m in $mediaTypes )
+							   	  <option value="$m.mediaId">$m.mediaName</option>
+							   #end
+                          </select>
+                     </div>
+                     <div class="form-group">
+                          <label>选择行业</label>
+                          <select class="form-control m-b" multiple="multiple" name="industryId" id="industryId">
+                          	  <option value="-1">请选择</option>
+                              #foreach( $i in $industryTypes )
+							   	 <option value="$i.industryId">$i.industryName</option>
+							  #end
+                          </select>
+                     </div>
+                     <div class="form-group">
+						  <label >选择文件</label>
+						  <input type="file" name="file" class="login username-field" />
+					 </div>
+					 <div id="summernote">
+					 	自媒体详细信息编辑
+					 </div>
+					 <textarea name="summary" id="summary" style="display:none;"></textarea>
+	         </div>
+	         
+	         <!-- 按钮  -->
+	         <div class="modal-footer">
+	            <button type="button" class="btn btn-default" 
+	               data-dismiss="modal">关闭
+	            </button>
+	            <button type="submit" class="btn btn-primary">保存</button>
+	         </div>
+	         </form>
+	      </div>
+		</div>
+	</div>
+	<!-- 新增模态框  结束 -->
+	
+	<!-- 编辑模态框  开始 -->
+	<div class="modal fade" id="edit" tabindex="-1" role="dialog" style="width:1000px;"
+	   aria-labelledby="myModalLabel" aria-hidden="true">
+	   <div class="modal-dialog">
+	      <div class="modal-content">
+			<!-- 标题 -->
+	         <div class="modal-header">
+	            <button type="button" class="close" 
+	               data-dismiss="modal" aria-hidden="true">
+	                  &times;
+	            </button>
+	            <h4 class="modal-title" id="myModalLabel">
+	            	编辑自媒体信息
+	            </h4>
+	         </div>
+	         
+			<!-- 内容  -->
+	         <div class="modal-body">
+           		<form action="/goods/edit" method="post" enctype="multipart/form-data" role="form" >
+                     <div class="form-group">
+                         <label>名称：</label>
+                         <input type="text" name="nickname" id="nicknameE" placeholder="请输入名称" class="form-control">
+                     </div>
+                     <div class="form-group">
+                         <label>粉丝数：</label>
+                         <input type="text" name="fansNum" id="fansNumE" placeholder="请输入粉丝数" class="form-control">
+                     </div>
+                     <div class="form-group">
+                         <label>转发软广价格：</label>
+                         <input type="text" name="turnSoft" id="turnSoftE" class="form-control">
+                     </div>
+                     <div class="form-group">
+                         <label>转发硬广价格：</label>
+                         <input type="text" name="turnHard" id="turnHardE" class="form-control">
+                     </div>
+                     <div class="form-group">
+                         <label>直发软广价格：</label>
+                         <input type="text" name="directSoft" id="directSoftE" class="form-control">
+                     </div>
+                     <div class="form-group">
+                         <label>直发硬广价格：</label>
+                         <input type="text" name="directHard" id="directHardE" class="form-control">
+                     </div> 
+                     <div class="form-group">
+                         <label>软广价格：</label>
+                         <input type="text" name="price" id="priceE" class="form-control">
+                     </div>
+                     <div class="form-group">
+                         <label>硬广价格：</label>
+                         <input type="text" name="hard" id="hardE" class="form-control">
+                     </div> 
+                      <!-- <div class="form-group">
+                         <label>价格：</label>
+                         <input type="number" name="price" id="priceE" placeholder="请输入价格" class="form-control">
+                     </div> -->
+                     <div class="form-group">
+                          <label>选择分类</label>
+                          <select class="form-control m-b" name="mediaId" id="mediaIdE">
+                          	  <option value="-1">请选择</option>
+                          	   #foreach( $m in $mediaTypes )
+							   	  <option value="$m.mediaId">$m.mediaName</option>
+							   #end
+                          </select>
+                     </div>
+                     <div class="form-group">
+                          <label>选择行业</label>
+                          <select class="form-control m-b" multiple="multiple" name="industryId" id="industryId">
+                          	  <option value="-1">请选择</option>
+                              #foreach( $i in $industryTypes )
+							   	 <option value="$i.industryId">$i.industryName</option>
+							  #end
+                          </select>
+                     </div>
+                     <div class="form-group">
+						  <label >选择文件</label>
+						  <img src="" id="fileE">
+						  <input type="file" name="file" class="login username-field" />
+					 </div>
+					 <div id="summernoteE">
+					 </div>
+					 <textarea name="summary" id="summaryE" style="display:none;"></textarea>
+	         		</div>
+	         
+					<!-- 按钮  -->
+			         <div class="modal-footer">
+			            <button type="button" class="btn btn-default" 
+			               data-dismiss="modal">关闭
+			            </button>
+			            <button type="submit" class="btn btn-primary">保存</button>
+			         </div>
+			         <input type="hidden" name="id" id="id">
+			         <input type="hidden" name="headImgUrl" id="headImgUrl">
+	           </form>
+	      </div>
+		</div>
+	</div> 
+	<!-- 编辑模态框  结束 -->
+	
+	<script>
+		//格式化操作
+	    function operation(value) {
+ 	    	 return'<a href="#" class="btn btn-primary" data-target="#edit" onclick="toEdit('+value+')">编辑</a>'+
+     	   		   '&nbsp;&nbsp;&nbsp;&nbsp;'+
+	        	   '<a href="/goods/del?id=' + value + '" class="btn btn-primary">删除</a>'+
+	        	   '&nbsp;&nbsp;&nbsp;&nbsp;'+
+	        	   '<a href="/goods/showIndex/1/?id=' + value + '" class="btn btn-primary">首页显示</a>'+
+	        	   '&nbsp;&nbsp;&nbsp;&nbsp;'+
+	        	   '<a href="/goods/showIndex/0/?id=' + value + '" class="btn btn-primary">取消首页显示</a>';
+	    }
+		
+	    function formatType (value) {
+	    	if (value == 2) {
+	    		return "微播大号";
+	    	}
+	    	if (value == 3) {
+	    		return "微信公众号";
+	    	}
+	    	if (value == 4) {
+	    		return "微信朋友圈";
+	    	}
+	    	if (value == 7) {
+	    		return "陌陌";
+	    	}
+	    	if (value == 8) {
+	    		return "今日头条";
+	    	}
+	    	if (value == 9) {
+	    		return "腾讯产品";
+	    	}
+	    }
+		
+		//编辑器
+	    $(document).ready(function() {
+        	$('#summernote').summernote({
+        		 onblur: function(e) {
+        			 $("#summary").val($('#summernote').code());
+        		 }
+        	});
+        	
+        	$('#summernoteE').summernote({
+       		 onblur: function(e) {
+       			 $("#summaryE").val($('#summernoteE').code());
+       		 }
+       	});
+    	});
+		
+		//编辑请求
+		function toEdit (id) {
+			console.info(id);
+			$.ajax({ 
+	           type: "GET", 
+               url: "/goods/toEdit?id="+id, 
+               dataType: "json", 
+               success: function (data) {
+            	   $("#nicknameE").val(data.goods.nickname);
+            	   $("#fansNumE").val(data.goods.fansNum);
+            	   $("#turnSoftE").val(data.goods.turnSoft); 
+            	   $('#turnHardE').val(data.goods.turnHard);
+            	   $('#directSoftE').val(data.goods.directSoft);
+            	   $('#directHardE').val(data.goods.directHard);
+            	   $('#hardE').val(data.goods.hard);
+            	   $("#mediaIdE").val(data.goods.mediaId);
+            	   $("#fileE").attr("src", data.goods.headImgUrl); 
+            	   $("#priceE").val(data.goods.price); 
+            	   $('#summernoteE').code(data.goods.summary);
+            	   $('#id').val(data.goods.id);
+            	   $('#headImgUrl').val(data.goods.headImgUrl);
+            	   $('#edit').modal('show');
+               }, 
+               error: function (data) { 
+            	   console.info(data);
+               } 
+           });
+		}
+		
+	    		
+	</script>
+	<script src="/static/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="/static/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="/static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
+    <script src="/static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="/static/js/plugins/summernote/summernote.min.js"></script>
+    <script src="/static/js/plugins/summernote/summernote-zh-CN.js"></script>
+</body>
+</html>

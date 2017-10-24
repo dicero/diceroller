@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>自媒体平台</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit" />
+    <link rel="stylesheet" href="/static/css/common.css">
+    <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="/static/css/orderDetail.css">
+    <style>
+        .form-content {position:relative;}
+        .form-content label.error {position: absolute;text-align: left;top: 0px;left: 616px;font-size: 12px;color: red;font-weight: 500;margin-left: 20px;}
+    </style>
+</head>
+<body>
+    
+    <!-- 头部 -->
+    #parse("templates/view/head.html")
+    
+    <div class="advertiseBox">
+        <div class="content">
+            <img src="/static/img/other/advertise.png" alt="">
+            <div class="advertiseContent">	
+            	<!-- 昵称: $!goods.nickname
+            	账号: $!goods.account
+            	头像:<img src="$!goods.headImgUrl" >
+            	简介: $!goods.summary
+            	粉丝数: $!goods.fansNum
+            	投放平台:#if($!goods.mediaId==2)  新浪微博  #elseif($!goods.mediaId==3)  微信工作号 #end -->
+            	
+            	<form action="/order/createOrder" method="post" enctype="multipart/form-data" id="orderDetailForm">
+            	
+                ## 微博
+            	#if($!goods.mediaId==2)
+            		     <input type="hidden"  name="mediaName" value="$!goods.mediaName" >
+            		                
+            		     #springBind("orders.sendMethod")
+            		     <div class="form-group clearfix">
+	                        <label><span class="form-require">*</span>投放方式</label>
+	                        <div class="form-content">
+	                            <select class="form-method" id="${status.expression}" name="${status.expression}" onchange="checkPrice(this.value)">
+	                                <option value="1">转发</option>
+	                                <option value="2">直发</option>
+	                            </select>
+	                            <span class="help-block m-b-none error-text">${status.errorMessage}</span>
+	                        </div>
+	                     </div>
+	                     
+	                     #springBind("orders.adType")
+            		     <div class="form-group clearfix">
+	                        <label><span class="form-require">*</span>广告类型</label>
+	                        <div class="form-content">
+	                            <select class="form-method" id="${status.expression}" name="${status.expression}" onchange="checkPrice(this.value)" >
+	                                <option value="1">软广</option>
+	                                <option value="2">硬广</option>
+	                            </select>
+	                            <span class="help-block m-b-none error-text">${status.errorMessage}</span>
+	                        </div>
+	                     </div>
+	                    
+	                 	#springBind("orders.activityTime")
+	                    <div class="form-group clearfix">
+	                        <label><span class="form-require">*</span>活动名称</label>
+	                        <div class="form-content">
+	                            <input type="text" name="${status.expression}" class="form-input" placeholder="请输入订单名称，请勿超过14个汉字"/>
+	                        </div>
+	                    </div>
+	                    
+	                    #springBind("orders.title")
+	                    <div class="form-group clearfix">
+	                        <label><span class="form-require">*</span>标题</label>
+	                        <div class="form-content">
+	                            <input type="text"  name="${status.expression}" class="form-input" placeholder="请勿超过50个字,勿包含转发、分享等文字，以免被微信屏蔽造成损失"/>
+	                        </div>
+	                    </div>
+	                    
+	                    #springBind("orders.author")
+	                    <div class="form-group clearfix">
+	                        <label>作者</label>
+	                        <div class="form-content">
+	                            <input type="text" name="${status.expression}" class="form-input" placeholder="请勿超过8个字"/>
+	                        </div>
+	                    </div>
+	                    
+	                    #springBind("orders.activityTime")
+	                    <div class="form-group clearfix">
+	                        <label>活动时间</label>
+	                        <div class="form-content">
+	                            <!-- <input class="laydate-icon" name="${status.expression}"  id="activityTime" value=""> -->
+	                            <input type="text" name="${status.expression}" class="form-input" placeholder="2016-09-03 12:12:12"/>
+	                        </div>
+	                    </div>
+	                    
+	                    #springBind("orders.forwardLink")
+	                    <div class="form-group clearfix">
+	                        <label>转发链接</label>
+	                        <div class="form-content">
+	                            <input type="text" name="${status.expression}"  class="form-input" placeholder="请勿超过200个字"/>
+	                        </div>
+	                    </div>
+	                    #springBind("orders.forwardTitle")
+	                    <div class="form-group clearfix">
+	                        <label>转发语</label>
+	                        <div class="form-content">
+	                            <input type="text" name="${status.expression}"  class="form-input" placeholder="请勿超过50个字"/>
+	                        </div>
+	                    </div>
+	                    
+	                     
+	                    #springBind("orders.text")
+	                    <div class="form-group clearfix">
+	                        <label><span class="form-require">*</span>直发内容</label>
+	                        <div class="form-content">
+	                            <input type="text" name="${status.expression}"  class="form-input"  placeholder="请勿超过100个字" />
+	                        </div>
+	                    </div>
+	                    #springBind("orders.directImgUrl")
+	                    <div class="form-group clearfix">
+	                        <label><span class="form-require">*</span>直发配图</label>
+	                        <div class="form-content">
+	                            <div class="uploadCoverBox clearfix">
+	                                <div class="uploadCover">
+	                                    <a class="uploadCover-btn">上传</a>
+	                                    <input type="file" name="${status.expression}File" id="filePic" class="uploadCover-input"/>
+	                                </div>
+	                                <!-- <label><input type="checkbox" name="showInMain" class="coverIsShow">封面图是否在正文中显示</label> -->
+	                            </div>
+	                            <p class="uploadCover-tips">仅支持jpg、jpeg、png、gif图片不能大于2M,建议尺寸：900像素 * 500像素</p>
+	                        </div>
+	                    </div>
+	                    
+	                     #springBind("orders.coverImgUrl")
+	                    <div class="form-group clearfix">
+	                        <label><span class="form-require">*</span>封面</label>
+	                        <div class="form-content">
+	                            <div class="uploadCoverBox clearfix">
+	                                <div class="uploadCover">
+	                                    <a class="uploadCover-btn">上传</a>
+	                                    <input type="file" name="${status.expression}File" id="fileCover" class="uploadCover-input"/>
+	                                </div>
+	                                <label><input type="checkbox" name="showMain" class="coverIsShow">封面图是否在正文中显示</label> 
+	                            </div>
+	                            <p class="uploadCover-tips">仅支持jpg、jpeg、png、gif图片不能大于2M,建议尺寸：900像素 * 500像素</p>
+	                        </div>
+	                    </div>
+	                    <div class="form-group clearfix">
+	                        <label>订单价格</label>
+	                        <div class="form-content" id="price">
+	                            $!goods.price 元
+	                        </div>
+	                    </div>
+	                   
+	            ## 微信
+            	#elseif($!goods.mediaId==3)
+            		 <input type="hidden"  name="mediaName" value="$!goods.mediaName" >
+            		                
+	                     #springBind("orders.adType")
+            		     <div class="form-group clearfix">
+	                        <label><span class="form-require">*</span>广告类型</label>
+	                        <div class="form-content">
+	                            <select class="form-method" id="${status.expression}" name="${status.expression}" onchange="checkPrice(this.value)" >
+	                                <option value="1">软广</option>
+	                                <option value="2">硬广</option>
+	                            </select>
+	                            <span class="help-block m-b-none error-text">${status.errorMessage}</span>
+	                        </div>
+	                     </div>
+	                    
+	                 	#springBind("orders.activityTime")
+	                    <div class="form-group clearfix">
+	                        <label><span class="form-require">*</span>活动名称</label>
+	                        <div class="form-content">
+	                            <input type="text" name="${status.expression}" class="form-input" placeholder="请输入订单名称，请勿超过14个汉字"/>
+	                        </div>
+	                    </div>
+	                    
+	                    #springBind("orders.title")
+	                    <div class="form-group clearfix">
+	                        <label><span class="form-require">*</span>标题</label>
+	                        <div class="form-content">
+	                            <input type="text"  name="${status.expression}" class="form-input" placeholder="请勿超过50个字,勿包含转发、分享等文字，以免被微信屏蔽造成损失"/>
+	                        </div>
+	                    </div>
+	                    
+	                    #springBind("orders.author")
+	                    <div class="form-group clearfix">
+	                        <label>作者</label>
+	                        <div class="form-content">
+	                            <input type="text" name="${status.expression}" class="form-input" placeholder="请勿超过8个字"/>
+	                        </div>
+	                    </div>
+	                    
+	                    #springBind("orders.activityTime")
+	                    <div class="form-group clearfix">
+	                        <label>活动时间</label>
+	                        <div class="form-content">
+	                            <!-- <input class="laydate-icon" name="${status.expression}"  id="activityTime" value=""> -->
+	                            <input type="text" name="${status.expression}" class="form-input" placeholder="2016-09-03 12:12:12"/>
+	                        </div>
+	                    </div>
+	                    
+	                    #springBind("orders.forwardLink")
+	                    <div class="form-group clearfix">
+	                        <label>转发链接</label>
+	                        <div class="form-content">
+	                            <input type="text" name="${status.expression}"  class="form-input" placeholder="请勿超过200个字"/>
+	                        </div>
+	                    </div>
+	                    #springBind("orders.forwardTitle")
+	                    <div class="form-group clearfix">
+	                        <label>转发语</label>
+	                        <div class="form-content">
+	                            <input type="text" name="${status.expression}"  class="form-input" placeholder="请勿超过50个字"/>
+	                        </div>
+	                    </div>
+	                    
+	                     
+	                    #springBind("orders.text")
+	                    <div class="form-group clearfix">
+	                        <label>直发内容</label>
+	                        <div class="form-content">
+	                            <input type="text" name="${status.expression}"  class="form-input"  placeholder="请勿超过100个字" />
+	                        </div>
+	                    </div>
+	                    #springBind("orders.directImgUrl")
+	                    <div class="form-group clearfix">
+	                        <label><span class="form-require">*</span>直发配图</label>
+	                        <div class="form-content">
+	                            <div class="uploadCoverBox clearfix">
+	                                <div class="uploadCover">
+	                                    <a class="uploadCover-btn">上传</a>
+	                                    <input type="file" name="${status.expression}File" accept="image/*" class="uploadCover-input"/>
+	                                </div>
+	                                <!-- <label><input type="checkbox" name="showInMain" class="coverIsShow">封面图是否在正文中显示</label> -->
+	                            </div>
+	                            <p class="uploadCover-tips">仅支持jpg、jpeg、png、gif图片不能大于2M,建议尺寸：900像素 * 500像素</p>
+	                        </div>
+	                    </div>
+	                    
+	                     #springBind("orders.coverImgUrl")
+	                    <div class="form-group clearfix">
+	                        <label><span class="form-require">*</span>封面</label>
+	                        <div class="form-content">
+	                            <div class="uploadCoverBox clearfix">
+	                                <div class="uploadCover">
+	                                    <a class="uploadCover-btn">上传</a>
+	                                    <input type="file" name="${status.expression}File" accept="image/*" class="uploadCover-input"/>
+	                                </div>
+	                                <label><input type="checkbox" name="showMain" class="coverIsShow">封面图是否在正文中显示</label> 
+	                            </div>
+	                            <p class="uploadCover-tips">仅支持jpg、jpeg、png、gif图片不能大于2M,建议尺寸：900像素 * 500像素</p>
+	                        </div>
+	                    </div>
+	                    <div class="form-group clearfix">
+	                        <label>订单价格</label>
+	                        <div class="form-content" id="price">
+	                            $!goods.price 元
+	                        </div>
+	                    </div>
+	            #else
+	            		<input type="hidden"  name="mediaName" value="$!goods.mediaName" >
+            		     
+            		      #springBind("orders.sendMethod")
+            		     <div class="form-group clearfix">
+	                        <label><span class="form-require">*</span>投放方式</label>
+	                        <div class="form-content">
+	                            <select class="form-method" id="${status.expression}" name="${status.expression}" onchange="checkPrice(this.value)" >
+	                                <option value="1">转发</option>
+	                                <option value="2">直发</option>
+	                            </select>
+	                            <span class="help-block m-b-none error-text">${status.errorMessage}</span>
+	                        </div>
+	                     </div>
+	                     
+	                     #springBind("orders.adType")
+            		     <div class="form-group clearfix">
+	                        <label><span class="form-require">*</span>广告类型</label>
+	                        <div class="form-content">
+	                            <select class="form-method" id="${status.expression}" name="${status.expression}" onchange="checkPrice(this.value)" >
+	                                <option value="1">软广</option>
+	                                <option value="2">硬广</option>
+	                            </select>
+	                            <span class="help-block m-b-none error-text">${status.errorMessage}</span>
+	                        </div>
+	                     </div>
+	                    
+	                 	#springBind("orders.activityTime")
+	                    <div class="form-group clearfix">
+	                        <label><span class="form-require">*</span>活动名称</label>
+	                        <div class="form-content">
+	                            <input type="text" name="${status.expression}" class="form-input" placeholder="请输入订单名称，请勿超过14个汉字"/>
+	                        </div>
+	                    </div>
+	                    
+	                    #springBind("orders.title")
+	                    <div class="form-group clearfix">
+	                        <label><span class="form-require">*</span>标题</label>
+	                        <div class="form-content">
+	                            <input type="text"  name="${status.expression}" class="form-input" placeholder="请勿超过50个字,勿包含转发、分享等文字，以免被微信屏蔽造成损失"/>
+	                        </div>
+	                    </div>
+	                    
+	                    #springBind("orders.author")
+	                    <div class="form-group clearfix">
+	                        <label>作者</label>
+	                        <div class="form-content">
+	                            <input type="text" name="${status.expression}" class="form-input" placeholder="请勿超过8个字"/>
+	                        </div>
+	                    </div>
+	                    
+	                    #springBind("orders.activityTime")
+	                    <div class="form-group clearfix">
+	                        <label>活动时间</label>
+	                        <div class="form-content">
+	                            <!-- <input class="laydate-icon" name="${status.expression}"  id="activityTime" value=""> -->
+	                            <input type="text" name="${status.expression}" class="form-input" placeholder="2016-09-03 12:12:12"/>
+	                        </div>
+	                    </div>
+	                    
+	                    #springBind("orders.forwardLink")
+	                    <div class="form-group clearfix">
+	                        <label>转发链接</label>
+	                        <div class="form-content">
+	                            <input type="text" name="${status.expression}"  class="form-input" placeholder="请勿超过200个字"/>
+	                        </div>
+	                    </div>
+	                    #springBind("orders.forwardTitle")
+	                    <div class="form-group clearfix">
+	                        <label>转发语</label>
+	                        <div class="form-content">
+	                            <input type="text" name="${status.expression}"  class="form-input" placeholder="请勿超过50个字"/>
+	                        </div>
+	                    </div>
+	                    
+	                     
+	                    #springBind("orders.text")
+	                    <div class="form-group clearfix">
+	                        <label>直发内容</label>
+	                        <div class="form-content">
+	                            <input type="text" name="${status.expression}"  class="form-input"  placeholder="请勿超过100个字" />
+	                        </div>
+	                    </div>
+	                    #springBind("orders.directImgUrl")
+	                    <div class="form-group clearfix">
+	                        <label><span class="form-require">*</span>直发配图</label>
+	                        <div class="form-content">
+	                            <div class="uploadCoverBox clearfix">
+	                                <div class="uploadCover">
+	                                    <a class="uploadCover-btn">上传</a>
+	                                    <input type="file" name="${status.expression}File" accept="image/*" class="uploadCover-input"/>
+	                                </div>
+	                                <!-- <label><input type="checkbox" name="showInMain" class="coverIsShow">封面图是否在正文中显示</label> -->
+	                            </div>
+	                            <p class="uploadCover-tips">仅支持jpg、jpeg、png、gif图片不能大于2M,建议尺寸：900像素 * 500像素</p>
+	                        </div>
+	                    </div>
+	                    
+	                     #springBind("orders.coverImgUrl")
+	                    <div class="form-group clearfix">
+	                        <label><span class="form-require">*</span>封面</label>
+	                        <div class="form-content">
+	                            <div class="uploadCoverBox clearfix">
+	                                <div class="uploadCover">
+	                                    <a class="uploadCover-btn">上传</a>
+	                                    <input type="file" name="${status.expression}File" accept="image/*" class="uploadCover-input"/>
+	                                </div>
+	                                <label><input type="checkbox" name="showMain" class="coverIsShow">封面图是否在正文中显示</label> 
+	                            </div>
+	                            <p class="uploadCover-tips">仅支持jpg、jpeg、png、gif图片不能大于2M,建议尺寸：900像素 * 500像素</p>
+	                        </div>
+	                    </div>
+	                    <div class="form-group clearfix">
+	                        <label>订单价格</label>
+	                        <div class="form-content" id="price">
+	                            $!goods.price 元
+	                        </div>
+	                    </div>
+            	#end
+                		<input type="hidden" name="goodsId" id="goodsId" value="$!goods.id">
+	                    <input type="hidden" name="id" value="$!orderId">
+	                    <div class="form-group clearfix">
+	                        <label></label>
+	                        <div class="form-content">
+	                        	<input type="submit" value="创建订单并使用余额支付" class="orderCommit"/>
+	                        </div>
+	                    </div>
+	                </form>
+            </div>
+        </div>
+    </div>
+    #parse("templates/view/footer.html")
+    <script type="text/javascript" src="/static/js/lib/jquery.js"></script>
+    <script type="text/javascript" src="/static/js/lib/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="/static/js/orderDetail.js"></script>
+    <script type="text/javascript" src="/static/js/laydate/laydate.js"></script>
+	<script>
+		function checkPrice (obj) {
+			var sendMethod = $("#sendMethod").val();
+			var adType = $("#adType").val();
+			var goodsId = $("#goodsId").val();
+			console.info(sendMethod);
+			console.info(adType);
+			console.info(goodsId);
+			
+			$.ajax({ 
+	           type: "GET", 
+               url: "/order/checkPrice?sendMethod="+sendMethod+"&adType="+adType+"&goodsId="+goodsId, 
+               dataType: "json", 
+               success: function (data) {
+            	   console.info(data);
+            	   $("#price").text(data.price);
+               }, 
+               error: function (data) { 
+            	   console.info(data);
+               } 
+           });
+		}
+	</script>
+</body>
+</html>

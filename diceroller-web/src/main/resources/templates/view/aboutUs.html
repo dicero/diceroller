@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>自媒体平台</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit" />
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/otherPage.css">
+    <style>
+        .contactUsBox {border-top:2px solid #29afe6;}
+        .contactUs_left {float: left;width:222px;border:1px solid #ddd;margin-top: 16px;min-height:500px;}
+        .contactUs_left a {float: left;height: 53px;line-height: 53px;width: 222px;font-size: 14px;text-align: center;cursor: pointer;border-bottom: 1px solid #ddd;color: #8d8d8f;}
+        .contactUs_left .active {font-size:18px;color:#686868;background: url(../img/other/nav_active.jpg) no-repeat center center;}
+        .contactUs_right {width: 795px;min-height:500px;margin-top: 18px;background-color: #FFF;float: right;}
+        
+    </style>
+</head>
+<body>
+    
+    <!-- 头部 -->
+    #parse("templates/view/head.html")
+    
+    <div class="contactUsBox">
+        <div class="content">
+            <img src="../img/other/advertise.png" alt="">
+            <div class="contactUs clearfix">
+                <ul class="contactUs_left clearfix">
+                    <li><a class="active" href="/aboutUs">关于我们</a></li>
+                    <li><a href="/contactUs">联系我们</a></li>
+                </ul>
+                <div class="contactUs_right">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 尾部 -->
+    #parse("templates/view/footer.html")
+    <script type="text/javascript" src="../js/lib/jquery.js"></script>
+</body>
+</html>

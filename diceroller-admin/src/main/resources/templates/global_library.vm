@@ -1,0 +1,88 @@
+#macro ( direct $direct-output )$!direct-output#end
+#macro ( c $paras )
+	#if($!paras)
+		#set($content = "")
+		#set($key = "")
+		#set($value = "")
+		#foreach($para in $paras)
+			#if($velocityCount == 1)
+				#set($content = $contain.get($!para))
+			#else
+				#if($velocityCount % 2 == 0)
+					#set($key = $para)
+				#else
+					#set($value = $para)
+				#end
+				#set($content = $content.setParameter($key, $value))
+			#end
+		#end
+		$!content
+	#end
+#end
+
+#macro(fieldHasError $value)
+	#if($stringUtil.isNotEmpty(value))
+		has-error
+	#end
+#end
+
+## pageNum        totalPages
+## currentPage   number
+
+#macro(pager $url $pager)
+	#set($FRONT_LEN = 4)
+    #set($BEHIND_LEN = 5)
+    #set($PAGER_LEN = 10)
+    #set($PAGER_CENTER = $!{P_TOTALPAGES} - $!{BEHIND_LEN})
+    #set($P_NUMBER = $!{pager.number} + 1)
+    #set($P_TOTALPAGES = $!{pager.totalPages})
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="dataTables_info" id="DataTables_Table_0_info" role="alert" aria-live="polite" aria-relevant="all">显示 1 到 $PAGER_LEN 项，共 $P_TOTALPAGES 页</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+				<ul class="pagination">
+					<li #if($!{P_NUMBER} == 1) class="paginate_button previous disabled" tabindex="0" #end>
+				        <a href="$!{url}?page=1">&laquo;</a>
+				    </li>
+				    
+				    #if($!{P_TOTALPAGES} <= $!{PAGER_LEN})
+				        #foreach($p in [1..$!{P_TOTALPAGES}])
+				            <li #if($!{P_NUMBER} == $!{p}) class="active" tabindex="0" #end>
+				                <a href="$!{url}?page=$!{p}">$!{p}</a>
+				            </li>
+				        #end
+				    #elseif($!{P_TOTALPAGES} > $!{PAGER_LEN})
+				        #if($!{P_NUMBER} <= $!{FRONT_LEN})
+				            #foreach($p in [1..10])
+				                <li #if($!{P_TOTALPAGES} == $!{p}) class="paginate_button active" #end>
+				                    <a href="$!{url}?page=$!{p}">$!{p}</a>
+				                </li>
+				            #end
+				        #elseif($!{P_NUMBER} < $!{PAGER_CENTER})
+				            #set($header = $!{P_NUMBER} - $!{FRONT_LEN})
+				            #set($ender = $!{P_NUMBER} + $!{BEHIND_LEN})
+				            #foreach($p in [$!{header}..$!{ender}])
+				                <li #if($!{P_NUMBER} == $!{p}) class="paginate_button active" #end>
+				                    <a href="$!{url}?page=$!{p}">$!{p}</a>
+				                </li>
+				            #end
+				        #else
+				            #set($begin = $!{P_TOTALPAGES} - $!{FRONT_LEN} - $!{BEHIND_LEN})
+				            #foreach($p in [$!{begin}..$!{P_TOTALPAGES}])
+				                <li #if($!{P_NUMBER} == $!{p}) class="paginate_button active" #end>
+				                    <a href="$!{url}?page=$!{p}">$!{p}</a>
+				                </li>
+				            #end
+				        #end
+				    #end
+				    <li #if($!{P_NUMBER} == $!{P_TOTALPAGES}) class="paginate_button previous disabled" #end>
+				        <a href="$!{url}?page=$!{P_TOTALPAGES}">&raquo;</a>
+				    </li>
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+#end

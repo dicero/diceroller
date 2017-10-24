@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset="utf-8">
+  <title>自媒体筛选</title>
+  <link rel="stylesheet" type="text/css" href="/static/css/common.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/home.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/header.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/select.css">  
+  <script type="text/javascript" src="/static/js/jquery.js"></script>
+  <script type="text/javascript" src="/static/frameworks/jquery/jquery.simplePagination.js"></script>
+  <script type="text/javascript" src="/static/js/common.js"></script>
+  <script type="text/javascript">
+    var g_total = $total;
+  </script>
+  <script type="text/javascript" src="/static/js/select.js"></script>
+</head>
+<body>
+	<!-- 头部 -->
+    #parse("templates/view/head.html")
+  <!-- Main body -->
+  <div class="main">
+    <div class="position box">
+      <ul class="crumb clearfix">
+        <li>
+          <a href="">首页</a>
+          <i class="right-arrow">&gt;</i>
+        </li>
+        <li>
+          <a href="">自媒体</a>
+        </li>
+      </ul>
+    </div>
+    <div class="select-cond">
+      <div class="box">自媒体分类</div>
+      <div class="m-type-select">
+        <ul class="media-type clearfix" id="medias">
+          #foreach( $t in $types )
+            #if ($!{velocityCount} == 1)
+    			<li data-code="$t.mediaId" class="selected">
+            	  <a href="javascript:void(0)" onclick="SelectMedia._getMedias('$t.mediaId', '', '', '')">$t.mediaName</a>
+          		</li>
+			#else
+    			<li data-code="$t.mediaId">
+            	  <a href="javascript:void(0)" onclick="SelectMedia._getMedias('$t.mediaId', '', '', '')">$t.mediaName</a>
+          		</li>
+			#end          
+          #end
+        </ul>
+      </div>
+      <div class="box">筛选项</div>
+      <div class="conds">
+        <label>粉丝数:</label>
+        <ul class="fans clearfix" id="fansNum">
+          <li class="selected" data-code="ALL">
+            <a href="javascript:void(0)" onclick="SelectMedia._getMedias('', 'ALL', '', '')">不限</a>
+          </li>
+          <li data-code="LT5">
+            <a href="javascript:void(0)" onclick="SelectMedia._getMedias('', 'LT5', '', '')">5万以下</a>
+          </li>
+          <li data-code="5T10">
+            <a href="javascript:void(0)" onclick="SelectMedia._getMedias('', '5T10', '', '')">5万－10万</a>
+          </li>
+          <li data-code="10T15">
+            <a href="javascript:void(0)" onclick="SelectMedia._getMedias('', '10T15', '', '')">10万－15万</a>
+          </li>
+          <li data-code="15T20">
+            <a href="javascript:void(0)" onclick="SelectMedia._getMedias('', '15T20', '', '')">15万－20万</a>
+          </li>
+          <li data-code="20T30">
+            <a href="javascript:void(0)" onclick="SelectMedia._getMedias('', '20T30', '', '')">20万－30万</a>
+          </li>
+          <li data-code="GT30">
+            <a href="javascript:void(0)" onclick="SelectMedia._getMedias('', 'GT30', '', '')">30万以上</a>
+          </li>
+        </ul>
+      </div>
+      <!-- 价格 -->
+      <div class="conds">
+        <label>价格:</label>
+        <ul class="price clearfix" id="price">
+          <li class="selected" data-code="ALL">
+            <a href="javascript:void(0)" onclick="SelectMedia._getMedias('', '', 'ALL', '')">不限</a>
+          </li>
+          <li data-code="LT5">
+            <a href="javascript:void(0)" onclick="SelectMedia._getMedias('', '', 'LT5', '')">5万以下</a>
+          </li>
+          <li data-code="5T10">
+            <a href="javascript:void(0)" onclick="SelectMedia._getMedias('', '', '5T10', '')">5万－10万</a>
+          </li>
+          <li data-code="10T15">
+            <a href="javascript:void(0)" onclick="SelectMedia._getMedias('', '', '10T15', '')">10万－15万</a>
+          </li>
+          <li data-code="15T20">
+            <a href="javascript:void(0)" onclick="SelectMedia._getMedias('', '', '15T20', '')">15万－20万</a>
+          </li>
+          <li data-code="20T30">
+            <a href="javascript:void(0)" onclick="SelectMedia._getMedias('', '', '20T30', '')">20万－30万</a>
+          </li>
+          <li data-code="GT30">
+            <a href="javascript:void(0)" onclick="SelectMedia._getMedias('', '', 'GT30', '')">30万以上</a>
+          </li>
+        </ul>
+      </div>
+      <!-- 行业分类 -->
+      <div class="conds">
+        <label>行业分类:</label>
+        <ul class="price clearfix" id="industryType">
+          <li class="selected" data-code="ALL">
+            <a href="javascript:void(0)" onclick="SelectMedia._getMedias('', '', '', 'ALL')">不限</a>
+          </li>
+          #foreach( $i in $industryTypes )
+          	<li data-code="$i.industryId">
+            	<a href="javascript:void(0)" onclick="SelectMedia._getMedias('', '', '', '$i.industryId')">$i.industryName</a>
+          	</li>
+          #end
+        </ul>
+      </div>
+    </div>
+    <!-- Result -->
+    <div class="result">
+	    <ul class="result-list clearfix">
+      #foreach( $g in $goods )
+        <li>
+          <div class="result-pic">
+            <a href="/detail/$g.id"><img src="$g.headImgUrl"></a>
+          </div>
+          <h5>$g.nickname</h5>
+          <p>$g.summary</p>
+          <div class="fans-num">
+            <i></i>
+            <span>粉丝:</span>
+            <span>$g.fansNum</span>
+          </div>
+          <div class="watch-price"><a href="/detail/$g.id">查看价格</a></div>
+        </li>
+	     #end
+        </ul>
+      <div id="pagination"></div>
+    </div>
+  </div>
+  #parse("templates/view/footer.html")
+</body>
+</html>

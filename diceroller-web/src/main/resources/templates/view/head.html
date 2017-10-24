@@ -1,0 +1,44 @@
+
+    <div class="header">
+    	<div class="content">
+    		<ul class="header_left">
+				<li class="ml10">欢迎来到微购网</li>
+				<li>自媒体数量：<span class="blue">48888</span></li>
+			</ul>
+			#if(!$webLoginer.id)
+				<ul class="header_right">
+				<li><a href="/login">请登录</a></li>
+				<li class="mr50"><a href="/register">免费注册</a></li>
+				</ul>
+			
+			#else
+			    <ul class="header_right">
+				  <li>
+				  	<a href="/personCerter">欢迎您,&nbsp;$webLoginer.username,&nbsp;</a>
+				  	<a href="/logout">退出登录</a>
+				  </li>
+			    </ul>
+			#end
+			
+			
+    	</div>
+    </div>
+    <div class="navigator">
+        <div class="content clearfix">
+            <div class="navigator_left">
+                <a href="/"><img src="/static/img/logo.png" alt="" title="" class="logo"/></a>
+                <ul class="navigator_ul clearfix">
+                    <li><a #active( $active, "ind" ,"class='blue'") href="/">首页</a></li>
+                    <li><a #active( $active, "select" ,"class='blue'") href="/goods/select?mediaType=2&fansNum=ALL&price=ALL&industryType=ALL&page=1">微博自媒体</a></li>
+                    <li><a #active( $active, "mySpread" ,"class='blue'") href="/mySpread">我要推广</a></li>
+                    <li><a #active( $active, "aboutUs" ,"class='blue'") href="/aboutUs">关于我们</a></li>
+                    <li><a #active( $active, "faq" ,"class='blue'")  href="/faq">帮助中心</a></li>
+                </ul>
+            </div>
+            <div class="navigator_right">
+                <p class="telNumber_title">客户服务电话</p>
+                <p class="telNumber">400-8888-8888</p>
+            </div>
+        </div>
+    </div>
+    

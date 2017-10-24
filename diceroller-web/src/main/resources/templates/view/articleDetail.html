@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>自媒体平台</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="render" content="webkit" />
+  <link rel="stylesheet" href="/static/css/common.css">
+  <link rel="stylesheet" href="/static/css/header.css">
+  <link rel="stylesheet" href="/static/css/dynamic.css">
+</head>
+<body>
+  <!-- 头部 -->
+  #parse("templates/view/head.html")
+  <div class="dynamics-box">
+    <div class="dynamic-detail">
+      <h2>$article.title</h2>
+      <p>$article.detail</p>
+    </div>
+  </div>
+  <!-- footer -->
+  #parse("templates/view/footer.html")
+  <script type="text/javascript" src="/static/js/lib/jquery.js"></script>
+  <script type="text/javascript" src="/static/frameworks/jquery/jquery.simplePagination.js"></script>
+  <script type="text/javascript" src="/static/js/dynamic.js"></script>
+</body>
+</html>

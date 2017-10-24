@@ -1,0 +1,30 @@
+.navigator {border-bottom: 2px solid #29afe6;}
+.main {width: 1000px; margin: 0 auto;}
+.main a {color: #000;}
+.box {height: 36px; line-height: 36px; border: solid 1px #dfdede; margin-top: 10px; padding-left: 15px;}
+.crumb > li, .media-type > li, .fans > li, .price > li {float: left; font-size: 14px;}
+.m-type-select, .conds {padding: 5px 15px; border: solid 1px #dfdede;}
+.media-type > li, .fans > li, .price > li {margin-right: 8px; height: 30px; line-height: 30px; padding: 0 5px;}
+.fans, .price {display: inline-block;}
+.crumb > li > a:hover {color: red; text-decoration: underline;}
+.right-arrow {display: inline-block; margin: 0 5px;}
+.selected {background-color: #fcc741; border-radius: 5px;}
+.conds > label {display: inline-block; height: 30px; line-height: 30px; padding: 0 3px; background-color: #eeeeee; vertical-align: top; border-radius: 5px; margin-right: 8px;}
+.result {margin-top: 10px; min-height: 80px; }
+.result-list > li:nth-child(n+6) {margin-top: 15px;}
+.result-list > li {float: left; width: 18%; margin-right: 2.5%; padding: 5px; border: solid 1px #dfdede; position: relative; box-sizing: border-box; cursor: pointer; height: 258px; overflow: hidden;}
+.result-list > li > .result-pic {width: 140px; height: 140px; margin: 10px auto;}
+.result-list > li:nth-child(5n) {margin-right: 0!important;}
+.result-list > li > h5 {padding: 0 15px; font-size: 16px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+.result-list > li > p {text-overflow: ellipsis; overflow: hidden;padding: 0 5px; margin: 4px 0 20px 0; height: 38px; line-height: 1.4; font-size: 14px; text-indent: 8px;}
+.fans-num {position: absolute; left: 5px; bottom: 5px;}
+.fans-num > * {font-size: 12px;}
+.fans-num i {display: inline-block; width: 20px; height: 20px; background: url("../img/fans.png") center center no-repeat; vertical-align: middle;}
+.watch-price {width: 44px; height: 44px; line-height: 17px; padding: 5px; font-size: 12px; color: #fff; background-color: #f6aa05; position: absolute; bottom: 0; right: 0; text-align: center; cursor: pointer;}
+#pagination {text-align: center; margin-top:20px;}
+#pagination > ul {display: inline-block;}
+.prev, .next {width: 65px !important; background-color: #fcc741; border: none !important;}
+#pagination > ul > li {float: left;}
+#pagination > ul > li > span,  #pagination > ul > li > a{display: inline-block; width: 35px; height: 30px; line-height: 30px; text-align: center; margin-right: 8px; border: solid 1px #dfdede;}
+.active > a, .active > span {background-color: #f74132; color: #fff;}
+.disabled > a, .disabled > span {background-color: #dfdede!important;}
