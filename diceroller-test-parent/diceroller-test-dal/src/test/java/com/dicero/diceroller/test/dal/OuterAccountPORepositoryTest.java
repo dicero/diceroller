@@ -7,16 +7,13 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
 /**
  * <p></p>
  *
  * @author znz zengningzhong@souche.com
  * @version 2017/10/29
  */
-public class OuterAccountRepositoryTest  extends TestBase {
+public class OuterAccountPORepositoryTest extends TestBase {
     @Autowired OuterAccountPORepository OuterAccountPORepository;
 
     @Test
