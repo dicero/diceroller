@@ -16,6 +16,10 @@
   		<groupId>com.dicero</groupId>
   		<artifactId>diceroller-test-common</artifactId>
   	</dependency>
+      <dependency>
+          <groupId>com.dicero</groupId>
+          <artifactId>diceroller-domain-model</artifactId>
+      </dependency>
   	<dependency>
   		<groupId>com.dicero</groupId>
   		<artifactId>diceroller-service-domain</artifactId>

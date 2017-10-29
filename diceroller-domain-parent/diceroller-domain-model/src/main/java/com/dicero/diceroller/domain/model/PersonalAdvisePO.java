@@ -12,8 +12,8 @@ import java.sql.Timestamp;
  * @version 2017/10/29
  */
 @Entity
-@Table(name = "tr_presonal_advise")
-public class PresonalAdvisePO extends BasePO {
+@Table(name = "tr_personal_advise")
+public class PersonalAdvisePO extends BasePO {
     private int id;
     private Timestamp createTime;
     private Timestamp updateTime;
@@ -97,7 +97,7 @@ public class PresonalAdvisePO extends BasePO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PresonalAdvisePO that = (PresonalAdvisePO) o;
+        PersonalAdvisePO that = (PersonalAdvisePO) o;
 
         if (id != that.id) return false;
         if (memberId != that.memberId) return false;
