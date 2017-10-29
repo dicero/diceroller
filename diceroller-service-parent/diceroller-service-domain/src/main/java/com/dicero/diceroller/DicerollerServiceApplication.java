@@ -1,4 +1,4 @@
-package com.dicero.diceroller.service;
+package com.dicero.diceroller;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
