@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.snail</groupId>
+    <groupId>com.dicero</groupId>
     <artifactId>diceroller</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
@@ -11,7 +11,7 @@
   <packaging>jar</packaging>
   
    <properties>
-        <start-class>com.snail.diceroller.dicerollerAdminApplication</start-class>
+        <start-class>com.dicero.diceroller.dicerollerAdminApplication</start-class>
     </properties>
    <dependencies>
    		  <dependency>
@@ -45,7 +45,7 @@
 		    <artifactId>spring-session</artifactId>
 		</dependency>
 		<dependency>
-	  		<groupId>com.snail</groupId>
+	  		<groupId>com.dicero</groupId>
 	  		<artifactId>diceroller-service-domain</artifactId>
 	  	</dependency>
    </dependencies>

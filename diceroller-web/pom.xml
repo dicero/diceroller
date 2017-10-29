@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.snail</groupId>
+    <groupId>com.dicero</groupId>
     <artifactId>diceroller</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
@@ -12,7 +12,7 @@
   
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <start-class>com.snail.diceroller.dicerollerWebApplication</start-class>
+    <start-class>com.dicero.diceroller.dicerollerWebApplication</start-class>
   </properties>
   
   <dependencies>
@@ -55,11 +55,11 @@
 	      <artifactId>springfox-swagger-ui</artifactId>
 	   </dependency>
 	  	<dependency>
-	  		<groupId>com.snail</groupId>
+	  		<groupId>com.dicero</groupId>
 	  		<artifactId>diceroller-service-domain</artifactId>
 	  	</dependency>
 	  	<dependency>
-	  		<groupId>com.snail</groupId>
+	  		<groupId>com.dicero</groupId>
 	  		<artifactId>diceroller-service-facade</artifactId>
 	  	</dependency>
 	  	

@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.snail</groupId>
+  <groupId>com.dicero</groupId>
   <artifactId>diceroller</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
@@ -35,42 +35,42 @@
                 <scope>import</scope>
             </dependency>
 			<dependency>
-				<groupId>com.snail</groupId>
+				<groupId>com.dicero</groupId>
 				<artifactId>diceroller-common-util</artifactId>
 				<version>${diceroller.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.snail</groupId>
+				<groupId>com.dicero</groupId>
 				<artifactId>diceroller-common-bean</artifactId>
 				<version>${diceroller.version}</version>
 			</dependency>
  			 <dependency>
-		 	  	<groupId>com.snail</groupId>
+		 	  	<groupId>com.dicero</groupId>
 		 	  	<artifactId>diceroller-dal-mysql</artifactId>
 				<version>${diceroller.version}</version>
 		   </dependency>
 		   <dependency>
-				<groupId>com.snail</groupId>
+				<groupId>com.dicero</groupId>
 				<artifactId>diceroller-domain-model</artifactId>
 				<version>${diceroller.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.snail</groupId>
+				<groupId>com.dicero</groupId>
 				<artifactId>diceroller-service-domain</artifactId>
 				<version>${diceroller.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.snail</groupId>
+				<groupId>com.dicero</groupId>
 				<artifactId>diceroller-core-engine</artifactId>
 				<version>${diceroller.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.snail</groupId>
+				<groupId>com.dicero</groupId>
 				<artifactId>diceroller-service-facade</artifactId>
 				<version>${diceroller.version}</version>
 			</dependency>
 			<dependency>
-			   	<groupId>com.snail</groupId>
+			   	<groupId>com.dicero</groupId>
 			   	<artifactId>diceroller-test-common</artifactId>
 				<version>${diceroller.version}</version>
 		   </dependency>

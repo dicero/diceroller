@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.snail</groupId>
+    <groupId>com.dicero</groupId>
     <artifactId>diceroller-test-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
@@ -23,7 +23,7 @@
 		<artifactId>junit</artifactId>
 	</dependency>
     <dependency>
-    	<groupId>com.snail</groupId>
+    	<groupId>com.dicero</groupId>
     	<artifactId>diceroller-common-bean</artifactId>
     </dependency>
   </dependencies>
