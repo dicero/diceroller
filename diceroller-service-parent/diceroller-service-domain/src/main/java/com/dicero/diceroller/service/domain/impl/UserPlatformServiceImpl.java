@@ -3,7 +3,7 @@ package com.dicero.diceroller.service.domain.impl;
 import com.dicero.diceroller.common.util.MD5Util;
 import com.dicero.diceroller.dal.mysql.repository.UserPlatformRepository;
 import com.dicero.diceroller.domain.enums.AdminRole;
-import com.dicero.diceroller.domain.model.UserPlatform;
+import com.dicero.diceroller.domain.model.UserPlatformPO;
 import com.dicero.diceroller.service.domain.UserPlatformService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,7 +30,7 @@ public class UserPlatformServiceImpl implements UserPlatformService {
 	}
 	
 	@Override
-	public Page<UserPlatform> findAll(int page, int pageSize) {
+	public Page<UserPlatformPO> findAll(int page, int pageSize) {
 		return this.userPlatformRepository.findAll(new PageRequest(page, pageSize, new Sort(Direction.DESC, new String[] { "gmtCreate" }) ));
 	}
 	
@@ -47,19 +47,19 @@ public class UserPlatformServiceImpl implements UserPlatformService {
 	
 	@Override
 	//@Cacheable(value=CacheConfig.CACHE_VAL_FOR_USERPLATFORM,key="#id")
-	public UserPlatform findById(Long id) {
+	public UserPlatformPO findById(Long id) {
 		return userPlatformRepository.findById(id);
 	}
 	
 	@Override
 	//@Cacheable(value=CacheConfig.CACHE_VAL_FOR_USERPLATFORM,key="#loginUsername")
-	public UserPlatform findByLoginUsername(String loginUsername) {
+	public UserPlatformPO findByLoginUsername(String loginUsername) {
 		return this.userPlatformRepository.findByLoginUsername(loginUsername);
 	}
 	
 	@Override
 	//@CachePut(value=CacheConfig.CACHE_VAL_FOR_USERPLATFORM,key="#record.getId()")
-	public UserPlatform save(UserPlatform record) {
+	public UserPlatformPO save(UserPlatformPO record) {
 		record.setLoginPassword(md5Password(record.getLoginPassword()));
 		record.setRole(AdminRole.ADMIN);
 		record.setGmtCreate(new Date());
@@ -87,8 +87,8 @@ public class UserPlatformServiceImpl implements UserPlatformService {
 	}
 	
 	@Override
-	public UserPlatform login(String loginUsername, String loginPassword) {
-		UserPlatform userPlatform = this.findByLoginUsername(loginUsername);
+	public UserPlatformPO login(String loginUsername, String loginPassword) {
+		UserPlatformPO userPlatform = this.findByLoginUsername(loginUsername);
 		if(userPlatform != null && verifyMd5Password(loginPassword, userPlatform.getLoginPassword())) {
 			return userPlatform;
 		}

@@ -15,18 +15,17 @@
  */
 package com.dicero.diceroller.test.service.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.dicero.diceroller.TestBase;
+import com.dicero.diceroller.domain.model.UserPlatformPO;
+import com.dicero.diceroller.service.domain.UserPlatformService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 
-import com.dicero.diceroller.domain.model.UserPlatform;
-import com.dicero.diceroller.service.domain.UserPlatformService;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestUserPaltformService extends TestBase {
 
@@ -35,32 +34,32 @@ public class TestUserPaltformService extends TestBase {
 	
 	@Test
 	public void cache() throws InterruptedException{
-		UserPlatform record =  new UserPlatform();
+		UserPlatformPO record =  new UserPlatformPO();
 		record.setLoginPassword("password");
 		record.setLoginUsername("us"+RandomStringUtils.random(5));
 		this.userPlatformService.save(record);
 		
-		UserPlatform record1 = this.userPlatformService.findById(record.getId());
+		UserPlatformPO record1 = this.userPlatformService.findById(record.getId());
 		System.out.println("record1 =>" + record1);
-		UserPlatform record2 = this.userPlatformService.findById(record.getId());
+		UserPlatformPO record2 = this.userPlatformService.findById(record.getId());
 		System.out.println("record2 =>" + record2);
 		
 		this.userPlatformService.update(record.getId(), record.getLoginUsername(), "aaaaaaaa", "ddddd");
 		Thread.sleep(5);
-		UserPlatform record3 = this.userPlatformService.findById(record.getId());
+		UserPlatformPO record3 = this.userPlatformService.findById(record.getId());
 		System.out.println("record3 =>" + record3);
-		UserPlatform record4 = this.userPlatformService.findById(record.getId());
+		UserPlatformPO record4 = this.userPlatformService.findById(record.getId());
 		System.out.println("record4 =>" + record4);
 		
 		this.userPlatformService.deleteById(record.getId());
 		Thread.sleep(5);
-		UserPlatform record5 = this.userPlatformService.findById(record.getId());
+		UserPlatformPO record5 = this.userPlatformService.findById(record.getId());
 		System.out.println("record5 =>" + record5);
 	}
 	
 	@Test
 	public void save() {
-		UserPlatform record =  new UserPlatform();
+		UserPlatformPO record =  new UserPlatformPO();
 		record.setLoginPassword("password");
 		record.setLoginUsername("你好");
 		this.userPlatformService.save(record);
@@ -68,25 +67,25 @@ public class TestUserPaltformService extends TestBase {
 
 	@Test
 	public void findByLoginUsername() {
-		UserPlatform userPlatformVO = this.userPlatformService.findByLoginUsername("username");
+		UserPlatformPO userPlatformVO = this.userPlatformService.findByLoginUsername("username");
 		Assert.assertNull(userPlatformVO);
 	}
 	
 	@Test
 	public void findById() {
-		UserPlatform userPlatformVO = userPlatformService.findById(1L);
+		UserPlatformPO userPlatformVO = userPlatformService.findById(1L);
 		Assert.assertNull(userPlatformVO);
 	}
 	
 	@Test
 	public void findAll() {
-		Page<UserPlatform> userPlatformVOs = userPlatformService.findAll(0, 10);
+		Page<UserPlatformPO> userPlatformVOs = userPlatformService.findAll(0, 10);
 		System.out.println("Number=>"+userPlatformVOs.getNumber());
 		System.out.println("Size=>"+userPlatformVOs.getSize());
 		System.out.println("Content=>"+userPlatformVOs.getContent().size());
 		// Assert.assertThat(userPlatformVOs.getSize(),Matchers.greaterThan(0));
 		// Assert.assertThat(userPlatformVOs.getNumber(),Matchers.greaterThan(0));
-		for (UserPlatform userPlatform : userPlatformVOs.getContent()) {
+		for (UserPlatformPO userPlatform : userPlatformVOs.getContent()) {
 			System.out.println("userPlatform=>"+userPlatform);
 		}
 	}

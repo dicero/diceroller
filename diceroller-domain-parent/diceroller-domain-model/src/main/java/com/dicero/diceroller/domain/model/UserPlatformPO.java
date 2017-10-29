@@ -1,10 +1,10 @@
 package com.dicero.diceroller.domain.model;
 
+import com.dicero.diceroller.domain.BasePO;
 import com.dicero.diceroller.domain.enums.AdminRole;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 import java.util.Date;
 
 /**   
@@ -13,7 +13,7 @@ import java.util.Date;
 */
 @Entity
 @Table(name="user_platform")
-public class UserPlatform implements Serializable {
+public class UserPlatformPO extends BasePO {
 	private static final long serialVersionUID = 1344107240473958021L;
 
 	@Id
@@ -42,8 +42,8 @@ public class UserPlatform implements Serializable {
 	@Column(nullable = false)
 	private Date gmtMotify;
 	
-	public UserPlatform() {}
-	public UserPlatform(Long id) { this.id = id; }
+	public UserPlatformPO() {}
+	public UserPlatformPO(Long id) { this.id = id; }
 	
 	public Date getGmtCreate() {
 		return gmtCreate;
@@ -98,11 +98,5 @@ public class UserPlatform implements Serializable {
 	}
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
-	}
-	@Override
-	public String toString() {
-		return "UserPlatform [id=" + id + ", loginUsername=" + loginUsername + ", loginPassword=" + loginPassword
-				+ ", nickName=" + nickName + ", role=" + role + ", gmtCreate=" + gmtCreate + ", gmtMotify=" + gmtMotify
-				+ "]";
 	}
 }

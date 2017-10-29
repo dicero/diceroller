@@ -20,7 +20,7 @@ import com.dicero.diceroller.access.AdminAccess;
 import com.dicero.diceroller.access.AdminCookie;
 import com.dicero.diceroller.access.AdminLoginer;
 import com.dicero.diceroller.domain.enums.AdminRole;
-import com.dicero.diceroller.domain.model.UserPlatform;
+import com.dicero.diceroller.domain.model.UserPlatformPO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,7 +57,7 @@ public class AdminWelcomeController {
 	
 	@RequestMapping("/set")
 	public String welcomea(HttpSession httpSession,Map<String, Object> model) {
-		UserPlatform userPlatform = new UserPlatform();
+		UserPlatformPO userPlatform = new UserPlatformPO();
 		userPlatform.setId(1L);
 		userPlatform.setLoginUsername("hahha");
 		userPlatform.setRole(AdminRole.ADMIN);

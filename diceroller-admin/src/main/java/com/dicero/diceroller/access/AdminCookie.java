@@ -5,7 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
 
 import com.dicero.diceroller.common.util.DESUtil;
-import com.dicero.diceroller.domain.model.UserPlatform;
+import com.dicero.diceroller.domain.model.UserPlatformPO;
 
 /**   
 * <p></p>
@@ -25,7 +25,7 @@ public class AdminCookie {
 		return DESUtil.decode(loginAdminValue.toString());
 	}
 	
-	public static void setLoginAdmin(HttpSession httpSession, UserPlatform userPlatform){
+	public static void setLoginAdmin(HttpSession httpSession, UserPlatformPO userPlatform){
 		String value = userPlatform.getId() + "," + userPlatform.getLoginUsername() + "," + userPlatform.getRole().name() + "," + userPlatform.getNickName();
 		setCookie(httpSession, value);
 	}

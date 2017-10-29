@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-import com.dicero.diceroller.domain.model.UserPlatform;
+import com.dicero.diceroller.domain.model.UserPlatformPO;
 
 
 /**   
@@ -12,12 +12,12 @@ import com.dicero.diceroller.domain.model.UserPlatform;
 * @author ningzong.zeng
 */
 public interface UserPlatformService {
-	UserPlatform findById(Long id);
-	UserPlatform findByLoginUsername(String loginUsername);
-	Page<UserPlatform> findAll(int page, int pageSize);
+	UserPlatformPO findById(Long id);
+	UserPlatformPO findByLoginUsername(String loginUsername);
+	Page<UserPlatformPO> findAll(int page, int pageSize);
 	int update(Long id, String loginUsername, String loginPassword, String nickName);
-	UserPlatform save(UserPlatform record);
+	UserPlatformPO save(UserPlatformPO record);
 	Long deleteById(Long id);
 	Long deleteByIdIn(List<Long> ids);
-	UserPlatform login(String loginUsername, String loginPassword);
+	UserPlatformPO login(String loginUsername, String loginPassword);
 }

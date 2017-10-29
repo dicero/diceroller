@@ -1,7 +1,7 @@
 package com.dicero.diceroller.admin.controller;
 
 import com.dicero.diceroller.access.AdminCookie;
-import com.dicero.diceroller.domain.model.UserPlatform;
+import com.dicero.diceroller.domain.model.UserPlatformPO;
 import com.dicero.diceroller.service.domain.UserPlatformService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,16 +26,16 @@ public class AdminAuthController {
 
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String loginGet(Model model) {
-		model.addAttribute("userPlatform", new UserPlatform());
+		model.addAttribute("userPlatform", new UserPlatformPO());
 		return "login";
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String loginPost(HttpSession httpSession, @Valid UserPlatform userPlatform, BindingResult result, Model model) {
+	public String loginPost(HttpSession httpSession, @Valid UserPlatformPO userPlatform, BindingResult result, Model model) {
 		if(result.hasErrors()) {
 			return "login";
 		}
-		UserPlatform login = this.userPlatformService.login(userPlatform.getLoginUsername(), userPlatform.getLoginPassword());
+		UserPlatformPO login = this.userPlatformService.login(userPlatform.getLoginUsername(), userPlatform.getLoginPassword());
 		if(login!=null) {
 			AdminCookie.setLoginAdmin(httpSession, login);
 			return "redirect:/manager/index";

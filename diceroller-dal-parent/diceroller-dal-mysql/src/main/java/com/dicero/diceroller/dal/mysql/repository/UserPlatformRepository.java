@@ -10,23 +10,23 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.dicero.diceroller.domain.model.UserPlatform;
+import com.dicero.diceroller.domain.model.UserPlatformPO;
 
 
 /**   
 * <p>平台登录用户</p>
 * @author ningzong.zeng
 */
-public interface  UserPlatformRepository extends JpaRepository<UserPlatform, Long> {
+public interface  UserPlatformRepository extends JpaRepository<UserPlatformPO, Long> {
 	
-	UserPlatform findById(Long id);
+	UserPlatformPO findById(Long id);
 	
-	UserPlatform findByLoginUsername(String loginUsername);
+	UserPlatformPO findByLoginUsername(String loginUsername);
 	
-	Page<UserPlatform> findUserPlatformByLoginUsername(String loginUsername,Pageable pageable);
+	Page<UserPlatformPO> findUserPlatformByLoginUsername(String loginUsername, Pageable pageable);
 	
 	@Transactional @Modifying @Query(""
-		 + "update UserPlatform u set "
+		 + "update UserPlatformPO u set "
    	  	 + "u.loginUsername=:loginUsername, u.loginPassword=:loginPassword,u.nickName=:nickName "
    		 + "where u.id=:id")
     Integer setFixedFor(@Param("id") Long id,
