@@ -11,6 +11,7 @@ import com.dicero.diceroller.service.settlement.ControlSettlementService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * <p></p>
@@ -22,7 +23,7 @@ import java.math.BigDecimal;
 public class ControlSettlementServiceImpl extends BaseService implements ControlSettlementService {
 
     @Override
-    public void buildInnerClearing(ClearAccount drClearAccount, ClearAccount crClearAccount) {
+    public void buildInnerClearing(List<ClearingOrderInnerPO> clearingOrderInnerPOList,  ClearAccount drClearAccount, ClearAccount crClearAccount) {
         BigDecimal amt = new BigDecimal("0.00000001");
         String paymentSeqNo = "";
         String clearingCode = "";
@@ -40,6 +41,7 @@ public class ControlSettlementServiceImpl extends BaseService implements Control
         drClearingOrderInnerPO.setDrcr(DRCREnums.DR.name());
         drClearingOrderInnerPO.setCreateTime(now);
         drClearingOrderInnerPO.setUpdateTime(now);
+        clearingOrderInnerPOList.add(drClearingOrderInnerPO);
 
         // NOTE 内场-贷方
         ClearingOrderInnerPO crClearingOrderInnerPO = new ClearingOrderInnerPO();
@@ -53,13 +55,13 @@ public class ControlSettlementServiceImpl extends BaseService implements Control
         crClearingOrderInnerPO.setDrcr(DRCREnums.CR.name());
         crClearingOrderInnerPO.setCreateTime(now);
         crClearingOrderInnerPO.setUpdateTime(now);
+        clearingOrderInnerPOList.add(crClearingOrderInnerPO);
     }
 
     @Override
-    public void buildOuterClearing(ClearAccount clearAccount) {
+    public void buildOuterClearing( ClearingOrderOuterPO clearingOrderOuterPO,ClearAccount clearAccount) {
         BigDecimal amt = new BigDecimal("0.00000001");
 
-        ClearingOrderOuterPO clearingOrderOuterPO = new ClearingOrderOuterPO();
         clearingOrderOuterPO.setSessionId("");
         clearingOrderOuterPO.setAccountNo(clearAccount.getAccountNo());
         clearingOrderOuterPO.setPartyId(PartyIdEnums.OUTER_MEMBER.getValue());
@@ -68,5 +70,6 @@ public class ControlSettlementServiceImpl extends BaseService implements Control
         clearingOrderOuterPO.setClearingCode("");
         clearingOrderOuterPO.setCreateTime(now);
         clearingOrderOuterPO.setUpdateTime(now);
+
     }
 }

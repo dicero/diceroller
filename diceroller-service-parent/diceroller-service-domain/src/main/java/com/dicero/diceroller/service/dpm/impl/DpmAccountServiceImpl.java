@@ -7,10 +7,12 @@ import com.dicero.diceroller.domain.enums.PartyRoleEnums;
 import com.dicero.diceroller.domain.model.*;
 import com.dicero.diceroller.service.BaseService;
 import com.dicero.diceroller.service.dpm.DpmAccountService;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * <p></p>
@@ -26,19 +28,26 @@ public class DpmAccountServiceImpl extends BaseService implements DpmAccountServ
     @Autowired OuterAccountSubsetPORepository outerAccountSubsetPORepository;
 
     @Override
-    public void changeBalance(ClearingOrderInnerPO clearingOrderInnerPO) {
-        InnerAccountPO innerAccountPO = innerAccountPORepository.findByAccountNo(clearingOrderInnerPO.getAccountNo());
-        BigDecimal balance = innerAccountPO.getBalance();
+    public void changeBalance(List<ClearingOrderInnerPO> clearingOrderInnerPOList) {
 
-        if (innerAccountPO.getDrcr().equals(clearingOrderInnerPO.getDrcr())) {
-            balance = balance.add(clearingOrderInnerPO.getAmt());
+        // TODO: 缺少事务批量操作
+        if (CollectionUtils.isNotEmpty(clearingOrderInnerPOList)) {
+            for (ClearingOrderInnerPO clearingOrderInnerPO : clearingOrderInnerPOList) {
+                InnerAccountPO innerAccountPO = innerAccountPORepository.findByAccountNo(clearingOrderInnerPO.getAccountNo());
+                BigDecimal balance = innerAccountPO.getBalance();
 
-        } else {
-            balance = balance.subtract(clearingOrderInnerPO.getAmt());
+                if (innerAccountPO.getDrcr().equals(clearingOrderInnerPO.getDrcr())) {
+                    balance = balance.add(clearingOrderInnerPO.getAmt());
+
+                } else {
+                    balance = balance.subtract(clearingOrderInnerPO.getAmt());
+                }
+
+                innerAccountPO.setBalance(balance);
+                innerAccountPORepository.saveAndFlush(innerAccountPO);
+            }
         }
 
-        innerAccountPO.setBalance(balance);
-        innerAccountPORepository.saveAndFlush(innerAccountPO);
 
     }
 
