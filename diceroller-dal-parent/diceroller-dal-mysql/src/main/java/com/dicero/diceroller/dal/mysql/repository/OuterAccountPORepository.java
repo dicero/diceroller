@@ -11,4 +11,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface OuterAccountPORepository extends JpaRepository<OuterAccountPO, Integer> {
     OuterAccountPO findById(Integer id);
+
+    OuterAccountPO findByAccountNo(String accountNo);
 }

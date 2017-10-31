@@ -7,4 +7,6 @@ package com.dicero.diceroller.service.tss;
  * @version 2017/10/29
  */
 public interface TssTradeService {
+
+    void trade();
 }

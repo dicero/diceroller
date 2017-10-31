@@ -1,10 +1,66 @@
 package com.dicero.diceroller.service.dpm.impl;
 
+import com.dicero.diceroller.dal.mysql.repository.InnerAccountPORepository;
+import com.dicero.diceroller.dal.mysql.repository.OuterAccountPORepository;
+import com.dicero.diceroller.dal.mysql.repository.OuterAccountSubsetPORepository;
+import com.dicero.diceroller.domain.enums.PartyRoleEnums;
+import com.dicero.diceroller.domain.model.*;
+import com.dicero.diceroller.service.BaseService;
+import com.dicero.diceroller.service.dpm.DpmAccountService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+
 /**
  * <p></p>
  *
  * @author znz
  * @version 2017/10/29
  */
-public class DpmAccountServiceImpl {
+@Service
+public class DpmAccountServiceImpl extends BaseService implements DpmAccountService {
+
+    @Autowired InnerAccountPORepository innerAccountPORepository;
+    @Autowired OuterAccountPORepository outerAccountPORepository;
+    @Autowired OuterAccountSubsetPORepository outerAccountSubsetPORepository;
+
+    @Override
+    public void changeBalance(ClearingOrderInnerPO clearingOrderInnerPO) {
+        InnerAccountPO innerAccountPO = innerAccountPORepository.findByAccountNo(clearingOrderInnerPO.getAccountNo());
+        BigDecimal balance = innerAccountPO.getBalance();
+
+        if (innerAccountPO.getDrcr().equals(clearingOrderInnerPO.getDrcr())) {
+            balance = balance.add(clearingOrderInnerPO.getAmt());
+
+        } else {
+            balance = balance.subtract(clearingOrderInnerPO.getAmt());
+        }
+
+        innerAccountPO.setBalance(balance);
+        innerAccountPORepository.saveAndFlush(innerAccountPO);
+
+    }
+
+    @Override
+    public void changeBalance(ClearingOrderOuterPO clearingOrderOuterPO) {
+        OuterAccountPO outerAccountPO = outerAccountPORepository.findByAccountNo(clearingOrderOuterPO.getAccountNo());
+        // TODO: 状态拦截
+        if (outerAccountPO.getStatusMap().equals("1")) {
+
+        }
+
+        OuterAccountSubsetPO outerAccountSubsetPO = outerAccountSubsetPORepository.findByAccountNo(clearingOrderOuterPO.getAccountNo());
+        BigDecimal balance = outerAccountSubsetPO.getBalance();
+
+        if (clearingOrderOuterPO.getPartyRole().equals(PartyRoleEnums.PAYER.name())) {
+            balance = balance.add(clearingOrderOuterPO.getAmt());
+
+        } else {
+            balance = balance.subtract(clearingOrderOuterPO.getAmt());
+        }
+
+        outerAccountSubsetPO.setBalance(balance);
+        outerAccountSubsetPORepository.saveAndFlush(outerAccountSubsetPO);
+    }
 }

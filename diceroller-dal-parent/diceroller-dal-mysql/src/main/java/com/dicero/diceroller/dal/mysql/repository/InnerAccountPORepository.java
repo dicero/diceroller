@@ -10,4 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @version 2017/10/29
  */
 public interface InnerAccountPORepository extends JpaRepository<InnerAccountPO, Integer> {
+
+    InnerAccountPO findByAccountNo(String accountNo);
 }

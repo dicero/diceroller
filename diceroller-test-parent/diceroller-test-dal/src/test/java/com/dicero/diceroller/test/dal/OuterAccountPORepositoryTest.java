@@ -39,4 +39,11 @@ public class OuterAccountPORepositoryTest extends TestBase {
         println(outerAccountPO);
         Assert.assertNotNull(outerAccountPO);
     }
+
+    @Test
+    public void findByAccountNoTest(){
+        OuterAccountPO outerAccountPO = OuterAccountPORepository.findByAccountNo("100");
+        println(outerAccountPO);
+        Assert.assertNotNull(outerAccountPO);
+    }
 }

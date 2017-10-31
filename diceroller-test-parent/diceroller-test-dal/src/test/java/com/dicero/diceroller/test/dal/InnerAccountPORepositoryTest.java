@@ -1,6 +1,7 @@
 package com.dicero.diceroller.test.dal;
 
 import com.dicero.diceroller.TestBase;
+import com.dicero.diceroller.domain.enums.InnerAccountEnums;
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.dicero.diceroller.dal.mysql.repository.InnerAccountPORepository;
@@ -22,5 +23,12 @@ public class InnerAccountPORepositoryTest extends TestBase {
         // InnerAccountPO record = InnerAccountPOrepository.findById(1);
         //  println(record);
         // Assert.assertNotNull(record);
+    }
+
+    @Test
+    public void findByAccountNoTest() {
+         InnerAccountPO record = InnerAccountPORepository.findByAccountNo(InnerAccountEnums.PERSONAL_FUND_BIT.getAccountNo());
+          println(record);
+         Assert.assertNotNull(record);
     }
 }
