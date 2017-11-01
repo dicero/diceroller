@@ -59,13 +59,13 @@ public class ControlSettlementServiceImpl extends BaseService implements Control
     }
 
     @Override
-    public void buildOuterClearing( ClearingOrderOuterPO clearingOrderOuterPO,ClearAccount clearAccount) {
+    public void buildOuterClearing( ClearingOrderOuterPO clearingOrderOuterPO,ClearAccount clearAccount, PartyRoleEnums partyRoleEnums) {
         BigDecimal amt = new BigDecimal("0.00000001");
 
         clearingOrderOuterPO.setSessionId("");
         clearingOrderOuterPO.setAccountNo(clearAccount.getAccountNo());
         clearingOrderOuterPO.setPartyId(PartyIdEnums.OUTER_MEMBER.getValue());
-        clearingOrderOuterPO.setPartyRole(PartyRoleEnums.PAYER.getValue());
+        clearingOrderOuterPO.setPartyRole(partyRoleEnums.getValue());
         clearingOrderOuterPO.setAmt(amt);
         clearingOrderOuterPO.setClearingCode("");
         clearingOrderOuterPO.setCreateTime(now);

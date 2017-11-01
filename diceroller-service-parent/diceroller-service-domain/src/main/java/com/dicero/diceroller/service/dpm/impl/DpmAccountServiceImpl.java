@@ -3,6 +3,7 @@ package com.dicero.diceroller.service.dpm.impl;
 import com.dicero.diceroller.dal.mysql.repository.InnerAccountPORepository;
 import com.dicero.diceroller.dal.mysql.repository.OuterAccountPORepository;
 import com.dicero.diceroller.dal.mysql.repository.OuterAccountSubsetPORepository;
+import com.dicero.diceroller.domain.enums.PartyIdEnums;
 import com.dicero.diceroller.domain.enums.PartyRoleEnums;
 import com.dicero.diceroller.domain.model.*;
 import com.dicero.diceroller.service.BaseService;
@@ -26,6 +27,19 @@ public class DpmAccountServiceImpl extends BaseService implements DpmAccountServ
     @Autowired InnerAccountPORepository innerAccountPORepository;
     @Autowired OuterAccountPORepository outerAccountPORepository;
     @Autowired OuterAccountSubsetPORepository outerAccountSubsetPORepository;
+
+    @Override
+    public BigDecimal queryBalanceByAccountNo(PartyIdEnums partyIdEnums, String accountNo) {
+        if (partyIdEnums.equals(PartyIdEnums.INNER_MEMBER)) {
+            InnerAccountPO innerAccountPO = innerAccountPORepository.findByAccountNo(accountNo);
+            return innerAccountPO.getBalance();
+        } else  if (partyIdEnums.equals(PartyIdEnums.OUTER_MEMBER)) {
+            OuterAccountSubsetPO outerAccountSubsetPO = outerAccountSubsetPORepository.findByAccountNo(accountNo);
+            return outerAccountSubsetPO.getBalance();
+        }
+        return null;
+
+    }
 
     @Override
     public void changeBalance(List<ClearingOrderInnerPO> clearingOrderInnerPOList) {

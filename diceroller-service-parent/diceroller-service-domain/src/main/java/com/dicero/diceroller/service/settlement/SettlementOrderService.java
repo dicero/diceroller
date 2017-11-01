@@ -1,6 +1,7 @@
 package com.dicero.diceroller.service.settlement;
 
 import com.dicero.diceroller.domain.enums.TradeModeEnums;
+import com.dicero.diceroller.domain.model.TradeOrderPO;
 
 /**
  * <p></p>
@@ -10,5 +11,6 @@ import com.dicero.diceroller.domain.enums.TradeModeEnums;
  */
 public interface SettlementOrderService {
 
-    void createSettlementCarrier(TradeModeEnums tradeModeEnums);
+    void createSettlementCarrier(TradeOrderPO tradeOrderPO, TradeModeEnums tradeModeEnums);
+    void createSettlementOrder(TradeOrderPO tradeOrderPO, TradeModeEnums tradeModeEnums);
 }

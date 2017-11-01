@@ -49,7 +49,7 @@ public class RandomUtil {
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyMMddHHmmss");  
         String dateStr = dateFormat.format(date);
-        return dateStr + RandomStringUtils.randomNumeric(size) + fix;
+        return fix + dateStr + RandomStringUtils.randomNumeric(size) ;
     }
     
     /**
@@ -62,7 +62,7 @@ public class RandomUtil {
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat(pattern);  
         String dateStr = dateFormat.format(date);
-        return dateStr + RandomStringUtils.randomAlphabetic(size) + fix;
+        return fix + dateStr + RandomStringUtils.randomAlphabetic(size);
     }
     
     /**

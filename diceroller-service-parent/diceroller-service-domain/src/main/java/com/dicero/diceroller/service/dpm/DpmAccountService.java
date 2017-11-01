@@ -1,9 +1,11 @@
 package com.dicero.diceroller.service.dpm;
 
+import com.dicero.diceroller.domain.enums.PartyIdEnums;
 import com.dicero.diceroller.domain.model.ClearingOrderInnerPO;
 import com.dicero.diceroller.domain.model.ClearingOrderOuterPO;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -14,6 +16,8 @@ import java.util.List;
  * @version 2017/10/29
  */
 public interface DpmAccountService {
+
+    BigDecimal queryBalanceByAccountNo(PartyIdEnums partyIdEnums,  String accountNo);
 
     @Transactional
     void changeBalance(List<ClearingOrderInnerPO> clearingOrderInnerPOList);
