@@ -38,7 +38,19 @@ public class RandomUtil {
         String dateStr = dateFormat.format(date);
         return dateStr + RandomStringUtils.randomAlphabetic(6) + fix;
     }
-    
+
+    /**
+     * @return
+     * @return 返回类型
+     * @throws
+     */
+    public static String randomSecond() {
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("ssSS");
+        String dateStr = dateFormat.format(date);
+        return dateStr;
+    }
+
     /**
      * @description 生成唯一的uuid
      * @return 

@@ -4,7 +4,9 @@ import com.dicero.diceroller.domain.enums.InnerAccountEnums;
 import com.dicero.diceroller.domain.enums.TradeStatusEnums;
 import com.dicero.diceroller.domain.model.PersonalMemberPO;
 import com.dicero.diceroller.domain.model.TradeOrderPO;
+import com.dicero.diceroller.service.settlement.impl.PaymentSettlementStrategy;
 import com.dicero.diceroller.service.tss.TssTradeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -18,6 +20,7 @@ import java.math.BigDecimal;
 @Service
 public class TssTradeServiceImpl implements TssTradeService {
 
+    @Autowired PaymentSettlementStrategy paymentSettlementStrategy;
 
     @Override
     public void trade() {
@@ -44,5 +47,7 @@ public class TssTradeServiceImpl implements TssTradeService {
 
         tradeOrderPO.setRemark("交易");
         tradeOrderPO.setStatus(TradeStatusEnums.INIT.getValue());
+
+
     }
 }

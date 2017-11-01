@@ -1,6 +1,10 @@
 package com.dicero.diceroller.service.settlement;
 
+import com.dicero.diceroller.domain.enums.PaymentTypeEnums;
+import com.dicero.diceroller.domain.enums.SettlementTypeEnums;
 import com.dicero.diceroller.domain.enums.TradeModeEnums;
+import com.dicero.diceroller.domain.model.SettlementCarrierPO;
+import com.dicero.diceroller.domain.model.SettlementOrderPO;
 import com.dicero.diceroller.domain.model.TradeOrderPO;
 
 /**
@@ -11,6 +15,7 @@ import com.dicero.diceroller.domain.model.TradeOrderPO;
  */
 public interface SettlementOrderService {
 
-    void createSettlementCarrier(TradeOrderPO tradeOrderPO, TradeModeEnums tradeModeEnums);
+    SettlementCarrierPO createSettlementCarrier(SettlementOrderPO settlementOrderPO, PaymentTypeEnums paymentTypeEnums , SettlementTypeEnums settlementTypeEnums);
+
     void createSettlementOrder(TradeOrderPO tradeOrderPO, TradeModeEnums tradeModeEnums);
 }

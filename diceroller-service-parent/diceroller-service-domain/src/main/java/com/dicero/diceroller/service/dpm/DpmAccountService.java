@@ -20,9 +20,9 @@ public interface DpmAccountService {
     BigDecimal queryBalanceByAccountNo(PartyIdEnums partyIdEnums,  String accountNo);
 
     @Transactional
-    void changeBalance(List<ClearingOrderInnerPO> clearingOrderInnerPOList);
+    boolean changeBalance(List<ClearingOrderInnerPO> clearingOrderInnerPOList);
 
     @Transactional
-    void changeBalance(ClearingOrderOuterPO clearingOrderOuterPO);
+    boolean changeBalance(ClearingOrderOuterPO clearingOrderOuterPO);
 
 }

@@ -42,9 +42,9 @@ public class DpmAccountServiceImpl extends BaseService implements DpmAccountServ
     }
 
     @Override
-    public void changeBalance(List<ClearingOrderInnerPO> clearingOrderInnerPOList) {
+    public boolean changeBalance(List<ClearingOrderInnerPO> clearingOrderInnerPOList) {
 
-        // TODO: 缺少事务批量操作
+        // TODO: 缺少事务批量操作,
         if (CollectionUtils.isNotEmpty(clearingOrderInnerPOList)) {
             for (ClearingOrderInnerPO clearingOrderInnerPO : clearingOrderInnerPOList) {
                 InnerAccountPO innerAccountPO = innerAccountPORepository.findByAccountNo(clearingOrderInnerPO.getAccountNo());
@@ -58,15 +58,18 @@ public class DpmAccountServiceImpl extends BaseService implements DpmAccountServ
                 }
 
                 innerAccountPO.setBalance(balance);
-                innerAccountPORepository.saveAndFlush(innerAccountPO);
+                if(innerAccountPORepository.saveAndFlush(innerAccountPO) == null ) {
+                    return false;
+                }
             }
+            return true;
         }
-
+        return false;
 
     }
 
     @Override
-    public void changeBalance(ClearingOrderOuterPO clearingOrderOuterPO) {
+    public boolean changeBalance(ClearingOrderOuterPO clearingOrderOuterPO) {
         OuterAccountPO outerAccountPO = outerAccountPORepository.findByAccountNo(clearingOrderOuterPO.getAccountNo());
         // TODO: 状态拦截
         if (outerAccountPO.getStatusMap().equals("1")) {
@@ -84,6 +87,8 @@ public class DpmAccountServiceImpl extends BaseService implements DpmAccountServ
         }
 
         outerAccountSubsetPO.setBalance(balance);
-        outerAccountSubsetPORepository.saveAndFlush(outerAccountSubsetPO);
+        if(outerAccountSubsetPORepository.saveAndFlush(outerAccountSubsetPO) != null) return true;
+        return false;
     }
+
 }
