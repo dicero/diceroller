@@ -23,6 +23,6 @@ public interface DpmAccountService {
     boolean changeBalance(List<ClearingOrderInnerPO> clearingOrderInnerPOList);
 
     @Transactional
-    boolean changeBalance(ClearingOrderOuterPO clearingOrderOuterPO);
+    boolean changeBalance(ClearingOrderOuterPO clearingOrderOuterPO, String paymentSeqNo);
 
 }

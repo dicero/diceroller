@@ -31,9 +31,9 @@ public class SettlementOrderServiceImpl extends BaseService implements Settlemen
         settlementCarrierPO.setRequestNo(settlementOrderPO.getSessionId() + "-" + RandomUtil.randomSecond());
         settlementCarrierPO.setPaymentSeqNo(settlementOrderPO.getPaymentSeqNo());
         settlementCarrierPO.setPaymentType(paymentTypeEnums.name());
-        settlementCarrierPO.setSettlementType(SettlementTypeEnums.I.name());
+        settlementCarrierPO.setSettlementType(settlementTypeEnums.name());
         settlementCarrierPO.setStatus(SettlementStatusEnums.W.name());
-        settlementCarrierPO.setSummary("");
+        settlementCarrierPO.setSummary("" + settlementTypeEnums.getDesc());
         settlementCarrierPO.setCreateTime(now);
         settlementCarrierPO.setUpdateTime(now);
         settlementCarrierPO = settlementCarrierPORepository.save(settlementCarrierPO);

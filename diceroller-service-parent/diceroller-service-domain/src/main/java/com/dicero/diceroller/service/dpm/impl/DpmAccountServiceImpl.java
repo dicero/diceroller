@@ -1,8 +1,7 @@
 package com.dicero.diceroller.service.dpm.impl;
 
-import com.dicero.diceroller.dal.mysql.repository.InnerAccountPORepository;
-import com.dicero.diceroller.dal.mysql.repository.OuterAccountPORepository;
-import com.dicero.diceroller.dal.mysql.repository.OuterAccountSubsetPORepository;
+import com.dicero.diceroller.dal.mysql.repository.*;
+import com.dicero.diceroller.domain.enums.DRCREnums;
 import com.dicero.diceroller.domain.enums.PartyIdEnums;
 import com.dicero.diceroller.domain.enums.PartyRoleEnums;
 import com.dicero.diceroller.domain.model.*;
@@ -25,7 +24,9 @@ import java.util.List;
 public class DpmAccountServiceImpl extends BaseService implements DpmAccountService {
 
     @Autowired InnerAccountPORepository innerAccountPORepository;
+    @Autowired InnerAccountDetailPORepository innerAccountDetailPORepository;
     @Autowired OuterAccountPORepository outerAccountPORepository;
+    @Autowired OuterAccountDetailPORepository outerAccountDetailPORepository;
     @Autowired OuterAccountSubsetPORepository outerAccountSubsetPORepository;
 
     @Override
@@ -57,10 +58,21 @@ public class DpmAccountServiceImpl extends BaseService implements DpmAccountServ
                     balance = balance.subtract(clearingOrderInnerPO.getAmt());
                 }
 
+                InnerAccountDetailPO innerAccountDetailPO = new InnerAccountDetailPO();
+                innerAccountDetailPO.setAccountNo(innerAccountPO.getAccountNo());
+                innerAccountDetailPO.setDrcr(clearingOrderInnerPO.getDrcr());
+                innerAccountDetailPO.setPaymentSeqNo(clearingOrderInnerPO.getPaymentSeqNo());
+                innerAccountDetailPO.setVoucherNo(clearingOrderInnerPO.getSessionId());
+                innerAccountDetailPO.setTxnAmt(clearingOrderInnerPO.getAmt());
+                innerAccountDetailPO.setTxnRemark("内场交易记录");
+                innerAccountDetailPO.setBeforeAmt(innerAccountPO.getBalance());
+                innerAccountDetailPO.setAfterAmt(balance);
+                innerAccountDetailPO.setCreateTime(now);
+                innerAccountDetailPO.setUpdateTime(now);
+
                 innerAccountPO.setBalance(balance);
-                if(innerAccountPORepository.saveAndFlush(innerAccountPO) == null ) {
-                    return false;
-                }
+                innerAccountPORepository.save(innerAccountPO);
+                innerAccountDetailPORepository.save(innerAccountDetailPO);
             }
             return true;
         }
@@ -69,7 +81,7 @@ public class DpmAccountServiceImpl extends BaseService implements DpmAccountServ
     }
 
     @Override
-    public boolean changeBalance(ClearingOrderOuterPO clearingOrderOuterPO) {
+    public boolean changeBalance(ClearingOrderOuterPO clearingOrderOuterPO, String paymentSeqNo) {
         OuterAccountPO outerAccountPO = outerAccountPORepository.findByAccountNo(clearingOrderOuterPO.getAccountNo());
         // TODO: 状态拦截
         if (outerAccountPO.getStatusMap().equals("1")) {
@@ -79,15 +91,30 @@ public class DpmAccountServiceImpl extends BaseService implements DpmAccountServ
         OuterAccountSubsetPO outerAccountSubsetPO = outerAccountSubsetPORepository.findByAccountNo(clearingOrderOuterPO.getAccountNo());
         BigDecimal balance = outerAccountSubsetPO.getBalance();
 
+        DRCREnums drcr;
         if (clearingOrderOuterPO.getPartyRole().equals(PartyRoleEnums.PAYER.name())) {
             balance = balance.add(clearingOrderOuterPO.getAmt());
-
+            drcr = DRCREnums.CR;
         } else {
             balance = balance.subtract(clearingOrderOuterPO.getAmt());
+            drcr = DRCREnums.DR;
         }
 
+        OuterAccountDetailPO outerAccountDetailPO = new OuterAccountDetailPO();
+        outerAccountDetailPO.setAccountNo(outerAccountSubsetPO.getAccountNo());
+        outerAccountDetailPO.setDrcr(drcr.name());
+        outerAccountDetailPO.setPaymentSeqNo(paymentSeqNo);
+        outerAccountDetailPO.setVoucherNo(clearingOrderOuterPO.getSessionId());
+        outerAccountDetailPO.setTxnAmt(clearingOrderOuterPO.getAmt());
+        outerAccountDetailPO.setTxnRemark("内场交易记录");
+        outerAccountDetailPO.setBeforeAmt(outerAccountSubsetPO.getBalance());
+        outerAccountDetailPO.setAfterAmt(balance);
+        outerAccountDetailPO.setCreateTime(now);
+        outerAccountDetailPO.setUpdateTime(now);
+
         outerAccountSubsetPO.setBalance(balance);
-        if(outerAccountSubsetPORepository.saveAndFlush(outerAccountSubsetPO) != null) return true;
+        outerAccountSubsetPORepository.saveAndFlush(outerAccountSubsetPO);
+        outerAccountDetailPORepository.save(outerAccountDetailPO);
         return false;
     }
 

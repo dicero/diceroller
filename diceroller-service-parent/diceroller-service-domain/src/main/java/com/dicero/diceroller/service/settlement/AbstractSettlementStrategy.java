@@ -49,24 +49,24 @@ public abstract  class AbstractSettlementStrategy extends BaseService {
         List<ClearingOrderInnerPO> clearingOrderInnerPOList = createClearOrderInner(innerSettlementCarrierPO, tradeOrderPO, tradeModeEnums);
         clearingOrderInnerPORepository.save(clearingOrderInnerPOList);
 
+        // NOTE: 内场清分结算
         boolean result = dpmAccountService.changeBalance(clearingOrderInnerPOList);
         if(result) innerSettlementCarrierPO.setStatus(SettlementStatusEnums.S.name());
         else innerSettlementCarrierPO.setStatus(SettlementStatusEnums.F.name());
         log.info("innerSettlementCarrierPO 数据{}" , innerSettlementCarrierPO);
-        settlementCarrierPORepository.save(innerSettlementCarrierPO);
-//        settlementCarrierPORepository.updateStatusById(innerSettlementCarrierPO.getId(), innerSettlementCarrierPO.getStatus());
+        settlementCarrierPORepository.updateStatusById(innerSettlementCarrierPO.getId(), innerSettlementCarrierPO.getStatus());
 
+        // NOTE: 外场清分结算
         SettlementCarrierPO outerSettlementCarrierPO = settlementOrderService.createSettlementCarrier(settlementOrderPO, PaymentTypeEnums.B, SettlementTypeEnums.O);
         ClearingOrderOuterPO clearingOrderOuterPO = createClearOrderOuter(outerSettlementCarrierPO, tradeOrderPO, tradeModeEnums);
         if(clearingOrderOuterPORepository.save(clearingOrderOuterPO) == null){
             throw CommonDefinedException.SYSTEM_ERROR("创建 外场清分失败, 数据{}" + clearingOrderInnerPOList);
         }
 
-        result = dpmAccountService.changeBalance(clearingOrderOuterPO);
+        result = dpmAccountService.changeBalance(clearingOrderOuterPO, tradeOrderPO.getTradeVoucherNo());
         if(result) outerSettlementCarrierPO.setStatus(SettlementStatusEnums.S.name());
         else outerSettlementCarrierPO.setStatus(SettlementStatusEnums.F.name());
-        settlementCarrierPORepository.save(outerSettlementCarrierPO);
-//        settlementCarrierPORepository.updateStatusById(outerSettlementCarrierPO.getId(), outerSettlementCarrierPO.getStatus());
+        settlementCarrierPORepository.updateStatusById(outerSettlementCarrierPO.getId(), outerSettlementCarrierPO.getStatus());
     }
 
     public void buildInnerClearing(List<ClearingOrderInnerPO> clearingOrderInnerPOList, InnerClearingEntity innerClearingEntity) {

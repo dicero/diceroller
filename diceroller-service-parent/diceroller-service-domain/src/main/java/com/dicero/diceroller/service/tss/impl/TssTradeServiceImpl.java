@@ -67,7 +67,7 @@ public class TssTradeServiceImpl extends BaseService implements TssTradeService 
 
 
 
-        TradeModeEnums tradeModeEnums = TradeModeEnums.PAYMENT_SUCCESS;
+        TradeModeEnums tradeModeEnums = TradeModeEnums.PAYMENT_FAIL;
         SettlementOrderPO settlementOrderPO = new SettlementOrderPO();
         settlementOrderPO.setSessionId(RandomUtil.randomUuid("SId"));
         settlementOrderPO.setPaymentSeqNo(tradeOrderPO.getTradeVoucherNo());

@@ -8,7 +8,17 @@ package com.dicero.diceroller.domain.enums;
  */
 public enum  SettlementTypeEnums {
     // NOTE: I:内场
-    I(),
+    I("内场结算"),
     // NOTE: O:外场
-    O();
+    O("外场结算");
+
+    private String desc;
+
+    SettlementTypeEnums(String desc) {
+        this.desc = desc;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
 }

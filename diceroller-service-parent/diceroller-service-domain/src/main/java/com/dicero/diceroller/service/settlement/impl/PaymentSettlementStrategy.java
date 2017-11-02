@@ -1,5 +1,6 @@
 package com.dicero.diceroller.service.settlement.impl;
 
+import com.dicero.diceroller.common.bean.extension.CommonDefinedException;
 import com.dicero.diceroller.domain.enums.InnerAccountEnums;
 import com.dicero.diceroller.domain.enums.PartyRoleEnums;
 import com.dicero.diceroller.domain.enums.TradeModeEnums;
@@ -31,6 +32,7 @@ public class PaymentSettlementStrategy extends AbstractSettlementStrategy implem
     public List<ClearingOrderInnerPO> createClearOrderInner(SettlementCarrierPO settlementCarrierPO,  TradeOrderPO tradeOrderPO, TradeModeEnums tradeModeEnums) {
         List<ClearingOrderInnerPO> clearingOrderInnerPOList = new ArrayList<>();
 
+        // NOTE: 支付成功
         if (tradeModeEnums.equals(TradeModeEnums.PAYMENT_SUCCESS)) {
             InnerClearingEntity innerClearingEntity = new InnerClearingEntity();
             innerClearingEntity.setDrClearAccount(new ClearAccount(InnerAccountEnums.PERSONAL_FUND_BIT));
@@ -40,13 +42,20 @@ public class PaymentSettlementStrategy extends AbstractSettlementStrategy implem
 
         }
 
-        else if(tradeModeEnums.equals(TradeModeEnums.PAYMENT_SETTLEMENT)){
+        // NOTE: 支付结算 + 支付撤销 + 支付失败
+        else if(tradeModeEnums.equals(TradeModeEnums.PAYMENT_SETTLEMENT)
+                || tradeModeEnums.equals(TradeModeEnums.PAYMENT_CANCEL)
+                || tradeModeEnums.equals(TradeModeEnums.PAYMENT_FAIL)){
             InnerClearingEntity innerClearingEntity = new InnerClearingEntity();
             innerClearingEntity.setDrClearAccount(new ClearAccount(InnerAccountEnums.SETTLEMENT_FUND_TRADE_BIT));
             innerClearingEntity.setCrClearAccount(new ClearAccount(InnerAccountEnums.PERSONAL_FUND_BIT));
             innerClearingEntity.setSettlementCarrierPO(settlementCarrierPO);
             super.buildInnerClearing(clearingOrderInnerPOList, innerClearingEntity);
 
+        }
+
+        else {
+            throw CommonDefinedException.SYSTEM_ERROR("错误的指令" + tradeModeEnums);
         }
 
         return clearingOrderInnerPOList;
@@ -56,6 +65,7 @@ public class PaymentSettlementStrategy extends AbstractSettlementStrategy implem
     public ClearingOrderOuterPO createClearOrderOuter(SettlementCarrierPO settlementCarrierPO,  TradeOrderPO tradeOrderPO,  TradeModeEnums tradeModeEnums) {
         ClearingOrderOuterPO clearingOrderOuterPO = new ClearingOrderOuterPO();
 
+        // NOTE: 支付成功
         if (tradeModeEnums.equals(TradeModeEnums.PAYMENT_SUCCESS)) {
             OuterClearingEntity outerClearingEntity = new OuterClearingEntity();
             outerClearingEntity.setClearAccount(new ClearAccount(tradeOrderPO.getBuyerAccountNo()));
@@ -64,13 +74,21 @@ public class PaymentSettlementStrategy extends AbstractSettlementStrategy implem
             super.buildOuterClearing(clearingOrderOuterPO,  outerClearingEntity);
         }
 
-        else if (tradeModeEnums.equals(TradeModeEnums.PAYMENT_SETTLEMENT)) {
+        // NOTE: 支付结算 + 支付撤销
+        else if(tradeModeEnums.equals(TradeModeEnums.PAYMENT_SETTLEMENT)
+                || tradeModeEnums.equals(TradeModeEnums.PAYMENT_CANCEL)
+                || tradeModeEnums.equals(TradeModeEnums.PAYMENT_FAIL)){
             OuterClearingEntity outerClearingEntity = new OuterClearingEntity();
             outerClearingEntity.setClearAccount(new ClearAccount(tradeOrderPO.getSellerAccountNo()));
             outerClearingEntity.setPartyRoleEnums(PartyRoleEnums.PAYER);
             outerClearingEntity.setSettlementCarrierPO(settlementCarrierPO);
             super.buildOuterClearing(clearingOrderOuterPO, outerClearingEntity);
         }
+
+        else {
+            throw CommonDefinedException.SYSTEM_ERROR("错误的指令" + tradeModeEnums);
+        }
+
 
         return clearingOrderOuterPO;
     }
