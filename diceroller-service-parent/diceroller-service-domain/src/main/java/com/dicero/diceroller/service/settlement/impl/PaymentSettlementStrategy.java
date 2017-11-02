@@ -10,7 +10,8 @@ import com.dicero.diceroller.domain.model.TradeOrderPO;
 import com.dicero.diceroller.service.bean.ClearAccount;
 import com.dicero.diceroller.service.bean.InnerClearingEntity;
 import com.dicero.diceroller.service.bean.OuterClearingEntity;
-import com.dicero.diceroller.service.settlement.AbstractSettlementService;
+import com.dicero.diceroller.service.settlement.AbstractSettlementStrategy;
+import com.dicero.diceroller.service.settlement.InterfaceSettlementService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,8 +24,8 @@ import java.util.List;
  * @author znz
  * @version 2017/10/31
  */
-@Service
-public class PaymentSettlementStrategy extends ControlSettlementServiceImpl implements AbstractSettlementService {
+@Service("paymentSettlementStrategy")
+public class PaymentSettlementStrategy extends AbstractSettlementStrategy implements InterfaceSettlementService {
 
     @Override
     public List<ClearingOrderInnerPO> createClearOrderInner(SettlementCarrierPO settlementCarrierPO,  TradeOrderPO tradeOrderPO, TradeModeEnums tradeModeEnums) {

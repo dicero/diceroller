@@ -15,7 +15,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "tb_clearing_order_inner")
 public class ClearingOrderInnerPO extends BasePO {
-    private int id;
+    private Integer id;
     private Timestamp createTime;
     private Timestamp updateTime;
     private String sessionId;
@@ -29,11 +29,11 @@ public class ClearingOrderInnerPO extends BasePO {
 
     @Id
     @Column(name = "id", nullable = false)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -137,41 +137,4 @@ public class ClearingOrderInnerPO extends BasePO {
         this.amt = amt;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ClearingOrderInnerPO that = (ClearingOrderInnerPO) o;
-
-        if (id != that.id) return false;
-        if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null) return false;
-        if (updateTime != null ? !updateTime.equals(that.updateTime) : that.updateTime != null) return false;
-        if (sessionId != null ? !sessionId.equals(that.sessionId) : that.sessionId != null) return false;
-        if (paymentSeqNo != null ? !paymentSeqNo.equals(that.paymentSeqNo) : that.paymentSeqNo != null) return false;
-        if (clearingCode != null ? !clearingCode.equals(that.clearingCode) : that.clearingCode != null) return false;
-        if (partyRole != null ? !partyRole.equals(that.partyRole) : that.partyRole != null) return false;
-        if (partyId != null ? !partyId.equals(that.partyId) : that.partyId != null) return false;
-        if (accountNo != null ? !accountNo.equals(that.accountNo) : that.accountNo != null) return false;
-        if (drcr != null ? !drcr.equals(that.drcr) : that.drcr != null) return false;
-        if (amt != null ? !amt.equals(that.amt) : that.amt != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
-        result = 31 * result + (updateTime != null ? updateTime.hashCode() : 0);
-        result = 31 * result + (sessionId != null ? sessionId.hashCode() : 0);
-        result = 31 * result + (paymentSeqNo != null ? paymentSeqNo.hashCode() : 0);
-        result = 31 * result + (clearingCode != null ? clearingCode.hashCode() : 0);
-        result = 31 * result + (partyRole != null ? partyRole.hashCode() : 0);
-        result = 31 * result + (partyId != null ? partyId.hashCode() : 0);
-        result = 31 * result + (accountNo != null ? accountNo.hashCode() : 0);
-        result = 31 * result + (drcr != null ? drcr.hashCode() : 0);
-        result = 31 * result + (amt != null ? amt.hashCode() : 0);
-        return result;
-    }
 }

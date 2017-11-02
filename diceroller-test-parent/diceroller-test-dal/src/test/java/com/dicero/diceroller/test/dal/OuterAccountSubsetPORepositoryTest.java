@@ -27,7 +27,7 @@ public class OuterAccountSubsetPORepositoryTest extends TestBase {
 
     @Test
     public void findByAccountNoTest() {
-         OuterAccountSubsetPO record = OuterAccountSubsetPORepository.findByAccountNo(OuterAccountEnums.get201Account("2000000000"));
+         OuterAccountSubsetPO record = OuterAccountSubsetPORepository.findByAccountNo(OuterAccountEnums.get201Account(2000000000));
           println(record);
          Assert.assertNotNull(record);
     }

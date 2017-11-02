@@ -1,12 +1,18 @@
 package com.dicero.diceroller.service.settlement.impl;
 
+import com.dicero.diceroller.common.bean.extension.CommonDefinedException;
 import com.dicero.diceroller.common.util.RandomUtil;
-import com.dicero.diceroller.domain.enums.*;
+import com.dicero.diceroller.dal.mysql.repository.SettlementCarrierPORepository;
+import com.dicero.diceroller.domain.enums.PaymentTypeEnums;
+import com.dicero.diceroller.domain.enums.SettlementStatusEnums;
+import com.dicero.diceroller.domain.enums.SettlementTypeEnums;
+import com.dicero.diceroller.domain.enums.TradeModeEnums;
 import com.dicero.diceroller.domain.model.SettlementCarrierPO;
 import com.dicero.diceroller.domain.model.SettlementOrderPO;
 import com.dicero.diceroller.domain.model.TradeOrderPO;
 import com.dicero.diceroller.service.BaseService;
 import com.dicero.diceroller.service.settlement.SettlementOrderService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,6 +23,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SettlementOrderServiceImpl extends BaseService implements SettlementOrderService {
+    @Autowired SettlementCarrierPORepository settlementCarrierPORepository;
 
     @Override
     public SettlementCarrierPO createSettlementCarrier(SettlementOrderPO settlementOrderPO, PaymentTypeEnums paymentTypeEnums, SettlementTypeEnums settlementTypeEnums) {
@@ -29,6 +36,9 @@ public class SettlementOrderServiceImpl extends BaseService implements Settlemen
         settlementCarrierPO.setSummary("");
         settlementCarrierPO.setCreateTime(now);
         settlementCarrierPO.setUpdateTime(now);
+        if(settlementCarrierPORepository.save(settlementCarrierPO) == null ) {
+            throw CommonDefinedException.SYSTEM_ERROR("创建 清结算载体失败: "+ settlementCarrierPO);
+        }
         return settlementCarrierPO;
     }
 

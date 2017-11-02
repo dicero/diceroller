@@ -26,6 +26,13 @@ public class RandomUtil {
         return fix + "88" + RandomStringUtils.randomNumeric(6);
     }
 
+
+    public static String randomPaymentSeq() {
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyMMddHHmmss");
+        String dateStr = dateFormat.format(date);
+        return "P000" + dateStr +"0SEQ0" + RandomStringUtils.randomNumeric(6);
+    }
 	 /**
      * @description 生成唯一的uuid
      * @return 
@@ -36,7 +43,7 @@ public class RandomUtil {
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyMMddHHmmss");  
         String dateStr = dateFormat.format(date);
-        return dateStr + RandomStringUtils.randomAlphabetic(6) + fix;
+        return fix + dateStr + RandomStringUtils.randomAlphabetic(6) ;
     }
 
     /**
