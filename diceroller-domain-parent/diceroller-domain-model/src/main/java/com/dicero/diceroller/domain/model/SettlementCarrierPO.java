@@ -25,6 +25,7 @@ public class SettlementCarrierPO extends BasePO {
     private String settlementType;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

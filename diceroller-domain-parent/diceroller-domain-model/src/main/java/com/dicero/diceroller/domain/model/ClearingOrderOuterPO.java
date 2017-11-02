@@ -26,6 +26,7 @@ public class ClearingOrderOuterPO extends BasePO {
     private String clearingCode;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

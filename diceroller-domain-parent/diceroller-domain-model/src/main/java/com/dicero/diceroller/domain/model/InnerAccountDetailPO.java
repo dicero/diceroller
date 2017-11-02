@@ -28,6 +28,7 @@ public class InnerAccountDetailPO extends BasePO {
     private BigDecimal afterAmt;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

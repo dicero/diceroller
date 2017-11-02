@@ -26,6 +26,7 @@ public class PaymentOrderPO extends BasePO {
     private int memberId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

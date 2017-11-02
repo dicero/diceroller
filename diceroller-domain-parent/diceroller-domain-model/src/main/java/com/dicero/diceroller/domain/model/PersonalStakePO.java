@@ -24,6 +24,7 @@ public class PersonalStakePO extends BasePO {
     private String stakeId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

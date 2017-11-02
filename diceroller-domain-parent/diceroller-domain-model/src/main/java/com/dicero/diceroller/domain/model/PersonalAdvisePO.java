@@ -23,6 +23,7 @@ public class PersonalAdvisePO extends BasePO {
     private int readed;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

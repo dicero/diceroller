@@ -22,6 +22,7 @@ public class PersonalSeedPO extends BasePO {
     private int defaultUse;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

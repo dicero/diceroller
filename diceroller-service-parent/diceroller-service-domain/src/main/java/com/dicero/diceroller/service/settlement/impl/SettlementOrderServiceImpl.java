@@ -36,7 +36,8 @@ public class SettlementOrderServiceImpl extends BaseService implements Settlemen
         settlementCarrierPO.setSummary("");
         settlementCarrierPO.setCreateTime(now);
         settlementCarrierPO.setUpdateTime(now);
-        if(settlementCarrierPORepository.save(settlementCarrierPO) == null ) {
+        settlementCarrierPO = settlementCarrierPORepository.save(settlementCarrierPO);
+        if(settlementCarrierPO == null ) {
             throw CommonDefinedException.SYSTEM_ERROR("创建 清结算载体失败: "+ settlementCarrierPO);
         }
         return settlementCarrierPO;

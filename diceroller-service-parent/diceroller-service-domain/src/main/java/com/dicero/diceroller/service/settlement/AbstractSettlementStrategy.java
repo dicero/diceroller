@@ -47,18 +47,14 @@ public abstract  class AbstractSettlementStrategy extends BaseService {
 
         SettlementCarrierPO innerSettlementCarrierPO = settlementOrderService.createSettlementCarrier(settlementOrderPO, PaymentTypeEnums.B, SettlementTypeEnums.I);
         List<ClearingOrderInnerPO> clearingOrderInnerPOList = createClearOrderInner(innerSettlementCarrierPO, tradeOrderPO, tradeModeEnums);
-        for (ClearingOrderInnerPO clearingOrderInnerPO : clearingOrderInnerPOList) {
-            log.info("item:{}", clearingOrderInnerPO );
-            if(clearingOrderInnerPORepository.save(clearingOrderInnerPO) == null){
-                throw CommonDefinedException.SYSTEM_ERROR("创建 内场清分失败, 数据{}" + clearingOrderInnerPOList);
-            }
-            clearingOrderInnerPORepository.flush();
-        }
+        clearingOrderInnerPORepository.save(clearingOrderInnerPOList);
 
         boolean result = dpmAccountService.changeBalance(clearingOrderInnerPOList);
         if(result) innerSettlementCarrierPO.setStatus(SettlementStatusEnums.S.name());
         else innerSettlementCarrierPO.setStatus(SettlementStatusEnums.F.name());
-        settlementCarrierPORepository.saveAndFlush(innerSettlementCarrierPO);
+        log.info("innerSettlementCarrierPO 数据{}" , innerSettlementCarrierPO);
+        settlementCarrierPORepository.save(innerSettlementCarrierPO);
+//        settlementCarrierPORepository.updateStatusById(innerSettlementCarrierPO.getId(), innerSettlementCarrierPO.getStatus());
 
         SettlementCarrierPO outerSettlementCarrierPO = settlementOrderService.createSettlementCarrier(settlementOrderPO, PaymentTypeEnums.B, SettlementTypeEnums.O);
         ClearingOrderOuterPO clearingOrderOuterPO = createClearOrderOuter(outerSettlementCarrierPO, tradeOrderPO, tradeModeEnums);
@@ -69,7 +65,8 @@ public abstract  class AbstractSettlementStrategy extends BaseService {
         result = dpmAccountService.changeBalance(clearingOrderOuterPO);
         if(result) outerSettlementCarrierPO.setStatus(SettlementStatusEnums.S.name());
         else outerSettlementCarrierPO.setStatus(SettlementStatusEnums.F.name());
-        settlementCarrierPORepository.saveAndFlush(outerSettlementCarrierPO);
+        settlementCarrierPORepository.save(outerSettlementCarrierPO);
+//        settlementCarrierPORepository.updateStatusById(outerSettlementCarrierPO.getId(), outerSettlementCarrierPO.getStatus());
     }
 
     public void buildInnerClearing(List<ClearingOrderInnerPO> clearingOrderInnerPOList, InnerClearingEntity innerClearingEntity) {

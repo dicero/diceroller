@@ -23,6 +23,7 @@ public class PersonalInfoPO extends BasePO {
     private String notifyBitAddress;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

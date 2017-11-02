@@ -25,6 +25,7 @@ public class InnerAccountPO extends BasePO {
     private BigDecimal balance;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

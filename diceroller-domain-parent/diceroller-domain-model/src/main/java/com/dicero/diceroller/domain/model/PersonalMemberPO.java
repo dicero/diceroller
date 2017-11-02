@@ -42,6 +42,7 @@ public class PersonalMemberPO extends BasePO {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id", nullable = false)
     public int getMemberId() {
         return memberId;

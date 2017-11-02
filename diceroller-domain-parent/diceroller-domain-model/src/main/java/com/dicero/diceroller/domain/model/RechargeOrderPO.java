@@ -22,6 +22,7 @@ public class RechargeOrderPO extends BasePO {
     private int memberId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
