@@ -1,12 +1,6 @@
 package com.dicero.diceroller.service.play.impl;
 
-import org.apache.commons.codec.binary.Hex;
-
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
-import java.io.UnsupportedEncodingException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
+import com.dicero.diceroller.common.util.EncryptUtil;
 
 /**
  * <p></p>
@@ -48,13 +42,15 @@ public class DiceHmacStrategy {
      }
 
      console.log(roll(serverSeed, clientSeed+'-'+nonce));
+     NOTE: hmac-sha512(server_seed, client_seed-nonce)
      * @param serverSeed
      * @param clientSeed
      * @param nonce
      * @return
      */
     public static double hmacStrategy(String serverSeed, String clientSeed, String nonce) {
-        String hash = hmacSHA512(serverSeed, clientSeed + "-"+ nonce);
+        String hash = EncryptUtil.hmacSHA512(serverSeed, clientSeed + "-"+ nonce);
+
         int index = 0;
 
         double lucky = Integer.parseInt(hash.substring(index * 5, index * 5 + 5), 16);
@@ -89,29 +85,4 @@ public class DiceHmacStrategy {
         }
     }
 
-    /**
-     * 与php中的hash_hmac('sha512', $data, $key)功能相同
-     * @param data
-     * @param key
-     * @return
-     */
-    public static  String hmacSHA512(String key, String data) {
-        String result = "";
-        byte[] bytesKey = data.getBytes();
-        final SecretKeySpec secretKey = new SecretKeySpec(bytesKey, "HmacSHA512");
-        try {
-            Mac mac = Mac.getInstance("HmacSHA512");
-            mac.init(secretKey);
-            final byte[] macData = mac.doFinal(key.getBytes());
-            byte[] hex = new Hex().encode(macData);
-            result = new String(hex, "ISO-8859-1");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
 }

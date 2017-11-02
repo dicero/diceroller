@@ -33,6 +33,7 @@ public class RandomUtil {
         String dateStr = dateFormat.format(date);
         return "P000" + dateStr +"0SEQ0" + RandomStringUtils.randomNumeric(6);
     }
+
 	 /**
      * @description 生成唯一的uuid
      * @return 

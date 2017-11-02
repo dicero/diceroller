@@ -10,7 +10,7 @@
 	</parent>
 	<artifactId>diceroller-common-parent</artifactId>
 	<packaging>pom</packaging>
-	  
+
 	<modules>
 		<module>diceroller-common-bean</module>
 		<module>diceroller-common-util</module>
