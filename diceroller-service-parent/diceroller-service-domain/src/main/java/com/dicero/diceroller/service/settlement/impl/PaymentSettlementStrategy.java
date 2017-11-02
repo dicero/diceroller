@@ -55,7 +55,7 @@ public class PaymentSettlementStrategy extends AbstractSettlementStrategy implem
         }
 
         else {
-            throw CommonDefinedException.SYSTEM_ERROR("错误的指令" + tradeModeEnums);
+            throw CommonDefinedException.SYSTEM_ERROR("支付-错误的指令" + tradeModeEnums);
         }
 
         return clearingOrderInnerPOList;
@@ -86,7 +86,7 @@ public class PaymentSettlementStrategy extends AbstractSettlementStrategy implem
         }
 
         else {
-            throw CommonDefinedException.SYSTEM_ERROR("错误的指令" + tradeModeEnums);
+            throw CommonDefinedException.SYSTEM_ERROR("支付-错误的指令" + tradeModeEnums);
         }
 
 
