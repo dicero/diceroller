@@ -9,8 +9,11 @@ package com.dicero.diceroller.service.play;
 public interface PlayService {
 
 
-    boolean result();
+    String createClientSeed();
 
+    String createServerSeed();
 
-    boolean strategy();
+    // NOTE: 扔色子
+    boolean roller();
+
 }
