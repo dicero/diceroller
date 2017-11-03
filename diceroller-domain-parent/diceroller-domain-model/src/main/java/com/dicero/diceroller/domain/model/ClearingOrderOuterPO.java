@@ -22,6 +22,7 @@ public class ClearingOrderOuterPO extends BasePO {
     private String partyRole;
     private String partyId;
     private String accountNo;
+    private String paymentSeqNo;
     private BigDecimal amt;
     private String clearingCode;
 
@@ -104,6 +105,16 @@ public class ClearingOrderOuterPO extends BasePO {
 
     public void setAmt(BigDecimal amt) {
         this.amt = amt;
+    }
+
+    @Basic
+    @Column(name = "payment_seq_no", nullable = false)
+    public String getPaymentSeqNo() {
+        return paymentSeqNo;
+    }
+
+    public void setPaymentSeqNo(String paymentSeqNo) {
+        this.paymentSeqNo = paymentSeqNo;
     }
 
     @Basic

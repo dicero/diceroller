@@ -112,6 +112,7 @@ public abstract  class AbstractSettlementStrategy extends BaseService {
         String sessionId = RandomUtil.randomUuid("CO");
         String clearingCode = "";
 
+        clearingOrderOuterPO.setPaymentSeqNo(clearingOrderOuterPO.getPaymentSeqNo());
         clearingOrderOuterPO.setSessionId(sessionId);
         clearingOrderOuterPO.setAccountNo(outerClearingEntity.getClearAccount().getAccountNo());
         clearingOrderOuterPO.setPartyId(PartyIdEnums.OUTER_MEMBER.getValue());

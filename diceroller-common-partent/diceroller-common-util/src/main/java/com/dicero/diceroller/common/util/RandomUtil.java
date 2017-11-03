@@ -44,7 +44,7 @@ public class RandomUtil {
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyMMddHHmmss");  
         String dateStr = dateFormat.format(date);
-        return fix + dateStr + RandomStringUtils.randomAlphabetic(6) ;
+        return fix + dateStr + RandomStringUtils.randomNumeric(6) ;
     }
 
     /**
