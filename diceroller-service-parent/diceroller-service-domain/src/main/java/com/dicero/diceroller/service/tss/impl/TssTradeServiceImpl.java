@@ -71,7 +71,7 @@ public class TssTradeServiceImpl extends BaseService implements TssTradeService 
         SettlementOrderPO settlementOrderPO = new SettlementOrderPO();
         settlementOrderPO.setSessionId(RandomUtil.randomUuid("SId"));
         settlementOrderPO.setPaymentSeqNo(tradeOrderPO.getTradeVoucherNo());
-        settlementOrderPO.setClearingCode(tradeModeEnums.getClearingCode());
+        // settlementOrderPO.setClearingCode(tradeModeEnums.getClearingCode());
         settlementOrderPO.setStatus(SettlementStatusEnums.W.name());
         settlementOrderPO.setCreateTime(now);
         settlementOrderPO.setUpdateTime(now);

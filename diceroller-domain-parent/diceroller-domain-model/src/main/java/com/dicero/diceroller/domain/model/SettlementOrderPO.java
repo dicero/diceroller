@@ -19,7 +19,7 @@ public class SettlementOrderPO extends BasePO {
     private Timestamp updateTime;
     private String sessionId;
     private String paymentSeqNo;
-    private String clearingCode;
+    private String clearingCodeList;
     private String status;
 
     @Id
@@ -74,13 +74,13 @@ public class SettlementOrderPO extends BasePO {
     }
 
     @Basic
-    @Column(name = "clearing_code", nullable = false, length = 20)
-    public String getClearingCode() {
-        return clearingCode;
+    @Column(name = "clearing_code_list", nullable = false, length = 200)
+    public String getClearingCodeList() {
+        return clearingCodeList;
     }
 
-    public void setClearingCode(String clearingCode) {
-        this.clearingCode = clearingCode;
+    public void setClearingCodeList(String clearingCodeList) {
+        this.clearingCodeList = clearingCodeList;
     }
 
     @Basic

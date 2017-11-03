@@ -1,5 +1,5 @@
  
-package com.dicero.diceroller.web.websockets;
+package com.dicero.diceroller.service.bean;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;

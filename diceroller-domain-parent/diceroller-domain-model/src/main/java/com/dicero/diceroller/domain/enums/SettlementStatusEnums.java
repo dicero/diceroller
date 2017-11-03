@@ -13,6 +13,12 @@ public enum SettlementStatusEnums {
     P(),
     // NOTE: S-结算成功
     S(),
+    // NOTE: R-驳回
+    R(),
     // NOTE: F-结算失败
-    F();
+    F(),
+    // NOTE: C-转存中
+    C(),
+    // NOTE: E-转存成功
+    E();
 }

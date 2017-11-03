@@ -36,7 +36,7 @@ public class PaymentSettlementStrategyTest extends TestBase {
 
     @Test
     public void settlementTest(){
-        BigDecimal amt = new BigDecimal("0.00000005");
+        BigDecimal amt = new BigDecimal("0.00000002");
 
         PersonalMemberPO buyer = new PersonalMemberPO();
         buyer.setMemberId(2000000000);
@@ -63,15 +63,17 @@ public class PaymentSettlementStrategyTest extends TestBase {
 
 
 
-        TradeModeEnums tradeModeEnums = TradeModeEnums.FUND_IN_SUCCESS;
-        SettlementOrderPO settlementOrderPO = new SettlementOrderPO();
-        settlementOrderPO.setSessionId(RandomUtil.randomUuid("SId"));
-        settlementOrderPO.setPaymentSeqNo(tradeOrderPO.getTradeVoucherNo());
-        settlementOrderPO.setClearingCode(tradeModeEnums.getClearingCode());
-        settlementOrderPO.setStatus(SettlementStatusEnums.W.name());
-        settlementOrderPO.setCreateTime(now);
-        settlementOrderPO.setUpdateTime(now);
-        settlementOrderPORepository.save(settlementOrderPO);
+        TradeModeEnums tradeModeEnums = TradeModeEnums.PAYMENT_SETTLEMENT;
+//        SettlementOrderPO settlementOrderPO = new SettlementOrderPO();
+//        settlementOrderPO.setSessionId(RandomUtil.randomUuid("SId"));
+//        settlementOrderPO.setPaymentSeqNo(tradeOrderPO.getTradeVoucherNo());
+//        settlementOrderPO.setStatus(SettlementStatusEnums.W.name());
+//        settlementOrderPO.setCreateTime(now);
+//        settlementOrderPO.setUpdateTime(now);
+//        settlementOrderPORepository.save(settlementOrderPO);
+
+//
+        SettlementOrderPO settlementOrderPO = settlementOrderPORepository.findByPaymentSeqNo("P0001711040018250SEQ0375221");
 
         paymentSettlementStrategy.settlement(settlementOrderPO, tradeModeEnums);
 

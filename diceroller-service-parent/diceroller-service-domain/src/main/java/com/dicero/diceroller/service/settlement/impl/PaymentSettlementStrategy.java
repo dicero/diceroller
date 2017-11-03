@@ -6,10 +6,12 @@ import com.dicero.diceroller.domain.enums.PartyRoleEnums;
 import com.dicero.diceroller.domain.enums.TradeModeEnums;
 import com.dicero.diceroller.domain.model.ClearingOrderInnerPO;
 import com.dicero.diceroller.domain.model.ClearingOrderOuterPO;
+import com.dicero.diceroller.domain.model.SettlementOrderPO;
 import com.dicero.diceroller.domain.model.TradeOrderPO;
 import com.dicero.diceroller.service.bean.ClearAccount;
 import com.dicero.diceroller.service.bean.InnerClearingEntity;
 import com.dicero.diceroller.service.bean.OuterClearingEntity;
+import com.dicero.diceroller.service.callback.PaymentSettlementStatusCallback;
 import com.dicero.diceroller.service.settlement.AbstractSettlementStrategy;
 import com.dicero.diceroller.service.settlement.InterfaceSettlementService;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +30,11 @@ import java.util.List;
 @Slf4j
 @Service("paymentSettlementStrategy")
 public class PaymentSettlementStrategy extends AbstractSettlementStrategy implements InterfaceSettlementService {
+
+    @Override
+    public void settlement(SettlementOrderPO settlementOrderPO, TradeModeEnums tradeModeEnums) {
+        super.settlement(settlementOrderPO, tradeModeEnums, new PaymentSettlementStatusCallback());
+    }
 
     @Override
     public List<ClearingOrderInnerPO> createClearOrderInner(TradeOrderPO tradeOrderPO, TradeModeEnums tradeModeEnums) {

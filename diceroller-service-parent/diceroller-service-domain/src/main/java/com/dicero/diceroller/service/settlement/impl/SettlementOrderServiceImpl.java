@@ -48,7 +48,6 @@ public class SettlementOrderServiceImpl extends BaseService implements Settlemen
         SettlementOrderPO settlementOrderPO = new SettlementOrderPO();
         settlementOrderPO.setSessionId("");
         settlementOrderPO.setPaymentSeqNo("");
-        settlementOrderPO.setClearingCode("");
         settlementOrderPO.setStatus("");
         settlementOrderPO.setCreateTime(now);
         settlementOrderPO.setUpdateTime(now);

@@ -12,6 +12,7 @@ import com.dicero.diceroller.service.BaseService;
 import com.dicero.diceroller.service.bean.ClearAccount;
 import com.dicero.diceroller.service.bean.InnerClearingEntity;
 import com.dicero.diceroller.service.bean.OuterClearingEntity;
+import com.dicero.diceroller.service.callback.SettlementCallbackFunc;
 import com.dicero.diceroller.service.dpm.DpmAccountService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,8 @@ public abstract  class AbstractSettlementStrategy extends BaseService {
     protected abstract ClearingOrderOuterPO createClearOrderOuter(TradeOrderPO tradeOrderPO, TradeModeEnums tradeModeEnums);
 
     @Transactional(rollbackFor = Exception.class)
-    public void settlement(SettlementOrderPO settlementOrderPO, TradeModeEnums tradeModeEnums){
+    public void settlement(SettlementOrderPO settlementOrderPO, TradeModeEnums tradeModeEnums,  SettlementCallbackFunc<Boolean> settlementCallbackFunc){
+
         log.info("基础结算策略 settlement #参数{}, {}", settlementOrderPO, tradeModeEnums);
         TradeOrderPO tradeOrderPO = tradeOrderPORepository.findByTradeVoucherNo(settlementOrderPO.getPaymentSeqNo());
 
@@ -72,6 +74,8 @@ public abstract  class AbstractSettlementStrategy extends BaseService {
             else outerSettlementCarrierPO.setStatus(SettlementStatusEnums.F.name());
             settlementCarrierPORepository.updateStatusById(outerSettlementCarrierPO.getId(), outerSettlementCarrierPO.getStatus());
         }
+
+        settlementCallbackFunc.runInBack(settlementOrderPO, tradeModeEnums);
     }
 
     public void buildInnerClearing(List<ClearingOrderInnerPO> clearingOrderInnerPOList, InnerClearingEntity innerClearingEntity, TradeModeEnums tradeModeEnums) {
