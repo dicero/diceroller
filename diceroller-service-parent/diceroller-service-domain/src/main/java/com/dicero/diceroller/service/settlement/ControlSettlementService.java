@@ -1,11 +1,7 @@
 package com.dicero.diceroller.service.settlement;
 
-import com.dicero.diceroller.domain.model.ClearingOrderInnerPO;
-import com.dicero.diceroller.domain.model.ClearingOrderOuterPO;
-import com.dicero.diceroller.service.bean.InnerClearingEntity;
-import com.dicero.diceroller.service.bean.OuterClearingEntity;
-
-import java.util.List;
+import com.dicero.diceroller.domain.enums.TradeModeEnums;
+import com.dicero.diceroller.domain.model.SettlementOrderPO;
 
 /**
  * <p></p>
@@ -14,6 +10,5 @@ import java.util.List;
  * @version 2017/10/31
  */
 public interface ControlSettlementService {
-    void buildInnerClearing(List<ClearingOrderInnerPO> clearingOrderInnerPOList, InnerClearingEntity innerClearingEntity);
-    void buildOuterClearing(ClearingOrderOuterPO clearingOrderOuterPO, OuterClearingEntity outerClearingEntity);
+    void control(SettlementOrderPO settlementOrderPO, TradeModeEnums tradeModeEnums);
 }

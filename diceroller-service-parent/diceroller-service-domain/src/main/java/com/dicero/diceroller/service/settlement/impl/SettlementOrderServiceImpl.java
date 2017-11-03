@@ -3,10 +3,10 @@ package com.dicero.diceroller.service.settlement.impl;
 import com.dicero.diceroller.common.bean.extension.CommonDefinedException;
 import com.dicero.diceroller.common.util.RandomUtil;
 import com.dicero.diceroller.dal.mysql.repository.SettlementCarrierPORepository;
+import com.dicero.diceroller.dal.mysql.repository.SettlementOrderPORepository;
 import com.dicero.diceroller.domain.enums.PaymentTypeEnums;
 import com.dicero.diceroller.domain.enums.SettlementStatusEnums;
 import com.dicero.diceroller.domain.enums.SettlementTypeEnums;
-import com.dicero.diceroller.domain.enums.TradeModeEnums;
 import com.dicero.diceroller.domain.model.SettlementCarrierPO;
 import com.dicero.diceroller.domain.model.SettlementOrderPO;
 import com.dicero.diceroller.domain.model.TradeOrderPO;
@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SettlementOrderServiceImpl extends BaseService implements SettlementOrderService {
     @Autowired SettlementCarrierPORepository settlementCarrierPORepository;
+    @Autowired SettlementOrderPORepository settlementOrderPORepository;
 
     @Override
     public SettlementCarrierPO createSettlementCarrier(SettlementOrderPO settlementOrderPO, PaymentTypeEnums paymentTypeEnums, SettlementTypeEnums settlementTypeEnums) {
@@ -44,13 +45,13 @@ public class SettlementOrderServiceImpl extends BaseService implements Settlemen
     }
 
     @Override
-    public void createSettlementOrder(TradeOrderPO tradeOrderPO, TradeModeEnums tradeModeEnums) {
+    public SettlementOrderPO createSettlementOrder(TradeOrderPO tradeOrderPO) {
         SettlementOrderPO settlementOrderPO = new SettlementOrderPO();
-        settlementOrderPO.setSessionId("");
-        settlementOrderPO.setPaymentSeqNo("");
-        settlementOrderPO.setStatus("");
+        settlementOrderPO.setSessionId(RandomUtil.randomUuid("SId"));
+        settlementOrderPO.setPaymentSeqNo(tradeOrderPO.getTradeVoucherNo());
+        settlementOrderPO.setStatus(SettlementStatusEnums.W.name());
         settlementOrderPO.setCreateTime(now);
         settlementOrderPO.setUpdateTime(now);
-
+        return settlementOrderPORepository.save(settlementOrderPO);
     }
 }

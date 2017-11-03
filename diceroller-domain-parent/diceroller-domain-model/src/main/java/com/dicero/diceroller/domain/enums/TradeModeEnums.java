@@ -1,5 +1,7 @@
 package com.dicero.diceroller.domain.enums;
 
+import com.dicero.diceroller.common.bean.extension.CommonDefinedException;
+
 /**
  * <p></p>
  *
@@ -43,5 +45,17 @@ public enum TradeModeEnums {
 
     public String getClearingCode() {
         return clearingCode;
+    }
+
+    public String getServiceName(){
+        if( getClearingCode().startsWith("1") ){
+            return "paymentSettlementStrategy";
+        } else if(getClearingCode().startsWith("2")){
+            return "rechargeSettlementStrategy";
+        } else if(getClearingCode().startsWith("3")){
+            return "withdrawSettlementStrategy";
+        }
+
+        throw CommonDefinedException.SYSTEM_NO_SUCH_SERVICE("");
     }
 }

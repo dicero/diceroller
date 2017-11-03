@@ -1,10 +1,8 @@
 package com.dicero.diceroller.service.tss.impl;
 
 import com.dicero.diceroller.common.util.RandomUtil;
-import com.dicero.diceroller.dal.mysql.repository.SettlementOrderPORepository;
 import com.dicero.diceroller.dal.mysql.repository.TradeOrderPORepository;
 import com.dicero.diceroller.domain.enums.OuterAccountEnums;
-import com.dicero.diceroller.domain.enums.SettlementStatusEnums;
 import com.dicero.diceroller.domain.enums.TradeModeEnums;
 import com.dicero.diceroller.domain.enums.TradeStatusEnums;
 import com.dicero.diceroller.domain.model.PersonalMemberPO;
@@ -12,6 +10,7 @@ import com.dicero.diceroller.domain.model.SettlementOrderPO;
 import com.dicero.diceroller.domain.model.TradeOrderPO;
 import com.dicero.diceroller.service.BaseService;
 import com.dicero.diceroller.service.settlement.InterfaceSettlementService;
+import com.dicero.diceroller.service.settlement.SettlementOrderService;
 import com.dicero.diceroller.service.tss.TssTradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,10 +28,9 @@ import java.math.BigDecimal;
 public class TssTradeServiceImpl extends BaseService implements TssTradeService {
 
     @Autowired TradeOrderPORepository tradeOrderPORepository;
-    @Autowired SettlementOrderPORepository settlementOrderPORepository;
+    @Autowired SettlementOrderService settlementOrderService;
 
-    @Resource
-    InterfaceSettlementService paymentSettlementStrategy;
+    @Resource InterfaceSettlementService paymentSettlementStrategy;
 
     @Override
     public void trade() {
@@ -66,17 +64,8 @@ public class TssTradeServiceImpl extends BaseService implements TssTradeService 
         tradeOrderPORepository.save(tradeOrderPO);
 
 
-
         TradeModeEnums tradeModeEnums = TradeModeEnums.PAYMENT_FAIL;
-        SettlementOrderPO settlementOrderPO = new SettlementOrderPO();
-        settlementOrderPO.setSessionId(RandomUtil.randomUuid("SId"));
-        settlementOrderPO.setPaymentSeqNo(tradeOrderPO.getTradeVoucherNo());
-        // settlementOrderPO.setClearingCode(tradeModeEnums.getClearingCode());
-        settlementOrderPO.setStatus(SettlementStatusEnums.W.name());
-        settlementOrderPO.setCreateTime(now);
-        settlementOrderPO.setUpdateTime(now);
-        settlementOrderPORepository.save(settlementOrderPO);
-
+        SettlementOrderPO settlementOrderPO = settlementOrderService.createSettlementOrder(tradeOrderPO);
         paymentSettlementStrategy.settlement(settlementOrderPO, tradeModeEnums);
 
     }
