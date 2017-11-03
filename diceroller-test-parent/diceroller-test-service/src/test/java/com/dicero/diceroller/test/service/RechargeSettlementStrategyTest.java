@@ -12,7 +12,6 @@ import com.dicero.diceroller.domain.model.PersonalMemberPO;
 import com.dicero.diceroller.domain.model.SettlementOrderPO;
 import com.dicero.diceroller.domain.model.TradeOrderPO;
 import com.dicero.diceroller.service.settlement.InterfaceSettlementService;
-import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,16 +22,15 @@ import java.math.BigDecimal;
  * <p></p>
  *
  * @author znz
- * @version 2017/11/2
+ * @version 2017/11/3
  */
-public class PaymentSettlementStrategyTest extends TestBase {
-
+public class RechargeSettlementStrategyTest extends TestBase {
     @Autowired
     TradeOrderPORepository tradeOrderPORepository;
     @Autowired
     SettlementOrderPORepository settlementOrderPORepository;
     @Resource
-    InterfaceSettlementService paymentSettlementStrategy;
+    InterfaceSettlementService rechargeSettlementStrategy;
 
     @Test
     public void settlementTest(){
@@ -51,11 +49,7 @@ public class PaymentSettlementStrategyTest extends TestBase {
         tradeOrderPO.setBuyerAccountNo(OuterAccountEnums.get201Account(buyer.getMemberId()));
         tradeOrderPO.setBuyerName("客户");
 
-        tradeOrderPO.setSellerId(OuterAccountEnums.PLATFORM.getMemberId());
-        tradeOrderPO.setSellerName(OuterAccountEnums.PLATFORM.getName());
-        tradeOrderPO.setSellerAccountNo(OuterAccountEnums.get201Account(OuterAccountEnums.PLATFORM.getMemberId()));
-
-        tradeOrderPO.setRemark("交易");
+        tradeOrderPO.setRemark("充值");
         tradeOrderPO.setStatus(TradeStatusEnums.INIT.getValue());
         tradeOrderPO.setCreateTime(now);
         tradeOrderPO.setUpdateTime(now);
@@ -73,7 +67,6 @@ public class PaymentSettlementStrategyTest extends TestBase {
         settlementOrderPO.setUpdateTime(now);
         settlementOrderPORepository.save(settlementOrderPO);
 
-        paymentSettlementStrategy.settlement(settlementOrderPO, tradeModeEnums);
-
+        rechargeSettlementStrategy.settlement(settlementOrderPO, tradeModeEnums);
     }
 }

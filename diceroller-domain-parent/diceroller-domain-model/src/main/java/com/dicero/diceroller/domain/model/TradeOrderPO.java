@@ -112,7 +112,7 @@ public class TradeOrderPO extends BasePO {
     }
 
     @Basic
-    @Column(name = "seller_id", nullable = false)
+    @Column(name = "seller_id", nullable = true)
     public int getSellerId() {
         return sellerId;
     }
@@ -122,7 +122,7 @@ public class TradeOrderPO extends BasePO {
     }
 
     @Basic
-    @Column(name = "seller_name", nullable = false, length = 20)
+    @Column(name = "seller_name", nullable = true, length = 20)
     public String getSellerName() {
         return sellerName;
     }
@@ -142,7 +142,7 @@ public class TradeOrderPO extends BasePO {
     }
 
     @Basic
-    @Column(name = "seller_account_no", nullable = false, length = 27)
+    @Column(name = "seller_account_no", nullable = true, length = 27)
     public String getSellerAccountNo() {
         return sellerAccountNo;
     }

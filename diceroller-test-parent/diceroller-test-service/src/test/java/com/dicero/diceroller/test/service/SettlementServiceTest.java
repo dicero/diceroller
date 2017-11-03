@@ -36,54 +36,17 @@ public class SettlementServiceTest extends TestBase {
 
     @Test
     public void settlementTest(){
-        BigDecimal amt = new BigDecimal("0.000000001");
-
-        PersonalMemberPO buyer = new PersonalMemberPO();
-        buyer.setMemberId(2000000000);
 
 
-        TradeOrderPO tradeOrderPO = new TradeOrderPO();
-        tradeOrderPO.setTradeVoucherNo(RandomUtil.randomPaymentSeq());
-        tradeOrderPO.setTradeSrcVoucherNo(RandomUtil.randomUuid("REQ"));
-        tradeOrderPO.setTradeAmount(amt);
-
-        tradeOrderPO.setBuyerId(buyer.getMemberId());
-        tradeOrderPO.setBuyerAccountNo(OuterAccountEnums.get201Account(buyer.getMemberId()));
-        tradeOrderPO.setBuyerName("客户");
-
-        tradeOrderPO.setSellerId(OuterAccountEnums.PLATFORM.getMemberId());
-        tradeOrderPO.setSellerName(OuterAccountEnums.PLATFORM.getName());
-        tradeOrderPO.setSellerAccountNo(OuterAccountEnums.get201Account(OuterAccountEnums.PLATFORM.getMemberId()));
-
-        tradeOrderPO.setRemark("交易");
-        tradeOrderPO.setStatus(TradeStatusEnums.INIT.getValue());
-        tradeOrderPO.setCreateTime(now);
-        tradeOrderPO.setUpdateTime(now);
-        tradeOrderPORepository.save(tradeOrderPO);
-
-
-
-        TradeModeEnums tradeModeEnums = TradeModeEnums.PAYMENT_SUCCESS;
-        SettlementOrderPO settlementOrderPO = new SettlementOrderPO();
-        settlementOrderPO.setSessionId(RandomUtil.randomUuid("SId"));
-        settlementOrderPO.setPaymentSeqNo(tradeOrderPO.getTradeVoucherNo());
-        settlementOrderPO.setClearingCode(tradeModeEnums.getClearingCode());
-        settlementOrderPO.setStatus(SettlementStatusEnums.W.name());
-        settlementOrderPO.setCreateTime(now);
-        settlementOrderPO.setUpdateTime(now);
-        settlementOrderPORepository.save(settlementOrderPO);
-
-        paymentSettlementStrategy.settlement(settlementOrderPO, tradeModeEnums);
-
-        TradeModeEnums tradeModeEnums_2 = TradeModeEnums.PAYMENT_SETTLEMENT;
-        SettlementOrderPO settlementOrderPO_2 = new SettlementOrderPO();
-        settlementOrderPO_2.setSessionId(RandomUtil.randomUuid("SId"));
-        settlementOrderPO_2.setPaymentSeqNo(tradeOrderPO.getTradeVoucherNo());
-        settlementOrderPO_2.setClearingCode(tradeModeEnums_2.getClearingCode());
-        settlementOrderPO_2.setStatus(SettlementStatusEnums.W.name());
-        settlementOrderPO_2.setCreateTime(now);
-        settlementOrderPO_2.setUpdateTime(now);
-        settlementOrderPORepository.save(settlementOrderPO_2);
-        paymentSettlementStrategy.settlement(settlementOrderPO_2, tradeModeEnums_2);
+//        TradeModeEnums tradeModeEnums_2 = TradeModeEnums.PAYMENT_SETTLEMENT;
+//        SettlementOrderPO settlementOrderPO_2 = new SettlementOrderPO();
+//        settlementOrderPO_2.setSessionId(RandomUtil.randomUuid("SId"));
+//        settlementOrderPO_2.setPaymentSeqNo(tradeOrderPO.getTradeVoucherNo());
+//        settlementOrderPO_2.setClearingCode(tradeModeEnums_2.getClearingCode());
+//        settlementOrderPO_2.setStatus(SettlementStatusEnums.W.name());
+//        settlementOrderPO_2.setCreateTime(now);
+//        settlementOrderPO_2.setUpdateTime(now);
+//        settlementOrderPORepository.save(settlementOrderPO_2);
+//        paymentSettlementStrategy.settlement(settlementOrderPO_2, tradeModeEnums_2);
     }
 }

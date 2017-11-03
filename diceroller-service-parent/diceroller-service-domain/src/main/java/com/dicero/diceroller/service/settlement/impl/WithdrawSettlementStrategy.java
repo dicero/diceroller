@@ -6,7 +6,6 @@ import com.dicero.diceroller.domain.enums.PartyRoleEnums;
 import com.dicero.diceroller.domain.enums.TradeModeEnums;
 import com.dicero.diceroller.domain.model.ClearingOrderInnerPO;
 import com.dicero.diceroller.domain.model.ClearingOrderOuterPO;
-import com.dicero.diceroller.domain.model.SettlementCarrierPO;
 import com.dicero.diceroller.domain.model.TradeOrderPO;
 import com.dicero.diceroller.service.bean.ClearAccount;
 import com.dicero.diceroller.service.bean.InnerClearingEntity;
@@ -27,57 +26,69 @@ import java.util.List;
 @Service("withdrawSettlementStrategy")
 public class WithdrawSettlementStrategy extends AbstractSettlementStrategy implements InterfaceSettlementService {
     @Override
-    protected List<ClearingOrderInnerPO> createClearOrderInner(SettlementCarrierPO settlementCarrierPO, TradeOrderPO tradeOrderPO, TradeModeEnums tradeModeEnums) {
+    protected List<ClearingOrderInnerPO> createClearOrderInner(TradeOrderPO tradeOrderPO, TradeModeEnums tradeModeEnums) {
         List<ClearingOrderInnerPO> clearingOrderInnerPOList = new ArrayList<>();
 
         // NOTE: 出款申请
         if (tradeModeEnums.equals(TradeModeEnums.FUND_OUT_APPLY)) {
-            InnerClearingEntity innerClearingEntity = new InnerClearingEntity();
-            innerClearingEntity.setDrClearAccount(new ClearAccount(InnerAccountEnums.PERSONAL_FUND_BIT));
-            innerClearingEntity.setCrClearAccount(new ClearAccount(InnerAccountEnums.SETTLEMENT_FUND_OUT_BIT));
-            innerClearingEntity.setSettlementCarrierPO(settlementCarrierPO);
-            super.buildInnerClearing(clearingOrderInnerPOList, innerClearingEntity);
-
+            super.buildInnerClearing(
+                    clearingOrderInnerPOList,
+                    new InnerClearingEntity()
+                            .buildDrClearAccount(new ClearAccount(InnerAccountEnums.PERSONAL_FUND_BIT))
+                            .buildCrClearAccount(new ClearAccount(InnerAccountEnums.SETTLEMENT_FUND_OUT_BIT))
+                            .buildPaymentSeqNo(tradeOrderPO.getTradeVoucherNo())
+                            .buildAmt(tradeOrderPO.getTradeAmount()),
+                    tradeModeEnums);
         }
 
         // NOTE:  出款驳回
         else if(tradeModeEnums.equals(TradeModeEnums.FUND_OUT_REFUSE)){
-            InnerClearingEntity innerClearingEntity = new InnerClearingEntity();
-            innerClearingEntity.setDrClearAccount(new ClearAccount(InnerAccountEnums.SETTLEMENT_FUND_OUT_BIT));
-            innerClearingEntity.setCrClearAccount(new ClearAccount(InnerAccountEnums.PERSONAL_FUND_BIT));
-            innerClearingEntity.setSettlementCarrierPO(settlementCarrierPO);
-            super.buildInnerClearing(clearingOrderInnerPOList, innerClearingEntity);
+            super.buildInnerClearing(
+                    clearingOrderInnerPOList,
+                    new InnerClearingEntity()
+                            .buildDrClearAccount(new ClearAccount(InnerAccountEnums.SETTLEMENT_FUND_OUT_BIT))
+                            .buildCrClearAccount(new ClearAccount(InnerAccountEnums.PERSONAL_FUND_BIT))
+                            .buildPaymentSeqNo(tradeOrderPO.getTradeVoucherNo())
+                            .buildAmt(tradeOrderPO.getTradeAmount()),
+                    tradeModeEnums);
 
         }
 
         // NOTE:  出款成功
         else if(tradeModeEnums.equals(TradeModeEnums.FUND_OUT_SUCCESS)){
-            InnerClearingEntity innerClearingEntity = new InnerClearingEntity();
-            innerClearingEntity.setDrClearAccount(new ClearAccount(InnerAccountEnums.SETTLEMENT_FUND_OUT_BIT));
-            innerClearingEntity.setCrClearAccount(new ClearAccount(InnerAccountEnums.CLEARING_FUND_OUT_BIT));
-            innerClearingEntity.setSettlementCarrierPO(settlementCarrierPO);
-            super.buildInnerClearing(clearingOrderInnerPOList, innerClearingEntity);
+            super.buildInnerClearing(
+                    clearingOrderInnerPOList,
+                    new InnerClearingEntity()
+                            .buildDrClearAccount(new ClearAccount(InnerAccountEnums.SETTLEMENT_FUND_OUT_BIT))
+                            .buildCrClearAccount(new ClearAccount(InnerAccountEnums.CLEARING_FUND_OUT_BIT))
+                            .buildPaymentSeqNo(tradeOrderPO.getTradeVoucherNo())
+                            .buildAmt(tradeOrderPO.getTradeAmount()),
+                    tradeModeEnums);
 
         }
 
         // NOTE:  出款失败
         else if(tradeModeEnums.equals(TradeModeEnums.FUND_OUT_FAIL)){
-            InnerClearingEntity innerClearingEntity = new InnerClearingEntity();
-            innerClearingEntity.setDrClearAccount(new ClearAccount(InnerAccountEnums.CLEARING_FUND_OUT_BIT));
-            innerClearingEntity.setCrClearAccount(new ClearAccount(InnerAccountEnums.PERSONAL_FUND_BIT));
-            innerClearingEntity.setSettlementCarrierPO(settlementCarrierPO);
-            super.buildInnerClearing(clearingOrderInnerPOList, innerClearingEntity);
-
+            super.buildInnerClearing(
+                    clearingOrderInnerPOList,
+                    new InnerClearingEntity()
+                            .buildDrClearAccount(new ClearAccount(InnerAccountEnums.CLEARING_FUND_OUT_BIT))
+                            .buildCrClearAccount(new ClearAccount(InnerAccountEnums.PERSONAL_FUND_BIT))
+                            .buildPaymentSeqNo(tradeOrderPO.getTradeVoucherNo())
+                            .buildAmt(tradeOrderPO.getTradeAmount()),
+                    tradeModeEnums);
         }
 
         // NOTE:  出款结转
         else if(tradeModeEnums.equals(TradeModeEnums.FUND_OUT_CLEAR)){
-            InnerClearingEntity innerClearingEntity = new InnerClearingEntity();
-            innerClearingEntity.setDrClearAccount(new ClearAccount(InnerAccountEnums.CLEARING_FUND_OUT_BIT));
-            innerClearingEntity.setCrClearAccount(new ClearAccount(InnerAccountEnums.BANK_BIT));
-            innerClearingEntity.setSettlementCarrierPO(settlementCarrierPO);
-            super.buildInnerClearing(clearingOrderInnerPOList, innerClearingEntity);
-
+            super.buildInnerClearing(
+                    clearingOrderInnerPOList,
+                    new InnerClearingEntity()
+                            .buildDrClearAccount(new ClearAccount(InnerAccountEnums.CLEARING_FUND_OUT_BIT))
+                            .buildCrClearAccount(new ClearAccount(InnerAccountEnums.BANK_BIT))
+                            .buildPaymentSeqNo(tradeOrderPO.getTradeVoucherNo())
+                            .buildAmt(tradeOrderPO.getTradeAmount()),
+                    tradeModeEnums);
         }
 
         else {
@@ -88,26 +99,32 @@ public class WithdrawSettlementStrategy extends AbstractSettlementStrategy imple
     }
 
     @Override
-    protected ClearingOrderOuterPO createClearOrderOuter(SettlementCarrierPO settlementCarrierPO, TradeOrderPO tradeOrderPO, TradeModeEnums tradeModeEnums) {
+    protected ClearingOrderOuterPO createClearOrderOuter(TradeOrderPO tradeOrderPO, TradeModeEnums tradeModeEnums) {
         ClearingOrderOuterPO clearingOrderOuterPO = new ClearingOrderOuterPO();
 
-        // NOTE: 出款申请
+        // NOTE: 出款申请t
         if (tradeModeEnums.equals(TradeModeEnums.FUND_OUT_APPLY)) {
-            OuterClearingEntity outerClearingEntity = new OuterClearingEntity();
-            outerClearingEntity.setClearAccount(new ClearAccount(tradeOrderPO.getBuyerAccountNo()));
-            outerClearingEntity.setPartyRoleEnums(PartyRoleEnums.PAYEE);
-            outerClearingEntity.setSettlementCarrierPO(settlementCarrierPO);
-            super.buildOuterClearing(clearingOrderOuterPO,  outerClearingEntity);
+            super.buildOuterClearing(
+                    clearingOrderOuterPO,
+                    new OuterClearingEntity()
+                            .buildClearAccount(new ClearAccount(tradeOrderPO.getBuyerAccountNo()))
+                            .buildPartyRoleEnums(PartyRoleEnums.PAYEE)
+                            .buildPaymentSeqNo(tradeOrderPO.getTradeVoucherNo())
+                            .buildAmt(tradeOrderPO.getTradeAmount()),
+                    tradeModeEnums);
         }
 
         // NOTE: 出款驳回 + 出款失败
         else if(tradeModeEnums.equals(TradeModeEnums.FUND_OUT_REFUSE)
                 || tradeModeEnums.equals(TradeModeEnums.FUND_OUT_FAIL)){
-            OuterClearingEntity outerClearingEntity = new OuterClearingEntity();
-            outerClearingEntity.setClearAccount(new ClearAccount(tradeOrderPO.getBuyerAccountNo()));
-            outerClearingEntity.setPartyRoleEnums(PartyRoleEnums.PAYER);
-            outerClearingEntity.setSettlementCarrierPO(settlementCarrierPO);
-            super.buildOuterClearing(clearingOrderOuterPO, outerClearingEntity);
+            super.buildOuterClearing(
+                    clearingOrderOuterPO,
+                    new OuterClearingEntity()
+                            .buildClearAccount(new ClearAccount(tradeOrderPO.getBuyerAccountNo()))
+                            .buildPartyRoleEnums(PartyRoleEnums.PAYER)
+                            .buildPaymentSeqNo(tradeOrderPO.getTradeVoucherNo())
+                            .buildAmt(tradeOrderPO.getTradeAmount()),
+                    tradeModeEnums);
         }
 
         // NOTE: 出款成功 + 出款结转, 外场不做清分

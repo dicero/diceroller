@@ -36,43 +36,48 @@ public abstract  class AbstractSettlementStrategy extends BaseService {
     @Autowired ClearingOrderOuterPORepository clearingOrderOuterPORepository;
 
 
-    protected abstract List<ClearingOrderInnerPO> createClearOrderInner(SettlementCarrierPO settlementCarrierPO, TradeOrderPO tradeOrderPO, TradeModeEnums tradeModeEnums);
+    protected abstract List<ClearingOrderInnerPO> createClearOrderInner(TradeOrderPO tradeOrderPO, TradeModeEnums tradeModeEnums);
 
-    protected abstract ClearingOrderOuterPO createClearOrderOuter(SettlementCarrierPO settlementCarrierPO, TradeOrderPO tradeOrderPO, TradeModeEnums tradeModeEnums);
+    protected abstract ClearingOrderOuterPO createClearOrderOuter(TradeOrderPO tradeOrderPO, TradeModeEnums tradeModeEnums);
 
     @Transactional(rollbackFor = Exception.class)
     public void settlement(SettlementOrderPO settlementOrderPO, TradeModeEnums tradeModeEnums){
         log.info("基础结算策略 settlement #参数{}, {}", settlementOrderPO, tradeModeEnums);
         TradeOrderPO tradeOrderPO = tradeOrderPORepository.findByTradeVoucherNo(settlementOrderPO.getPaymentSeqNo());
 
+        // NOTE: 内场清分
+        List<ClearingOrderInnerPO> clearingOrderInnerPOList = createClearOrderInner(tradeOrderPO, tradeModeEnums);
         SettlementCarrierPO innerSettlementCarrierPO = settlementOrderService.createSettlementCarrier(settlementOrderPO, PaymentTypeEnums.B, SettlementTypeEnums.I);
-        List<ClearingOrderInnerPO> clearingOrderInnerPOList = createClearOrderInner(innerSettlementCarrierPO, tradeOrderPO, tradeModeEnums);
+        log.info("内场清分结算 数据{}" , innerSettlementCarrierPO);
         clearingOrderInnerPORepository.save(clearingOrderInnerPOList);
 
         // NOTE: 内场清分结算
         boolean result = dpmAccountService.changeBalance(clearingOrderInnerPOList);
         if(result) innerSettlementCarrierPO.setStatus(SettlementStatusEnums.S.name());
         else innerSettlementCarrierPO.setStatus(SettlementStatusEnums.F.name());
-        log.info("innerSettlementCarrierPO 数据{}" , innerSettlementCarrierPO);
         settlementCarrierPORepository.updateStatusById(innerSettlementCarrierPO.getId(), innerSettlementCarrierPO.getStatus());
 
-        // NOTE: 外场清分结算
-        SettlementCarrierPO outerSettlementCarrierPO = settlementOrderService.createSettlementCarrier(settlementOrderPO, PaymentTypeEnums.B, SettlementTypeEnums.O);
-        ClearingOrderOuterPO clearingOrderOuterPO = createClearOrderOuter(outerSettlementCarrierPO, tradeOrderPO, tradeModeEnums);
-        if(clearingOrderOuterPORepository.save(clearingOrderOuterPO) == null){
-            throw CommonDefinedException.SYSTEM_ERROR("创建 外场清分失败, 数据{}" + clearingOrderInnerPOList);
-        }
+        // NOTE: 外场清分
+        ClearingOrderOuterPO clearingOrderOuterPO = createClearOrderOuter(tradeOrderPO, tradeModeEnums);
+        if(clearingOrderOuterPO != null) {
+            SettlementCarrierPO outerSettlementCarrierPO = settlementOrderService.createSettlementCarrier(settlementOrderPO, PaymentTypeEnums.B, SettlementTypeEnums.O);
+            log.info("外场清分结算 数据{}", outerSettlementCarrierPO);
+            if (clearingOrderOuterPORepository.save(clearingOrderOuterPO) == null) {
+                throw CommonDefinedException.SYSTEM_ERROR("创建 外场清分失败, 数据{}" + clearingOrderInnerPOList);
+            }
 
-        result = dpmAccountService.changeBalance(clearingOrderOuterPO, tradeOrderPO.getTradeVoucherNo());
-        if(result) outerSettlementCarrierPO.setStatus(SettlementStatusEnums.S.name());
-        else outerSettlementCarrierPO.setStatus(SettlementStatusEnums.F.name());
-        settlementCarrierPORepository.updateStatusById(outerSettlementCarrierPO.getId(), outerSettlementCarrierPO.getStatus());
+            // NOTE: 外场清分结算
+            result = dpmAccountService.changeBalance(clearingOrderOuterPO, tradeOrderPO.getTradeVoucherNo());
+            if (result) outerSettlementCarrierPO.setStatus(SettlementStatusEnums.S.name());
+            else outerSettlementCarrierPO.setStatus(SettlementStatusEnums.F.name());
+            settlementCarrierPORepository.updateStatusById(outerSettlementCarrierPO.getId(), outerSettlementCarrierPO.getStatus());
+        }
     }
 
-    public void buildInnerClearing(List<ClearingOrderInnerPO> clearingOrderInnerPOList, InnerClearingEntity innerClearingEntity) {
-        BigDecimal amt = new BigDecimal("0.00000001");
-        String paymentSeqNo = innerClearingEntity.getSettlementCarrierPO().getPaymentSeqNo();
-        String clearingCode = "1";
+    public void buildInnerClearing(List<ClearingOrderInnerPO> clearingOrderInnerPOList, InnerClearingEntity innerClearingEntity, TradeModeEnums tradeModeEnums) {
+        BigDecimal amt = innerClearingEntity.getAmt();
+        String paymentSeqNo = innerClearingEntity.getPaymentSeqNo();
+        String clearingCode = tradeModeEnums.getClearingCode();
         String sessionId = RandomUtil.randomUuid("CI");
 
         ClearAccount drClearAccount = innerClearingEntity.getDrClearAccount();
@@ -107,12 +112,12 @@ public abstract  class AbstractSettlementStrategy extends BaseService {
         clearingOrderInnerPOList.add(crClearingOrderInnerPO);
     }
 
-    public void buildOuterClearing(ClearingOrderOuterPO clearingOrderOuterPO, OuterClearingEntity outerClearingEntity) {
-        BigDecimal amt = new BigDecimal("0.00000001");
+    public void buildOuterClearing(ClearingOrderOuterPO clearingOrderOuterPO, OuterClearingEntity outerClearingEntity, TradeModeEnums tradeModeEnums) {
+        BigDecimal amt = outerClearingEntity.getAmt();
         String sessionId = RandomUtil.randomUuid("CO");
-        String clearingCode = "";
+        String clearingCode = tradeModeEnums.getClearingCode();
 
-        clearingOrderOuterPO.setPaymentSeqNo(clearingOrderOuterPO.getPaymentSeqNo());
+        clearingOrderOuterPO.setPaymentSeqNo(outerClearingEntity.getPaymentSeqNo());
         clearingOrderOuterPO.setSessionId(sessionId);
         clearingOrderOuterPO.setAccountNo(outerClearingEntity.getClearAccount().getAccountNo());
         clearingOrderOuterPO.setPartyId(PartyIdEnums.OUTER_MEMBER.getValue());

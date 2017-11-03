@@ -1,9 +1,9 @@
 package com.dicero.diceroller.service.bean;
 
 import com.dicero.diceroller.domain.enums.PartyRoleEnums;
-import com.dicero.diceroller.domain.model.SettlementCarrierPO;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * <p></p>
@@ -12,16 +12,29 @@ import java.io.Serializable;
  * @version 2017/11/2
  */
 public class OuterClearingEntity implements Serializable {
-    private SettlementCarrierPO settlementCarrierPO;
     private ClearAccount clearAccount;
     private PartyRoleEnums partyRoleEnums;
+    private BigDecimal amt;
+    private String paymentSeqNo;
 
-    public SettlementCarrierPO getSettlementCarrierPO() {
-        return settlementCarrierPO;
+    public OuterClearingEntity buildClearAccount(ClearAccount clearAccount){
+        this.clearAccount = clearAccount;
+        return this;
     }
 
-    public void setSettlementCarrierPO(SettlementCarrierPO settlementCarrierPO) {
-        this.settlementCarrierPO = settlementCarrierPO;
+    public OuterClearingEntity buildPartyRoleEnums(PartyRoleEnums partyRoleEnums){
+        this.partyRoleEnums = partyRoleEnums;
+        return this;
+    }
+
+    public OuterClearingEntity buildPaymentSeqNo(String paymentSeqNo){
+        this.paymentSeqNo = paymentSeqNo;
+        return this;
+    }
+
+    public OuterClearingEntity buildAmt(BigDecimal amt){
+        this.amt = amt;
+        return this;
     }
 
     public ClearAccount getClearAccount() {
@@ -38,5 +51,21 @@ public class OuterClearingEntity implements Serializable {
 
     public void setPartyRoleEnums(PartyRoleEnums partyRoleEnums) {
         this.partyRoleEnums = partyRoleEnums;
+    }
+
+    public BigDecimal getAmt() {
+        return amt;
+    }
+
+    public void setAmt(BigDecimal amt) {
+        this.amt = amt;
+    }
+
+    public String getPaymentSeqNo() {
+        return paymentSeqNo;
+    }
+
+    public void setPaymentSeqNo(String paymentSeqNo) {
+        this.paymentSeqNo = paymentSeqNo;
     }
 }

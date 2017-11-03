@@ -1,5 +1,6 @@
 package com.dicero.diceroller.service.dpm.impl;
 
+import com.dicero.diceroller.common.bean.extension.CommonDefinedException;
 import com.dicero.diceroller.dal.mysql.repository.*;
 import com.dicero.diceroller.domain.enums.DRCREnums;
 import com.dicero.diceroller.domain.enums.PartyIdEnums;
@@ -7,9 +8,11 @@ import com.dicero.diceroller.domain.enums.PartyRoleEnums;
 import com.dicero.diceroller.domain.model.*;
 import com.dicero.diceroller.service.BaseService;
 import com.dicero.diceroller.service.dpm.DpmAccountService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -20,6 +23,7 @@ import java.util.List;
  * @author znz
  * @version 2017/10/29
  */
+@Slf4j
 @Service
 public class DpmAccountServiceImpl extends BaseService implements DpmAccountService {
 
@@ -42,10 +46,11 @@ public class DpmAccountServiceImpl extends BaseService implements DpmAccountServ
 
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean changeBalance(List<ClearingOrderInnerPO> clearingOrderInnerPOList) {
-
-        // TODO: 缺少事务批量操作,
+        log.info("执行内部账户余额借贷, 数据{}", clearingOrderInnerPOList);
+        // NOTE: 事务批量操作
         if (CollectionUtils.isNotEmpty(clearingOrderInnerPOList)) {
             for (ClearingOrderInnerPO clearingOrderInnerPO : clearingOrderInnerPOList) {
                 InnerAccountPO innerAccountPO = innerAccountPORepository.findByAccountNo(clearingOrderInnerPO.getAccountNo());
@@ -56,6 +61,11 @@ public class DpmAccountServiceImpl extends BaseService implements DpmAccountServ
 
                 } else {
                     balance = balance.subtract(clearingOrderInnerPO.getAmt());
+                }
+
+                if (balance.compareTo(BigDecimal.ZERO) < 0) {
+
+                    throw CommonDefinedException.SYSTEM_ERROR("内场账户, 余额不足,  数据 : "+innerAccountPO);
                 }
 
                 InnerAccountDetailPO innerAccountDetailPO = new InnerAccountDetailPO();
@@ -80,8 +90,10 @@ public class DpmAccountServiceImpl extends BaseService implements DpmAccountServ
 
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean changeBalance(ClearingOrderOuterPO clearingOrderOuterPO, String paymentSeqNo) {
+        log.info("执行外部账户余额借贷, 数据{}", clearingOrderOuterPO);
         OuterAccountPO outerAccountPO = outerAccountPORepository.findByAccountNo(clearingOrderOuterPO.getAccountNo());
         // TODO: 状态拦截
         if (outerAccountPO.getStatusMap().equals("1")) {
@@ -98,6 +110,10 @@ public class DpmAccountServiceImpl extends BaseService implements DpmAccountServ
         } else {
             balance = balance.subtract(clearingOrderOuterPO.getAmt());
             drcr = DRCREnums.DR;
+        }
+
+        if (balance.compareTo(BigDecimal.ZERO) < 0) {
+            throw CommonDefinedException.SYSTEM_ERROR("外场账户, 余额不足,  数据 : "+outerAccountSubsetPO);
         }
 
         OuterAccountDetailPO outerAccountDetailPO = new OuterAccountDetailPO();

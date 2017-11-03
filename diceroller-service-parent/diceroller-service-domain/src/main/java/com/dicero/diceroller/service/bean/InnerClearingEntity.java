@@ -1,8 +1,7 @@
 package com.dicero.diceroller.service.bean;
 
-import com.dicero.diceroller.domain.model.SettlementCarrierPO;
-
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * <p></p>
@@ -11,16 +10,29 @@ import java.io.Serializable;
  * @version 2017/11/2
  */
 public class InnerClearingEntity implements Serializable {
-    private SettlementCarrierPO settlementCarrierPO;
     private ClearAccount drClearAccount;
     private ClearAccount crClearAccount;
+    private BigDecimal amt;
+    private String paymentSeqNo;
 
-    public SettlementCarrierPO getSettlementCarrierPO() {
-        return settlementCarrierPO;
+
+    public InnerClearingEntity buildDrClearAccount(ClearAccount drClearAccount) {
+        this.drClearAccount = drClearAccount;
+        return this;
+    }
+    public InnerClearingEntity buildCrClearAccount(ClearAccount crClearAccount) {
+        this.crClearAccount = crClearAccount;
+        return this;
     }
 
-    public void setSettlementCarrierPO(SettlementCarrierPO settlementCarrierPO) {
-        this.settlementCarrierPO = settlementCarrierPO;
+    public InnerClearingEntity buildAmt(BigDecimal amt) {
+        this.amt = amt;
+        return this;
+    }
+
+    public InnerClearingEntity buildPaymentSeqNo(String paymentSeqNo) {
+        this.paymentSeqNo = paymentSeqNo;
+        return this;
     }
 
     public ClearAccount getDrClearAccount() {
@@ -38,4 +50,21 @@ public class InnerClearingEntity implements Serializable {
     public void setCrClearAccount(ClearAccount crClearAccount) {
         this.crClearAccount = crClearAccount;
     }
+
+    public BigDecimal getAmt() {
+        return amt;
+    }
+
+    public void setAmt(BigDecimal amt) {
+        this.amt = amt;
+    }
+
+    public String getPaymentSeqNo() {
+        return paymentSeqNo;
+    }
+
+    public void setPaymentSeqNo(String paymentSeqNo) {
+        this.paymentSeqNo = paymentSeqNo;
+    }
+
 }
