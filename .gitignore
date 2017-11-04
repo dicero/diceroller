@@ -6,7 +6,7 @@ target/
 .classpath
 .springBeans
 
-/node_modules/
+node_modules
 
 catalina.base_IS_UNDEFINED/
 bin/
