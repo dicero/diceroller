@@ -29,7 +29,7 @@ public class WebSwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.snail.barrage.web.rest"))
+                .apis(RequestHandlerSelectors.basePackage("com.dicero.diceroller.web.rest"))
                 .paths(PathSelectors.ant("/rest/**/*"))
                 .build()
                 .useDefaultResponseMessages(false)

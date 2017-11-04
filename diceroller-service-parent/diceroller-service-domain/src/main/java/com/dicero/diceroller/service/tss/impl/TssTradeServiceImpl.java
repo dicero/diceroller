@@ -35,7 +35,6 @@ public class TssTradeServiceImpl extends BaseService implements TssTradeService 
     @Override
     public void trade() {
 
-
         boolean resutl = true;
         PersonalMemberPO personalMemberPO = new PersonalMemberPO();
         BigDecimal amt = new BigDecimal("0.000000001");

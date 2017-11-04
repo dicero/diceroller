@@ -8,5 +8,15 @@ package com.dicero.diceroller.service.tss;
  */
 public interface TssOrderService {
 
-    void startPlay();
+    // NOTE: 支付单
+    void storePaymentOrder();
+
+    // NOTE: 充值单
+    void storeRechargeOrder();
+
+    // NOTE: 提现单
+    void storeWithdrawOrder();
+
+    // NOTE: 赠送单
+    void storePresentOrder();
 }

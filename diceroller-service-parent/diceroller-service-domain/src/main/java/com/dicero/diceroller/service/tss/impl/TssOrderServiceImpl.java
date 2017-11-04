@@ -15,11 +15,22 @@ import org.springframework.stereotype.Service;
 public class TssOrderServiceImpl implements TssOrderService {
 
     @Override
-    public void startPlay() {
-        log.info("startPlay");
+    public void storePaymentOrder() {
 
+    }
 
+    @Override
+    public void storeRechargeOrder() {
 
+    }
+
+    @Override
+    public void storeWithdrawOrder() {
+
+    }
+
+    @Override
+    public void storePresentOrder() {
 
     }
 }
