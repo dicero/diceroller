@@ -2,32 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1a6edd00-cd3b-4573-a223-1a170b793bd4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-admin/diceroller-admin.iml" afterPath="$PROJECT_DIR$/diceroller-admin/diceroller-admin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-code-parent/diceroller-core-engine/diceroller-core-engine.iml" afterPath="$PROJECT_DIR$/diceroller-code-parent/diceroller-core-engine/diceroller-core-engine.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-code-parent/diceroller-core-parent.iml" afterPath="$PROJECT_DIR$/diceroller-code-parent/diceroller-core-parent.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-common-partent/diceroller-common-bean/diceroller-common-bean.iml" afterPath="$PROJECT_DIR$/diceroller-common-partent/diceroller-common-bean/diceroller-common-bean.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-common-partent/diceroller-common-parent.iml" afterPath="$PROJECT_DIR$/diceroller-common-partent/diceroller-common-parent.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-common-partent/diceroller-common-util/diceroller-common-util.iml" afterPath="$PROJECT_DIR$/diceroller-common-partent/diceroller-common-util/diceroller-common-util.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-dal-parent/diceroller-dal-mysql/diceroller-dal-mysql.iml" afterPath="$PROJECT_DIR$/diceroller-dal-parent/diceroller-dal-mysql/diceroller-dal-mysql.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-dal-parent/diceroller-dal-mysql/src/main/resources/application-devmysql.properties" afterPath="$PROJECT_DIR$/diceroller-dal-parent/diceroller-dal-mysql/src/main/resources/application-devmysql.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-dal-parent/diceroller-dal-parent.iml" afterPath="$PROJECT_DIR$/diceroller-dal-parent/diceroller-dal-parent.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-domain-parent/diceroller-domain-model/diceroller-domain-model.iml" afterPath="$PROJECT_DIR$/diceroller-domain-parent/diceroller-domain-model/diceroller-domain-model.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-domain-parent/diceroller-domain-model/src/main/java/com/dicero/diceroller/domain/model/PersonalAdvisePO.java" afterPath="$PROJECT_DIR$/diceroller-domain-parent/diceroller-domain-model/src/main/java/com/dicero/diceroller/domain/model/PersonalAdvisePO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-domain-parent/diceroller-domain-parent.iml" afterPath="$PROJECT_DIR$/diceroller-domain-parent/diceroller-domain-parent.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-service-parent/diceroller-service-domain/diceroller-service-domain.iml" afterPath="$PROJECT_DIR$/diceroller-service-parent/diceroller-service-domain/diceroller-service-domain.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-service-parent/diceroller-service-facade/diceroller-service-facade.iml" afterPath="$PROJECT_DIR$/diceroller-service-parent/diceroller-service-facade/diceroller-service-facade.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-service-parent/diceroller-service-parent.iml" afterPath="$PROJECT_DIR$/diceroller-service-parent/diceroller-service-parent.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-common/diceroller-test-common.iml" afterPath="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-common/diceroller-test-common.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-core/diceroller-test-core.iml" afterPath="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-core/diceroller-test-core.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-dal/diceroller-test-dal.iml" afterPath="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-dal/diceroller-test-dal.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-parent.iml" afterPath="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-parent.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-service/diceroller-test-service.iml" afterPath="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-service/diceroller-test-service.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-web/diceroller-web.iml" afterPath="$PROJECT_DIR$/diceroller-web/diceroller-web.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-web/src/main/java/com/dicero/diceroller/WebApplication.java" afterPath="$PROJECT_DIR$/diceroller-web/src/main/java/com/dicero/diceroller/WebApplication.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-web/src/main/java/com/dicero/diceroller/web/controller/WelcomeController.java" afterPath="$PROJECT_DIR$/diceroller-web/src/main/java/com/dicero/diceroller/web/controller/WelcomeController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller.iml" afterPath="$PROJECT_DIR$/diceroller.iml" />
     </list>
     <ignored path="$PROJECT_DIR$/diceroller-admin/target/" />
     <ignored path="$PROJECT_DIR$/diceroller-common-partent/diceroller-common-bean/target/" />
@@ -157,11 +133,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PersonalAdvisePO.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PersonalAdvisePO.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/diceroller-domain-parent/diceroller-domain-model/src/main/java/com/dicero/diceroller/domain/model/PersonalAdvisePO.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="286">
               <caret line="84" column="0" lean-forward="true" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -259,11 +245,11 @@
         <option value="$PROJECT_DIR$/diceroller-web/src/main/java/com/dicero/diceroller/web/rest/StakeRest.java" />
         <option value="$PROJECT_DIR$/diceroller-admin/pom.xml" />
         <option value="$PROJECT_DIR$/.idea/workspace.xml" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/diceroller-web/src/main/java/com/dicero/diceroller/WebApplication.java" />
         <option value="$PROJECT_DIR$/diceroller-dal-parent/diceroller-dal-mysql/src/main/resources/application-devmysql.properties" />
         <option value="$PROJECT_DIR$/diceroller-web/src/main/java/com/dicero/diceroller/web/controller/WelcomeController.java" />
         <option value="$PROJECT_DIR$/diceroller-domain-parent/diceroller-domain-model/src/main/java/com/dicero/diceroller/domain/model/PersonalAdvisePO.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -289,7 +275,7 @@
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="Scope" currentSubView="Production" proportions="" version="1">
+    <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -1263,13 +1249,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/diceroller-web/src/main/resources/templates/view/login.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1349,6 +1328,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
           <caret line="84" column="0" lean-forward="true" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding />
         </state>
       </provider>
