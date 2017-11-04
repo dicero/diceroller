@@ -1,0 +1,96 @@
+#set($layout = "layout/iframe.html") 
+	<div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>#if($studentWork.id) 更新 #else 新建 #end学生作品 <small></small></h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form action="/manager/studentWork/operate" method="post"  class="form-horizontal" enctype="multipart/form-data">
+                            #if($studentWork.id)
+								#springBind("studentWork.id")
+								<input type="hidden" name="${status.expression}" value="$!{status.value}" >
+							#end
+                            
+                            #springBind("studentWork.imgUrl")
+                            <div class="form-group #fieldHasError(${status.errorMessage})">
+                                <label class="col-sm-2 control-label">上传图片</label>
+                                <div class="col-sm-5">
+                                	#if($status.value)
+                                		已有图片：<img src="$status.value" style="height: 80px; width: 120px;"> 
+                                		需要修改,不上传默认不修改：<input type="hidden" name="${status.expression}"  value="${status.value}"  >
+                                		<input type="file"  placeholder="名称" class="form-control" name="${status.expression}File"  >
+                                	#else
+                                		<input  type="hidden" name="${status.expression}" value="1"  >
+                                		<input type="file"  placeholder="名称" class="form-control" name="${status.expression}File" >
+                                	#end
+                                    
+                                    <span class="help-block m-b-none error-text">${status.errorMessage}</span>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            
+                            #springBind("studentWork.sequence")
+							<div class="form-group #fieldHasError(${status.errorMessage})">
+                                <label class="col-sm-2 control-label">顺序:从大到小排序</label>
+                                <div class="col-sm-5">
+                                    <input type="text"  placeholder="数字" class="form-control" name="${status.expression}" value="$!{status.value}" >
+                                    <span class="help-block m-b-none error-text">${status.errorMessage}</span>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            
+                            #springBind("studentWork.studentWorkTypeId")
+							<div class="form-group #fieldHasError(${status.errorMessage})">
+                                <label class="col-sm-2 control-label">学生作品类型</label>
+                                <div class="col-sm-5">
+                                    <select class="form-control m-b" name="${status.expression}" >
+                                    
+                                    	#foreach( $workType in $studentWorkTypes.getContent() )
+                                    		#if($studentWork.studentWorkTypeId && $studentWork.studentWorkTypeId==$workType.id)
+                                				<option value="$workType.id" selected="selected">$workType.name</option>
+	                                		#else
+	                                			<option value="$workType.id">$workType.name</option>
+	                                		#end
+                                		#end
+                                    </select>
+                                    <span class="help-block m-b-none error-text">${status.errorMessage}</span>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            
+                            
+                            <div class="hr-line-dashed"></div>
+                            #springBind("studentWork.showStatus")
+                            <div class="form-group #fieldHasError(${status.errorMessage})">
+                                <label class="col-sm-2 control-label">是否显示 </label>
+                                <div class="col-sm-10">
+                                	#foreach( $show in $showStatus )
+                                		#if($studentWork && $studentWork.showStatus==$show)
+                                			<div class="radio i-checks">
+		                                        <label><input type="radio" checked="checked" value="$!show" name="${status.expression}"> <i></i> $show.getDesc()</label>
+		                                    </div>
+                                		#else
+                                			<div class="radio i-checks">
+	                                        	<label><input type="radio" value="$!show" name="${status.expression}"> <i></i> $show.getDesc()</label>
+	                                   		</div>
+                                		#end
+                                	#end
+                                	<span class="help-block m-b-none error-text">${status.errorMessage}</span>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button class="btn btn-primary" type="submit">#if($studentWork.id) 更 新 #else 新 建 #end</button>
+                                    <button class="btn btn-white" type="button" onclick="history.go(-1);">返回上一页</button>
+                                    <button class="btn btn-white" type="button" onclick="parent.layer.closeAll(); parent.layer.open({content:'世界恢复原样 →_→', time:2});  ">关闭</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </div>
+

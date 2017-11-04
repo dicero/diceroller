@@ -34,30 +34,30 @@ public class AdminParamsAspect {
 	 * ~ 第一个 * 代表任意修饰符及任意返回值. ~ 第二个 * 任意包名 ~ 第三个 * 代表任意方法. ~ 第四个 * 定义在web包或者子包 ~
 	 * 第五个 * 任意方法 ~ .. 匹配任意数量的参数.
 	 */
-	@Pointcut("execution(public * com.demon.controller..*.*(..))")
+	@Pointcut("execution(public * com.dicero.diceroller.admin.controller..*.*(..))")
 	public void params() {
 	}
 
 	@Before("params()")
 	public void doBefore(JoinPoint joinPoint) {
 		startTime.set(System.currentTimeMillis());
-		// 接收到请求，记录请求内容
-		logger.info("Request: =================================");
-		ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-		HttpServletRequest request = attributes.getRequest();
-
-		// 记录下请求内容
-		logger.info("URL: " + request.getRequestURL().toString());
-		logger.info("HTTP_METHOD: " + request.getMethod());
-		logger.info("IP: " + request.getRemoteAddr());
-		logger.info("CLASS_METHOD: " + joinPoint.getSignature().getDeclaringTypeName() + "."
-				+ joinPoint.getSignature().getName());
-		logger.info("ARGS: " + Arrays.toString(joinPoint.getArgs()));
-		logger.info("PARAMS: {}", ParamUtil.getBodyParam(request.getParameterMap()));
 	}
 
 	@AfterReturning("params()")
 	public void doAfterReturning(JoinPoint joinPoint) {
-		logger.info("Request End: 耗时 " + (System.currentTimeMillis() - startTime.get()) + "（毫秒） ===========");
+        // 接收到请求，记录请求内容
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+
+        // 记录下请求内容
+        logger.info("Request: ====>>> 地址[URL]: {}, 请求方法[HTTP_METHOD]: {}, IP: {}, 方法[CLASS_METHOD]: {}, 参数[ARGS]: {}, 参数[PARAMS]: {}, Request End: 耗时{}" ,
+                request.getRequestURL().toString(),
+                request.getMethod(),
+                request.getRemoteAddr(),
+                joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName(),
+                Arrays.toString(joinPoint.getArgs()),
+                ParamUtil.getBodyParam(request.getParameterMap()),
+                (System.currentTimeMillis() - startTime.get()) + "（毫秒） ==========="
+        );
 	}
 }
