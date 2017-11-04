@@ -6,6 +6,8 @@ target/
 .classpath
 .springBeans
 
+/node_modules/
+
 catalina.base_IS_UNDEFINED/
 bin/
 .DS_Store
