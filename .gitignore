@@ -1,10 +1,10 @@
 target/
-# .idea/
-#*.iml
-#.project
-#.settings
-#.classpath
-#.springBeans
+.idea/
+*.iml
+.project
+.settings
+.classpath
+.springBeans
 catalina.base_IS_UNDEFINED/
 bin/
 .DS_Store
