@@ -47,4 +47,11 @@ public class WelcomeController {
 		return "welcome";
 	}
 
+
+	@RequestMapping("/index")
+	public String index(Map<String, Object> model) {
+		return "view/index";
+	}
+
+
 }

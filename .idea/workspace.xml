@@ -2,8 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1a6edd00-cd3b-4573-a223-1a170b793bd4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-admin/diceroller-admin.iml" afterPath="$PROJECT_DIR$/diceroller-admin/diceroller-admin.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-code-parent/diceroller-core-engine/diceroller-core-engine.iml" afterPath="$PROJECT_DIR$/diceroller-code-parent/diceroller-core-engine/diceroller-core-engine.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-code-parent/diceroller-core-parent.iml" afterPath="$PROJECT_DIR$/diceroller-code-parent/diceroller-core-parent.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-common-partent/diceroller-common-bean/diceroller-common-bean.iml" afterPath="$PROJECT_DIR$/diceroller-common-partent/diceroller-common-bean/diceroller-common-bean.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-common-partent/diceroller-common-parent.iml" afterPath="$PROJECT_DIR$/diceroller-common-partent/diceroller-common-parent.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-common-partent/diceroller-common-util/diceroller-common-util.iml" afterPath="$PROJECT_DIR$/diceroller-common-partent/diceroller-common-util/diceroller-common-util.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-dal-parent/diceroller-dal-mysql/diceroller-dal-mysql.iml" afterPath="$PROJECT_DIR$/diceroller-dal-parent/diceroller-dal-mysql/diceroller-dal-mysql.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-dal-parent/diceroller-dal-mysql/src/main/resources/application-devmysql.properties" afterPath="$PROJECT_DIR$/diceroller-dal-parent/diceroller-dal-mysql/src/main/resources/application-devmysql.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-dal-parent/diceroller-dal-parent.iml" afterPath="$PROJECT_DIR$/diceroller-dal-parent/diceroller-dal-parent.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-domain-parent/diceroller-domain-model/diceroller-domain-model.iml" afterPath="$PROJECT_DIR$/diceroller-domain-parent/diceroller-domain-model/diceroller-domain-model.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-domain-parent/diceroller-domain-model/src/main/java/com/dicero/diceroller/domain/model/PersonalAdvisePO.java" afterPath="$PROJECT_DIR$/diceroller-domain-parent/diceroller-domain-model/src/main/java/com/dicero/diceroller/domain/model/PersonalAdvisePO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-domain-parent/diceroller-domain-parent.iml" afterPath="$PROJECT_DIR$/diceroller-domain-parent/diceroller-domain-parent.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-service-parent/diceroller-service-domain/diceroller-service-domain.iml" afterPath="$PROJECT_DIR$/diceroller-service-parent/diceroller-service-domain/diceroller-service-domain.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-service-parent/diceroller-service-facade/diceroller-service-facade.iml" afterPath="$PROJECT_DIR$/diceroller-service-parent/diceroller-service-facade/diceroller-service-facade.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-service-parent/diceroller-service-parent.iml" afterPath="$PROJECT_DIR$/diceroller-service-parent/diceroller-service-parent.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-common/diceroller-test-common.iml" afterPath="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-common/diceroller-test-common.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-core/diceroller-test-core.iml" afterPath="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-core/diceroller-test-core.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-dal/diceroller-test-dal.iml" afterPath="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-dal/diceroller-test-dal.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-parent.iml" afterPath="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-parent.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-service/diceroller-test-service.iml" afterPath="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-service/diceroller-test-service.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-web/diceroller-web.iml" afterPath="$PROJECT_DIR$/diceroller-web/diceroller-web.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-web/src/main/java/com/dicero/diceroller/WebApplication.java" afterPath="$PROJECT_DIR$/diceroller-web/src/main/java/com/dicero/diceroller/WebApplication.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller-web/src/main/java/com/dicero/diceroller/web/controller/WelcomeController.java" afterPath="$PROJECT_DIR$/diceroller-web/src/main/java/com/dicero/diceroller/web/controller/WelcomeController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diceroller.iml" afterPath="$PROJECT_DIR$/diceroller.iml" />
     </list>
     <ignored path="$PROJECT_DIR$/diceroller-admin/target/" />
     <ignored path="$PROJECT_DIR$/diceroller-common-partent/diceroller-common-bean/target/" />
@@ -70,8 +94,8 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="org.eclipse.jdt.core.prefs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/diceroller-web/.settings/org.eclipse.jdt.core.prefs">
+      <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/diceroller-web/src/main/resources/templates/view/login.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -80,91 +104,64 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="org.eclipse.m2e.core.prefs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/diceroller-web/.settings/org.eclipse.m2e.core.prefs">
+      <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/diceroller-web/src/main/resources/templates/view/home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="405">
+              <caret line="27" column="7" lean-forward="false" selection-start-line="27" selection-start-column="7" selection-end-line="27" selection-end-column="7" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="org.eclipse.wst.common.project.facet.core.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/diceroller-web/.settings/org.eclipse.wst.common.project.facet.core.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".classpath" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/diceroller-web/.classpath">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".project" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/diceroller-web/.project">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".springBeans" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/diceroller-web/.springBeans">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="diceroller-web.iml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/diceroller-web/diceroller-web.iml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2100">
-              <caret line="140" column="107" lean-forward="true" selection-start-line="140" selection-start-column="107" selection-end-line="140" selection-end-column="107" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/diceroller-web/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="README.adoc" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.adoc">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
+      <file leaf-file-name="WebApplication.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/diceroller-web/src/main/java/com/dicero/diceroller/WebApplication.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="90">
-              <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+              <caret line="22" column="4" lean-forward="false" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/diceroller-web/src/main/resources/templates/view/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DiceHmacStrategy.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/diceroller-service-parent/diceroller-service-domain/src/main/java/com/dicero/diceroller/service/play/impl/DiceHmacStrategy.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="183">
+              <caret line="18" column="30" lean-forward="true" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WelcomeController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/diceroller-web/src/main/java/com/dicero/diceroller/web/controller/WelcomeController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="35" column="43" lean-forward="true" selection-start-line="35" selection-start-column="43" selection-end-line="35" selection-end-column="43" />
+              <folding>
+                <element signature="e#1574#1575#0" expanded="true" />
+                <element signature="e#1600#1601#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PersonalAdvisePO.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/diceroller-domain-parent/diceroller-domain-model/src/main/java/com/dicero/diceroller/domain/model/PersonalAdvisePO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="286">
+              <caret line="84" column="0" lean-forward="true" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -193,6 +190,7 @@
       <find>innerAccountDetailPO</find>
       <find>支付</find>
       <find>入款</find>
+      <find>index</find>
     </findStrings>
     <replaceStrings>
       <replace>diceroller</replace>
@@ -215,10 +213,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/diceroller-service-parent/diceroller-service-domain/src/main/java/com/dicero/diceroller/service/dpm/impl/DpmAccountDetailServiceImpl.java" />
-        <option value="$PROJECT_DIR$/diceroller-service-parent/diceroller-service-domain/src/main/java/com/dicero/diceroller/service/dpm/DpmAccountService.java" />
-        <option value="$PROJECT_DIR$/diceroller-domain-parent/diceroller-domain-model/src/main/java/com/dicero/diceroller/domain/enums/SettlementTypeEnums.java" />
-        <option value="$PROJECT_DIR$/diceroller-service-parent/diceroller-service-domain/src/main/java/com/dicero/diceroller/service/play/PlayService.java" />
         <option value="$PROJECT_DIR$/diceroller-code-parent/diceroller-core-engine/pom.xml" />
         <option value="$PROJECT_DIR$/diceroller-common-partent/pom.xml" />
         <option value="$PROJECT_DIR$/diceroller-common-partent/diceroller-common-util/pom.xml" />
@@ -266,6 +260,10 @@
         <option value="$PROJECT_DIR$/diceroller-admin/pom.xml" />
         <option value="$PROJECT_DIR$/.idea/workspace.xml" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/diceroller-web/src/main/java/com/dicero/diceroller/WebApplication.java" />
+        <option value="$PROJECT_DIR$/diceroller-dal-parent/diceroller-dal-mysql/src/main/resources/application-devmysql.properties" />
+        <option value="$PROJECT_DIR$/diceroller-web/src/main/java/com/dicero/diceroller/web/controller/WelcomeController.java" />
+        <option value="$PROJECT_DIR$/diceroller-domain-parent/diceroller-domain-model/src/main/java/com/dicero/diceroller/domain/model/PersonalAdvisePO.java" />
       </list>
     </option>
   </component>
@@ -277,67 +275,21 @@
   </component>
   <component name="MavenProjectNavigator">
     <treeState>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="diceroller-test-parent" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="diceroller-test-parent" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Lifecycle" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$LifecycleNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="diceroller-domain-model" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="diceroller-domain-model" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Lifecycle" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$LifecycleNode" />
-        </PATH_ELEMENT>
-      </PATH>
+      <expand />
+      <select />
     </treeState>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="3" />
-    <option name="y" value="23" />
-    <option name="width" value="1228" />
-    <option name="height" value="600" />
+    <option name="x" value="21" />
+    <option name="y" value="82" />
+    <option name="width" value="1414" />
+    <option name="height" value="798" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
+    <navigator currentView="Scope" currentSubView="Production" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -351,15 +303,194 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="diceroller" type="b2602c69:ProjectViewProjectNode" />
+              <item name="diceroller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="diceroller" type="b2602c69:ProjectViewProjectNode" />
+              <item name="diceroller" type="462c0819:PsiDirectoryNode" />
+              <item name="diceroller-dal-parent" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="diceroller" type="b2602c69:ProjectViewProjectNode" />
+              <item name="diceroller" type="462c0819:PsiDirectoryNode" />
+              <item name="diceroller-dal-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="diceroller-dal-mysql" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="diceroller" type="b2602c69:ProjectViewProjectNode" />
+              <item name="diceroller" type="462c0819:PsiDirectoryNode" />
+              <item name="diceroller-web" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="diceroller" type="b2602c69:ProjectViewProjectNode" />
+              <item name="diceroller" type="462c0819:PsiDirectoryNode" />
+              <item name="diceroller-web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="diceroller" type="b2602c69:ProjectViewProjectNode" />
+              <item name="diceroller" type="462c0819:PsiDirectoryNode" />
+              <item name="diceroller-web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="diceroller" type="b2602c69:ProjectViewProjectNode" />
+              <item name="diceroller" type="462c0819:PsiDirectoryNode" />
+              <item name="diceroller-web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="diceroller" type="b2602c69:ProjectViewProjectNode" />
+              <item name="diceroller" type="462c0819:PsiDirectoryNode" />
+              <item name="diceroller-web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="diceroller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="diceroller" type="b2602c69:ProjectViewProjectNode" />
+              <item name="diceroller" type="462c0819:PsiDirectoryNode" />
+              <item name="diceroller-web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="diceroller" type="b2602c69:ProjectViewProjectNode" />
+              <item name="diceroller" type="462c0819:PsiDirectoryNode" />
+              <item name="diceroller-web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="diceroller" type="b2602c69:ProjectViewProjectNode" />
+              <item name="diceroller" type="462c0819:PsiDirectoryNode" />
+              <item name="diceroller-web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="diceroller" type="b2602c69:ProjectViewProjectNode" />
+              <item name="diceroller" type="462c0819:PsiDirectoryNode" />
+              <item name="diceroller-web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Production">
+          <expand>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="diceroller-web" type="cbb8eebc:String" user="diceroller-web" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="diceroller-web" type="cbb8eebc:String" user="diceroller-web" />
+              <item name="diceroller-web" type="cbb8eebc:String" user="diceroller-web" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="diceroller-web" type="cbb8eebc:String" user="diceroller-web" />
+              <item name="diceroller-web" type="cbb8eebc:String" user="diceroller-web" />
+              <item name="src/main" type="cbb8eebc:String" user="src/main" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="diceroller-web" type="cbb8eebc:String" user="diceroller-web" />
+              <item name="diceroller-web" type="cbb8eebc:String" user="diceroller-web" />
+              <item name="src/main" type="cbb8eebc:String" user="src/main" />
+              <item name="java" type="cbb8eebc:String" user="java" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="diceroller-web" type="cbb8eebc:String" user="diceroller-web" />
+              <item name="diceroller-web" type="cbb8eebc:String" user="diceroller-web" />
+              <item name="src/main" type="cbb8eebc:String" user="src/main" />
+              <item name="java" type="cbb8eebc:String" user="java" />
+              <item name="com/dicero/diceroller" type="cbb8eebc:String" user="com/dicero/diceroller" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="diceroller-web" type="cbb8eebc:String" user="diceroller-web" />
+              <item name="diceroller-web" type="cbb8eebc:String" user="diceroller-web" />
+              <item name="src/main" type="cbb8eebc:String" user="src/main" />
+              <item name="java" type="cbb8eebc:String" user="java" />
+              <item name="com/dicero/diceroller" type="cbb8eebc:String" user="com/dicero/diceroller" />
+              <item name="web" type="cbb8eebc:String" user="web" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="diceroller-web" type="cbb8eebc:String" user="diceroller-web" />
+              <item name="diceroller-web" type="cbb8eebc:String" user="diceroller-web" />
+              <item name="src/main" type="cbb8eebc:String" user="src/main" />
+              <item name="java" type="cbb8eebc:String" user="java" />
+              <item name="com/dicero/diceroller" type="cbb8eebc:String" user="com/dicero/diceroller" />
+              <item name="web" type="cbb8eebc:String" user="web" />
+              <item name="controller" type="cbb8eebc:String" user="controller" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="diceroller-web" type="cbb8eebc:String" user="diceroller-web" />
+              <item name="diceroller-web" type="cbb8eebc:String" user="diceroller-web" />
+              <item name="src/main" type="cbb8eebc:String" user="src/main" />
+              <item name="resources" type="cbb8eebc:String" user="resources" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="diceroller-web" type="cbb8eebc:String" user="diceroller-web" />
+              <item name="diceroller-web" type="cbb8eebc:String" user="diceroller-web" />
+              <item name="src/main" type="cbb8eebc:String" user="src/main" />
+              <item name="resources" type="cbb8eebc:String" user="resources" />
+              <item name="static" type="cbb8eebc:String" user="static" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="diceroller-web" type="cbb8eebc:String" user="diceroller-web" />
+              <item name="diceroller-web" type="cbb8eebc:String" user="diceroller-web" />
+              <item name="src/main" type="cbb8eebc:String" user="src/main" />
+              <item name="resources" type="cbb8eebc:String" user="resources" />
+              <item name="templates" type="cbb8eebc:String" user="templates" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="diceroller-web" type="cbb8eebc:String" user="diceroller-web" />
+              <item name="diceroller-web" type="cbb8eebc:String" user="diceroller-web" />
+              <item name="src/main" type="cbb8eebc:String" user="src/main" />
+              <item name="resources" type="cbb8eebc:String" user="resources" />
+              <item name="templates" type="cbb8eebc:String" user="templates" />
+              <item name="view" type="cbb8eebc:String" user="view" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="PackagesPane" />
-      <pane id="ProjectPane" />
-      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
-    <property name="settings.editor.selected.configurable" value="com.zeroturnaround.javarebel.idea.plugin.settings.JRebelSettingsComponent" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
@@ -369,6 +500,12 @@
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
     <property name="JPA.DatabaseSchemaImportDialog" value="0785a052-874a-4bbf-a2ed-cc13ae01626f" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth2" value="75" />
+    <property name="RequestMappingsPanelOrder2" value="2" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -395,18 +532,21 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
-    <configuration default="false" name="AdminApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Spring Boot.WebApplication">
+    <configuration name="AdminApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.dicero.diceroller.AdminApplication" />
       <module name="diceroller-admin" />
       <envs />
-      <method />
     </configuration>
-    <configuration default="false" name="DalMysqlApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <configuration name="AdminApplicationConfig" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.dicero.diceroller.AdminApplicationConfig" />
+      <module name="diceroller-admin" />
+      <envs />
+    </configuration>
+    <configuration name="DalMysqlApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.dicero.diceroller.dal.mysql.DalMysqlApplication" />
       <module name="diceroller-dal-mysql" />
       <envs />
-      <method />
     </configuration>
     <configuration name="EncryptUtil" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.dicero.diceroller.common.util.EncryptUtil" />
@@ -461,17 +601,20 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="false" name="TestApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <configuration name="TestApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.dicero.diceroller.TestApplication" />
       <module name="diceroller-test-common" />
       <envs />
-      <method />
     </configuration>
-    <configuration default="false" name="WebApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+    <configuration name="WebApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.dicero.diceroller.WebApplication" />
       <module name="diceroller-web" />
       <envs />
-      <method />
+    </configuration>
+    <configuration name="WebApplicationConfig" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.dicero.diceroller.WebApplicationConfig" />
+      <module name="diceroller-web" />
+      <envs />
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HTML_USED" value="false" />
@@ -711,18 +854,25 @@
     <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
       <method />
     </configuration>
-    <configuration default="false" name="dicerollerServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <configuration name="dicerollerServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.dicero.diceroller.service.DicerollerServiceApplication" />
       <module name="diceroller-service-domain" />
       <envs />
-      <method />
     </configuration>
-    <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="Application.EncryptUtil" />
+    <list size="8">
+      <item index="0" class="java.lang.String" itemvalue="Spring Boot.DalMysqlApplication" />
+      <item index="1" class="java.lang.String" itemvalue="Spring Boot.TestApplication" />
+      <item index="2" class="java.lang.String" itemvalue="Spring Boot.dicerollerServiceApplication" />
+      <item index="3" class="java.lang.String" itemvalue="Spring Boot.AdminApplication" />
+      <item index="4" class="java.lang.String" itemvalue="Spring Boot.WebApplication" />
+      <item index="5" class="java.lang.String" itemvalue="Application.EncryptUtil" />
+      <item index="6" class="java.lang.String" itemvalue="Spring Boot.WebApplicationConfig" />
+      <item index="7" class="java.lang.String" itemvalue="Spring Boot.AdminApplicationConfig" />
     </list>
     <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Application.EncryptUtil" />
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="Spring Boot.WebApplication" />
+        <item index="1" class="java.lang.String" itemvalue="Application.EncryptUtil" />
       </list>
     </recent_temporary>
   </component>
@@ -771,17 +921,30 @@
       <configuration name="TssTradeServiceTest.tradeTest" configurationId="JUnit" />
     </history-entry>
   </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
-    <frame x="3" y="23" width="1228" height="600" extended-state="0" />
+    <frame x="21" y="82" width="1414" height="798" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29967427" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292011" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32756326" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34052756" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5754386" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34016973" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.45454547" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3278237" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292011" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2602546" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24938875" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41473398" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -793,14 +956,11 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885212" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32756326" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936507" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35121107" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.265625" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="JRebel" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -824,76 +984,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/diceroller-web/src/main/resources/application-pro.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/diceroller-web/src/main/resources/application-dev.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/diceroller-web/src/main/resources/static/js/login/common.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/diceroller-web/src/main/resources/static/js/login/login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/diceroller-web/src/main/resources/static/js/login/register.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/diceroller-web/src/main/resources/static/frameworks/jquery/jquery.simplePagination.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/diceroller-web/src/main/resources/static/css/login/common.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/diceroller-web/src/main/resources/static/css/login/home.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/diceroller-web/src/main/resources/static/css/login/login.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/diceroller-web/src/main/resources/static/css/login/register.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/diceroller-web/src/main/java/com/dicero/diceroller/web/rest/MemberRest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="409">
@@ -1035,7 +1125,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="16" column="48" lean-forward="true" selection-start-line="16" selection-start-column="48" selection-end-line="16" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1043,7 +1132,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1051,7 +1139,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1059,7 +1146,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1081,12 +1167,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="16" column="80" lean-forward="false" selection-start-line="16" selection-start-column="80" selection-end-line="16" selection-end-column="80" />
-          <folding>
-            <element signature="e#10344#10350#0" expanded="true" />
-            <element signature="e#10364#10370#0" expanded="true" />
-            <element signature="e#10382#10388#0" expanded="true" />
-            <element signature="e#10388#10394#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1094,7 +1174,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="10" lean-forward="true" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1102,7 +1181,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-337">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1125,7 +1203,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1133,7 +1210,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1141,7 +1217,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1149,7 +1224,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1157,7 +1231,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1165,15 +1238,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/diceroller-web/diceroller-web.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2100">
-          <caret line="140" column="107" lean-forward="true" selection-start-line="140" selection-start-column="107" selection-end-line="140" selection-end-column="107" />
-          <folding />
+          <caret line="140" column="107" lean-forward="false" selection-start-line="140" selection-start-column="107" selection-end-line="140" selection-end-column="107" />
         </state>
       </provider>
     </entry>
@@ -1189,14 +1260,95 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/diceroller-web/src/main/resources/templates/view/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/diceroller-web/src/main/resources/templates/view/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" column="7" lean-forward="false" selection-start-line="27" selection-start-column="7" selection-end-line="27" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/diceroller-dal-parent/diceroller-dal-mysql/src/main/resources/application-devmysql.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="53" lean-forward="true" selection-start-line="2" selection-start-column="53" selection-end-line="2" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/src.zip!/java/net/AbstractPlainSocketImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="201" column="91" lean-forward="false" selection-start-line="201" selection-start-column="91" selection-end-line="201" selection-end-column="91" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/diceroller-web/src/main/java/com/dicero/diceroller/WebApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
-          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <caret line="22" column="4" lean-forward="false" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/diceroller-web/src/main/resources/templates/view/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/diceroller-service-parent/diceroller-service-domain/src/main/java/com/dicero/diceroller/service/play/impl/DiceHmacStrategy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="18" column="30" lean-forward="true" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/diceroller-web/src/main/java/com/dicero/diceroller/web/controller/WebErrorController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/diceroller-web/src/main/java/com/dicero/diceroller/web/controller/WelcomeController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="35" column="43" lean-forward="true" selection-start-line="35" selection-start-column="43" selection-end-line="35" selection-end-column="43" />
+          <folding>
+            <element signature="e#1574#1575#0" expanded="true" />
+            <element signature="e#1600#1601#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/diceroller-domain-parent/diceroller-domain-model/src/main/java/com/dicero/diceroller/domain/model/PersonalAdvisePO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="84" column="0" lean-forward="true" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
           <folding />
         </state>
       </provider>
