@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/diceroller-common-partent/diceroller-common-bean/barrage-common-bean.iml" filepath="$PROJECT_DIR$/diceroller-common-partent/diceroller-common-bean/barrage-common-bean.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-common-partent/barrage-common-parent.iml" filepath="$PROJECT_DIR$/diceroller-common-partent/barrage-common-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-common-partent/diceroller-common-util/barrage-common-util.iml" filepath="$PROJECT_DIR$/diceroller-common-partent/diceroller-common-util/barrage-common-util.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-code-parent/diceroller-core-engine/barrage-core-engine.iml" filepath="$PROJECT_DIR$/diceroller-code-parent/diceroller-core-engine/barrage-core-engine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-code-parent/barrage-core-parent.iml" filepath="$PROJECT_DIR$/diceroller-code-parent/barrage-core-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-dal-parent/diceroller-dal-mysql/barrage-dal-mysql.iml" filepath="$PROJECT_DIR$/diceroller-dal-parent/diceroller-dal-mysql/barrage-dal-mysql.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-dal-parent/barrage-dal-parent.iml" filepath="$PROJECT_DIR$/diceroller-dal-parent/barrage-dal-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-domain-parent/diceroller-domain-model/barrage-domain-model.iml" filepath="$PROJECT_DIR$/diceroller-domain-parent/diceroller-domain-model/barrage-domain-model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-domain-parent/barrage-domain-parent.iml" filepath="$PROJECT_DIR$/diceroller-domain-parent/barrage-domain-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-service-parent/diceroller-service-domain/barrage-service-domain.iml" filepath="$PROJECT_DIR$/diceroller-service-parent/diceroller-service-domain/barrage-service-domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-service-parent/diceroller-service-facade/barrage-service-facade.iml" filepath="$PROJECT_DIR$/diceroller-service-parent/diceroller-service-facade/barrage-service-facade.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-service-parent/barrage-service-parent.iml" filepath="$PROJECT_DIR$/diceroller-service-parent/barrage-service-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-test-parent/diceroller-test-common/barrage-test-common.iml" filepath="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-common/barrage-test-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-test-parent/diceroller-test-core/barrage-test-core.iml" filepath="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-core/barrage-test-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-test-parent/diceroller-test-dal/barrage-test-dal.iml" filepath="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-dal/barrage-test-dal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-test-parent/barrage-test-parent.iml" filepath="$PROJECT_DIR$/diceroller-test-parent/barrage-test-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-test-parent/diceroller-test-service/barrage-test-service.iml" filepath="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-service/barrage-test-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-web/barrage-web.iml" filepath="$PROJECT_DIR$/diceroller-web/barrage-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller.iml" filepath="$PROJECT_DIR$/diceroller.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-admin/diceroller-admin.iml" filepath="$PROJECT_DIR$/diceroller-admin/diceroller-admin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-common-partent/diceroller-common-bean/diceroller-common-bean.iml" filepath="$PROJECT_DIR$/diceroller-common-partent/diceroller-common-bean/diceroller-common-bean.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-common-partent/diceroller-common-parent.iml" filepath="$PROJECT_DIR$/diceroller-common-partent/diceroller-common-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-common-partent/diceroller-common-util/diceroller-common-util.iml" filepath="$PROJECT_DIR$/diceroller-common-partent/diceroller-common-util/diceroller-common-util.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-code-parent/diceroller-core-engine/diceroller-core-engine.iml" filepath="$PROJECT_DIR$/diceroller-code-parent/diceroller-core-engine/diceroller-core-engine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-code-parent/diceroller-core-parent.iml" filepath="$PROJECT_DIR$/diceroller-code-parent/diceroller-core-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-dal-parent/diceroller-dal-mysql/diceroller-dal-mysql.iml" filepath="$PROJECT_DIR$/diceroller-dal-parent/diceroller-dal-mysql/diceroller-dal-mysql.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-dal-parent/diceroller-dal-parent.iml" filepath="$PROJECT_DIR$/diceroller-dal-parent/diceroller-dal-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-domain-parent/diceroller-domain-model/diceroller-domain-model.iml" filepath="$PROJECT_DIR$/diceroller-domain-parent/diceroller-domain-model/diceroller-domain-model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-domain-parent/diceroller-domain-parent.iml" filepath="$PROJECT_DIR$/diceroller-domain-parent/diceroller-domain-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-service-parent/diceroller-service-domain/diceroller-service-domain.iml" filepath="$PROJECT_DIR$/diceroller-service-parent/diceroller-service-domain/diceroller-service-domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-service-parent/diceroller-service-facade/diceroller-service-facade.iml" filepath="$PROJECT_DIR$/diceroller-service-parent/diceroller-service-facade/diceroller-service-facade.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-service-parent/diceroller-service-parent.iml" filepath="$PROJECT_DIR$/diceroller-service-parent/diceroller-service-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-test-parent/diceroller-test-common/diceroller-test-common.iml" filepath="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-common/diceroller-test-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-test-parent/diceroller-test-core/diceroller-test-core.iml" filepath="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-core/diceroller-test-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-test-parent/diceroller-test-dal/diceroller-test-dal.iml" filepath="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-dal/diceroller-test-dal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-test-parent/diceroller-test-parent.iml" filepath="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-test-parent/diceroller-test-service/diceroller-test-service.iml" filepath="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-service/diceroller-test-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diceroller-web/diceroller-web.iml" filepath="$PROJECT_DIR$/diceroller-web/diceroller-web.iml" />
+    </modules>
+  </component>
+</project>

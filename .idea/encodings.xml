@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/diceroller-admin" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/diceroller-code-parent" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/diceroller-code-parent/diceroller-core-engine" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/diceroller-common-partent" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/diceroller-common-partent/diceroller-common-bean" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/diceroller-common-partent/diceroller-common-util" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/diceroller-dal-parent" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/diceroller-dal-parent/diceroller-dal-mysql" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/diceroller-domain-parent" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/diceroller-domain-parent/diceroller-domain-model" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/diceroller-service-parent" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/diceroller-service-parent/diceroller-service-domain" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/diceroller-service-parent/diceroller-service-facade" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/diceroller-test-parent" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/diceroller-test-parent/diceroller-test-common" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/diceroller-test-parent/diceroller-test-core" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/diceroller-test-parent/diceroller-test-dal" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/diceroller-test-parent/diceroller-test-service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/diceroller-web" charset="UTF-8" />
+  </component>
+</project>

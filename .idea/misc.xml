@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/diceroller-domain-parent/pom.xml" />
+        <option value="$PROJECT_DIR$/diceroller-common-partent/diceroller-common-util/pom.xml" />
+        <option value="$PROJECT_DIR$/diceroller-domain-parent/diceroller-domain-model/pom.xml" />
+        <option value="$PROJECT_DIR$/diceroller-service-parent/pom.xml" />
+        <option value="$PROJECT_DIR$/diceroller-service-parent/diceroller-service-facade/pom.xml" />
+        <option value="$PROJECT_DIR$/diceroller-code-parent/diceroller-core-engine/pom.xml" />
+        <option value="$PROJECT_DIR$/diceroller-code-parent/pom.xml" />
+        <option value="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-core/pom.xml" />
+        <option value="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-common/pom.xml" />
+        <option value="$PROJECT_DIR$/diceroller-common-partent/pom.xml" />
+        <option value="$PROJECT_DIR$/diceroller-web/pom.xml" />
+        <option value="$PROJECT_DIR$/diceroller-admin/pom.xml" />
+        <option value="$PROJECT_DIR$/diceroller-dal-parent/diceroller-dal-mysql/pom.xml" />
+        <option value="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-dal/pom.xml" />
+        <option value="$PROJECT_DIR$/diceroller-dal-parent/pom.xml" />
+        <option value="$PROJECT_DIR$/diceroller-test-parent/pom.xml" />
+        <option value="$PROJECT_DIR$/diceroller-common-partent/diceroller-common-bean/pom.xml" />
+        <option value="$PROJECT_DIR$/diceroller-service-parent/diceroller-service-domain/pom.xml" />
+        <option value="$PROJECT_DIR$/diceroller-test-parent/diceroller-test-service/pom.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>Ant inspections</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" default="true" project-jdk-name="1.7" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

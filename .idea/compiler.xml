@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="diceroller-admin" />
+        <module name="diceroller-common-bean" />
+        <module name="diceroller-common-util" />
+        <module name="diceroller-core-engine" />
+        <module name="diceroller-dal-mysql" />
+        <module name="diceroller-domain-model" />
+        <module name="diceroller-service-domain" />
+        <module name="diceroller-service-facade" />
+        <module name="diceroller-test-common" />
+        <module name="diceroller-test-core" />
+        <module name="diceroller-test-dal" />
+        <module name="diceroller-test-service" />
+        <module name="diceroller-web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="diceroller" target="1.7" />
+      <module name="diceroller-admin" target="1.7" />
+      <module name="diceroller-common-bean" target="1.7" />
+      <module name="diceroller-common-parent" target="1.7" />
+      <module name="diceroller-common-util" target="1.7" />
+      <module name="diceroller-core-engine" target="1.7" />
+      <module name="diceroller-core-parent" target="1.7" />
+      <module name="diceroller-dal-mysql" target="1.7" />
+      <module name="diceroller-dal-parent" target="1.7" />
+      <module name="diceroller-domain-model" target="1.7" />
+      <module name="diceroller-domain-parent" target="1.7" />
+      <module name="diceroller-service-domain" target="1.7" />
+      <module name="diceroller-service-facade" target="1.7" />
+      <module name="diceroller-service-parent" target="1.7" />
+      <module name="diceroller-test-common" target="1.7" />
+      <module name="diceroller-test-core" target="1.7" />
+      <module name="diceroller-test-dal" target="1.7" />
+      <module name="diceroller-test-parent" target="1.7" />
+      <module name="diceroller-test-service" target="1.7" />
+      <module name="diceroller-web" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

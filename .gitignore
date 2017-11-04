@@ -1,16 +1,14 @@
 target/
-.idea/
-*.iml
-.project
-.settings
-.classpath
+# .idea/
+#*.iml
+#.project
+#.settings
+#.classpath
+#.springBeans
 catalina.base_IS_UNDEFINED/
 bin/
 .DS_Store
 rebel.xml
-.springBeans
-.idea/
-*.iml
 logs/
 # Compiled class file
 *.class
