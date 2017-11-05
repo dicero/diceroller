@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Row, Col, Input, Button } from 'antd';
 import Pubsub from 'pubsub-js';
-class ManualBet extends Component {
+class AutoBet extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -57,8 +57,8 @@ class ManualBet extends Component {
         e.stopPropagation();
     }
 	render() {
-        const {betNum = 0, rate, payout, profit} = this.props;
-        const {onChangeBetValue, onChangePayout, onChangeRate, onChangeBetCount} = this.props;
+        const {betNum = 0, rate, payout, profit, loseScale, winScale, loseSwitch, winSwitch, betTimes} = this.props;
+        const {onChangeBetValue, onChangePayout, onChangeRate, onChangeBetCount, onChangeWinSwitch, onChangeLoseSwitch, onChangeLoseScale, onChangeWinScale, onChangeBetTimes} = this.props;
         const {payoutShow ,rateShow} = this.state;
         const rollover = parseFloat(99.99 - rate).toFixed(2)
 		return (
@@ -71,9 +71,10 @@ class ManualBet extends Component {
                         <Button style={{width: "50px"}} type="primary" onClick={(e) => onChangeBetValue(e)}>2x</Button>
                         <Button style={{width: "50px"}} type="primary" onClick={(e) => onChangeBetValue(e)}>最大</Button>
                     </div>
-                    <div className="fl profit" style={{width: "248px"}}>
-                        <p className="label">盈利</p>
-                        <span>{profit}</span>
+                    <div className="fl betTime pr" style={{width: "248px"}}>
+                        <p className="label">投掷次数</p>
+                        <Input type="number" size="large" className="betMnoey" value={betTimes} onChange={(e) => onChangeBetTimes(e.target.value)} />
+                        {parseInt(betTimes)? null : <span>（没有限制）</span>}
                     </div>
                 </div>
                 <div className="winRate">
@@ -105,10 +106,24 @@ class ManualBet extends Component {
                         </div>
                     </div>
                 </div>
-                <button className="throw" onClick={onChangeBetCount}>投骰</button>
+                <div className="changeBet">
+                    <div className="fl" style={{width: "50%"}}>
+                        <p className="label">压输</p>
+                        <Button className={`${loseSwitch ? 'off' : ''}`} type="primary" onClick={(e) => onChangeLoseSwitch(false)}>重置清零</Button>
+                        <Button className={`${loseSwitch ? '' : 'off'}`} type="primary" onClick={(e) => onChangeLoseSwitch(true)}>增加</Button>
+                        <Input disabled={loseSwitch ? false : true} type="number" size="large"value={loseScale} onChange={(e) => onChangeLoseScale(e.target.value)} />
+                    </div>
+                    <div className="fl" style={{width: "50%"}}>
+                        <p className="label">压赢</p>
+                        <Button className={`${winSwitch ? 'off' : ''}`} onClick={(e) => onChangeWinSwitch(false)} type="primary">重置清零</Button>
+                        <Button className={`${winSwitch ? '' : 'off'}`} onClick={(e) => onChangeWinSwitch(true)} type="primary">增加</Button>
+                        <Input disabled={winSwitch ? false : true} type="number" size="large"value={winScale} onChange={(e) => onChangeWinScale(e.target.value)}/>
+                    </div>
+                </div>
+                <button className="throw" onClick={onChangeBetCount}>自动投骰</button>
 			</div>
 		);
 	}
 }
 
-export default ManualBet;
+export default AutoBet;
