@@ -60,7 +60,7 @@ public class AdminWelcomeController {
 		UserPlatformPO userPlatform = new UserPlatformPO();
 		userPlatform.setId(1L);
 		userPlatform.setLoginUsername("hahha");
-		userPlatform.setRole(AdminRole.ADMIN);
+		userPlatform.setRole(AdminRole.SUPER_ADMIN);
 		AdminCookie.setLoginAdmin(httpSession, userPlatform);
 		return "welcome";
 	}
