@@ -14,6 +14,7 @@ public enum  InnerAccountTitleEnums {
     LEVEL_COMPANY("2008", "公司自有资金"),
     LEVEL_SETTLEMENT_FUND_IN("2020", "其他应付款-入款-结算过渡户"),
     LEVEL_SETTLEMENT_FUND_OUT("2021", "其他应付款-出款-结算过渡户"),
+    LEVEL_SETTLEMENT_FUND_REFUND("2022", "其他应付款-退款-结算过渡户"),
     LEVEL_SETTLEMENT_FUND_TRADE("2023", "其他应付款-交易-结算过渡户"),
     LEVEL_CLEARING("4001", "待清算  ");
 

@@ -5,7 +5,7 @@ target/
 .settings
 .classpath
 .springBeans
-
+workspace.xml
 node_modules
 
 catalina.base_IS_UNDEFINED/

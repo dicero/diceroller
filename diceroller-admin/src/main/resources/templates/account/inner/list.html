@@ -9,43 +9,36 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th width="20">
-	                                   <div class="input-group-btn">
-                                            <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">操作 <span class="caret"></span>                                            </button>
-                                            <ul class="dropdown-menu" style="left:0px;">
-                                                <li><a href="javascipt:void(0)" onclick="selectIds(true)">全选</a></li>
-                                                <li><a href="javascipt:void(0)"onclick="selectIds(false)">反全选</a></li>
-                                                <li class="divider"></li>
-                                                <li><a href="javascipt:void(0)"onclick="batch('del')" >删除</a></li>
-                                            </ul>
-	                                    </div>
-                                    </th>
 									<th >一级科目名称</th>
 									<th >一级科目代码</th>
                                     <th >二级科目名称</th>
-                                    <th >二级科目名称</th>
+                                    <th >二级科目代码</th>
 									<th>资产属性</th>
 									<th>余额</th>
-									<th width="100">操作</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 #foreach($item in $!dataMap.entrySet())
-                                    #foreach( $innerAccountPO in $!item.value )
                                     <tr>
-                                        <td><input type="checkbox" name="ids[]" value="$!innerAccountPO.id" /></td>
-                                        <td >$!innerAccountPO.accountTitleNo</td>
-                                        <td >$!AdminTool.printAccountName($!innerAccountPO.accountTitleNo)</td>
+                                        <td >$item.key</td>
+                                        <td >$AdminTool.printAccountName($item.key)</td>
+                                    #foreach( $innerAccountPO in $!item.value )
+                                        #if($velocityCount == 1)
+                                            <td >$!innerAccountPO.accountNo</td>
+                                            <td >$!innerAccountPO.accountName</td>
+                                            <td >#drcrDesc($!innerAccountPO.drcr)</td>
+                                            <td >$numberTool.format("#0.00000000", $!innerAccountPO.balance) (BIT)</td>
+                                    </tr>
+                                        #else
+                                    <tr>
+                                        <td ></td>
+                                        <td ></td>
                                         <td >$!innerAccountPO.accountNo</td>
                                         <td >$!innerAccountPO.accountName</td>
                                         <td >#drcrDesc($!innerAccountPO.drcr)</td>
-                                        <td >$numberTool.format("#0.00000000", $!innerAccountPO.balance)</td>
-                                        <td>
-                                            <a class="btn btn-info" href="#">
-                                                <i class="icon-pencil icon-white"></i> 编辑
-                                            </a>
-                                        </td>
+                                        <td >$numberTool.format("#0.00000000", $!innerAccountPO.balance) (BIT)</td>
                                     </tr>
+                                        #end
                                     #end
                                 #end
 

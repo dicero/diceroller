@@ -16,13 +16,13 @@ public class AdminTool extends FormatConfig {
 
     public String printAccountName(String accountTitleNo) {
         if (StringUtils.isBlank(accountTitleNo)) {
-            return "11";
+            return "未知";
         }
         for (InnerAccountTitleEnums innerAccountTitleEnums : InnerAccountTitleEnums.values()) {
             if (innerAccountTitleEnums.getTitleNo().equals(accountTitleNo)) {
                 return innerAccountTitleEnums.getDesc();
             }
         }
-        return "22";
+        return "未知";
     }
 }

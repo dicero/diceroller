@@ -4,16 +4,18 @@ import com.dicero.diceroller.access.AdminAccess;
 import com.dicero.diceroller.dal.mysql.repository.InnerAccountPORepository;
 import com.dicero.diceroller.domain.enums.AdminRole;
 import com.dicero.diceroller.domain.model.InnerAccountPO;
+import com.dicero.diceroller.tool.AdminTool;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +29,6 @@ import java.util.Map;
 @Controller
 @RequestMapping(value="manager/account/inner")
 public class AdminAccountInnerController {
-    int pageSize = 10;
 
     @Autowired
     InnerAccountPORepository innerAccountPORepository;
@@ -36,14 +37,16 @@ public class AdminAccountInnerController {
     @AdminAccess({AdminRole.SUPER_ADMIN})
     @RequestMapping(value="/list", method= RequestMethod.GET)
     public String accountList(Model model) {
-        Map<String, List<InnerAccountPO>> dataMap = new HashMap<>();
-        List<InnerAccountPO> innerAccountPOList = innerAccountPORepository.findAll();
-
+        Map<String, List<InnerAccountPO>> dataMap = new LinkedHashMap<>();
+        List<InnerAccountPO> innerAccountPOList = innerAccountPORepository.findAll(new Sort(
+                Sort.Direction.ASC, new String[] { "accountTitleNo", "accountNo" }));
+        log.info("result=>{}", innerAccountPOList.toString());
         for (InnerAccountPO innerAccountPO : innerAccountPOList) {
             addData(dataMap, innerAccountPO);
         }
 
         model.addAttribute("dataMap", dataMap);
+        model.addAttribute("AdminTool", new AdminTool());
         return "account/inner/list";
     }
 
