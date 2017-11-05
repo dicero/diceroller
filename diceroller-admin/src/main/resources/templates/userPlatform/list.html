@@ -33,10 +33,10 @@
                            		#foreach( $userPlatform in $userPlatforms.getContent() )
 									<tr>
 										<td><input type="checkbox" name="ids[]" value="$userPlatform.id" /></td>
-										<td class="center">$userPlatform.id</td>
-										<td class="text-warning">$userPlatform.nickName</td>
-										<td class="text-info">$userPlatform.loginUsername</td>
-										<td class="$userPlatform.role.getTextClass()">$userPlatform.role.getInfo()</td>
+										<td class="center">$!userPlatform.id</td>
+										<td >$!userPlatform.nickName</td>
+										<td >$!userPlatform.loginUsername</td>
+										<td class="$userPlatform.role.getTextClass()">$!userPlatform.role.getInfo()</td>
 										<td>$!dateTool.format('yyyy-MM-dd HH:mm:ss', $!userPlatform.gmtCreate)</td> 
 										<td>
 											<a class="btn btn-info" href="/manager/userPlatform/$userPlatform.id">

@@ -69,3 +69,12 @@
     </li>
 </ul>
 #end
+
+
+#macro(drcrDesc $drcr)
+    #if($drcr == "DR")
+        借记
+    #else
+        贷记
+    #end
+#end

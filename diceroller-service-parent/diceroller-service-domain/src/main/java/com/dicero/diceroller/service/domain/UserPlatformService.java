@@ -1,10 +1,10 @@
 package com.dicero.diceroller.service.domain;
 
-import java.util.List;
-
+import com.dicero.diceroller.domain.enums.AdminRole;
+import com.dicero.diceroller.domain.model.UserPlatformPO;
 import org.springframework.data.domain.Page;
 
-import com.dicero.diceroller.domain.model.UserPlatformPO;
+import java.util.List;
 
 
 /**   
@@ -15,7 +15,7 @@ public interface UserPlatformService {
 	UserPlatformPO findById(Long id);
 	UserPlatformPO findByLoginUsername(String loginUsername);
 	Page<UserPlatformPO> findAll(int page, int pageSize);
-	int update(Long id, String loginUsername, String loginPassword, String nickName);
+    int update(Long id, String loginUsername, String loginPassword, AdminRole adminRole, String nickName);
 	UserPlatformPO save(UserPlatformPO record);
 	Long deleteById(Long id);
 	Long deleteByIdIn(List<Long> ids);

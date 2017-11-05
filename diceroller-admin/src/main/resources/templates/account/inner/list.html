@@ -2,9 +2,7 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5><a href="/manager/studentWork/list">刷新</a>&nbsp;&nbsp;学生作品列表</h5>
-                        &nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onclick="batch('new')">创建新学生作品</a> 
-                    </div>
+                        <h5><a href="/manager/account/inner/list">刷新</a>&nbsp;&nbsp;账户科目列表</h5>
                     </div>
                     <div class="ibox-content">
                     <form id="form-list" method="post" action="">
@@ -22,79 +20,52 @@
                                             </ul>
 	                                    </div>
                                     </th>
-									<!-- <th width="40">ID</th> -->
-									<th>分类</th>
-									<th>图片</th>
-									<th>显示位置:从大到小显示</th>
-									<th>显示状态</th>
-									<th>创建时间</th>
+									<th >一级科目名称</th>
+									<th >一级科目代码</th>
+                                    <th >二级科目名称</th>
+                                    <th >二级科目名称</th>
+									<th>资产属性</th>
+									<th>余额</th>
 									<th width="100">操作</th>
                                 </tr>
                             </thead>
                             <tbody>
-                           		#foreach( $studentWork in $studentWorks.getContent() )
-									<tr>
-										<td><input type="checkbox" name="ids[]" value="$studentWork.id" /></td>
-										<td class="center">
-											#foreach( $workType in $studentWorkTypes.getContent() )
-	                                    		#if($studentWork.studentWorkTypeId && $studentWork.studentWorkTypeId==$workType.id)
-	                                				$workType.name
-		                                		#end
-	                                		#end
-                                		</td>
-										<td class="text-warning"><img src="${studentWork.imgUrl}" style="height: 80px; width: 120px;"/></td>
-										<td >$studentWork.sequence</td>
-										<td class="$studentWork.showStatus.getTextClass()">$studentWork.showStatus.getDesc()</td>
-										<td>$!dateTool.format('yyyy-MM-dd HH:mm:ss', $!studentWork.gmtCreate)</td> 
-										<td>
-											<a class="btn btn-info"  href="javascript:void(0)" onclick="edit('${studentWork.id}')">
-												<i class="icon-pencil icon-white"></i> 编辑
-											</a>
-										</td>
-									</tr>
-								#end
+                                #foreach($item in $!dataMap.entrySet())
+                                    #foreach( $innerAccountPO in $!item.value )
+                                    <tr>
+                                        <td><input type="checkbox" name="ids[]" value="$!innerAccountPO.id" /></td>
+                                        <td >$!innerAccountPO.accountTitleNo</td>
+                                        <td >$!AdminTool.printAccountName($!innerAccountPO.accountTitleNo)</td>
+                                        <td >$!innerAccountPO.accountNo</td>
+                                        <td >$!innerAccountPO.accountName</td>
+                                        <td >#drcrDesc($!innerAccountPO.drcr)</td>
+                                        <td >$numberTool.format("#0.00000000", $!innerAccountPO.balance)</td>
+                                        <td>
+                                            <a class="btn btn-info" href="#">
+                                                <i class="icon-pencil icon-white"></i> 编辑
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    #end
+                                #end
+
+
                             </tbody>
                         </table>
-                    
                         </form>
-                        <!-- 分页开始 -->
-                        #pager("/manager/studentWork/list" $studentWorks)
-						<!-- 分页结束 -->
                     </div>
                 </div>
             </div>
-        
-<script src="/static/js/jquery.min.js?v=2.1.4"></script>
-<script src="/static/js/plugins/layer/layer.min.js"></script>
+        </div>
+    
 <script>
 
 function selectIds(isSelect) {
 	$("input[name='ids[]']").attr("checked", isSelect);
 }
 
-function edit(id) {
-	layer.open({
-	  type: 2,
-	  title: '操作',
-	  shadeClose: true,
-	  shade: 0.8,
-	  area: ['80%', '90%'],
-	  content: '/manager/studentWork/' + id
-	});
-}
-
 function batch(action) {
-	if(action == 'new') {
-		//iframe层
-		layer.open({
-		  type: 2,
-		  title: '操作',
-		  shadeClose: true,
-		  shade: 0.8,
-		  area: ['80%', '90%'],
-		  content: '/manager/studentWork/'
-		}); 
-	} else if(action == 'del') {
+	if(action == 'del') {
 		if ($("input[name='ids[]']:checked").size() < 1) {
 			sweetAlert("删除失败...", "请先选中至少一个目标", "error");
 		} else {
@@ -107,7 +78,7 @@ function batch(action) {
 		        confirmButtonText: "删除",
 		        closeOnConfirm: false
 		    }, function () {
-		    	var url = "/ajax/studentWork/del";
+		    	var url = "/ajax/userPlatform/del";
 				console.log($("#form-list").serialize());
 				$.post(url , $("#form-list").serialize(), function(out) {
 					if (out.meta.status == "F") {

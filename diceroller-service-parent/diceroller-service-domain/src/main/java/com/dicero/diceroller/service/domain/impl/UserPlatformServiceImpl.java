@@ -69,8 +69,8 @@ public class UserPlatformServiceImpl implements UserPlatformService {
 	
 	@Override
 	//@CacheEvict(value=CacheConfig.CACHE_VAL_FOR_USERPLATFORM,key="#id", allEntries=true)
-	public int update(Long id, String loginUsername, String loginPassword, String nickName) {
-		return this.userPlatformRepository.setFixedFor(id, loginUsername, md5Password(loginPassword), nickName);
+	public int update(Long id, String loginUsername, String loginPassword, AdminRole adminRole, String nickName) {
+		return this.userPlatformRepository.setFixedFor(id, loginUsername, md5Password(loginPassword), adminRole, nickName);
 	}
 	
 	@Override

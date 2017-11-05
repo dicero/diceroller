@@ -2,16 +2,16 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>#if($userPlatform.id) 更新 #else 新建 #end用户 <small>-</small></h5>
+                        <h5>#if($userPlatformPO.id) 更新 #else 新建 #end 管理员 <small>-</small></h5>
                     </div>
                     <div class="ibox-content">
                         <form action="/manager/userPlatform/operate" method="post"  class="form-horizontal">
-                            #if($userPlatform.id)
-								#springBind("userPlatform.id")
+                            #if($userPlatformPO.id)
+								#springBind("userPlatformPO.id")
 								<input type="hidden" name="${status.expression}" value="$!{status.value}" >
 							#end
                             
-                            #springBind("userPlatform.loginUsername")
+                            #springBind("userPlatformPO.loginUsername")
                             <div class="form-group #fieldHasError(${status.errorMessage})">
                                 <label class="col-sm-2 control-label">登录名</label>
                                 <div class="col-sm-5">
@@ -21,7 +21,7 @@
                             </div>
                             <div class="hr-line-dashed"></div>
                             
-                            #springBind("userPlatform.loginPassword")
+                            #springBind("userPlatformPO.loginPassword")
 							<div class="form-group #fieldHasError(${status.errorMessage})">
                                 <label class="col-sm-2 control-label">登录密码</label>
                                 <div class="col-sm-5">
@@ -31,7 +31,7 @@
                             </div>
                             <div class="hr-line-dashed"></div>
                             
-                            #springBind("userPlatform.nickName")
+                            #springBind("userPlatformPO.nickName")
                             <div class="form-group #fieldHasError(${status.errorMessage})">
                                 <label class="col-sm-2 control-label">昵称</label>
                                 <div class="col-sm-5">
@@ -42,7 +42,7 @@
                             <div class="hr-line-dashed"></div>
                             
                             <div class="hr-line-dashed"></div>
-                            #springBind("userPlatform.role")
+                            #springBind("userPlatformPO.role")
                             <div class="form-group #fieldHasError(${status.errorMessage})">
                                 <label class="col-sm-2 control-label">角色选择
                                     <br/><small class="text-navy">建议</small><br/><small class="text-navy">只保留一个超级管理员</small>
@@ -50,7 +50,7 @@
 								
                                 <div class="col-sm-10">
                                 	#foreach( $role in $adminRole )
-                                		#if($userPlatform && $userPlatform.getRole()==$role)
+                                		#if($userPlatformPO && $userPlatformPO.getRole()==$role)
                                 			<div class="radio i-checks">
 		                                        <label><input type="radio" checked="" value="$role" name="${status.expression}"> <i></i> $role.getInfo()</label>
 		                                    </div>
@@ -67,7 +67,7 @@
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
-                                    <button class="btn btn-primary" type="submit">#if($userPlatform.id) 更 新 #else 新 建 #end</button>
+                                    <button class="btn btn-primary" type="submit">#if($userPlatformPO.id) 更 新 #else 新 建 #end</button>
                                     <button class="btn btn-white" type="button" onclick="history.go(-1);">返回上一页</button>
                                 </div>
                             </div>

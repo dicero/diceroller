@@ -1,11 +1,10 @@
 package com.dicero.diceroller.access;
 
-import javax.servlet.http.HttpSession;
-
-import org.apache.commons.lang3.StringUtils;
-
 import com.dicero.diceroller.common.util.DESUtil;
 import com.dicero.diceroller.domain.model.UserPlatformPO;
+import org.apache.commons.lang3.StringUtils;
+
+import javax.servlet.http.HttpSession;
 
 /**   
 * <p></p>
@@ -27,7 +26,7 @@ public class AdminCookie {
 	
 	public static void setLoginAdmin(HttpSession httpSession, UserPlatformPO userPlatform){
 		String value = userPlatform.getId() + "," + userPlatform.getLoginUsername() + "," + userPlatform.getRole().name() + "," + userPlatform.getNickName();
-		setCookie(httpSession, value);
+            setCookie(httpSession, value);
 	}
 	
 	public static void removeLoginAdmin(HttpSession httpSession){

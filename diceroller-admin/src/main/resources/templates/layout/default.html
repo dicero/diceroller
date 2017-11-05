@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-    <title>法蓝西后台</title>
+    <title>Dice</title>
 
     <link rel="shortcut icon" href="/static/favicon.ico"> 
     <link href="/static/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
@@ -24,50 +24,38 @@
 <body class="gray-bg top-navigation">
 
     <div id="wrapper">
+        <div class="gray-bg">
+            <div class="row border-bottom white-bg" style="width: 100%;margin:0px;">
+                <div class="navbar-header" style="width: 100%;background: black;" >
+                    <a href="/manager/index" class="navbar-brand" style="margin-left: 40%; background: black; font-family: fantasy;">DICEROLLER</a>
+                </div>
+
+            </div>
+        </div>
         <div id="page-wrapper" class="gray-bg">
             <div class="row border-bottom white-bg">
                 <nav class="navbar navbar-static-top" role="navigation">
-                    <div class="navbar-header">
-                        <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
-                            <i class="fa fa-reorder"></i>
-                        </button>
-                        <a href="/manager/index" class="navbar-brand">法蓝西</a>
-                    </div>
                     <div class="navbar-collapse collapse" id="navbar">
                         <ul class="nav navbar-nav">
                             <li class="active">
                                 <a aria-expanded="false" role="button" href="/manager/index"> 返回首页</a>
                             </li>
                             <li class="dropdown">
-                                <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> 后台用户管理 <span class="caret"></span></a>
+                                <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> 管理员 <span class="caret"></span></a>
                                 <ul role="menu" class="dropdown-menu">
-                                    <li><a href="/manager/userPlatform/list">后台用户</a>
+                                    <li><a href="/manager/userPlatform/list">后台用户管理</a>
                                     </li>
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> 首页轮播图片管理 <span class="caret"></span></a>
+                                <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> 账户科目管理后台 <span class="caret"></span></a>
                                 <ul role="menu" class="dropdown-menu">
-                                    <li><a href="/manager/nav/list">图片管理</a>
+                                    <li><a href="/manager/account/inner/list">科目汇总</a>
                                     </li>
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> 师资风采 <span class="caret"></span></a>
-                                <ul role="menu" class="dropdown-menu">
-                                    <li><a href="/manager/teacher/list">师资风采列表</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> 课程介绍 <span class="caret"></span></a>
-                                <ul role="menu" class="dropdown-menu">
-                                    <li><a href="/manager/course/list">课程介绍列表</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> 学生作品 <span class="caret"></span></a>
+                                <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> 会员管理后台 <span class="caret"></span></a>
                                 <ul role="menu" class="dropdown-menu">
                                     <li><a href="/manager/studentWorkType/list">学生作品列表</a>
                                     </li>
@@ -76,28 +64,23 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> 学校环境 <span class="caret"></span></a>
+                                <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> 押注管理后台 <span class="caret"></span></a>
                                 <ul role="menu" class="dropdown-menu">
-                                    <li><a href="/manager/school/list">学校图片列表</a>
+                                    <li><a href="/manager/studentWorkType/list">学生作品列表</a>
                                     </li>
-                                </ul>
-                            </li>
-                             <li class="dropdown">
-                                <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> 毕业照 <span class="caret"></span></a>
-                                <ul role="menu" class="dropdown-menu">
-                                    <li><a href="/manager/graduate/list">毕业照图片列表</a>
+                                    <li><a href="/manager/studentWork/list">作品列表</a>
                                     </li>
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> 建议 <span class="caret"></span></a>
+                                <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> 资金管理后台 <span class="caret"></span></a>
                                 <ul role="menu" class="dropdown-menu">
-                                    <li><a href="/manager/message/list">建议列表</a>
+                                    <li><a href="/manager/studentWorkType/list">学生作品列表</a>
+                                    </li>
+                                    <li><a href="/manager/studentWork/list">作品列表</a>
                                     </li>
                                 </ul>
                             </li>
-                            
-                          
 
                         </ul>
                         <ul class="nav navbar-top-links navbar-right">
@@ -113,10 +96,10 @@
             $screen_content
             <div class="footer">
                 <div class="pull-right">
-                    By：<a href="http://www.zi-han.net/" target="_blank"> 法蓝西 </a>
+                    By：<a href="#" target="_blank"> Dice Hero Team </a>
                 </div>
                 <div>
-                    <strong>Copyright</strong> &copy; 2016
+                    <strong>Copyright</strong> &copy; 2017
                 </div>
             </div>
         </div>

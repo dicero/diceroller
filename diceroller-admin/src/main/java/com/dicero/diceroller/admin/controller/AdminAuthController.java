@@ -26,16 +26,16 @@ public class AdminAuthController {
 
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String loginGet(Model model) {
-		model.addAttribute("userPlatform", new UserPlatformPO());
+		model.addAttribute("userPlatformPO", new UserPlatformPO());
 		return "login";
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String loginPost(HttpSession httpSession, @Valid UserPlatformPO userPlatform, BindingResult result, Model model) {
+	public String loginPost(HttpSession httpSession, @Valid UserPlatformPO userPlatformPO, BindingResult result, Model model) {
 		if(result.hasErrors()) {
 			return "login";
 		}
-		UserPlatformPO login = this.userPlatformService.login(userPlatform.getLoginUsername(), userPlatform.getLoginPassword());
+		UserPlatformPO login = this.userPlatformService.login(userPlatformPO.getLoginUsername(), userPlatformPO.getLoginPassword());
 		if(login!=null) {
 			AdminCookie.setLoginAdmin(httpSession, login);
 			return "redirect:/manager/index";

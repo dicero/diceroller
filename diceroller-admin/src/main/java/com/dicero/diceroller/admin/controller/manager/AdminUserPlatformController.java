@@ -44,7 +44,7 @@ public class AdminUserPlatformController {
 	@AdminAccess({AdminRole.SUPER_ADMIN})
 	@RequestMapping(value="/userPlatform", method=RequestMethod.GET)
 	public String userPlatform(Model model) {
-		model.addAttribute("userPlatform", new UserPlatformPO());
+		model.addAttribute("userPlatformPO", new UserPlatformPO());
 		model.addAttribute("adminRole", AdminRole.values());
 		return "userPlatform/operate";
 	}
@@ -54,7 +54,7 @@ public class AdminUserPlatformController {
 	@RequestMapping(value="/userPlatform/{id}", method=RequestMethod.GET)
 	public String userPlatformOperate(@PathVariable String id, Model model) {
         UserPlatformPO userPlatform = this.userPlatformService.findById(Long.valueOf(id));
-		model.addAttribute("userPlatform", userPlatform);
+		model.addAttribute("userPlatformPO", userPlatform);
 		model.addAttribute("adminRole", AdminRole.values());
 		return "userPlatform/operate";
 	}
@@ -62,18 +62,18 @@ public class AdminUserPlatformController {
 	// 修改或者新增
 	@AdminAccess({AdminRole.SUPER_ADMIN})
 	@RequestMapping(value="/userPlatform/operate", method=RequestMethod.POST)
-	public String userPlatformOperate(@Valid UserPlatformPO userPlatform,
+	public String userPlatformOperate(@Valid UserPlatformPO userPlatformPO,
 			BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			model.addAttribute("adminRole", AdminRole.values());
 			return "userPlatform/operate";
 		}
-		if(userPlatform.getId() == null) {
-			if(this.userPlatformService.save(userPlatform) == null){
+		if(userPlatformPO.getId() == null) {
+			if(this.userPlatformService.save(userPlatformPO) == null){
 				return "error/500";
 			}
 		} else {
-			if(this.userPlatformService.update(userPlatform.getId(), userPlatform.getLoginUsername(), userPlatform.getLoginPassword(),userPlatform.getNickName()) != 1) {
+			if(this.userPlatformService.update(userPlatformPO.getId(), userPlatformPO.getLoginUsername(), userPlatformPO.getLoginPassword(), userPlatformPO.getRole(),userPlatformPO.getNickName()) != 1) {
 				return "error/500";
 			}
 		}

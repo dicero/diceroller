@@ -71,6 +71,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
                     <fork>true</fork>
+                    <addResources>true</addResources><!--支持静态文件热部署-->
                 </configuration>
 			</plugin>
 			<plugin>

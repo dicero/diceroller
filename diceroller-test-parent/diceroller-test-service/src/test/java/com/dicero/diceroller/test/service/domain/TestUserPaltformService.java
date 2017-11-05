@@ -16,6 +16,7 @@
 package com.dicero.diceroller.test.service.domain;
 
 import com.dicero.diceroller.TestBase;
+import com.dicero.diceroller.domain.enums.AdminRole;
 import com.dicero.diceroller.domain.model.UserPlatformPO;
 import com.dicero.diceroller.service.domain.UserPlatformService;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -44,7 +45,7 @@ public class TestUserPaltformService extends TestBase {
 		UserPlatformPO record2 = this.userPlatformService.findById(record.getId());
 		System.out.println("record2 =>" + record2);
 		
-		this.userPlatformService.update(record.getId(), record.getLoginUsername(), "aaaaaaaa", "ddddd");
+		this.userPlatformService.update(record.getId(), record.getLoginUsername(), "aaaaaaaa", AdminRole.ADMIN, "");
 		Thread.sleep(5);
 		UserPlatformPO record3 = this.userPlatformService.findById(record.getId());
 		System.out.println("record3 =>" + record3);
@@ -60,8 +61,8 @@ public class TestUserPaltformService extends TestBase {
 	@Test
 	public void save() {
 		UserPlatformPO record =  new UserPlatformPO();
-		record.setLoginPassword("password");
-		record.setLoginUsername("你好");
+		record.setLoginPassword("admin01");
+		record.setLoginUsername("admin");
 		this.userPlatformService.save(record);
 	}
 
@@ -92,10 +93,10 @@ public class TestUserPaltformService extends TestBase {
 	
 	@Test
 	public void update() {
-		Long id = 10000000L;
+		Long id = 1L;
 		String loginUsername = "zhangsan";
 		String loginPassword = "mima";
-		int rows = userPlatformService.update(id, loginUsername, loginPassword, "nickname");
+		int rows = userPlatformService.update(id, loginUsername, loginPassword, AdminRole.ADMIN, "nickname");
 		Assert.assertEquals(rows, 1);
 	}
 	

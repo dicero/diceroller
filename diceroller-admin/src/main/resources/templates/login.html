@@ -34,11 +34,11 @@
             <div class="col-sm-5">
                 <form action="/auth/login" method="post" >
                     <h4 class="no-margins">登录：</h4>
-					#springBind("userPlatform.loginUsername")
+					#springBind("userPlatformPO.loginUsername")
                     <input type="text" class="form-control uname" id="username" name="${status.expression}" value="$!{status.value}" placeholder="用户名" />
                     <span class="error-text">${status.errorMessage}</span>
                     
-                    #springBind("userPlatform.loginPassword")
+                    #springBind("userPlatformPO.loginPassword")
                     <input type="password" class="form-control pword m-b" id="password" name="${status.expression}" value="$!{status.value}" placeholder="密码" />
                     <span class="error-text">${status.errorMessage}</span>
                     <span class="error-text">$!error</span><a href="">忘记密码了？</a>

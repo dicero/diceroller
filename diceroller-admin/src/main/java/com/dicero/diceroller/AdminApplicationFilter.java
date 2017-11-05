@@ -14,7 +14,7 @@ public class AdminApplicationFilter implements Filter{
 	public void doFilter(ServletRequest paramServletRequest, ServletResponse paramServletResponse,
 			FilterChain paramFilterChain) throws IOException, ServletException {
 		// logger.debug("=======doFilter=============");
-		paramFilterChain.doFilter(paramServletRequest, paramServletResponse);  
+		paramFilterChain.doFilter(paramServletRequest, paramServletResponse);
 	}
 	
 	@Override
