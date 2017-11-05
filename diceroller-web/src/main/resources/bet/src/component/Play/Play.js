@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
+import './Play.less';
 import { Layout, Tabs} from 'antd';
 import ManualBet from './ManualBet.js';
+import AutoBet from './AutoBet.js';
+import BetMessages from './BetMessages.js';
 import RateSlider from './RateSlider.js';
+import BetLists from './BetLists.js';
 const {Content, Sider } = Layout;
 const TabPane = Tabs.TabPane;
 
@@ -9,16 +13,27 @@ class Play extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            betNum: '0.00000000',
-            rate: '49.50',
-            payout: '2.000'
+            betNum: '0.00000000', //投掷金额
+            rate: '49.50', // 胜率
+            payout: '2.000', // 派彩
+            profit: '0.00000000', // 盈利
+            betCount: '70', // 点数
+            loseScale: '0', // 压输
+            winScale: '0', // 压赢
+            loseSwitch: false, // 压输开关
+            winSwith: false, // 压赢开关
+            betTimes: 0 // 投掷次数
         }
         this.handleChangeBetValue = this.handleChangeBetValue.bind(this);
         this.formatNum = this.formatNum.bind(this);
         this.handleChangeRate = this.handleChangeRate.bind(this);
-    }
-    handleTabChange = (key) => {
-        console.log(key)
+        this.handleChangePayout = this.handleChangePayout.bind(this);
+        this.handleChangeBetCount = this.handleChangeBetCount.bind(this);
+        this.handleLoseScale = this.handleLoseScale.bind(this);
+        this.handleWinScale = this.handleWinScale.bind(this);
+        this.handleLoseSwitch = this.handleLoseSwitch.bind(this);
+        this.handleWinSwitch = this.handleWinSwitch.bind(this);
+        this.handleChangeBetTimes = this.handleChangeBetTimes.bind(this);
     }
     formatNum(num) {
         return parseFloat(num).toFixed(8).toString();
@@ -33,7 +48,8 @@ class Play extends Component {
                 betNum = value;
             }
             this.setState({
-                betNum: this.formatNum(betNum)
+                betNum: this.formatNum(betNum),
+                profit: this.formatNum(betNum)
             })
         } else if(e.type === 'click'){
             let operate = e.target.textContent;
@@ -46,7 +62,8 @@ class Play extends Component {
                 betNum = window.totalMoney;
             } else {}
             this.setState({
-                betNum: this.formatNum(betNum)
+                betNum: this.formatNum(betNum),
+                profit: this.formatNum(betNum)
             })
         }
         
@@ -56,22 +73,78 @@ class Play extends Component {
             rate: value
         })
     }
-    
+    handleChangePayout(value) {
+        this.setState({
+            payout: value
+        })
+    }
+    handleChangeBetCount() {
+        this.setState({
+            betCount: Math.random() * 100
+        })
+    }
+    handleLoseSwitch(value) {
+        this.setState({
+            loseSwitch: value
+        })
+    }
+    handleLoseScale(value) {
+        this.setState({
+            loseScale: value
+        })
+    }
+    handleWinSwitch(value) {
+        this.setState({
+            winSwitch: value
+        })
+    }
+    handleWinScale(value) {
+        this.setState({
+            winScale: value
+        })
+    }
+    handleChangeBetTimes(value) {
+        this.setState({
+            betTimes: value
+        })
+    }
 	render() {
 		return (
 			<div className="play">
 				<Layout style={{width:"910px",margin:"0 auto"}}>
                     <Content style={{marginRight: "10px"}}>
-                    <Tabs onChange={this.handleTabChange} type="card">
+                    <Tabs type="card">
                         <TabPane tab="手动下注" key="1">
-                            <ManualBet {...this.state} onChangeBetValue={this.handleChangeBetValue}/>
+                            <ManualBet 
+                                {...this.state} 
+                                onChangeBetValue={this.handleChangeBetValue} 
+                                onChangePayout={this.handleChangePayout} 
+                                onChangeRate={this.handleChangeRate}
+                                onChangeBetCount={this.handleChangeBetCount}
+                            />
                         </TabPane>
-                        <TabPane tab="自动下注" key="2">Content of Tab Pane 2</TabPane>                        
+                        <TabPane tab="自动下注" key="2">
+                            <AutoBet
+                                {...this.state} 
+                                onChangeBetValue={this.handleChangeBetValue} 
+                                onChangePayout={this.handleChangePayout} 
+                                onChangeRate={this.handleChangeRate}
+                                onChangeBetCount={this.handleChangeBetCount}
+                                onChangeWinScale={this.handleWinScale}
+                                onChangeLoseScale={this.handleLoseScale}
+                                onChangeWinSwitch={this.handleWinSwitch}
+                                onChangeLoseSwitch={this.handleLoseSwitch}
+                                onChangeBetTimes = {this.handleChangeBetTimes}
+                            />    
+                        </TabPane>                        
                     </Tabs>
                     </Content>
-                    <Sider width={230}>right sidebar</Sider>
+                    <Sider width={230}>
+                        <BetMessages/>
+                    </Sider>
                 </Layout>
                 <RateSlider {...this.state} onChangeRate={this.handleChangeRate}/>
+                <BetLists/>
 			</div>
 		);
 	}
