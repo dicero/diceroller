@@ -8,17 +8,21 @@ package com.dicero.diceroller.domain.enums;
  */
 public enum PartyRoleEnums {
     // NOTE: 付款方
-    PAYEE("payee"),
+    PAYEE("付款方"),
     // NOTE: 收款方
-    PAYER("payer");
+    PAYER("收款方");
 
-    private String value;
+    private String desc;
 
-    PartyRoleEnums(String value) {
-        this.value = value;
+    PartyRoleEnums(String desc) {
+        this.desc = desc;
     }
 
-    public String getValue() {
-        return value;
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 }

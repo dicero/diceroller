@@ -1,6 +1,11 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>联合查询 <small></small></h5>
+                        <div class="ibox-tools">
+                        </div>
+                    </div>
                     <div class="ibox-content">
                         <form method="post" action="/manager/tss/query" class="form-horizontal">
 
@@ -79,7 +84,7 @@
                                 <td>$!tradeOrderPO.getSellerId()</td>
                                 <td>$!tradeOrderPO.getSellerAccountNo()</td>
                                 <td>$numberTool.format("#0.00000000", $!tradeOrderPO.getTradeAmount())</td>
-                                <td>#printlnStatus($!tradeOrderPO.getStatus())</td>
+                                <td>$!tradeOrderPO.getStatus().getDesc()</td>
                                 <td>$!tradeOrderPO.getRemark()</td>
                                 <td>$!dateTool.format('yyyy-MM-dd HH:mm:ss', $!tradeOrderPO.getCreateTime())</td>
                                 <td>$!dateTool.format('yyyy-MM-dd HH:mm:ss', $!tradeOrderPO.getUpdateTime())</td>
@@ -123,7 +128,7 @@
                                 <td>$!settlementOrderPO.getSessionId()</td>
                                 <td>$!settlementOrderPO.getPaymentSeqNo()</td>
                                 <td>$!settlementOrderPO.getClearingCodeList()</td>
-                                <td>$!settlementOrderPO.getStatus()</td>
+                                <td>$!settlementOrderPO.getStatus().getDesc()</td>
                                 <td>$!dateTool.format('yyyy-MM-dd HH:mm:ss', $!settlementOrderPO.getCreateTime())</td>
                                 <td>$!dateTool.format('yyyy-MM-dd HH:mm:ss', $!settlementOrderPO.getUpdateTime())</td>
                             </tr>
@@ -167,11 +172,11 @@
                             <tbody>
                             #foreach( $settlementCarrierPO in $settlementCarrierPOList )
                             <tr>
-                                <td>#printlnSettlementType($!settlementCarrierPO.getSettlementType())</td>
+                                <td>$!settlementCarrierPO.getSettlementType().getDesc()</td>
                                 <td>$!settlementCarrierPO.getRequestNo()</td>
                                 <td>$!settlementCarrierPO.getPaymentSeqNo()</td>
-                                <td>$!settlementCarrierPO.getStatus()</td>
-                                <td>$!settlementCarrierPO.getPaymentType()</td>
+                                <td>$!settlementCarrierPO.getStatus().getDesc()</td>
+                                <td>$!settlementCarrierPO.getPaymentType().getDesc()</td>
                                 <td>$!settlementCarrierPO.getSummary()</td>
                                 <td>$!dateTool.format('yyyy-MM-dd HH:mm:ss', $!settlementCarrierPO.getCreateTime())</td>
                                 <td>$!dateTool.format('yyyy-MM-dd HH:mm:ss', $!settlementCarrierPO.getUpdateTime())</td>
@@ -207,7 +212,7 @@
                                 <th>清算场次号</th>
                                 <th>支付流水号</th>
                                 <th>清算指令</th>
-                                <th>参与角色payee-付款方,payer-收款方</th>
+                                <th>参与角色</th>
                                 <th>参与方</th>
                                 <th>账户</th>
                                 <th>金额</th>
@@ -219,15 +224,15 @@
                             <tbody>
                             #foreach( $clearingOrderInnerPO in $clearingOrderInnerPOList )
                             <tr>
-                                <td>#printlnSettlementType($!settlementCarrierPO.getSettlementType())</td>
+                                <td>内场</td>
                                 <td>$!clearingOrderInnerPO.getSessionId()</td>
                                 <td>$!clearingOrderInnerPO.getPaymentSeqNo()</td>
                                 <td>$!clearingOrderInnerPO.getClearingCode()</td>
-                                <td>$!clearingOrderInnerPO.getPartyRole()</td>
+                                <td>$!clearingOrderInnerPO.getPartyRole().getDesc()</td>
                                 <td>$!clearingOrderInnerPO.getPartyId()</td>
                                 <td>$!clearingOrderInnerPO.getAccountNo()</td>
                                 <td>$numberTool.format("#0.00000000", $!clearingOrderInnerPO.getAmt())</td>
-                                <td >#drcrDesc($!clearingOrderInnerPO.getDrcr())</td>
+                                <td >$!clearingOrderInnerPO.getDrcr().getDesc()</td>
                                 <td>$!dateTool.format('yyyy-MM-dd HH:mm:ss', $!clearingOrderInnerPO.getCreateTime())</td>
                                 <td>$!dateTool.format('yyyy-MM-dd HH:mm:ss', $!clearingOrderInnerPO.getUpdateTime())</td>
                             </tr>
@@ -274,15 +279,15 @@
                             <tbody>
                             #foreach( $clearingOrderOuterPO in $clearingOrderOuterPOList )
                             <tr>
-                                <td>#printlnSettlementType($!settlementCarrierPO.getSettlementType())</td>
+                                <td>外场</td>
                                 <td>$!clearingOrderOuterPO.getSessionId()</td>
                                 <td>$!clearingOrderOuterPO.getPaymentSeqNo()</td>
                                 <td>$!clearingOrderOuterPO.getClearingCode()</td>
-                                <td>$!clearingOrderOuterPO.getPartyRole()</td>
+                                <td>$!clearingOrderOuterPO.getPartyRole().getDesc()</td>
                                 <td>$!clearingOrderOuterPO.getPartyId()</td>
                                 <td>$!clearingOrderOuterPO.getAccountNo()</td>
                                 <td>$numberTool.format("#0.00000000", $!clearingOrderOuterPO.getAmt())</td>
-                                <td>#drcrDesc($!clearingOrderOuterPO.getDrcr())</td>
+                                <td>$!clearingOrderOuterPO.getDrcr().getDesc()</td>
                                 <td>$!dateTool.format('yyyy-MM-dd HH:mm:ss', $!clearingOrderOuterPO.getCreateTime())</td>
                                 <td>$!dateTool.format('yyyy-MM-dd HH:mm:ss', $!clearingOrderOuterPO.getUpdateTime())</td>
                             </tr>
@@ -329,8 +334,8 @@
                                 <td>$!innerAccountDetailPO.getPaymentSeqNo()</td>
                                 <td>$!innerAccountDetailPO.getVoucherNo()</td>
                                 <td>$!innerAccountDetailPO.getAccountNo()</td>
-                                <td>#outDrcr($!innerAccountDetailPO.getDrcr()) $numberTool.format("#0.00000000", $!innerAccountDetailPO.getTxnAmt())</td>
-                                <td>#drcrDesc($!innerAccountDetailPO.getDrcr())</td>
+                                <td>$!innerAccountDetailPO.getFundType().getSign() $numberTool.format("#0.00000000", $!innerAccountDetailPO.getTxnAmt())</td>
+                                <td>$!innerAccountDetailPO.getDrcr().getDesc()</td>
                                 <td>$!innerAccountDetailPO.getTxnRemark()</td>
                                 <td>$!dateTool.format('yyyy-MM-dd HH:mm:ss', $!innerAccountDetailPO.getCreateTime())</td>
                                 <td>$!dateTool.format('yyyy-MM-dd HH:mm:ss', $!innerAccountDetailPO.getUpdateTime())</td>
@@ -378,8 +383,8 @@
                                 <td>$!outerAccountDetailPO.getPaymentSeqNo()</td>
                                 <td>$!outerAccountDetailPO.getVoucherNo()</td>
                                 <td>$!outerAccountDetailPO.getAccountNo()</td>
-                                <td>#outDrcr($!outerAccountDetailPO.getDrcr()) $numberTool.format("#0.00000000", $!outerAccountDetailPO.getTxnAmt())</td>
-                                <td>#drcrDesc($!outerAccountDetailPO.getDrcr())</td>
+                                <td>$!outerAccountDetailPO.getFundType().getSign() $numberTool.format("#0.00000000", $!outerAccountDetailPO.getTxnAmt())</td>
+                                <td>$!outerAccountDetailPO.getDrcr().getDesc()</td>
                                 <td>$!outerAccountDetailPO.getTxnRemark()</td>
                                 <td>$!dateTool.format('yyyy-MM-dd HH:mm:ss', $!outerAccountDetailPO.getCreateTime())</td>
                                 <td>$!dateTool.format('yyyy-MM-dd HH:mm:ss', $!outerAccountDetailPO.getUpdateTime())</td>

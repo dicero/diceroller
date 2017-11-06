@@ -1,17 +1,12 @@
 package com.dicero.diceroller.test.dal;
 
 import com.dicero.diceroller.TestBase;
-import com.dicero.diceroller.common.util.RandomUtil;
 import com.dicero.diceroller.dal.mysql.repository.SettlementCarrierPORepository;
-import com.dicero.diceroller.domain.enums.DRCREnums;
-import com.dicero.diceroller.domain.enums.PartyIdEnums;
-import com.dicero.diceroller.domain.enums.PartyRoleEnums;
-import com.dicero.diceroller.domain.model.ClearingOrderInnerPO;
+import com.dicero.diceroller.domain.model.SettlementCarrierPO;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,6 +24,13 @@ public class SettlementCarrierPORepositoryTest extends TestBase {
         // SettlementCarrierPO record = SettlementCarrierPOrepository.findById(1);
         // println(record);
         // Assert.assertNotNull(record);
+    }
+
+    @Test
+    public void findAllByPaymentSeqNoTest() {
+         List<SettlementCarrierPO> recordList = SettlementCarrierPORepository.findAllByPaymentSeqNo("P0001711040018250SEQ0375221");
+         println(recordList);
+         Assert.assertNotNull(recordList);
     }
 
 

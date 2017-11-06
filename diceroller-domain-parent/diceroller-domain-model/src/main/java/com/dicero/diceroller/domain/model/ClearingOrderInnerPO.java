@@ -1,6 +1,8 @@
 package com.dicero.diceroller.domain.model;
 
 import com.dicero.diceroller.domain.BasePO;
+import com.dicero.diceroller.domain.enums.DRCREnums;
+import com.dicero.diceroller.domain.enums.PartyRoleEnums;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -21,10 +23,10 @@ public class ClearingOrderInnerPO extends BasePO {
     private String sessionId;
     private String paymentSeqNo;
     private String clearingCode;
-    private String partyRole;
+    private PartyRoleEnums partyRole;
     private String partyId;
     private String accountNo;
-    private String drcr;
+    private DRCREnums drcr;
     private BigDecimal amt;
 
     @Id
@@ -88,13 +90,15 @@ public class ClearingOrderInnerPO extends BasePO {
         this.clearingCode = clearingCode;
     }
 
+
     @Basic
     @Column(name = "party_role", nullable = false, length = 20)
-    public String getPartyRole() {
+    @Enumerated(EnumType.STRING)
+    public PartyRoleEnums getPartyRole() {
         return partyRole;
     }
 
-    public void setPartyRole(String partyRole) {
+    public void setPartyRole(PartyRoleEnums partyRole) {
         this.partyRole = partyRole;
     }
 
@@ -120,13 +124,17 @@ public class ClearingOrderInnerPO extends BasePO {
 
     @Basic
     @Column(name = "drcr", nullable = false, length = 2)
-    public String getDrcr() {
+    @Enumerated(EnumType.STRING)
+    public DRCREnums getDrcr() {
         return drcr;
     }
 
-    public void setDrcr(String drcr) {
+    public void setDrcr(DRCREnums drcr) {
         this.drcr = drcr;
     }
+
+
+
 
     @Basic
     @Column(name = "amt", nullable = false, precision = 8)

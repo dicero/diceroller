@@ -8,17 +8,32 @@ package com.dicero.diceroller.domain.enums;
  */
 public enum SettlementStatusEnums {
     // NOTE: W-待结算
-    W(),
+    W("待结算"),
     // NOTE: P-结算中
-    P(),
+    P("结算中"),
     // NOTE: S-结算成功
-    S(),
+    S("结算成功"),
     // NOTE: R-驳回
-    R(),
+    R("驳回"),
     // NOTE: F-结算失败
-    F(),
+    F("结算失败"),
     // NOTE: C-转存中
-    C(),
+    C("转存中"),
     // NOTE: E-转存成功
-    E();
+    E("转存成功");
+
+    private String desc;
+
+
+    SettlementStatusEnums(String desc) {
+        this.desc = desc;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
 }

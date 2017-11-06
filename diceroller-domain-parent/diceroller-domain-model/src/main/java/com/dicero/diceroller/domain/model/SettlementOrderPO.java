@@ -1,6 +1,7 @@
 package com.dicero.diceroller.domain.model;
 
 import com.dicero.diceroller.domain.BasePO;
+import com.dicero.diceroller.domain.enums.SettlementStatusEnums;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -20,7 +21,7 @@ public class SettlementOrderPO extends BasePO {
     private String sessionId;
     private String paymentSeqNo;
     private String clearingCodeList;
-    private String status;
+    private SettlementStatusEnums status;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -85,11 +86,12 @@ public class SettlementOrderPO extends BasePO {
 
     @Basic
     @Column(name = "status", nullable = false, length = 20)
-    public String getStatus() {
+    @Enumerated(EnumType.STRING)
+    public SettlementStatusEnums getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(SettlementStatusEnums status) {
         this.status = status;
     }
 }

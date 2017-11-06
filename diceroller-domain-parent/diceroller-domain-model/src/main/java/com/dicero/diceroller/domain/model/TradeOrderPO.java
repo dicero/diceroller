@@ -1,6 +1,7 @@
 package com.dicero.diceroller.domain.model;
 
 import com.dicero.diceroller.domain.BasePO;
+import com.dicero.diceroller.domain.enums.TradeStatusEnums;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -28,7 +29,7 @@ public class TradeOrderPO extends BasePO {
     private String buyerAccountNo;
     private String sellerAccountNo;
     private String remark;
-    private String status;
+    private TradeStatusEnums status;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -163,13 +164,15 @@ public class TradeOrderPO extends BasePO {
 
     @Basic
     @Column(name = "status", nullable = false, length = 20)
-    public String getStatus() {
+    @Enumerated(EnumType.STRING)
+    public TradeStatusEnums getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(TradeStatusEnums status) {
         this.status = status;
     }
+
 
     @Override
     public boolean equals(Object o) {

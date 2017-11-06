@@ -1,6 +1,9 @@
 package com.dicero.diceroller.domain.model;
 
 import com.dicero.diceroller.domain.BasePO;
+import com.dicero.diceroller.domain.enums.PaymentTypeEnums;
+import com.dicero.diceroller.domain.enums.SettlementStatusEnums;
+import com.dicero.diceroller.domain.enums.SettlementTypeEnums;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -19,10 +22,10 @@ public class SettlementCarrierPO extends BasePO {
     private Timestamp updateTime;
     private String requestNo;
     private String paymentSeqNo;
-    private String status;
+    private SettlementStatusEnums status;
     private String summary;
-    private String paymentType;
-    private String settlementType;
+    private PaymentTypeEnums paymentType;
+    private SettlementTypeEnums settlementType;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -77,13 +80,15 @@ public class SettlementCarrierPO extends BasePO {
 
     @Basic
     @Column(name = "status", nullable = false, length = 20)
-    public String getStatus() {
+    @Enumerated(EnumType.STRING)
+    public SettlementStatusEnums getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(SettlementStatusEnums status) {
         this.status = status;
     }
+
 
     @Basic
     @Column(name = "summary", nullable = true, length = 200)
@@ -95,23 +100,27 @@ public class SettlementCarrierPO extends BasePO {
         this.summary = summary;
     }
 
+
     @Basic
     @Column(name = "payment_type", nullable = false, length = 20)
-    public String getPaymentType() {
+    @Enumerated(EnumType.STRING)
+    public PaymentTypeEnums getPaymentType() {
         return paymentType;
     }
 
-    public void setPaymentType(String paymentType) {
+    public void setPaymentType(PaymentTypeEnums paymentType) {
         this.paymentType = paymentType;
     }
 
+
     @Basic
     @Column(name = "settlement_type", nullable = false, length = 20)
-    public String getSettlementType() {
+    @Enumerated(EnumType.STRING)
+    public SettlementTypeEnums getSettlementType() {
         return settlementType;
     }
 
-    public void setSettlementType(String settlementType) {
+    public void setSettlementType(SettlementTypeEnums settlementType) {
         this.settlementType = settlementType;
     }
 

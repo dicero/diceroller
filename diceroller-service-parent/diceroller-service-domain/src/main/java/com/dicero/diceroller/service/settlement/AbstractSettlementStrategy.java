@@ -55,8 +55,8 @@ public abstract  class AbstractSettlementStrategy extends BaseService {
 
         // NOTE: 内场清分结算
         boolean result = dpmAccountService.changeBalance(clearingOrderInnerPOList);
-        if(result) innerSettlementCarrierPO.setStatus(SettlementStatusEnums.S.name());
-        else innerSettlementCarrierPO.setStatus(SettlementStatusEnums.F.name());
+        if(result) innerSettlementCarrierPO.setStatus(SettlementStatusEnums.S);
+        else innerSettlementCarrierPO.setStatus(SettlementStatusEnums.F);
         settlementCarrierPORepository.updateStatusById(innerSettlementCarrierPO.getId(), innerSettlementCarrierPO.getStatus());
 
         // NOTE: 外场清分
@@ -70,8 +70,8 @@ public abstract  class AbstractSettlementStrategy extends BaseService {
 
             // NOTE: 外场清分结算
             result = dpmAccountService.changeBalance(clearingOrderOuterPO, tradeOrderPO.getTradeVoucherNo());
-            if (result) outerSettlementCarrierPO.setStatus(SettlementStatusEnums.S.name());
-            else outerSettlementCarrierPO.setStatus(SettlementStatusEnums.F.name());
+            if (result) outerSettlementCarrierPO.setStatus(SettlementStatusEnums.S);
+            else outerSettlementCarrierPO.setStatus(SettlementStatusEnums.F);
             settlementCarrierPORepository.updateStatusById(outerSettlementCarrierPO.getId(), outerSettlementCarrierPO.getStatus());
         }
 
@@ -92,11 +92,11 @@ public abstract  class AbstractSettlementStrategy extends BaseService {
         drClearingOrderInnerPO.setSessionId(sessionId);
         drClearingOrderInnerPO.setPaymentSeqNo(paymentSeqNo);
         drClearingOrderInnerPO.setClearingCode(clearingCode);
-        drClearingOrderInnerPO.setPartyRole(PartyRoleEnums.PAYEE.getValue());
+        drClearingOrderInnerPO.setPartyRole(PartyRoleEnums.PAYEE);
         drClearingOrderInnerPO.setPartyId(PartyIdEnums.INNER_MEMBER.getValue());
         drClearingOrderInnerPO.setAccountNo(drClearAccount.getAccountNo());
         drClearingOrderInnerPO.setAmt(amt);
-        drClearingOrderInnerPO.setDrcr(DRCREnums.DR.name());
+        drClearingOrderInnerPO.setDrcr(DRCREnums.DR);
         drClearingOrderInnerPO.setCreateTime(now);
         drClearingOrderInnerPO.setUpdateTime(now);
         clearingOrderInnerPOList.add(drClearingOrderInnerPO);
@@ -106,11 +106,11 @@ public abstract  class AbstractSettlementStrategy extends BaseService {
         crClearingOrderInnerPO.setSessionId(sessionId);
         crClearingOrderInnerPO.setPaymentSeqNo(paymentSeqNo);
         crClearingOrderInnerPO.setClearingCode(clearingCode);
-        crClearingOrderInnerPO.setPartyRole(PartyRoleEnums.PAYER.getValue());
+        crClearingOrderInnerPO.setPartyRole(PartyRoleEnums.PAYER);
         crClearingOrderInnerPO.setPartyId(PartyIdEnums.INNER_MEMBER.getValue());
         crClearingOrderInnerPO.setAccountNo(crClearAccount.getAccountNo());
         crClearingOrderInnerPO.setAmt(amt);
-        crClearingOrderInnerPO.setDrcr(DRCREnums.CR.name());
+        crClearingOrderInnerPO.setDrcr(DRCREnums.CR);
         crClearingOrderInnerPO.setCreateTime(now);
         crClearingOrderInnerPO.setUpdateTime(now);
         clearingOrderInnerPOList.add(crClearingOrderInnerPO);
@@ -125,7 +125,7 @@ public abstract  class AbstractSettlementStrategy extends BaseService {
         clearingOrderOuterPO.setSessionId(sessionId);
         clearingOrderOuterPO.setAccountNo(outerClearingEntity.getClearAccount().getAccountNo());
         clearingOrderOuterPO.setPartyId(PartyIdEnums.OUTER_MEMBER.getValue());
-        clearingOrderOuterPO.setPartyRole(outerClearingEntity.getPartyRoleEnums().getValue());
+        clearingOrderOuterPO.setPartyRole(outerClearingEntity.getPartyRoleEnums());
         clearingOrderOuterPO.setAmt(amt);
         clearingOrderOuterPO.setClearingCode(clearingCode);
         clearingOrderOuterPO.setCreateTime(now);

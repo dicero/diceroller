@@ -31,9 +31,9 @@ public class SettlementOrderServiceImpl extends BaseService implements Settlemen
         SettlementCarrierPO settlementCarrierPO = new SettlementCarrierPO();
         settlementCarrierPO.setRequestNo(settlementOrderPO.getSessionId() + "-" + RandomUtil.randomSecond());
         settlementCarrierPO.setPaymentSeqNo(settlementOrderPO.getPaymentSeqNo());
-        settlementCarrierPO.setPaymentType(paymentTypeEnums.name());
-        settlementCarrierPO.setSettlementType(settlementTypeEnums.name());
-        settlementCarrierPO.setStatus(SettlementStatusEnums.W.name());
+        settlementCarrierPO.setPaymentType(paymentTypeEnums);
+        settlementCarrierPO.setSettlementType(settlementTypeEnums);
+        settlementCarrierPO.setStatus(SettlementStatusEnums.W);
         settlementCarrierPO.setSummary("" + settlementTypeEnums.getDesc());
         settlementCarrierPO.setCreateTime(now);
         settlementCarrierPO.setUpdateTime(now);
@@ -49,7 +49,7 @@ public class SettlementOrderServiceImpl extends BaseService implements Settlemen
         SettlementOrderPO settlementOrderPO = new SettlementOrderPO();
         settlementOrderPO.setSessionId(RandomUtil.randomUuid("SId"));
         settlementOrderPO.setPaymentSeqNo(tradeOrderPO.getTradeVoucherNo());
-        settlementOrderPO.setStatus(SettlementStatusEnums.W.name());
+        settlementOrderPO.setStatus(SettlementStatusEnums.W);
         settlementOrderPO.setCreateTime(now);
         settlementOrderPO.setUpdateTime(now);
         return settlementOrderPORepository.save(settlementOrderPO);

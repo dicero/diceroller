@@ -9,8 +9,22 @@ package com.dicero.diceroller.domain.enums;
 public enum DRCREnums {
 
     // NOTE: 借
-    DR(),
+    DR("借记"),
 
     // NOTE: 贷
-    CR();
+    CR("贷记");
+
+    private String desc;
+
+    DRCREnums(String desc) {
+        this.desc = desc;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
 }

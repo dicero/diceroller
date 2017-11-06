@@ -1,5 +1,6 @@
 package com.dicero.diceroller.dal.mysql.repository;
 
+import com.dicero.diceroller.domain.enums.SettlementStatusEnums;
 import com.dicero.diceroller.domain.model.SettlementCarrierPO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -20,5 +21,5 @@ public interface SettlementCarrierPORepository extends JpaRepository<SettlementC
     @Transactional
     @Modifying
     @Query("update SettlementCarrierPO set status=?2  where id = ?1")
-    int updateStatusById(Integer id, String status);
+    int updateStatusById(Integer id, SettlementStatusEnums status);
 }

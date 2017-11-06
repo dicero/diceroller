@@ -29,11 +29,11 @@ public class UserPlatformPO extends BasePO {
 	private String loginPassword;
 	
 	@Column(nullable = false)
-	@Size(min=1, max=10, message="长度不能小于1大于10")
-	private String nickName;
-	
-	@Column(nullable = false)
-	@Enumerated(EnumType.STRING)
+    @Size(min=1, max=10, message="长度不能小于1大于10")
+    private String nickName;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
 	private AdminRole role;
 	
 	@Column(nullable = false)

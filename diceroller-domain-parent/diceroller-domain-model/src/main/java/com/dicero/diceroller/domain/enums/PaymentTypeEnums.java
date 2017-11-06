@@ -8,16 +8,29 @@ package com.dicero.diceroller.domain.enums;
  */
 public enum PaymentTypeEnums {
     // NOTE: I-入款
-    I(),
+    I("入款"),
     // NOTE: O-出款
-    O(),
+    O("出款"),
     // NOTE: T-转账
-    T(),
+    T("转账"),
     // NOTE: R-退款到卡
-    R(),
+    R("退款到卡"),
     // NOTE: F-退票
-    F(),
+    F("退票"),
     // NOTE: B-退款到账户
-    B();
+    B("退款到账户");
 
+    private String desc;
+
+    PaymentTypeEnums(String desc) {
+        this.desc = desc;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
 }

@@ -71,23 +71,6 @@
 #end
 
 
-#macro(drcrDesc $drcr)
-    #if($drcr == "DR")
-        借记
-    #else
-        贷记
-    #end
-#end
-
-#macro(outDrcr $outDrcr)
-    #if($outDrcr == "DR")
-    +
-    #else
-    -
-    #end
-#end
-
-
 #macro(printlnStatus $status)
     #if($status == "success")
         成功
@@ -95,14 +78,5 @@
         初始化
     #else
         失败
-    #end
-#end
-
-
-#macro(printlnSettlementType $settlementType)
-    #if($settlementType == "I")
-        内场
-    #else
-        外场
     #end
 #end

@@ -1,6 +1,8 @@
 package com.dicero.diceroller.domain.model;
 
 import com.dicero.diceroller.domain.BasePO;
+import com.dicero.diceroller.domain.enums.DRCREnums;
+import com.dicero.diceroller.domain.enums.FundTypeEnums;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -21,7 +23,8 @@ public class OuterAccountDetailPO extends BasePO {
     private String accountNo;
     private BigDecimal txnAmt;
     private String txnRemark;
-    private String drcr;
+    private DRCREnums drcr;
+    private FundTypeEnums fundType;
     private String voucherNo;
     private String paymentSeqNo;
     private BigDecimal beforeAmt;
@@ -90,12 +93,24 @@ public class OuterAccountDetailPO extends BasePO {
 
     @Basic
     @Column(name = "drcr", nullable = false, length = 2)
-    public String getDrcr() {
+    @Enumerated(EnumType.STRING)
+    public DRCREnums getDrcr() {
         return drcr;
     }
 
-    public void setDrcr(String drcr) {
+    public void setDrcr(DRCREnums drcr) {
         this.drcr = drcr;
+    }
+
+    @Basic
+    @Column(name = "fund_type", nullable = false, length = 2)
+    @Enumerated(EnumType.STRING)
+    public FundTypeEnums getFundType() {
+        return fundType;
+    }
+
+    public void setFundType(FundTypeEnums fundType) {
+        this.fundType = fundType;
     }
 
     @Basic

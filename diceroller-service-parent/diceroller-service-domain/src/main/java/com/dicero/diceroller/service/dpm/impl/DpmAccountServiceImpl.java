@@ -3,6 +3,7 @@ package com.dicero.diceroller.service.dpm.impl;
 import com.dicero.diceroller.common.bean.extension.CommonDefinedException;
 import com.dicero.diceroller.dal.mysql.repository.*;
 import com.dicero.diceroller.domain.enums.DRCREnums;
+import com.dicero.diceroller.domain.enums.FundTypeEnums;
 import com.dicero.diceroller.domain.enums.PartyIdEnums;
 import com.dicero.diceroller.domain.enums.PartyRoleEnums;
 import com.dicero.diceroller.domain.model.*;
@@ -55,12 +56,14 @@ public class DpmAccountServiceImpl extends BaseService implements DpmAccountServ
             for (ClearingOrderInnerPO clearingOrderInnerPO : clearingOrderInnerPOList) {
                 InnerAccountPO innerAccountPO = innerAccountPORepository.findByAccountNo(clearingOrderInnerPO.getAccountNo());
                 BigDecimal balance = innerAccountPO.getBalance();
-
+                FundTypeEnums fundTypeEnums;
                 if (innerAccountPO.getDrcr().equals(clearingOrderInnerPO.getDrcr())) {
                     balance = balance.add(clearingOrderInnerPO.getAmt());
+                    fundTypeEnums = FundTypeEnums.FI;
 
                 } else {
                     balance = balance.subtract(clearingOrderInnerPO.getAmt());
+                    fundTypeEnums = FundTypeEnums.FO;
                 }
 
                 if (balance.compareTo(BigDecimal.ZERO) < 0) {
@@ -71,6 +74,7 @@ public class DpmAccountServiceImpl extends BaseService implements DpmAccountServ
                 InnerAccountDetailPO innerAccountDetailPO = new InnerAccountDetailPO();
                 innerAccountDetailPO.setAccountNo(innerAccountPO.getAccountNo());
                 innerAccountDetailPO.setDrcr(clearingOrderInnerPO.getDrcr());
+                innerAccountDetailPO.setFundType(fundTypeEnums);
                 innerAccountDetailPO.setPaymentSeqNo(clearingOrderInnerPO.getPaymentSeqNo());
                 innerAccountDetailPO.setVoucherNo(clearingOrderInnerPO.getSessionId());
                 innerAccountDetailPO.setTxnAmt(clearingOrderInnerPO.getAmt());
@@ -104,12 +108,15 @@ public class DpmAccountServiceImpl extends BaseService implements DpmAccountServ
         BigDecimal balance = outerAccountSubsetPO.getBalance();
 
         DRCREnums drcr;
+        FundTypeEnums fundTypeEnums;
         if (clearingOrderOuterPO.getPartyRole().equals(PartyRoleEnums.PAYER.name())) {
             balance = balance.add(clearingOrderOuterPO.getAmt());
             drcr = DRCREnums.CR;
+            fundTypeEnums = FundTypeEnums.FI;
         } else {
             balance = balance.subtract(clearingOrderOuterPO.getAmt());
             drcr = DRCREnums.DR;
+            fundTypeEnums = FundTypeEnums.FO;
         }
 
         if (balance.compareTo(BigDecimal.ZERO) < 0) {
@@ -118,7 +125,8 @@ public class DpmAccountServiceImpl extends BaseService implements DpmAccountServ
 
         OuterAccountDetailPO outerAccountDetailPO = new OuterAccountDetailPO();
         outerAccountDetailPO.setAccountNo(outerAccountSubsetPO.getAccountNo());
-        outerAccountDetailPO.setDrcr(drcr.name());
+        outerAccountDetailPO.setFundType(fundTypeEnums);
+        outerAccountDetailPO.setDrcr(drcr);
         outerAccountDetailPO.setPaymentSeqNo(paymentSeqNo);
         outerAccountDetailPO.setVoucherNo(clearingOrderOuterPO.getSessionId());
         outerAccountDetailPO.setTxnAmt(clearingOrderOuterPO.getAmt());

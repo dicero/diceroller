@@ -1,6 +1,7 @@
 package com.dicero.diceroller.domain.model;
 
 import com.dicero.diceroller.domain.BasePO;
+import com.dicero.diceroller.domain.enums.PartyRoleEnums;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -19,7 +20,7 @@ public class ClearingOrderOuterPO extends BasePO {
     private Timestamp createTime;
     private Timestamp updateTime;
     private String sessionId;
-    private String partyRole;
+    private PartyRoleEnums partyRole;
     private String partyId;
     private String accountNo;
     private String paymentSeqNo;
@@ -67,13 +68,15 @@ public class ClearingOrderOuterPO extends BasePO {
         this.sessionId = sessionId;
     }
 
+
     @Basic
     @Column(name = "party_role", nullable = false, length = 20)
-    public String getPartyRole() {
+    @Enumerated(EnumType.STRING)
+    public PartyRoleEnums getPartyRole() {
         return partyRole;
     }
 
-    public void setPartyRole(String partyRole) {
+    public void setPartyRole(PartyRoleEnums partyRole) {
         this.partyRole = partyRole;
     }
 

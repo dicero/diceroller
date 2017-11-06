@@ -57,7 +57,7 @@ public class TssTradeServiceImpl extends BaseService implements TssTradeService 
         tradeOrderPO.setSellerAccountNo(OuterAccountEnums.get201Account(OuterAccountEnums.PLATFORM.getMemberId()));
 
         tradeOrderPO.setRemark("交易");
-        tradeOrderPO.setStatus(TradeStatusEnums.INIT.getValue());
+        tradeOrderPO.setStatus(TradeStatusEnums.INIT);
         tradeOrderPO.setCreateTime(now);
         tradeOrderPO.setUpdateTime(now);
         tradeOrderPORepository.save(tradeOrderPO);
