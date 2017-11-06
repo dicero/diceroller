@@ -32,4 +32,11 @@ public class ClearingOrderInnerPORepositoryTest extends TestBase {
         // Assert.assertNotNull(record);
     }
 
+    @Test
+    public void findAllByPaymentSeqNoTest() {
+        List<ClearingOrderInnerPO> recordList = ClearingOrderInnerPORepository.findAllByPaymentSeqNo("CI171104002905536132");
+         println(recordList);
+         Assert.assertNotNull(recordList);
+    }
+
 }

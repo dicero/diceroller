@@ -1,9 +1,7 @@
 package com.dicero.diceroller.admin.controller.manager;
 
 import com.dicero.diceroller.access.AdminAccess;
-import com.dicero.diceroller.dal.mysql.repository.SettlementCarrierPORepository;
-import com.dicero.diceroller.dal.mysql.repository.SettlementOrderPORepository;
-import com.dicero.diceroller.dal.mysql.repository.TradeOrderPORepository;
+import com.dicero.diceroller.dal.mysql.repository.*;
 import com.dicero.diceroller.domain.enums.AdminRole;
 import com.dicero.diceroller.domain.enums.NoTypeEnums;
 import com.dicero.diceroller.domain.model.SettlementCarrierPO;
@@ -35,6 +33,8 @@ public class AdminTssController {
     @Autowired TradeOrderPORepository tradeOrderPORepository;
     @Autowired SettlementOrderPORepository settlementOrderPORepository;
     @Autowired SettlementCarrierPORepository settlementCarrierPORepository;
+    @Autowired ClearingOrderInnerPORepository clearingOrderInnerPORepository;
+    @Autowired ClearingOrderOuterPORepository clearingOrderOuterPORepository;
 
 
     @AdminAccess({AdminRole.SUPER_ADMIN, AdminRole.ADMIN})
