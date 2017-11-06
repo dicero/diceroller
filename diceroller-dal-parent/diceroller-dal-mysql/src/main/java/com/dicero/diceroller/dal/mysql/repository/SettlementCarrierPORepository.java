@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * <p></p>
@@ -14,6 +15,8 @@ import javax.transaction.Transactional;
  * @version 2017/10/29
  */
 public interface SettlementCarrierPORepository extends JpaRepository<SettlementCarrierPO, Integer> {
+    List<SettlementCarrierPO> findAllByPaymentSeqNo(String paymentSeqNo);
+
     @Transactional
     @Modifying
     @Query("update SettlementCarrierPO set status=?2  where id = ?1")

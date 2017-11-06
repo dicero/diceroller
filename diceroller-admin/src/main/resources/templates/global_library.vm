@@ -78,3 +78,23 @@
         贷记
     #end
 #end
+
+
+#macro(printlnStatus $status)
+    #if($status == "success")
+        成功
+    #elseif($status == "init")
+        初始化
+    #else
+        失败
+    #end
+#end
+
+
+#macro(printlnSettlementType $settlementType)
+    #if($settlementType == "I")
+        内场
+    #else
+        外场
+    #end
+#end

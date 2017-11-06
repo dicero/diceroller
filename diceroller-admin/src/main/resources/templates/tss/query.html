@@ -1,0 +1,177 @@
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <form method="post" action="/manager/tss/query" class="form-horizontal">
+
+                            #springBind("orderQueryForm.noTypeEnums")
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">订单号类型</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="${status.expression}">
+                                        #foreach( $noType in $NoTypeEnums )
+                                            #if($no && $no==$noType)
+                                            <option checked="" value="$noType"  >$noType.getDesc()</option>
+                                            #else
+                                             <option value="$noType"  >$noType.getDesc()</option>
+                                            #end
+                                        #end
+                                    </select>
+                                </div>
+                            </div>
+
+                            #springBind("orderQueryForm.no")
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">订单号</label>
+                                <div class="col-sm-4">
+                                    <input type="text" name="${status.expression}" value="$!{status.value}" class="form-control">
+                                    <span class="help-block m-b-none error-text">${status.errorMessage}</span>
+                                </div>
+                                <div class="col-sm-4 col-sm-offset-2" style="margin-left:0px;">
+                                    <button class="btn btn-primary" type="submit">查询</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            #if($tradeOrderPO)
+            <!-- table -->
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5><a href="#">交易服务</a>&nbsp;-&nbsp;交易订单</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>凭证号</th>
+                                <th>原始凭证号</th>
+                                <th>付款方名称</th>
+                                <th>付款方会员标识</th>
+                                <th>付款方账户</th>
+                                <th>收款方名称</th>
+                                <th>收款方会员标识</th>
+                                <th>收款方账户</th>
+                                <th>金额</th>
+                                <th>状态</th>
+                                <th>备注</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>$!tradeOrderPO.getTradeVoucherNo()</td>
+                                <td>$!tradeOrderPO.getTradeSrcVoucherNo()</td>
+                                <td>$!tradeOrderPO.getBuyerName()</td>
+                                <td>$!tradeOrderPO.getBuyerId()</td>
+                                <td>$!tradeOrderPO.getBuyerAccountNo()</td>
+                                <td>$!tradeOrderPO.getSellerName()</td>
+                                <td>$!tradeOrderPO.getSellerId()</td>
+                                <td>$!tradeOrderPO.getSellerAccountNo()</td>
+                                <td>$numberTool.format("#0.00000000", $!tradeOrderPO.getTradeAmount())</td>
+                                <td>#printlnStatus($!tradeOrderPO.getStatus())</td>
+                                <td>$!tradeOrderPO.getRemark()</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            #end
+            <!-- table -->
+
+            <!-- table -->
+            #if($settlementOrderPO)
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5><a href="#">结算服务</a>&nbsp;-&nbsp;结算订单</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>结算场次号</th>
+                                <th>支付流水号</th>
+                                <th>清算指令</th>
+                                <th>状态</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>$!settlementOrderPO.getSessionId()</td>
+                                <td>$!settlementOrderPO.getPaymentSeqNo()</td>
+                                <td>$!settlementOrderPO.getClearingCodeList()</td>
+                                <td>$!settlementOrderPO.getStatus()</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            #end
+            <!-- table -->
+
+
+            <!-- table -->
+            #if($settlementCarrierPOList)
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5><a href="#">支付</a>&nbsp;-&nbsp;清结算载体</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>场次类型</th>
+                                <th>清算场次号</th>
+                                <th>支付流水号</th>
+                                <th>状态</th>
+                                <th>结算类型</th>
+                                <th>说明</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            #foreach( $settlementCarrierPO in $settlementCarrierPOList )
+                            <tr>
+                                <td>#printlnSettlementType($!settlementCarrierPO.getSettlementType())</td>
+                                <td>$!settlementCarrierPO.getRequestNo()</td>
+                                <td>$!settlementCarrierPO.getPaymentSeqNo()</td>
+                                <td>$!settlementCarrierPO.getStatus()</td>
+                                <td>$!settlementCarrierPO.getPaymentType()</td>
+                                <td>$!settlementCarrierPO.getSummary()</td>
+                            </tr>
+                            #end
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            #end
+            <!-- table -->
+
+        </div>

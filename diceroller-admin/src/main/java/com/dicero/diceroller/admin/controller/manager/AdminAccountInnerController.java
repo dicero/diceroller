@@ -40,7 +40,7 @@ public class AdminAccountInnerController {
         Map<String, List<InnerAccountPO>> dataMap = new LinkedHashMap<>();
         List<InnerAccountPO> innerAccountPOList = innerAccountPORepository.findAll(new Sort(
                 Sort.Direction.ASC, new String[] { "accountTitleNo", "accountNo" }));
-        log.info("result=>{}", innerAccountPOList.toString());
+
         for (InnerAccountPO innerAccountPO : innerAccountPOList) {
             addData(dataMap, innerAccountPO);
         }

@@ -11,4 +11,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface TradeOrderPORepository extends JpaRepository<TradeOrderPO, Integer> {
     TradeOrderPO findByTradeVoucherNo(String tradeVoucherNo);
+
+    TradeOrderPO findByTradeSrcVoucherNo(String tradeSrcVoucherNo);
 }

@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * <p></p>
  *
@@ -15,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 public interface SettlementOrderPORepository extends JpaRepository<SettlementOrderPO, Integer> {
 
     SettlementOrderPO findByPaymentSeqNo(String paymentSeqNo);
+
+    List<SettlementOrderPO> findAllByPaymentSeqNo(String paymentSeqNo);
 
     @Transactional
     @Modifying
