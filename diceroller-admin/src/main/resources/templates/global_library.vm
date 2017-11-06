@@ -79,6 +79,14 @@
     #end
 #end
 
+#macro(outDrcr $outDrcr)
+    #if($outDrcr == "DR")
+    +
+    #else
+    -
+    #end
+#end
+
 
 #macro(printlnStatus $status)
     #if($status == "success")

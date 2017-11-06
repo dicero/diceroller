@@ -4,9 +4,7 @@ import com.dicero.diceroller.access.AdminAccess;
 import com.dicero.diceroller.dal.mysql.repository.*;
 import com.dicero.diceroller.domain.enums.AdminRole;
 import com.dicero.diceroller.domain.enums.NoTypeEnums;
-import com.dicero.diceroller.domain.model.SettlementCarrierPO;
-import com.dicero.diceroller.domain.model.SettlementOrderPO;
-import com.dicero.diceroller.domain.model.TradeOrderPO;
+import com.dicero.diceroller.domain.model.*;
 import com.dicero.diceroller.form.OrderQueryForm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +33,8 @@ public class AdminTssController {
     @Autowired SettlementCarrierPORepository settlementCarrierPORepository;
     @Autowired ClearingOrderInnerPORepository clearingOrderInnerPORepository;
     @Autowired ClearingOrderOuterPORepository clearingOrderOuterPORepository;
+    @Autowired InnerAccountDetailPORepository innerAccountDetailPORepository;
+    @Autowired OuterAccountDetailPORepository outerAccountDetailPORepository;
 
 
     @AdminAccess({AdminRole.SUPER_ADMIN, AdminRole.ADMIN})
@@ -63,6 +63,14 @@ public class AdminTssController {
             model.addAttribute("settlementOrderPO", settlementOrderPO);
             List<SettlementCarrierPO> settlementCarrierPOList = settlementCarrierPORepository.findAllByPaymentSeqNo(orderQueryForm.getNo());
             model.addAttribute("settlementCarrierPOList", settlementCarrierPOList);
+            List<ClearingOrderInnerPO> clearingOrderInnerPOList = clearingOrderInnerPORepository.findAllByPaymentSeqNo(orderQueryForm.getNo());
+            model.addAttribute("clearingOrderInnerPOList", clearingOrderInnerPOList);
+            List<ClearingOrderOuterPO> clearingOrderOuterPOList = clearingOrderOuterPORepository.findAllByPaymentSeqNo(orderQueryForm.getNo());
+            model.addAttribute("clearingOrderOuterPOList", clearingOrderOuterPOList);
+            List<InnerAccountDetailPO> innerAccountDetailPOList = innerAccountDetailPORepository.findAllByPaymentSeqNo(orderQueryForm.getNo());
+            model.addAttribute("innerAccountDetailPOList", innerAccountDetailPOList);
+            List<OuterAccountDetailPO> outerAccountDetailPOList = outerAccountDetailPORepository.findAllByPaymentSeqNo(orderQueryForm.getNo());
+            model.addAttribute("outerAccountDetailPOList", outerAccountDetailPOList);
         }
         model.addAttribute("NoTypeEnums", NoTypeEnums.values());
         model.addAttribute("orderQueryForm", orderQueryForm);
