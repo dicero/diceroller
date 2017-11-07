@@ -5,6 +5,7 @@ import {
     Redirect
 } from 'react-router-dom'
 import Play from './component/Play/Play.js';
+import Verify from './component/Verify/Verify.js';
 const Routers = () => {
     return (
         <Switch>
@@ -12,6 +13,8 @@ const Routers = () => {
                 <Redirect to="/play" />
             )}/>
             <Route path="/play" exact component={Play} />
+            <Route path="/verify" exact component={Verify} />
+            
             {/* <Route path="/account" exact component={() => 'account'} /> */}
         </Switch>
     )

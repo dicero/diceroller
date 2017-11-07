@@ -5,6 +5,7 @@ import {
     Link
 } from 'react-router-dom'
 import Equity from '../dialog/Equity.js';
+import BetDetail from '../dialog/BetDetail.js';
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
@@ -43,7 +44,7 @@ class NavMenu extends Component {
                     mode="horizontal"
                 >
                     <Menu.Item key="play">
-                        <Link to='/play'>Primedice</Link>
+                        <Link to='/play'>Diceroller</Link>
                     </Menu.Item>
                     <Menu.Item key="app">
                         <span onClick={() => this.setEquityVisible(true)}>公平性</span>
@@ -51,6 +52,7 @@ class NavMenu extends Component {
                             setEquityVisible={this.setEquityVisible} 
                             equityVisible={this.state.equityVisible}
                         />
+                        <BetDetail/>
                     </Menu.Item>
                     <SubMenu title={<span>帮助</span>}>
                         <Menu.Item key="/faq">FAQ</Menu.Item>
