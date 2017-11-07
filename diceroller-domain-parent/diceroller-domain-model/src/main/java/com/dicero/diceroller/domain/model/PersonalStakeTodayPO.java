@@ -4,8 +4,8 @@ import com.dicero.diceroller.domain.BasePO;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * <p></p>
@@ -27,7 +27,6 @@ public class PersonalStakeTodayPO extends BasePO {
     private int allLoseGames;
     private BigDecimal winningPos;
     private Date calDate;
-    private String stakeId;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -140,16 +139,6 @@ public class PersonalStakeTodayPO extends BasePO {
         this.calDate = calDate;
     }
 
-    @Basic
-    @Column(name = "stake_id", nullable = false, length = 40)
-    public String getStakeId() {
-        return stakeId;
-    }
-
-    public void setStakeId(String stakeId) {
-        this.stakeId = stakeId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -168,7 +157,6 @@ public class PersonalStakeTodayPO extends BasePO {
         if (allLoseAmt != null ? !allLoseAmt.equals(that.allLoseAmt) : that.allLoseAmt != null) return false;
         if (winningPos != null ? !winningPos.equals(that.winningPos) : that.winningPos != null) return false;
         if (calDate != null ? !calDate.equals(that.calDate) : that.calDate != null) return false;
-        if (stakeId != null ? !stakeId.equals(that.stakeId) : that.stakeId != null) return false;
 
         return true;
     }
@@ -186,7 +174,6 @@ public class PersonalStakeTodayPO extends BasePO {
         result = 31 * result + allLoseGames;
         result = 31 * result + (winningPos != null ? winningPos.hashCode() : 0);
         result = 31 * result + (calDate != null ? calDate.hashCode() : 0);
-        result = 31 * result + (stakeId != null ? stakeId.hashCode() : 0);
         return result;
     }
 }

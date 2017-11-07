@@ -25,7 +25,6 @@ public class PersonalStakeHistoryPO extends BasePO {
     private int allWinGames;
     private int allLoseGames;
     private BigDecimal winningPos;
-    private String stakeId;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -128,16 +127,6 @@ public class PersonalStakeHistoryPO extends BasePO {
         this.winningPos = winningPos;
     }
 
-    @Basic
-    @Column(name = "stake_id", nullable = false, length = 40)
-    public String getStakeId() {
-        return stakeId;
-    }
-
-    public void setStakeId(String stakeId) {
-        this.stakeId = stakeId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -155,7 +144,6 @@ public class PersonalStakeHistoryPO extends BasePO {
         if (allWinAmt != null ? !allWinAmt.equals(that.allWinAmt) : that.allWinAmt != null) return false;
         if (allLoseAmt != null ? !allLoseAmt.equals(that.allLoseAmt) : that.allLoseAmt != null) return false;
         if (winningPos != null ? !winningPos.equals(that.winningPos) : that.winningPos != null) return false;
-        if (stakeId != null ? !stakeId.equals(that.stakeId) : that.stakeId != null) return false;
 
         return true;
     }
@@ -172,7 +160,6 @@ public class PersonalStakeHistoryPO extends BasePO {
         result = 31 * result + allWinGames;
         result = 31 * result + allLoseGames;
         result = 31 * result + (winningPos != null ? winningPos.hashCode() : 0);
-        result = 31 * result + (stakeId != null ? stakeId.hashCode() : 0);
         return result;
     }
 }

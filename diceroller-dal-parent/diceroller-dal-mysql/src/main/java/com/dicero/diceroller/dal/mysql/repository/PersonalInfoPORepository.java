@@ -10,4 +10,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @version 2017/10/29
  */
 public interface PersonalInfoPORepository extends JpaRepository<PersonalInfoPO, Integer> {
+    PersonalInfoPO findByMemberId(Integer memberId);
 }

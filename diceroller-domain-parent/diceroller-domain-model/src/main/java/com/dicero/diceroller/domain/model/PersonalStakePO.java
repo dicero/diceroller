@@ -1,6 +1,7 @@
 package com.dicero.diceroller.domain.model;
 
 import com.dicero.diceroller.domain.BasePO;
+import com.dicero.diceroller.domain.enums.FundTypeEnums;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -19,7 +20,7 @@ public class PersonalStakePO extends BasePO {
     private Timestamp createTime;
     private Timestamp updateTime;
     private int memberId;
-    private Integer fundType;
+    private FundTypeEnums fundType;
     private BigDecimal amt;
     private String stakeId;
 
@@ -63,14 +64,14 @@ public class PersonalStakePO extends BasePO {
     public void setMemberId(int memberId) {
         this.memberId = memberId;
     }
-
     @Basic
-    @Column(name = "fund_type", nullable = true)
-    public Integer getFundType() {
+    @Column(name = "fund_type", nullable = false, length = 2)
+    @Enumerated(EnumType.STRING)
+    public FundTypeEnums getFundType() {
         return fundType;
     }
 
-    public void setFundType(Integer fundType) {
+    public void setFundType(FundTypeEnums fundType) {
         this.fundType = fundType;
     }
 

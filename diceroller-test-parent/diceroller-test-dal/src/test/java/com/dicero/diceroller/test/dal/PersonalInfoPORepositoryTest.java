@@ -23,4 +23,25 @@ public class PersonalInfoPORepositoryTest extends TestBase {
         // println(record);
         // Assert.assertNotNull(record);
     }
+
+    @Test
+    public void saveTest() {
+        PersonalInfoPO record = new PersonalInfoPO();
+        record.setMemberId(2000000000);
+        record.setNotifyEmail("Jie@gemail.com");
+        record.setNotifyPhone("009933412328343");
+        record.setNotifyBitAddress("4534u5453985934858345843589329854353254");
+        record.setCreateTime(now);
+        record.setUpdateTime(now);
+        record = PersonalInfoPORepository.save(record);
+        println(record);
+        Assert.assertNotNull(record);
+    }
+
+    @Test
+    public void findByMemberIdTest() {
+         PersonalInfoPO record = PersonalInfoPORepository.findByMemberId(1);
+         println(record);
+         Assert.assertNotNull(record);
+    }
 }

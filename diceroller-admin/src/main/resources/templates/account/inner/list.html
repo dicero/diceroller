@@ -26,7 +26,7 @@
                                         #if($velocityCount == 1)
                                             <td >$!innerAccountPO.accountNo</td>
                                             <td >$!innerAccountPO.accountName</td>
-                                            <td >#drcrDesc($!innerAccountPO.drcr)</td>
+                                            <td >$!innerAccountPO.getDrcr().getDesc()</td>
                                             <td >$numberTool.format("#0.00000000", $!innerAccountPO.balance) (BIT)</td>
                                     </tr>
                                         #else
@@ -35,7 +35,7 @@
                                         <td ></td>
                                         <td >$!innerAccountPO.accountNo</td>
                                         <td >$!innerAccountPO.accountName</td>
-                                        <td >#drcrDesc($!innerAccountPO.drcr)</td>
+                                        <td >$!innerAccountPO.getDrcr().getDesc()</td>
                                         <td >$numberTool.format("#0.00000000", $!innerAccountPO.balance) (BIT)</td>
                                     </tr>
                                         #end

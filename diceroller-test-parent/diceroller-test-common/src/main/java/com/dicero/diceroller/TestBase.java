@@ -16,6 +16,7 @@ import java.util.Date;
 public class TestBase {
 
     public static Timestamp now = new Timestamp(new Date().getTime());
+    public static Integer testMemberId = 2000000000;
 
     public void println(Object o){
         System.out.println("============================================> ");

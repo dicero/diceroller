@@ -1,6 +1,7 @@
 package com.dicero.diceroller.domain.model;
 
 import com.dicero.diceroller.domain.BasePO;
+import com.dicero.diceroller.domain.enums.DRCREnums;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -21,7 +22,7 @@ public class InnerAccountPO extends BasePO {
     private String accountNo;
     private String accountTitleNo;
     private String accountName;
-    private String drcr;
+    private DRCREnums drcr;
     private BigDecimal balance;
 
     @Id
@@ -87,11 +88,12 @@ public class InnerAccountPO extends BasePO {
 
     @Basic
     @Column(name = "drcr", nullable = false, length = 2)
-    public String getDrcr() {
+    @Enumerated(EnumType.STRING)
+    public DRCREnums getDrcr() {
         return drcr;
     }
 
-    public void setDrcr(String drcr) {
+    public void setDrcr(DRCREnums drcr) {
         this.drcr = drcr;
     }
 

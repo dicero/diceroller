@@ -34,6 +34,13 @@ public class RandomUtil {
         return "P000" + dateStr +"0SEQ0" + RandomStringUtils.randomNumeric(6);
     }
 
+    public static String randomStake() {
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyMMddHHmmss");
+        String dateStr = dateFormat.format(date);
+        return "17030-" + dateStr +"-00" + RandomStringUtils.randomNumeric(6);
+    }
+
 	 /**
      * @description 生成唯一的uuid
      * @return 

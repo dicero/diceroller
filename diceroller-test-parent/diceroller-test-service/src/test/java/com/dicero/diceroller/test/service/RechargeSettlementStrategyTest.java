@@ -50,7 +50,7 @@ public class RechargeSettlementStrategyTest extends TestBase {
         tradeOrderPO.setBuyerName("客户");
 
         tradeOrderPO.setRemark("充值");
-        tradeOrderPO.setStatus(TradeStatusEnums.INIT.getValue());
+        tradeOrderPO.setStatus(TradeStatusEnums.INIT);
         tradeOrderPO.setCreateTime(now);
         tradeOrderPO.setUpdateTime(now);
         tradeOrderPORepository.save(tradeOrderPO);
@@ -62,7 +62,7 @@ public class RechargeSettlementStrategyTest extends TestBase {
         settlementOrderPO.setSessionId(RandomUtil.randomUuid("SId"));
         settlementOrderPO.setPaymentSeqNo(tradeOrderPO.getTradeVoucherNo());
         // settlementOrderPO.setClearingCode(tradeModeEnums.getClearingCode());
-        settlementOrderPO.setStatus(SettlementStatusEnums.W.name());
+        settlementOrderPO.setStatus(SettlementStatusEnums.W);
         settlementOrderPO.setCreateTime(now);
         settlementOrderPO.setUpdateTime(now);
         settlementOrderPORepository.save(settlementOrderPO);

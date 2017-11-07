@@ -659,15 +659,15 @@ CREATE TABLE `tr_personal_seed` (
 DROP TABLE IF EXISTS `tr_personal_stake`;
 
 CREATE TABLE `tr_personal_stake` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT ''主键'',
-  `create_time` datetime NOT NULL COMMENT ''创建时间'',
-  `update_time` datetime NOT NULL COMMENT ''更新时间'',
-  `member_id` int(11) NOT NULL COMMENT ''会员标志'',
-  `fund_type` int(11) DEFAULT NULL COMMENT ''1-收入,2-支出'',
-  `amt` decimal(10,8) NOT NULL COMMENT ''金额-个'',
-  `stake_id` varchar(40) NOT NULL COMMENT ''押注id'',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `update_time` datetime NOT NULL COMMENT '更新时间',
+  `member_id` int(11) NOT NULL COMMENT '会员标志',
+  `fund_type` varchar(20) NOT NULL DEFAULT '' COMMENT '1-收入,2-支出',
+  `amt` decimal(10,8) NOT NULL COMMENT '金额-个',
+  `stake_id` varchar(40) NOT NULL COMMENT '押注id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT=''客户押注数据表'';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='客户押注数据表';
 
 
 
@@ -677,19 +677,19 @@ CREATE TABLE `tr_personal_stake` (
 DROP TABLE IF EXISTS `tr_personal_stake_history`;
 
 CREATE TABLE `tr_personal_stake_history` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT ''主键'',
-  `create_time` datetime NOT NULL COMMENT ''创建时间'',
-  `update_time` datetime NOT NULL COMMENT ''更新时间'',
-  `member_id` int(11) NOT NULL COMMENT ''会员标识'',
-  `all_stake_amt` decimal(10,8) NOT NULL COMMENT ''总押注金额-个'',
-  `all_win_amt` decimal(10,8) NOT NULL COMMENT ''盈利总金额'',
-  `all_lose_amt` decimal(10,8) NOT NULL COMMENT ''总赔金额-个'',
-  `all_win_games` int(11) NOT NULL COMMENT ''盈利总局数'',
-  `all_lose_games` int(11) NOT NULL COMMENT ''总赔局数'',
-  `winning_pos` decimal(3,2) NOT NULL COMMENT ''胜率'',
-  `stake_id` varchar(40) NOT NULL COMMENT ''押注id'',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT=''客户押注历史数据表'';
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `update_time` datetime NOT NULL COMMENT '更新时间',
+  `member_id` int(11) NOT NULL COMMENT '会员标识',
+  `all_stake_amt` decimal(10,8) NOT NULL COMMENT '总押注金额-个',
+  `all_win_amt` decimal(10,8) NOT NULL COMMENT '盈利总金额',
+  `all_lose_amt` decimal(10,8) NOT NULL COMMENT '总赔金额-个',
+  `all_win_games` int(11) NOT NULL COMMENT '盈利总局数',
+  `all_lose_games` int(11) NOT NULL COMMENT '总赔局数',
+  `winning_pos` decimal(5,2) NOT NULL COMMENT '胜率',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `member_id` (`member_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='客户押注历史数据表';
 
 
 
@@ -699,20 +699,19 @@ CREATE TABLE `tr_personal_stake_history` (
 DROP TABLE IF EXISTS `tr_personal_stake_today`;
 
 CREATE TABLE `tr_personal_stake_today` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT ''主键'',
-  `create_time` datetime NOT NULL COMMENT ''创建时间'',
-  `update_time` datetime NOT NULL COMMENT ''更新时间'',
-  `member_id` int(11) NOT NULL COMMENT ''会员标识'',
-  `all_stake_amt` decimal(10,8) NOT NULL COMMENT ''今日总押注金额'',
-  `all_win_amt` decimal(10,8) NOT NULL COMMENT ''今日总盈利金额'',
-  `all_lose_amt` decimal(10,8) NOT NULL COMMENT ''今日总赔金额'',
-  `all_win_games` int(11) NOT NULL COMMENT ''今日盈利总局数'',
-  `all_lose_games` int(11) NOT NULL COMMENT ''今日赔总局数'',
-  `winning_pos` decimal(3,2) NOT NULL COMMENT ''今日胜率'',
-  `cal_date` date NOT NULL COMMENT ''时间'',
-  `stake_id` varchar(40) NOT NULL COMMENT ''押注id'',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `update_time` datetime NOT NULL COMMENT '更新时间',
+  `member_id` int(11) NOT NULL COMMENT '会员标识',
+  `all_stake_amt` decimal(10,8) NOT NULL COMMENT '今日总押注金额',
+  `all_win_amt` decimal(10,8) NOT NULL COMMENT '今日总盈利金额',
+  `all_lose_amt` decimal(10,8) NOT NULL COMMENT '今日总赔金额',
+  `all_win_games` int(11) NOT NULL COMMENT '今日盈利总局数',
+  `all_lose_games` int(11) NOT NULL COMMENT '今日赔总局数',
+  `winning_pos` decimal(5,2) NOT NULL COMMENT '今日胜率',
+  `cal_date` date NOT NULL COMMENT '时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT=''客户押注日切表'';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='客户押注日切表';
 
 
 

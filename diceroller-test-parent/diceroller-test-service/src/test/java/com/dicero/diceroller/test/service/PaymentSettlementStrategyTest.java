@@ -56,7 +56,7 @@ public class PaymentSettlementStrategyTest extends TestBase {
         tradeOrderPO.setSellerAccountNo(OuterAccountEnums.get201Account(OuterAccountEnums.PLATFORM.getMemberId()));
 
         tradeOrderPO.setRemark("交易");
-        tradeOrderPO.setStatus(TradeStatusEnums.INIT.getValue());
+        tradeOrderPO.setStatus(TradeStatusEnums.INIT);
         tradeOrderPO.setCreateTime(now);
         tradeOrderPO.setUpdateTime(now);
         tradeOrderPORepository.save(tradeOrderPO);
