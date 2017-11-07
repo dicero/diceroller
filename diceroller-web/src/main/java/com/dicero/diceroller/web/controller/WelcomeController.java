@@ -53,5 +53,15 @@ public class WelcomeController {
 		return "view/index";
 	}
 
+    @RequestMapping("/play")
+    public String play(Map<String, Object> model) {
+        return "view/index";
+    }
+
+    @RequestMapping("/verify")
+    public String verify(Map<String, Object> model) {
+        return "view/index";
+    }
+
 
 }
