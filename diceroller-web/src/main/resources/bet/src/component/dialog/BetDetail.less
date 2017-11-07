@@ -1,0 +1,188 @@
+.betDetail{
+    .ant-modal-body>p {
+        text-align: center
+    }
+    ul {
+        overflow: hidden;
+        display: flex;
+        padding: 24px 32px;
+        border-radius: 2px;
+        border: 1px solid rgba(52,56,80,.2);
+        background: none;
+        color: #343850;
+        text-transform: uppercase;
+        font-size: 12px;
+        margin: 22px 0 30px;
+        width: 100%;
+        li {
+            float: left;
+            display: flex;
+            flex-direction: column;
+            margin-right: 15px;
+            white-space: nowrap;
+            font-weight: 600;
+            h3 {
+                color: rgba(52,56,80,.5);
+                font-size: 14px;
+                text-align: center;
+            }
+            p {
+                font-size: 20px;
+                color: #000000;
+                
+            }
+        }
+    }
+    .chart {
+        background: #f2f4f8;
+        display: flex;
+        padding: 105px 30px;
+        flex-direction: column;
+        font-weight: 600;
+        >div::before{
+            content: "0";
+            left: 0;
+            position: absolute;
+            bottom: calc(100% + 10px);
+            color: rgba(0,0,0,.35);
+        }
+        >div::after{
+            content: "100";
+            right: 0;
+            position: absolute;
+            bottom: calc(100% + 10px);
+            color: rgba(0,0,0,.35);
+        }
+        >div {
+            position: relative;
+            
+            .line {
+                display: flex;
+                height: 10px;
+                width: 100%;
+                border-radius: 2px;
+                overflow: hidden;
+                background: #ff7591;
+                position: relative;
+                >div {
+                    left: 0;
+                    top: 0;
+                    background: #b1e15b;
+                    height: 100%;
+                    position: absolute;
+                    width: 100%;
+                }
+            }
+            .target:before {
+                border-top: 15px solid #e1e6ef;
+            }
+            .target:before,.target:after {
+                content: "";
+                position: absolute;
+                top: 100%;
+                border-top: 13px solid #fff;
+                transform: translateX(-14px);
+                left: 50%;
+                border-left: 13px solid transparent;
+                border-right: 13px solid transparent;
+            }
+            .target {
+                position: absolute;
+                left: 0;
+                background: #fff;
+                text-align: center;
+                padding: 10px 14px;
+                will-change: left,transform;
+                z-index: 2;
+                border: 1px solid #e1e6ef;
+                border-radius: 4px;
+                transform: translateX(-50%);
+                bottom: 30px;
+                will-change: left;
+                p {
+                    font-size: 12px;
+                    color: rgba(52,56,80,.5);
+                    text-transform: uppercase;
+                }
+                span {
+                    white-space: nowrap;
+                    text-align: center;
+                }
+            }
+            .rool:before {
+                border-bottom: 15px solid #fff;
+            }
+            .rool:before,.rool::after {
+                content: "";
+                position: absolute;
+                bottom: 100%;
+                border-bottom: 13px solid #fff;
+                transform: translateX(-14px);
+                left: 50%;
+                border-left: 13px solid transparent;
+                border-right: 13px solid transparent;
+            }
+            .rool {
+                position: absolute;
+                left: 0;
+                background: #fff;
+                text-align: center;
+                padding: 10px 14px;
+                will-change: left,transform;
+                z-index: 2;
+                border: 1px solid #e1e6ef;
+                border-radius: 4px;
+                transform: translateX(-50%);
+                top: 30px;
+                p {
+                    font-size: 12px;
+                    color: rgba(52,56,80,.5);
+                    text-transform: uppercase;
+                }
+                span {
+                    white-space: nowrap;
+                    text-align: center;
+                }
+            }
+        }
+    }
+    .ant-collapse {
+        background: #404c63;
+        font-size: 15px;
+        font-weight: 300;
+        will-change: transform;
+        color: #fff;
+        .ant-collapse-header {
+            cursor: pointer;
+            background: #404c63;
+            color: #fff;
+            .arrow {
+                font-size: 20px;
+            }
+            .arrow::before {
+                color: #fff;
+            }
+        }
+        .ant-collapse-content {
+            background: #404c63;
+            h3 {
+                text-transform: uppercase;
+                color: hsla(0,0%,100%,.6);
+                font-size: 12px;
+                margin-bottom: 7px;
+                text-align: center;
+                font-weight: 600;
+            }
+            p {
+                background: rgba(0,0,0,.15);
+                padding: 10px 15px;
+                width: 100%;
+                color: #fff;
+                font-size: 14px;
+                border-radius: 2px;
+                margin-bottom: 23px;
+                word-break: break-all;
+            }
+        }
+    }
+}

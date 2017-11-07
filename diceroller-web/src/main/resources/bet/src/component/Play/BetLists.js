@@ -57,7 +57,8 @@ class BetLists extends Component {
             payout: '3.00x',
             game: '< 33.00',
             count: '5.23',
-            profit: '0.00000002'
+            profit: '0.00000002',
+            key: '1'
           }, {
             id: '20,169,927,283',
             user: 'John Brown',
@@ -66,7 +67,8 @@ class BetLists extends Component {
             payout: '3.00x',
             game: '< 33.00',
             count: '5.23',
-            profit: '0.00000002'
+            profit: '0.00000002',
+            key: '2'
           }, {
             id: '20,169,927,283',
             user: 'John Brown',
@@ -75,7 +77,8 @@ class BetLists extends Component {
             payout: '3.00x',
             game: '< 33.00',
             count: '5.23',
-            profit: '-0.00000002'
+            profit: '-0.00000002',
+            key: '3'
           }];
         return(
             <div style={{background: "#ffffff"}}>
@@ -93,9 +96,6 @@ class BetLists extends Component {
                     </Tabs>
                 </div>
             </div>
-            
-            
-            
         )
     }
 }
