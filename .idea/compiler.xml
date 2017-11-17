@@ -27,7 +27,7 @@
       <module name="diceroller-common-bean" target="1.7" />
       <module name="diceroller-common-parent" target="1.7" />
       <module name="diceroller-common-util" target="1.7" />
-      <module name="diceroller-core-engine" target="1.7" />
+      <module name="diceroller-core-engine" target="1.8" />
       <module name="diceroller-core-parent" target="1.7" />
       <module name="diceroller-dal-mysql" target="1.7" />
       <module name="diceroller-dal-parent" target="1.7" />
