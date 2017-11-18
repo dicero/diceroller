@@ -122,10 +122,13 @@
     <orderEntry type="library" name="Maven: commons-lang:commons-lang:2.5" level="project" />
     <orderEntry type="library" name="Maven: net.sf.ezmorph:ezmorph:1.0.6" level="project" />
     <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.8" level="project" />
-    <orderEntry type="library" name="Maven: org.web3j:core:2.1.0" level="project" />
-    <orderEntry type="library" name="Maven: io.reactivex:rxjava:1.2.4" level="project" />
-    <orderEntry type="library" name="Maven: com.squareup:javapoet:1.7.0" level="project" />
+    <orderEntry type="library" name="Maven: org.web3j:core:3.1.1" level="project" />
+    <orderEntry type="library" name="Maven: org.web3j:abi:3.1.1" level="project" />
+    <orderEntry type="library" name="Maven: org.web3j:utils:3.1.1" level="project" />
     <orderEntry type="library" name="Maven: org.bouncycastle:bcprov-jdk15on:1.54" level="project" />
+    <orderEntry type="library" name="Maven: org.web3j:crypto:3.1.1" level="project" />
+    <orderEntry type="library" name="Maven: org.web3j:rlp:3.1.1" level="project" />
+    <orderEntry type="library" name="Maven: org.web3j:tuples:3.1.1" level="project" />
     <orderEntry type="library" name="Maven: com.github.jnr:jnr-unixsocket:0.15" level="project" />
     <orderEntry type="library" name="Maven: com.github.jnr:jnr-ffi:2.1.2" level="project" />
     <orderEntry type="library" name="Maven: com.github.jnr:jffi:1.2.14" level="project" />
@@ -139,7 +142,10 @@
     <orderEntry type="library" name="Maven: com.github.jnr:jnr-constants:0.9.6" level="project" />
     <orderEntry type="library" name="Maven: com.github.jnr:jnr-enxio:0.14" level="project" />
     <orderEntry type="library" name="Maven: com.github.jnr:jnr-posix:3.0.33" level="project" />
-    <orderEntry type="library" name="Maven: com.lambdaworks:scrypt:1.4.0" level="project" />
+    <orderEntry type="library" name="Maven: com.squareup.okhttp3:okhttp:3.8.1" level="project" />
+    <orderEntry type="library" name="Maven: com.squareup.okio:okio:1.13.0" level="project" />
+    <orderEntry type="library" name="Maven: com.squareup.okhttp3:logging-interceptor:3.8.1" level="project" />
+    <orderEntry type="library" name="Maven: io.reactivex:rxjava:1.2.4" level="project" />
     <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.8.0" level="project" />
   </component>
 </module>

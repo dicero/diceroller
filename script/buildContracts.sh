@@ -25,7 +25,7 @@ for target in ${targets}; do
     web3j solidity generate \
         ${dirName}/build/${fileName}.bin \
         ${dirName}/build/${fileName}.abi \
-        -p com.dicero.diceroller.core.contracts \
+        -p com.dicero.diceroller.core.coin.contracts \
         -o ../../java/ > /dev/null
     echo "Complete"
 

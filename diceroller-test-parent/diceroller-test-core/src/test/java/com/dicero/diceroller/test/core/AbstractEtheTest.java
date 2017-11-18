@@ -36,7 +36,7 @@ public class AbstractEtheTest extends TestBase {
 
     @Before
     public void setUp() throws Exception {
-        web3j = Web3jUtils.buildHttpClient("localhost", Web3jConstants.CLIENT_PORT);
+        web3j = Web3jUtils.buildHttpClient(Web3jConstants.CLIENT_IP, Web3jConstants.CLIENT_PORT);
     }
 
     void ensureFunds(String address, BigInteger amountWei) throws Exception {
@@ -98,7 +98,7 @@ public class AbstractEtheTest extends TestBase {
     }
 
     static String load(String filePath) throws URISyntaxException, IOException {
-        URL url = AbstractEthereumTest.class.getClass().getResource(filePath);
+        URL url = AbstractEtheTest.class.getClass().getResource(filePath);
         byte[] bytes = Files.readAllBytes(Paths.get(url.toURI()));
         return new String(bytes);
     }

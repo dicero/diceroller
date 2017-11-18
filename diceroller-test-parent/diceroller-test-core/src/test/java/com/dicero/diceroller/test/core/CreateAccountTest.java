@@ -2,12 +2,8 @@ package com.dicero.diceroller.test.core;
 
 import com.dicero.diceroller.core.coin.util.Web3jConstants;
 import org.junit.Test;
-import org.web3j.crypto.Credentials;
-import org.web3j.crypto.ECKeyPair;
-import org.web3j.crypto.Keys;
-import org.web3j.crypto.TransactionEncoder;
+import org.web3j.crypto.*;
 import org.web3j.protocol.core.Response;
-import org.web3j.protocol.core.methods.request.RawTransaction;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.utils.Convert;
 import org.web3j.utils.Numeric;

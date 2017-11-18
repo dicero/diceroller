@@ -5,11 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
-import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.http.HttpService;
-import org.web3j.tx.Contract;
-import org.web3j.tx.ManagedTransaction;
-import org.web3j.utils.Numeric;
 
 import java.io.File;
 
@@ -82,32 +78,32 @@ public class GreeterApplication {
 //                + transferReceipt.getTransactionHash());
 
         // Now lets deploy a smart contract
-        log.info("Deploying smart contract");
-        Greeter contract = Greeter.deploy(
-                web3j, credentials,
-                ManagedTransaction.GAS_PRICE, Contract.GAS_LIMIT,
-                "Hello blockchain world!").send();
-
-        String contractAddress = contract.getContractAddress();
-        log.info("Smart contract deployed to address " + contractAddress);
-        log.info("View contract at https://rinkeby.etherscan.io/address/" + contractAddress);
-
-        log.info("Value stored in remote smart contract: " + contract.greet().send());
-
-        // Lets modify the value in our smart contract
-        TransactionReceipt transactionReceipt = contract.newGreeting("Well hello again").send();
-
-        log.info("New value stored in remote smart contract: " + contract.greet().send());
-
-        // Events enable us to log specific events happening during the execution of our smart
-        // contract to the blockchain. Index events cannot be logged in their entirety.
-        // For Strings and arrays, the hash of values is provided, not the original value.
-        // For further information, refer to https://docs.web3j.io/filters.html#filters-and-events
-        for (Greeter.ModifiedEventResponse event : contract.getModifiedEvents(transactionReceipt)) {
-            log.info("Modify event fired, previous value: " + event.oldGreeting
-                    + ", new value: " + event.newGreeting);
-            log.info("Indexed event previous value: " + Numeric.toHexString(event.oldGreetingIdx)
-                    + ", new value: " + Numeric.toHexString(event.newGreetingIdx));
-        }
+//        log.info("Deploying smart contract");
+//        Greeter contract = Greeter.deploy(
+//                web3j, credentials,
+//                ManagedTransaction.GAS_PRICE, Contract.GAS_LIMIT,
+//                "Hello blockchain world!").send();
+//
+//        String contractAddress = contract.getContractAddress();
+//        log.info("Smart contract deployed to address " + contractAddress);
+//        log.info("View contract at https://rinkeby.etherscan.io/address/" + contractAddress);
+//
+//        log.info("Value stored in remote smart contract: " + contract.greet().send());
+//
+//        // Lets modify the value in our smart contract
+//        TransactionReceipt transactionReceipt = contract.newGreeting("Well hello again").send();
+//
+//        log.info("New value stored in remote smart contract: " + contract.greet().send());
+//
+//        // Events enable us to log specific events happening during the execution of our smart
+//        // contract to the blockchain. Index events cannot be logged in their entirety.
+//        // For Strings and arrays, the hash of values is provided, not the original value.
+//        // For further information, refer to https://docs.web3j.io/filters.html#filters-and-events
+//        for (Greeter.ModifiedEventResponse event : contract.getModifiedEvents(transactionReceipt)) {
+//            log.info("Modify event fired, previous value: " + event.oldGreeting
+//                    + ", new value: " + event.newGreeting);
+//            log.info("Indexed event previous value: " + Numeric.toHexString(event.oldGreetingIdx)
+//                    + ", new value: " + Numeric.toHexString(event.newGreetingIdx));
+//        }
     }
 }

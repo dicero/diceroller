@@ -4,8 +4,6 @@ import com.dicero.diceroller.core.coin.bean.Alice;
 import com.dicero.diceroller.core.coin.contracts.Greeter;
 import com.dicero.diceroller.core.coin.util.Web3jConstants;
 import com.dicero.diceroller.core.coin.util.Web3jUtils;
-import org.web3j.abi.datatypes.Utf8String;
-import org.web3j.abi.datatypes.generated.Uint256;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 
 import java.math.BigDecimal;
@@ -49,9 +47,9 @@ public class ContractService extends AbstractEthe {
                         Alice.CREDENTIALS,
                         Web3jConstants.GAS_PRICE,
                         Web3jConstants.GAS_LIMIT_GREETER_TX,
-                        BigInteger.ZERO,
-                        new Utf8String("hello world"))
-                .get();
+                        "hello world")
+                .send();
+
 
         // get tx receipt
         TransactionReceipt txReceipt = contract
@@ -68,14 +66,15 @@ public class ContractService extends AbstractEthe {
         System.out.println("Deploy fees: " + Web3jUtils.weiToEther(deployFees));
 
         // get initial contract balance
-        Uint256 deposits = contract
-                .deposits()
-                .get();
+//        Uint256 deposits = contract.
+//                .deposits()
+//                .get();
+
 
         String contractAddress = contract.getContractAddress();
         System.out.println("Contract address: " + contractAddress);
         System.out.println("Contract address balance (initial): " + Web3jUtils.getBalanceWei(web3j, contractAddress));
-        System.out.println("Contract.deposits(): " + deposits.getValue());
+//        System.out.println("Contract.deposits(): " + deposits.getValue());
         printBalanceAlice("after deploy");
         System.out.println();
 
@@ -92,20 +91,19 @@ public class ContractService extends AbstractEthe {
         Web3jUtils.transferFromCoinbaseAndWait(web3j, contractAddress, amountWei);
 
         // check current # of deposits and balance
-        Uint256 deposits = contract
-                .deposits()
-                .get();
+//        Uint256 deposits = contract
+//                .deposits()
+//                .get();
 
         System.out.println("Contract address balance (after funding): " + Web3jUtils.weiToEther(Web3jUtils.getBalanceWei(web3j, contractAddress)));
-        System.out.println("Contract.deposits(): " + deposits.getValue() + "\n");
+//        System.out.println("Contract.deposits(): " + deposits.getValue() + "\n");
     }
 
     private void callGreet(Greeter contract) throws Exception {
         System.out.println("// Call greet()");
 
-        Utf8String message = contract
-                .greet()
-                .get();
+        String message = contract
+                .greet().send();
 
         System.out.println("Message returned by Contract.greet(): " + message.toString());
         printBalanceAlice("after greet");
@@ -117,7 +115,7 @@ public class ContractService extends AbstractEthe {
 
         TransactionReceipt txReceipt = contract
                 .kill()
-                .get();
+                .send();
 
         BigInteger killFees = txReceipt
                 .getCumulativeGasUsed()
