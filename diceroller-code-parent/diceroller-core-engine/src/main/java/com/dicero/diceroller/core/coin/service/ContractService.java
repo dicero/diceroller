@@ -5,6 +5,7 @@ import com.dicero.diceroller.core.coin.contracts.Greeter;
 import com.dicero.diceroller.core.coin.util.Web3jConstants;
 import com.dicero.diceroller.core.coin.util.Web3jUtils;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
+import org.web3j.utils.Numeric;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -58,9 +59,7 @@ public class ContractService extends AbstractEthe {
 
         // get tx hash and tx fees
         String deployHash = txReceipt.getTransactionHash();
-        BigInteger deployFees = txReceipt
-                .getCumulativeGasUsed()
-                .multiply(Web3jConstants.GAS_PRICE);
+        BigInteger deployFees = txReceipt.getCumulativeGasUsed().multiply(Web3jConstants.GAS_PRICE);
 
         System.out.println("Deploy hash: " + deployHash);
         System.out.println("Deploy fees: " + Web3jUtils.weiToEther(deployFees));
@@ -69,6 +68,14 @@ public class ContractService extends AbstractEthe {
 //        Uint256 deposits = contract.
 //                .deposits()
 //                .get();
+
+        for (Greeter.ModifiedEventResponse event : contract.getModifiedEvents(txReceipt)) {
+            System.out.println("Modify event fired, previous value: " + event.oldGreeting
+                    + ", new value: " + event.newGreeting);
+            System.out.println("Indexed event previous value: " + Numeric.toHexString(event.oldGreetingIdx)
+                    + ", new value: " + Numeric.toHexString(event.newGreetingIdx));
+        }
+
 
 
         String contractAddress = contract.getContractAddress();

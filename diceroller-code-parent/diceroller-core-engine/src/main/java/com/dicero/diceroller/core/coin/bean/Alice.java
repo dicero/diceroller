@@ -1,5 +1,6 @@
 package com.dicero.diceroller.core.coin.bean;
 
+import com.dicero.diceroller.common.util.EncryptUtil;
 import org.web3j.crypto.Credentials;
 
 /**
@@ -9,8 +10,8 @@ import org.web3j.crypto.Credentials;
  * @version 2017/11/18
  */
 public class Alice {
-    static final String PRIVATE_KEY = "c5dd0a8878d5e5f6e8f92181d8fe0b233a7bfb0f87a0c7369c740f7ede610c18";
+    static final String PRIVATE_KEY = "336d5149928f21592503f662cd43434093261cc4b486fdc488170248d6f31610";
 
-    public static final Credentials CREDENTIALS = Credentials.create(PRIVATE_KEY);
+    public static final Credentials CREDENTIALS = Credentials.create(EncryptUtil.SHA256(PRIVATE_KEY+"1"));
     public static final String ADDRESS = CREDENTIALS.getAddress();
 }

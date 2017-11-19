@@ -5,6 +5,8 @@ import com.dicero.diceroller.core.coin.util.Web3jConstants;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
+import rx.Subscription;
+
 /**
  * <p></p>
  *
@@ -40,5 +42,25 @@ public class AbstractEthe {
                 .get();
 
         System.out.println("Connected to " + client.getWeb3ClientVersion() + "\n");
+
+
+        // Note: filters are not supported on Infura.
+
+        // NOTE: To receive all new blocks as they are added to the blockchain:
+        Subscription subscription = web3j.blockObservable(false).subscribe(tx -> {
+            System.out.println("To receive all new blocks: " + tx);
+        });
+
+
+        // NOTE: To receive all new transactions as they are added to the blockchain:
+        Subscription subscription2 = web3j.transactionObservable().subscribe(tx -> {
+            System.out.println("To receive all new transactions: " + tx);
+        });
+
+        // NOTE: To receive all pending transactions as they are submitted to the network (i.e. before they have been grouped into a block together):
+        Subscription subscription3 = web3j.pendingTransactionObservable().subscribe(tx -> {
+            System.out.println("To receive all pending transactions: " + tx);
+        });
+
     };
 }

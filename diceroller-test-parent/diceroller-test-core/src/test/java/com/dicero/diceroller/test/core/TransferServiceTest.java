@@ -39,7 +39,7 @@ public class TransferServiceTest  extends AbstractEtheTest {
     @Test
     public void testSendFunds() throws Exception {
         BigDecimal amountEther = BigDecimal.valueOf(0.123);
-        BigInteger amountWei = Convert.toWei(amountEther, Convert.Unit.ETHER).toBigInteger();
+        BigInteger amountWei = Convert.toWei(amountEther, Convert.Unit.KETHER).toBigInteger();
 
         ensureFunds(Alice.ADDRESS, amountWei);
 
