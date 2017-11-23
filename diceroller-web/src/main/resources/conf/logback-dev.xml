@@ -55,8 +55,11 @@
 			<level>WARN</level>
 			<onMatch>ACCEPT</onMatch>  
         	<onMismatch>DENY</onMismatch>
-		</filter>s
+		</filter>
 	</appender>
+
+    <!-- Change to DEBUG log protocol messages -->
+    <logger name="org.web3j.protocol" level="INFO"/>
 	
 	<root>
 		<level value="INFO" />

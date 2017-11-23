@@ -17,8 +17,8 @@ import java.security.NoSuchAlgorithmException;
  */
 public class EncryptUtil{
     public static void main(String[] args) {
-//        System.out.println(SHA256("1481c95e15e1ca2b0f1abe61c26c1c571cb799b5015e0fc3b18eae7d7610b276"));
-        System.out.println(System.currentTimeMillis());
+        System.out.println(SHA512("b205a1e03ddf50247d8483435cd91f9c732bad281ad420061ab4310c33166276"));
+//        System.out.println(System.currentTimeMillis());
     }
 
     /**

@@ -27,6 +27,7 @@ public class PersonalBillPO extends BasePO {
     private String tradeInfo;
     private String bitAddress;
     private String stakeId;
+    private String stakeStatus;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -147,6 +148,16 @@ public class PersonalBillPO extends BasePO {
 
     public void setStakeId(String stakeId) {
         this.stakeId = stakeId;
+    }
+
+    @Basic
+    @Column(name = "stake_status", nullable = true, length = 40)
+    public String getStakeStatus() {
+        return stakeStatus;
+    }
+
+    public void setStakeStatus(String stakeStatus) {
+        this.stakeStatus = stakeStatus;
     }
 
     @Override

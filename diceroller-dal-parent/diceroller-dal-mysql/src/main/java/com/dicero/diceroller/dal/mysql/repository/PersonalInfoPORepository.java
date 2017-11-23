@@ -11,4 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface PersonalInfoPORepository extends JpaRepository<PersonalInfoPO, Integer> {
     PersonalInfoPO findByMemberId(Integer memberId);
+    PersonalInfoPO findByNotifyEmail(String notifyEmail);
+    PersonalInfoPO findByNotifyPhone(String notifyPhone);
+    PersonalInfoPO findByNotifyBitAddress(String notifyBitAddress);
 }
