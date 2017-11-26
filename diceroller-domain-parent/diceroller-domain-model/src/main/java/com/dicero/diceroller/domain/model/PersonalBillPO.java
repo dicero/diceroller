@@ -1,6 +1,7 @@
 package com.dicero.diceroller.domain.model;
 
 import com.dicero.diceroller.domain.BasePO;
+import com.dicero.diceroller.domain.enums.TradeTypeEnums;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -19,7 +20,7 @@ public class PersonalBillPO extends BasePO {
     private Timestamp createTime;
     private Timestamp updateTime;
     private int memberId;
-    private String tradeType;
+    private TradeTypeEnums tradeType;
     private String seqNo;
     private String tradeStatus;
     private BigDecimal tradeAmt;
@@ -70,13 +71,15 @@ public class PersonalBillPO extends BasePO {
         this.memberId = memberId;
     }
 
+
     @Basic
     @Column(name = "trade_type", nullable = false, length = 2)
-    public String getTradeType() {
+    @Enumerated(EnumType.STRING)
+    public TradeTypeEnums getTradeType() {
         return tradeType;
     }
 
-    public void setTradeType(String tradeType) {
+    public void setTradeType(TradeTypeEnums tradeType) {
         this.tradeType = tradeType;
     }
 

@@ -49,7 +49,7 @@ public class WebParamsAspect {
         HttpServletRequest request = attributes.getRequest();
 
         // 记录下请求内容
-        logger.info("Request: ====>>> 地址[URL]: {}, 请求方法[HTTP_METHOD]: {}, IP: {}, 方法[CLASS_METHOD]: {}, 参数[ARGS]: xxx, 参数[PARAMS]: {}, Request End: 耗时{}" ,
+        logger.info("Request: ====>>> 地址[URL]: {}, 请求方法[HTTP_METHOD]: {}, IP: {}, 方法[CLASS_METHOD]: {}, 参数[PARAMS]: {}, Request End: 耗时{}" ,
                 request.getRequestURL().toString(),
                 request.getMethod(),
                 request.getRemoteAddr(),

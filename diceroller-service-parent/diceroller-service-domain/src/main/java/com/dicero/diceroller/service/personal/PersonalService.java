@@ -18,4 +18,7 @@ public interface PersonalService {
     // NOTE: 设置密码
     boolean setPersonalPassword(Integer memberId, String password) ;
 
+    // NOTE: 设置密码
+    boolean updatePersonalPassword(Integer memberId, String oldPassword, String newPassword) ;
+
 }

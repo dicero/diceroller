@@ -33,7 +33,7 @@ public class MemberRest extends AbstractRest {
     @Autowired PersonalService personalService;
     @Autowired PlayService playService;
 
-    @ApiOperation(value = "修改密码")
+    @ApiOperation(value = "设置密码")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "password", value = "新密码", required = true, dataType = "String", paramType = "query"),
     })
@@ -52,6 +52,33 @@ public class MemberRest extends AbstractRest {
             protected RestResponse process() throws Exception {
                 boolean  result = personalService.setPersonalPassword(webLoginer.getId(), password);
                 return result ? RestResponse.createSuccess() : RestResponse.createFailure();
+            }
+        }.run();
+    }
+
+    @ApiOperation(value = "修改密码")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "oldPassword", value = "旧密码", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "newPassword", value = "新密码", required = true, dataType = "String", paramType = "query"),
+    })
+    @WebAccess
+    @RequestMapping(method = { RequestMethod.POST }, path="/updatePassword", produces = "application/json")
+    public RestResponse updatePassword(@ApiIgnore final WebLoginer webLoginer ,  final String oldPassword, final String newPassword) {
+        return new RestExecuteContrl() {
+            @Override
+            protected void validate() throws Exception {
+                Validate.notBlank(oldPassword, "oldPassword 不能为空");
+                Validate.notBlank(newPassword, "newPassword 不能为空");
+                Validate.isTrue(oldPassword.length() > 10, "oldPassword 不能少于10个字符串");
+                Validate.isTrue(oldPassword.length() < 20, "oldPassword 不能超过20个字符串");
+                Validate.isTrue(newPassword.length() > 10, "newPassword 不能少于10个字符串");
+                Validate.isTrue(newPassword.length() < 20, "newPassword 不能超过20个字符串");
+            }
+
+            @Override
+            protected RestResponse process() throws Exception {
+                 boolean  result = personalService.updatePersonalPassword(webLoginer.getId(), oldPassword, newPassword);
+                 return result ? RestResponse.createSuccess() : RestResponse.createFailure();
             }
         }.run();
     }

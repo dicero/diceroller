@@ -17,6 +17,7 @@ import com.dicero.diceroller.web.rest.vo.MemberSeedVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,6 +36,7 @@ import java.util.List;
  * @author znz
  * @version 2017/11/25
  */
+@Slf4j
 @RestController
 @Api("查询相关")
 @RequestMapping("/rest/query")
@@ -51,14 +52,17 @@ public class QueryRest extends AbstractRest {
     @ApiOperation(value = "查询用户登录状态")
     @ApiImplicitParams({})
     @RequestMapping(method = { RequestMethod.POST }, path="/state", produces = "application/json")
-    public RestResponse state() {
+    public RestResponse state(@ApiIgnore final WebLoginer webLoginer) {
         return new RestExecuteContrl() {
             @Override
             protected void validate() throws Exception { }
 
             @Override
             protected RestResponse process() throws Exception {
-                return RestResponse.createSuccess();
+                log.info("webLoginer:{}", webLoginer);
+                DataObject dataObject = new DataObject();
+                dataObject.put("username", webLoginer.getUsername());
+                return RestResponse.createSuccess(dataObject.getData());
             }
         }.run();
     }
@@ -93,12 +97,19 @@ public class QueryRest extends AbstractRest {
     public RestResponse info(@ApiIgnore final WebLoginer webLoginer) {
         return new RestExecuteContrl() {
             @Override
-            protected void validate() throws Exception {
-            }
+            protected void validate() throws Exception { }
 
             @Override
             protected RestResponse process() throws Exception {
-                return RestResponse.createSuccess();
+                DataObject dataObject = new DataObject();
+                PersonalInfoPO personalInfoPO = personalInfoPORepository.findByMemberId(webLoginer.getId());
+                if (personalInfoPO != null) {
+                    dataObject.put("username", webLoginer.getUsername());
+                    dataObject.put("notifyEmail", personalInfoPO.getNotifyEmail());
+                    dataObject.put("notifyPhone", personalInfoPO.getNotifyPhone());
+                    dataObject.put("notifyBitAddress", personalInfoPO.getNotifyBitAddress());
+                }
+                return RestResponse.createSuccess(dataObject.getData());
             }
         }.run();
     }
@@ -110,23 +121,24 @@ public class QueryRest extends AbstractRest {
     public RestResponse balance(@ApiIgnore final WebLoginer webLoginer) {
         return new RestExecuteContrl() {
             @Override
-            protected void validate() throws Exception {
-            }
+            protected void validate() throws Exception { }
 
             @Override
             protected RestResponse process() throws Exception {
-                HashMap<String, BigDecimal> data = new HashMap<>();
-                data.put("balance", new BigDecimal("0.00000002"));
-                return RestResponse.createSuccess(data);
+                DataObject dataObject = new DataObject();
+                dataObject.put("balance", "0.00000002");
+                return RestResponse.createSuccess(dataObject.getData());
             }
         }.run();
     }
 
     @WebAccess
     @ApiOperation(value = "查询押注")
-    @ApiImplicitParams({})
-    @RequestMapping(method = { RequestMethod.POST }, path="/bits", produces = "application/json")
-    public RestResponse bits(@ApiIgnore final WebLoginer webLoginer) {
+    @ApiImplicitParams({
+
+    })
+    @RequestMapping(method = { RequestMethod.POST }, path="/stakes", produces = "application/json")
+    public RestResponse stakes(@ApiIgnore final WebLoginer webLoginer, int page, int pageSize) {
         return new RestExecuteContrl() {
             @Override
             protected void validate() throws Exception { }

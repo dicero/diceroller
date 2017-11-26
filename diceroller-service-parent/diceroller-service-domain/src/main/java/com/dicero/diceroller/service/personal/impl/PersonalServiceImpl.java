@@ -92,6 +92,17 @@ public class PersonalServiceImpl extends BaseService implements PersonalService 
         return false;
     }
 
+    @Override
+    public boolean updatePersonalPassword(Integer memberId, String oldPassword, String newPassword) {
+        PersonalMemberPO personalMemberPO = personalMemberPORepository.findByMemberId(memberId);
+        if (personalMemberPO != null && StringUtils.isNotBlank(personalMemberPO.getPwd())
+                && personalMemberPO.getPwd().equals(md5Password(oldPassword))) {
+            personalMemberPORepository.updatePasswordByMemberId(memberId, md5Password(newPassword));
+            return true;
+        }
+        return false;
+    }
+
     private String md5Password(String password){
         return MD5Util.sign(password, salt);
     }

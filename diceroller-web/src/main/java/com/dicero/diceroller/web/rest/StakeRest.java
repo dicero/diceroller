@@ -2,12 +2,16 @@ package com.dicero.diceroller.web.rest;
 
 import com.dicero.diceroller.common.bean.extension.CommonDefinedException;
 import com.dicero.diceroller.common.bean.result.RestResponse;
+import com.dicero.diceroller.domain.model.PersonalStakePO;
+import com.dicero.diceroller.service.bean.RollerBean;
+import com.dicero.diceroller.service.play.PlayService;
 import com.dicero.diceroller.web.hepler.WebLoginer;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.Validate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +29,8 @@ import java.math.BigDecimal;
 @Api("押注相关")
 @RequestMapping("/rest/stake")
 public class StakeRest extends AbstractRest {
+
+    @Autowired PlayService playService;
 
     // NOTE: 派彩A (1.012-9900) 胜率B(0.01-98,当拖动划线的时候都为整数) 滚存C1, 反滚存C2
     @ApiOperation(value = "手动下注")
@@ -56,9 +62,11 @@ public class StakeRest extends AbstractRest {
 
             @Override
             protected RestResponse process() throws Exception {
-                // boolean  result = personalService.setPersonalPassword(webLoginer.getId(), password);
-//                return result ? RestResponse.createSuccess() : RestResponse.createFailure();
-                return null;
+                RollerBean rollerBean = new RollerBean(amt, target, targetCondition);
+                PersonalStakePO personalStakePO = playService.roller(webLoginer.getId(), rollerBean);
+                DataObject dataObject = new DataObject();
+                dataObject.put("stake", personalStakePO);
+                return RestResponse.createSuccess(dataObject.getData());
             }
         }.run();
     }
