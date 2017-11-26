@@ -19,11 +19,11 @@ class BetDetail extends Component {
     }
     componentDidMount() {
         console.log('betDetail',this.state.betDetail)
-        Pubsub.subscribe('BetDetail', function(msg, data){
+        Pubsub.subscribe('BetDetail', (msg, data) => {
             console.log('BetDetail', data)
             this.setBetDetailVisible(true)
             this.setBetDetailId(data)
-        }.bind(this))
+        })
     }
     setBetDetailId (id) {
         this.setState({ id });
