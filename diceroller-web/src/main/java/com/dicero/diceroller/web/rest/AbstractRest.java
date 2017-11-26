@@ -25,18 +25,18 @@ public class AbstractRest {
 
     // NOTE: 构建返回数据
     public class DataObject {
-        private Map<String, String> data;
+        private Map<String, Object> data;
 
         public DataObject() {
-            this.data = new HashMap<String,String>();
+            this.data = new HashMap<String,Object>();
         }
 
-        public Map<String,String> put(String k, String v){
+        public Map<String,Object> put(String k, Object v){
             this.data.put(k, v);
             return data;
         }
 
-        public Map<String, String> getData() {
+        public Map<String, Object> getData() {
             return data;
         }
     }

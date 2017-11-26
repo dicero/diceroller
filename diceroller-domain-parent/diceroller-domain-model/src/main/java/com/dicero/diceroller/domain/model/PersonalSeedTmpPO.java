@@ -12,16 +12,15 @@ import java.sql.Timestamp;
  * @version 2017/10/29
  */
 @Entity
-@Table(name = "tr_personal_seed")
-public class PersonalSeedPO extends BasePO {
+@Table(name = "tr_personal_seed_tmp")
+public class PersonalSeedTmpPO extends BasePO {
     private int id;
     private Timestamp createTime;
     private Timestamp updateTime;
     private int memberId;
     private String serverSeed;
     private String clientSeed;
-    private String serverSeedHash;
-    private int defaultUse;
+    private int defaultOver;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -86,26 +85,12 @@ public class PersonalSeedPO extends BasePO {
     }
 
     @Basic
-    @Column(name = "server_seed_hash", nullable = false, length = 64)
-    public String getServerSeedHash() {
-        return serverSeedHash;
+    @Column(name = "default_over", nullable = false)
+    public int getDefaultOver() {
+        return defaultOver;
     }
 
-    public void setServerSeedHash(String serverSeedHash) {
-        this.serverSeedHash = serverSeedHash;
+    public void setDefaultOver(int defaultOver) {
+        this.defaultOver = defaultOver;
     }
-
-
-
-    @Basic
-    @Column(name = "default_use", nullable = false)
-    public int getDefaultUse() {
-        return defaultUse;
-    }
-
-    public void setDefaultUse(int defaultUse) {
-        this.defaultUse = defaultUse;
-    }
-
-
 }

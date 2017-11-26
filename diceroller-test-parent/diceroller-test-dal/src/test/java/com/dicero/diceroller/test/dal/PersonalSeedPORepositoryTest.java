@@ -30,7 +30,8 @@ public class PersonalSeedPORepositoryTest extends TestBase {
     public void saveTest() {
         PersonalSeedPO record = new PersonalSeedPO();
         record.setMemberId(2000000000);
-        record.setSeed("2222223333334444445555666");
+        record.setClientSeed("2222223333334444445555666");
+        record.setServerSeed("2222223333334444445555666");
         record.setDefaultUse(1);
         record.setCreateTime(now);
         record.setUpdateTime(now);

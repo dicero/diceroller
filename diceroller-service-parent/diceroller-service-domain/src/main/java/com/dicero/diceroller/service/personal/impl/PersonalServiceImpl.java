@@ -1,15 +1,13 @@
 package com.dicero.diceroller.service.personal.impl;
 
 import com.dicero.diceroller.common.bean.extension.CommonDefinedException;
+import com.dicero.diceroller.common.util.EncryptUtil;
 import com.dicero.diceroller.common.util.MD5Util;
-import com.dicero.diceroller.dal.mysql.repository.EthAddressPORepository;
-import com.dicero.diceroller.dal.mysql.repository.PersonalInfoPORepository;
-import com.dicero.diceroller.dal.mysql.repository.PersonalMemberPORepository;
-import com.dicero.diceroller.domain.model.EthAddressPO;
-import com.dicero.diceroller.domain.model.PersonalInfoPO;
-import com.dicero.diceroller.domain.model.PersonalMemberPO;
+import com.dicero.diceroller.dal.mysql.repository.*;
+import com.dicero.diceroller.domain.model.*;
 import com.dicero.diceroller.service.BaseService;
 import com.dicero.diceroller.service.personal.PersonalService;
+import com.dicero.diceroller.service.play.PlayService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +26,8 @@ import java.util.List;
  */
 @Service
 public class PersonalServiceImpl extends BaseService implements PersonalService {
+    @Autowired PlayService playService;
+    @Autowired PersonalSeedPORepository personalSeedPORepository;
     @Autowired PersonalMemberPORepository personalMemberPORepository;
     @Autowired PersonalInfoPORepository personalInfoPORepository;
     @Autowired EthAddressPORepository ethAddressPORepository;
@@ -68,12 +68,23 @@ public class PersonalServiceImpl extends BaseService implements PersonalService 
         personalInfoPO.setUpdateTime(now);
         personalInfoPORepository.save(personalInfoPO);
 
+        // NOTE: 初始化用户种子
+        PersonalSeedPO personalSeedPO = new PersonalSeedPO();
+        personalSeedPO.setMemberId(personalInfoPO.getMemberId());
+        personalSeedPO.setDefaultUse(1);
+        personalSeedPO.setCreateTime(now);
+        personalSeedPO.setUpdateTime(now);
+        personalSeedPO.setServerSeed(playService.createServerSeed());
+        personalSeedPO.setClientSeed(playService.createClientSeed());
+        personalSeedPO.setServerSeedHash(EncryptUtil.SHA256(personalSeedPO.getServerSeed()));
+        personalSeedPORepository.save(personalSeedPO);
 
         return personalMemberPO;
     }
 
+
     @Override
-    public boolean setPassword(Integer memberId, String password) {
+    public boolean setPersonalPassword(Integer memberId, String password) {
         if(memberId != null && StringUtils.isNotBlank(password) ){
             personalMemberPORepository.updatePasswordByMemberId(memberId, md5Password(password));
             return true;

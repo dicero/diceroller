@@ -16,5 +16,6 @@ public interface PersonalService {
     PersonalMemberPO register(String loginUsername) ;
 
     // NOTE: 设置密码
-    boolean setPassword(Integer memberId, String password) ;
+    boolean setPersonalPassword(Integer memberId, String password) ;
+
 }

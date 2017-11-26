@@ -13,5 +13,7 @@ import java.util.List;
  * @version 2017/10/29
  */
 public interface PersonalStakePORepository extends JpaRepository<PersonalStakePO, Integer> {
+    PersonalStakePO findByStakeId(String stakeId);
+
     List<PersonalStakePO> findAllByMemberId(Integer memberId, Pageable pageable);
 }

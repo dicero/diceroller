@@ -1,14 +1,24 @@
 package com.dicero.diceroller.web.rest;
 
 import com.dicero.diceroller.common.bean.result.RestResponse;
+import com.dicero.diceroller.common.util.EncryptUtil;
 import com.dicero.diceroller.dal.mysql.repository.PersonalInfoPORepository;
 import com.dicero.diceroller.dal.mysql.repository.PersonalMemberPORepository;
+import com.dicero.diceroller.dal.mysql.repository.PersonalSeedPORepository;
 import com.dicero.diceroller.domain.model.PersonalInfoPO;
 import com.dicero.diceroller.domain.model.PersonalMemberPO;
+import com.dicero.diceroller.domain.model.PersonalSeedPO;
+import com.dicero.diceroller.domain.model.PersonalSeedTmpPO;
+import com.dicero.diceroller.service.personal.PersonalService;
+import com.dicero.diceroller.service.play.PlayService;
 import com.dicero.diceroller.web.hepler.WebLoginer;
 import com.dicero.diceroller.web.interceptor.WebAccess;
-import io.swagger.annotations.*;
+import com.dicero.diceroller.web.rest.vo.MemberSeedVO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +26,9 @@ import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * <p></p>
@@ -29,6 +41,9 @@ import java.util.HashMap;
 @RequestMapping("/rest/query")
 public class QueryRest extends AbstractRest {
 
+    @Autowired PlayService playService;
+    @Autowired PersonalService personalService;
+    @Autowired PersonalSeedPORepository personalSeedPORepository;
     @Autowired PersonalMemberPORepository personalMemberPORepository;
     @Autowired PersonalInfoPORepository personalInfoPORepository;
 
@@ -114,8 +129,7 @@ public class QueryRest extends AbstractRest {
     public RestResponse bits(@ApiIgnore final WebLoginer webLoginer) {
         return new RestExecuteContrl() {
             @Override
-            protected void validate() throws Exception {
-            }
+            protected void validate() throws Exception { }
 
             @Override
             protected RestResponse process() throws Exception {
@@ -148,10 +162,33 @@ public class QueryRest extends AbstractRest {
     }
 
     @WebAccess
-    @ApiOperation(value = "查询种子")
+    @ApiOperation(value = "查询可用种子")
     @ApiImplicitParams({})
-    @RequestMapping(method = { RequestMethod.POST }, path="/seed", produces = "application/json")
-    public RestResponse seed(@ApiIgnore final WebLoginer webLoginer) {
+    @RequestMapping(method = { RequestMethod.POST }, path="/availableSeed", produces = "application/json")
+    public RestResponse availableSeed(@ApiIgnore final WebLoginer webLoginer) {
+        return new RestExecuteContrl() {
+            @Override
+            protected void validate() throws Exception { }
+
+            @Override
+            protected RestResponse process() throws Exception {
+                DataObject dataObject = new DataObject();
+
+                PersonalSeedTmpPO personalSeedTmpPO = playService.createPersonalSeedTmp(webLoginer.getId());
+
+                dataObject.put("clientSeed", personalSeedTmpPO.getClientSeed());
+                dataObject.put("serverSeedHash", EncryptUtil.SHA256(personalSeedTmpPO.getServerSeed()));
+
+                return RestResponse.createSuccess(dataObject.getData());
+            }
+        }.run();
+    }
+
+    @WebAccess
+    @ApiOperation(value = "查询拥有种子")
+    @ApiImplicitParams({})
+    @RequestMapping(method = { RequestMethod.POST }, path="/possessSeed", produces = "application/json")
+    public RestResponse possessSeed(@ApiIgnore final WebLoginer webLoginer) {
         return new RestExecuteContrl() {
             @Override
             protected void validate() throws Exception {
@@ -159,7 +196,19 @@ public class QueryRest extends AbstractRest {
 
             @Override
             protected RestResponse process() throws Exception {
-                return RestResponse.createSuccess();
+                DataObject dataObject = new DataObject();
+
+                List<PersonalSeedPO> personalSeedPOList = personalSeedPORepository.findAllByMemberId(webLoginer.getId());
+                List<MemberSeedVO> memberSeedVOList = new ArrayList<>();
+
+                for (PersonalSeedPO personalSeedPO : personalSeedPOList) {
+                    MemberSeedVO memberSeedVO = new MemberSeedVO();
+                    BeanUtils.copyProperties(personalSeedPO, memberSeedVO);
+                    memberSeedVOList.add(memberSeedVO);
+                }
+
+                dataObject.put("list", memberSeedVOList);
+                return RestResponse.createSuccess(dataObject.getData());
             }
         }.run();
     }

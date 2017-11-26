@@ -3,6 +3,7 @@ package com.dicero.diceroller.web.rest;
 import com.dicero.diceroller.common.bean.result.RestResponse;
 import com.dicero.diceroller.dal.mysql.repository.PersonalMemberPORepository;
 import com.dicero.diceroller.service.personal.PersonalService;
+import com.dicero.diceroller.service.play.PlayService;
 import com.dicero.diceroller.web.hepler.WebLoginer;
 import com.dicero.diceroller.web.interceptor.WebAccess;
 import io.swagger.annotations.Api;
@@ -28,10 +29,9 @@ import springfox.documentation.annotations.ApiIgnore;
 @Api("会员相关")
 @RequestMapping("/rest/member")
 public class MemberRest extends AbstractRest {
-    @Autowired
-    PersonalMemberPORepository personalMemberPORepository;
-    @Autowired
-    PersonalService personalService;
+    @Autowired PersonalMemberPORepository personalMemberPORepository;
+    @Autowired PersonalService personalService;
+    @Autowired PlayService playService;
 
     @ApiOperation(value = "修改密码")
     @ApiImplicitParams({
@@ -50,12 +50,32 @@ public class MemberRest extends AbstractRest {
 
             @Override
             protected RestResponse process() throws Exception {
-                boolean  result = personalService.setPassword(webLoginer.getId(), password);
+                boolean  result = personalService.setPersonalPassword(webLoginer.getId(), password);
                 return result ? RestResponse.createSuccess() : RestResponse.createFailure();
             }
         }.run();
     }
 
+    @ApiOperation(value = "修改用户种子")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "clientSeed", value = "客户端种子", required = true, dataType = "String", paramType = "query")
+    })
+    @WebAccess
+    @RequestMapping(method = { RequestMethod.POST }, path="/seed", produces = "application/json")
+    public RestResponse seed(@ApiIgnore final WebLoginer webLoginer , final String clientSeed) {
+        return new RestExecuteContrl() {
+            @Override
+            protected void validate() throws Exception {
+                Validate.notBlank(clientSeed, "clientSeed 不能为空");
+                Validate.isTrue(clientSeed.length() > 30, "clientSeed 不能少于30个字符串");
+            }
 
+            @Override
+            protected RestResponse process() throws Exception {
+                boolean result = playService.updatePersonalSeedByTmp(webLoginer.getId(), clientSeed);
+                return result ? RestResponse.createSuccess() : RestResponse.createFailure();
+            }
+        }.run();
+    }
 
 }
