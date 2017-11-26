@@ -59,7 +59,6 @@ public class QueryRest extends AbstractRest {
 
             @Override
             protected RestResponse process() throws Exception {
-                log.info("webLoginer:{}", webLoginer);
                 DataObject dataObject = new DataObject();
                 dataObject.put("username", webLoginer.getUsername());
                 return RestResponse.createSuccess(dataObject.getData());
