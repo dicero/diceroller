@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
 import { Menu, Icon, Row, Col, Input ,Modal ,Button} from 'antd';
-import Pubsub from 'pubsub-js';
+import PubSub from 'pubsub-js';
+import {observer, inject} from "mobx-react";
 import {
     Link
-} from 'react-router-dom'
+} from 'react-router-dom';
+import axios from 'axios';
 import Equity from '../dialog/Equity.js';
 import BetDetail from '../dialog/BetDetail.js';
 import Recharge from '../dialog/Recharge.js';
 import Withdrawal from '../dialog/Withdrawal.js';
+import Login from '../dialog/Login.js';
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
-class NavMenu extends Component {
+@inject((allStores) => ({
+    loginVisible: allStores.appStore.loginVisible,
+    balance: allStores.appStore.balanceToJs,
+    queryBalance: allStores.appStore.queryBalance
+}))@observer class NavMenu extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -19,19 +26,19 @@ class NavMenu extends Component {
             totalMoney: '0.00000090',
             equityVisible: false,
             rechargeVisible: false,
-            withdrawalVisible: false
+            withdrawalVisible: false,
         }
         this.setEquityVisible = this.setEquityVisible.bind(this);
         this.setRechargeVisible = this.setRechargeVisible.bind(this);
         this.setWithdrawalVisible = this.setWithdrawalVisible.bind(this);
-        
+        console.log(this.props.name)
+        console.log(PubSub)
     }
     componentDidMount() {
-        window.totalMoney = this.state.totalMoney;
-        Pubsub.subscribe('ChangeMoney', function(msg,data){
-            
-        })
+        // window.totalMoney = this.state.totalMoney;
+        this.props.queryBalance();
     }
+    componentWillUnmount() {}
     handleClick = (e) => {
         console.log('click ', e);
         this.setState({
@@ -48,6 +55,7 @@ class NavMenu extends Component {
         this.setState({ withdrawalVisible });
     }
     render() {
+        const {balance} = this.props;
         return (
             <Row type="flex" justify="space-between">
                 <Col span={12}>
@@ -79,7 +87,7 @@ class NavMenu extends Component {
                 </Menu>
                 </Col>
                 <Col span={12}>
-                <span className="totalMoney">{this.state.totalMoney}</span>
+                <span className="totalMoney">{balance}</span>
                 <Menu
                     onClick={this.handleClick}
                     selectedKeys={[this.state.current]}
@@ -107,9 +115,10 @@ class NavMenu extends Component {
                         水龙头
                     </Menu.Item>
                     <Menu.Item key="/account">
-                        <Icon type="user" />账户
+                        <Link to='/account/settings'><Icon type="user" />账户</Link>
                     </Menu.Item>
                 </Menu>
+                <Login/>
                 </Col>
             </Row>
         );

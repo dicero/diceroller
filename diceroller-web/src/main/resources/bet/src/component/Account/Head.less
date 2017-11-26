@@ -1,0 +1,50 @@
+.head {
+    background: #a4b1ce;
+    color: #343850;
+    height: 115px;
+    overflow: hidden;
+    >div {
+        z-index: 3;
+        background: #a4b1ce;
+        color: #ffffff;
+        position: RELATIVE;
+        width: 1170px;
+        margin: auto;
+        h2 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            padding-top: 24px;
+            color: #fff;
+            background-position: 0 -60px;
+            background-size: cover;
+        }
+        .close {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transition: all .3s;
+            transform: translateY(-50%);
+            opacity: .5;
+        }
+        .ant-menu-horizontal {
+            display: inline-block;
+            background: transparent;
+            border: none;
+            .ant-menu-item {
+                color: #ffffff;
+                opacity: .5;
+                border: none;
+            }
+            .ant-menu-item-selected,.ant-menu-item:hover {
+                opacity: 1;
+                a {
+                    color: #ffffff;
+                }
+                border-bottom: none;
+                color: #ffffff;
+            }
+        }
+    }
+}
