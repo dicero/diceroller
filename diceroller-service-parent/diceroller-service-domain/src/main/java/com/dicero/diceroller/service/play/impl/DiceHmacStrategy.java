@@ -71,16 +71,22 @@ public class DiceHmacStrategy {
         return lucky;
     }
 
-    public static void main(String[] args) {
-        String serverSeed = "ba38a75edf6fae6d52a8b010351d5c2d71966a85194ca582ab804ac72997af4c";
 
+
+    public static void main(String[] args) {
+        // var hash = crypto.createHmac('sha512', "ba38a75edf6fae6d52a8b010351d5c2d71966a85194ca582ab804ac729971111").update("6042534133898").digest('hex');
+
+        String serverSeed = "ba38a75edf6fae6d52a8b010351d5c2d71966a85194ca582ab804ac729971111";
+        System.out.println("serverSeed Hash:" + EncryptUtil.SHA256(serverSeed));
         String clientSeed = "6042534133898";
 
-        String nonce = "1";
+        String nonce = "0";
 
-        String result = "cedc5026aa79a44c8624012c58919e63dec6a44997ed4a7fd61e02934853abb89698abc75783116d86c7ffbccf4397fe82889b34e3a22e3ea9172af1b1816027";
-        // crypto.createHmac('sha512', serverSeed).update(clientSeed+ nonce).digest('hex');
-        for (int i=0; i<50;i++) {
+//        double lucky = Integer.parseInt(hash.substring(index * 5, index * 5 + 5), 16);
+//        System.out.println("lucky:"+ lucky);
+
+//        String result = "cedc5026aa79a44c8624012c58919e63dec6a44997ed4a7fd61e02934853abb89698abc75783116d86c7ffbccf4397fe82889b34e3a22e3ea9172af1b1816027";
+        for (int i=0; i<5;i++) {
             System.out.println(hmacStrategy(serverSeed, clientSeed, String.valueOf(i)));
         }
     }
