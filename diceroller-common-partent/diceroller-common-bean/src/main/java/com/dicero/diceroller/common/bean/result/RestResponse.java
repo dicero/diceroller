@@ -15,8 +15,9 @@ import java.util.HashMap;
 public class RestResponse implements Serializable {
 	private static final long serialVersionUID = -1003365387489106147L;
 	
-	private boolean status;
+	private int code;
 	private String  msg;
+	private String  subMsg;
 	private Object  data;
 	
 	/**
@@ -28,67 +29,73 @@ public class RestResponse implements Serializable {
 	public static RestResponse createSuccess(Object data) {
 		RestResponse bean = new RestResponse();
 		bean.data = data;
-		bean.msg = "服务器成功";
-		bean.status = true;
-		return bean;
+        bean.msg = RestCode.SUCCESS.getMsg();
+        bean.subMsg = RestCode.SUCCESS.getMsg();
+        bean.code = RestCode.SUCCESS.getCode();
+        return bean;
 	}
 
-	/**
-	 *
-	 * <p>成功</p>
-	 * @param msg
-	 * @param data
-	 * @return
-	 */
-	public static RestResponse createSuccess(String msg, Object data) {
-		RestResponse bean = new RestResponse();
-		bean.data = data;
-		bean.msg = msg;
-		bean.status = true;
-		return bean;
-	}
-	
-	/**
-	 * 
-	 * <p>成功</p>
-	 * @param msg
-	 * @return
-	 */
-	public static RestResponse createSuccess(String msg) {
-		RestResponse bean = new RestResponse();
-		bean.data = new HashMap<>();
-		bean.msg = msg;
-		bean.status = true;
-		return bean;
-	}
-	
-	/**
-	 * 
-	 * <p>错误</p>
-	 * @param data
-	 * @return
-	 */
-	public static RestResponse createFailure(Object data) {
-		RestResponse bean = new RestResponse();
-		bean.data = data;
-		bean.msg = "服务器错误";
-		bean.status = false;
-		return bean;
-	}
-	
-	/**
-	 * 
-	 * <p>错误</p>
-	 * @param msg
-	 * @return
-	 */
-	public static RestResponse createFailure(String msg) {
-		RestResponse bean = new RestResponse();
-		bean.data = new HashMap<>();
-		bean.msg = msg;
-		bean.status = false;
-		return bean;
-	}
 
+    /**
+     *
+     * <p>成功</p>
+     * @return
+     */
+    public static RestResponse createSuccess() {
+        RestResponse bean = new RestResponse();
+        bean.data = new HashMap<>();
+        bean.msg = RestCode.SUCCESS.getMsg();
+        bean.subMsg = "成功";
+        bean.code = RestCode.SUCCESS.getCode();
+        return bean;
+    }
+
+
+
+
+
+    /**
+     *
+     * <p>错误</p>
+     * @return
+     */
+    public static RestResponse createFailure(RestCode.CodeMessage codeMessage) {
+        RestResponse bean = new RestResponse();
+        bean.data = new HashMap<>();
+        bean.msg = codeMessage.getMsg();
+        bean.subMsg = "";
+        bean.code = codeMessage.getCode();
+        return bean;
+    }
+	
+
+    /**
+     *
+     * <p>错误</p>
+     * @return
+     */
+    public static RestResponse createFailure() {
+        RestResponse bean = new RestResponse();
+        bean.data = new HashMap<>();
+        bean.msg = RestCode.FAILED.getMsg();
+        bean.subMsg = "";
+        bean.code = RestCode.FAILED.getCode();
+        return bean;
+    }
+
+
+    /**
+     *
+     * <p>错误</p>
+     * @return
+     */
+    public static RestResponse createFailure(RestCode.CodeMessage codeMessage, String subMsg) {
+        RestResponse bean = new RestResponse();
+        bean.data = new HashMap<>();
+        bean.msg = codeMessage.getMsg();
+        bean.subMsg = subMsg;
+        bean.code = codeMessage.getCode();
+        return bean;
+    }
 
 }

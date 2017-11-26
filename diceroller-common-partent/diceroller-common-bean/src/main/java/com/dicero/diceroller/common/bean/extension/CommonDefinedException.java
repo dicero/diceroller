@@ -41,6 +41,9 @@ public class CommonDefinedException {
 	
 	// ------------------------------------------------------
 	// ------------------ controller Exception --------------
+    public static CommonException ILLEGAL_USER_ACCOUNT_EXIST(String message){
+        return new CashControllerException("用户账号已存在[" + message + "]");
+    }
 	public static CommonException ILLEGAL_USER_ACCOUNT_NOT_EXIST(String message){
 		 return new CashControllerException("用户账号不存在[" + message + "]");
 	}

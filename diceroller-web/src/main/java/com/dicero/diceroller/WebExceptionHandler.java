@@ -1,5 +1,6 @@
 package com.dicero.diceroller;
 
+import com.dicero.diceroller.common.bean.result.RestCode;
 import com.dicero.diceroller.common.bean.result.RestResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,7 +22,7 @@ public class WebExceptionHandler {
 //		ModelAndView mav = new ModelAndView();
 //		mav.addObject("exception", e);
 //		mav.setViewName(DEFAULT_ERROR_VIEW);
-		return RestResponse.createFailure(e.getMessage());
+		return RestResponse.createFailure(RestCode.EXCEPTION, e.getMessage());
 	}
     
     
