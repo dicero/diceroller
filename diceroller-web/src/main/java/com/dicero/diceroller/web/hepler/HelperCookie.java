@@ -1,11 +1,12 @@
 package com.dicero.diceroller.web.hepler;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.dicero.diceroller.common.util.DESUtil;
+import com.dicero.diceroller.domain.model.PersonalMemberPO;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**   
 * <p>封装cookie</p>
@@ -48,11 +49,11 @@ public class HelperCookie {
 		
 	}
 	
-//	/** 设置登录的web账号 */
-//	public static void setLoginWeb(HttpServletRequest request, User user){
-//		String value = user.getId() + "," + user.getUsername();
-//		setCookie(request, WEB_LOGIN, value);
-//	}
+	/** 设置登录的web账号 */
+	public static void setLoginWeb(HttpServletRequest request, PersonalMemberPO user){
+		String value = user.getMemberId() + "," + user.getMemberAccount();
+		setCookie(request, WEB_LOGIN, value);
+	}
 	
 	/** 登出 */
 	public static void removeLoginWeb(HttpServletRequest request){
@@ -64,7 +65,7 @@ public class HelperCookie {
 		String value = getCookie(request, WEB_LOGIN);
 		if(StringUtils.isBlank(value)) return null;
 		String[] v = value.split("\\,");
-		WebLoginer webLoginer = new WebLoginer(Long.valueOf(v[0]), v[1]);
+		WebLoginer webLoginer = new WebLoginer(Integer.valueOf(v[0]), v[1]);
 		return webLoginer;
 	}
 	

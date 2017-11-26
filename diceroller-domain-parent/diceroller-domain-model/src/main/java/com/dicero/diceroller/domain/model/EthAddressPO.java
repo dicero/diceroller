@@ -12,7 +12,7 @@ import java.sql.Timestamp;
  * @version 2017/11/20
  */
 @Entity
-@Table(name = "tr_dpm_eth_address")
+@Table(name = "t_dpm_eth_address")
 public class EthAddressPO extends BasePO{
     private int id;
 

@@ -12,4 +12,6 @@ import java.lang.annotation.Target;
  */
 @Target( { ElementType.METHOD, ElementType.TYPE, ElementType.PACKAGE })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface WebAccess { }
+public @interface WebAccess {
+    InterfaceType value() default InterfaceType.REST;
+}

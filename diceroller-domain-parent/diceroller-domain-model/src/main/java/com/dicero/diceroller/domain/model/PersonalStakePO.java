@@ -1,6 +1,7 @@
 package com.dicero.diceroller.domain.model;
 
 import com.dicero.diceroller.domain.BasePO;
+import com.dicero.diceroller.domain.enums.EffectiveEnums;
 import com.dicero.diceroller.domain.enums.FundTypeEnums;
 
 import javax.persistence.*;
@@ -23,6 +24,10 @@ public class PersonalStakePO extends BasePO {
     private FundTypeEnums fundType;
     private BigDecimal amt;
     private String stakeId;
+    private EffectiveEnums effective;
+    private BigDecimal target;
+    private int targetCondition;
+    private int nonce;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -95,33 +100,44 @@ public class PersonalStakePO extends BasePO {
         this.stakeId = stakeId;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        PersonalStakePO that = (PersonalStakePO) o;
-
-        if (id != that.id) return false;
-        if (memberId != that.memberId) return false;
-        if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null) return false;
-        if (updateTime != null ? !updateTime.equals(that.updateTime) : that.updateTime != null) return false;
-        if (fundType != null ? !fundType.equals(that.fundType) : that.fundType != null) return false;
-        if (amt != null ? !amt.equals(that.amt) : that.amt != null) return false;
-        if (stakeId != null ? !stakeId.equals(that.stakeId) : that.stakeId != null) return false;
-
-        return true;
+    @Basic
+    @Column(name = "effective", nullable = false, length = 10)
+    @Enumerated(EnumType.STRING)
+    public EffectiveEnums getEffective() {
+        return effective;
     }
 
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
-        result = 31 * result + (updateTime != null ? updateTime.hashCode() : 0);
-        result = 31 * result + memberId;
-        result = 31 * result + (fundType != null ? fundType.hashCode() : 0);
-        result = 31 * result + (amt != null ? amt.hashCode() : 0);
-        result = 31 * result + (stakeId != null ? stakeId.hashCode() : 0);
-        return result;
+    public void setEffective(EffectiveEnums effective) {
+        this.effective = effective;
+    }
+
+    @Basic
+    @Column(name = "target", nullable = false, precision = 4)
+    public BigDecimal getTarget() {
+        return target;
+    }
+
+    public void setTarget(BigDecimal target) {
+        this.target = target;
+    }
+
+    @Basic
+    @Column(name = "target_condition", nullable = false)
+    public int getTargetCondition() {
+        return targetCondition;
+    }
+
+    public void setTargetCondition(int targetCondition) {
+        this.targetCondition = targetCondition;
+    }
+
+    @Basic
+    @Column(name = "nonce", nullable = false)
+    public int getNonce() {
+        return nonce;
+    }
+
+    public void setNonce(int nonce) {
+        this.nonce = nonce;
     }
 }

@@ -3,9 +3,8 @@ package com.dicero.diceroller.common.util;
 import org.apache.commons.codec.binary.Hex;
 
 import javax.crypto.Mac;
+import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.UnsupportedEncodingException;
-import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -16,10 +15,6 @@ import java.security.NoSuchAlgorithmException;
  * @version 2017/11/3
  */
 public class EncryptUtil{
-    public static void main(String[] args) {
-        System.out.println(SHA512("b205a1e03ddf50247d8483435cd91f9c732bad281ad420061ab4310c33166276"));
-//        System.out.println(System.currentTimeMillis());
-    }
 
     /**
      * 传入文本内容，返回 SHA-256 串
@@ -92,27 +87,24 @@ public class EncryptUtil{
 
     /**
      * 与php中的hash_hmac('sha512', $data, $key)功能相同
-     * @param data
      * @param key
+     * @param message
      * @return
      */
-    public static  String hmacSHA512(String key, String data) {
-        String result = "";
-        byte[] bytesKey = data.getBytes();
-        final SecretKeySpec secretKey = new SecretKeySpec(bytesKey, "HmacSHA512");
+    public static  String hmacSHA512(String key, String message) {
+        String hash = "";
         try {
+            SecretKey secretKey = new SecretKeySpec(key.getBytes("UTF-8"), "HmacSHA512");
             Mac mac = Mac.getInstance("HmacSHA512");
             mac.init(secretKey);
-            final byte[] macData = mac.doFinal(key.getBytes());
+            mac.update(message.getBytes("UTF-8"));
+            final byte[] macData = mac.doFinal();
             byte[] hex = new Hex().encode(macData);
-            result = new String(hex, "ISO-8859-1");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            hash = new String(hex, "UTF-8");
+        } catch (Exception e) {
+            System.out.println("Error HmacSHA512 ===========" + e.getMessage());
         }
-        return result;
+        return hash;
     }
+
 }

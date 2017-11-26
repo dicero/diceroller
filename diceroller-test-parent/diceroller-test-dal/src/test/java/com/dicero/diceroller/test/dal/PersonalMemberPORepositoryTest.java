@@ -23,4 +23,11 @@ public class PersonalMemberPORepositoryTest extends TestBase {
         // println(record);
         // Assert.assertNotNull(record);
     }
+
+    @Test
+    public void updatePasswordByMemberIdTest() {
+         int record = PersonalMemberPORepository.updatePasswordByMemberId(2000000010, "1111111111");
+         println(record);
+         Assert.assertNotNull(record);
+    }
 }
