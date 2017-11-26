@@ -6,6 +6,8 @@ import {
 } from 'react-router-dom'
 import Equity from '../dialog/Equity.js';
 import BetDetail from '../dialog/BetDetail.js';
+import Recharge from '../dialog/Recharge.js';
+import Withdrawal from '../dialog/Withdrawal.js';
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
@@ -15,9 +17,14 @@ class NavMenu extends Component {
         this.state = {
             current: 'play',
             totalMoney: '0.00000090',
-            equityVisible: false
+            equityVisible: false,
+            rechargeVisible: false,
+            withdrawalVisible: false
         }
         this.setEquityVisible = this.setEquityVisible.bind(this);
+        this.setRechargeVisible = this.setRechargeVisible.bind(this);
+        this.setWithdrawalVisible = this.setWithdrawalVisible.bind(this);
+        
     }
     componentDidMount() {
         window.totalMoney = this.state.totalMoney;
@@ -33,6 +40,12 @@ class NavMenu extends Component {
     }
     setEquityVisible(equityVisible) {
         this.setState({ equityVisible });
+    }
+    setRechargeVisible(rechargeVisible) {
+        this.setState({ rechargeVisible });
+    }
+    setWithdrawalVisible(withdrawalVisible) {
+        this.setState({ withdrawalVisible });
     }
     render() {
         return (
@@ -77,10 +90,18 @@ class NavMenu extends Component {
                     <a href="https://ant.design" target="_blank" rel="noopener noreferrer">Navigation Four - Link</a>
                 </Menu.Item> */}
                     <Menu.Item key="充值">
-                        充值
+                        <span onClick={() => this.setRechargeVisible(true)}>充值</span>
+                        <Recharge
+                            setRechargeVisible={this.setRechargeVisible} 
+                            rechargeVisible={this.state.rechargeVisible}
+                        />
                     </Menu.Item>
                     <Menu.Item key="取款">
-                        取款
+                        <span onClick={() => this.setWithdrawalVisible(true)}>取款</span>
+                        <Withdrawal
+                            setWithdrawalVisible={this.setWithdrawalVisible} 
+                            withdrawalVisible={this.state.withdrawalVisible}
+                        />
                     </Menu.Item>
                     <Menu.Item key="水龙头">
                         水龙头
