@@ -2,25 +2,27 @@ package com.dicero.diceroller.web.rest;
 
 import com.dicero.diceroller.common.bean.result.RestResponse;
 import com.dicero.diceroller.common.util.EncryptUtil;
-import com.dicero.diceroller.dal.mysql.repository.PersonalInfoPORepository;
-import com.dicero.diceroller.dal.mysql.repository.PersonalMemberPORepository;
-import com.dicero.diceroller.dal.mysql.repository.PersonalSeedPORepository;
-import com.dicero.diceroller.domain.model.PersonalInfoPO;
-import com.dicero.diceroller.domain.model.PersonalMemberPO;
-import com.dicero.diceroller.domain.model.PersonalSeedPO;
-import com.dicero.diceroller.domain.model.PersonalSeedTmpPO;
+import com.dicero.diceroller.dal.mysql.repository.*;
+import com.dicero.diceroller.domain.enums.EffectiveEnums;
+import com.dicero.diceroller.domain.model.*;
 import com.dicero.diceroller.service.personal.PersonalService;
 import com.dicero.diceroller.service.play.PlayService;
 import com.dicero.diceroller.web.hepler.WebLoginer;
 import com.dicero.diceroller.web.interceptor.WebAccess;
+import com.dicero.diceroller.web.rest.vo.BillVO;
 import com.dicero.diceroller.web.rest.vo.MemberSeedVO;
+import com.dicero.diceroller.web.rest.vo.StakeVO;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,7 +46,9 @@ public class QueryRest extends AbstractRest {
 
     @Autowired PlayService playService;
     @Autowired PersonalService personalService;
+    @Autowired PersonalBillPORepository personalBillPORepository;
     @Autowired PersonalSeedPORepository personalSeedPORepository;
+    @Autowired PersonalStakePORepository personalStakePORepository;
     @Autowired PersonalMemberPORepository personalMemberPORepository;
     @Autowired PersonalInfoPORepository personalInfoPORepository;
 
@@ -134,17 +138,33 @@ public class QueryRest extends AbstractRest {
     @WebAccess
     @ApiOperation(value = "查询押注")
     @ApiImplicitParams({
-
+            @ApiImplicitParam(name = "page", value = "分页，页数", required = true, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "pageSize", value = "分页，每页总数", required = true, dataType = "Integer", paramType = "query")
     })
     @RequestMapping(method = { RequestMethod.POST }, path="/stakes", produces = "application/json")
-    public RestResponse stakes(@ApiIgnore final WebLoginer webLoginer, int page, int pageSize) {
+    public RestResponse stakes(@ApiIgnore final WebLoginer webLoginer, final int page, final int pageSize) {
         return new RestExecuteContrl() {
             @Override
-            protected void validate() throws Exception { }
+            protected void validate() throws Exception {
+                Validate.notNull(page, "page 不能为空");
+                Validate.notNull(pageSize, "pageSize 不能为空");
+                Validate.isTrue(page <= 0, "page 不能小于0");
+                Validate.isTrue(pageSize <= 0, "pageSize 不能小于0");
+            }
 
             @Override
             protected RestResponse process() throws Exception {
-                return RestResponse.createSuccess();
+                List<PersonalStakePO> personalStakePOList = personalStakePORepository.findAllByMemberIdAndEffective(webLoginer.getId(), EffectiveEnums.TRUE,
+                        new PageRequest(page, pageSize, new Sort(Sort.Direction.DESC, new String[]{"create_time"})));
+
+                List<StakeVO> data = new ArrayList<>();
+                for (PersonalStakePO personalStakePO : personalStakePOList) {
+                    StakeVO stakeVO = new StakeVO();
+                    BeanUtils.copyProperties(personalStakePO, stakeVO);
+                    data.add(stakeVO);
+                }
+
+                return RestResponse.createSuccess(data);
             }
         }.run();
     }
@@ -226,17 +246,34 @@ public class QueryRest extends AbstractRest {
 
     @WebAccess
     @ApiOperation(value = "查询账单")
-    @ApiImplicitParams({})
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", value = "分页，页数", required = true, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "pageSize", value = "分页，每页总数", required = true, dataType = "Integer", paramType = "query")
+    })
     @RequestMapping(method = { RequestMethod.POST }, path="/bill", produces = "application/json")
-    public RestResponse bill(@ApiIgnore final WebLoginer webLoginer) {
+    public RestResponse bill(@ApiIgnore final WebLoginer webLoginer, final int page, final int pageSize) {
         return new RestExecuteContrl() {
             @Override
             protected void validate() throws Exception {
+                Validate.notNull(page, "page 不能为空");
+                Validate.notNull(pageSize, "pageSize 不能为空");
+                Validate.isTrue(page <= 0, "page 不能小于0");
+                Validate.isTrue(pageSize <= 0, "pageSize 不能小于0");
             }
 
             @Override
             protected RestResponse process() throws Exception {
-                return RestResponse.createSuccess();
+                List<PersonalBillPO> personalBillPOList = personalBillPORepository.findAllByMemberId(webLoginer.getId(),
+                        new PageRequest(page, pageSize, new Sort(Sort.Direction.DESC, new String[]{"create_time"})));
+                List<BillVO> data = new ArrayList<>();
+
+                for (PersonalBillPO personalBillPO : personalBillPOList) {
+                    BillVO billVO = new BillVO();
+                    BeanUtils.copyProperties(personalBillPO, billVO);
+                    data.add(billVO);
+                }
+
+                return RestResponse.createSuccess(data);
             }
         }.run();
     }

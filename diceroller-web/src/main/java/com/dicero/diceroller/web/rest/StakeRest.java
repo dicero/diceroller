@@ -65,9 +65,7 @@ public class StakeRest extends AbstractRest {
                 RollerBean rollerBean = new RollerBean(amt, target, targetCondition);
                 PersonalStakePO personalStakePO = playService.roller(webLoginer.getId(), rollerBean);
                 if (personalStakePO != null) {
-                    DataObject dataObject = new DataObject();
-                    dataObject.put("stake", personalStakePO);
-                    return RestResponse.createSuccess(dataObject.getData());
+                    return RestResponse.createSuccess(personalStakePO);
                 } else {
                     return RestResponse.createFailure();
                 }
