@@ -11,6 +11,7 @@ import com.dicero.diceroller.web.hepler.WebLoginer;
 import com.dicero.diceroller.web.interceptor.WebAccess;
 import com.dicero.diceroller.web.rest.vo.BillVO;
 import com.dicero.diceroller.web.rest.vo.MemberSeedVO;
+import com.dicero.diceroller.web.rest.vo.StakeCollectVO;
 import com.dicero.diceroller.web.rest.vo.StakeVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -46,6 +48,8 @@ public class QueryRest extends AbstractRest {
 
     @Autowired PlayService playService;
     @Autowired PersonalService personalService;
+    @Autowired PersonalStakeTodayPORepository personalStakeTodayPORepository;
+    @Autowired PersonalStakeHistoryPORepository personalStakeHistoryPORepository;
     @Autowired PersonalBillPORepository personalBillPORepository;
     @Autowired PersonalSeedPORepository personalSeedPORepository;
     @Autowired PersonalStakePORepository personalStakePORepository;
@@ -165,6 +169,39 @@ public class QueryRest extends AbstractRest {
                 }
 
                 return RestResponse.createSuccess(data);
+            }
+        }.run();
+    }
+
+    @WebAccess
+    @ApiOperation(value = "查询每日及历史投注数额")
+    @ApiImplicitParams({})
+    @RequestMapping(method = { RequestMethod.POST }, path="/stakeCollect", produces = "application/json")
+    public RestResponse stakeCollect(@ApiIgnore final WebLoginer webLoginer) {
+        return new RestExecuteContrl() {
+            @Override
+            protected void validate() throws Exception { }
+
+            @Override
+            protected RestResponse process() throws Exception {
+                DataObject dataObject = new DataObject();
+                PersonalStakeTodayPO personalStakeTodayPO = personalStakeTodayPORepository.findByMemberIdAndCalDate(webLoginer.getId(), new Date());
+                PersonalStakeHistoryPO personalStakeHistoryPO = personalStakeHistoryPORepository.findByMemberId(webLoginer.getId());
+
+                StakeCollectVO todayCollect = new StakeCollectVO().init();
+                StakeCollectVO historyCollect = new StakeCollectVO().init();
+
+                if (personalStakeTodayPO != null) {
+                    BeanUtils.copyProperties(personalStakeTodayPO, todayCollect);
+                }
+
+                if (personalStakeHistoryPO != null) {
+                    BeanUtils.copyProperties(personalStakeHistoryPO, historyCollect);
+                }
+
+                dataObject.put("todayCollect", todayCollect);
+                dataObject.put("historyCollect", historyCollect);
+                return RestResponse.createSuccess(dataObject.getData());
             }
         }.run();
     }

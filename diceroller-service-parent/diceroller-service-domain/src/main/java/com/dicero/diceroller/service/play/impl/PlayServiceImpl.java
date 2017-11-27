@@ -23,6 +23,8 @@ import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Future;
 
@@ -53,6 +55,8 @@ public class PlayServiceImpl extends BaseService implements PlayService{
     @Autowired PersonalStakePORepository personalStakePORepository;
     @Autowired PersonalMemberPORepository personalMemberPORepository;
     @Autowired PersonalSeedTmpPORepository personalSeedTmpPORepository;
+    @Autowired PersonalStakeTodayPORepository personalStakeTodayPORepository;
+    @Autowired PersonalStakeHistoryPORepository personalStakeHistoryPORepository;
 
     @Override
     public String createClientSeed() {
@@ -218,6 +222,90 @@ public class PlayServiceImpl extends BaseService implements PlayService{
         personalBillPO.setUpdateTime(now);
         personalBillPO.setCreateTime(now);
         personalBillPORepository.save(personalBillPO);
+
+        // NOTE: 保存每日数据
+        PersonalStakeTodayPO personalStakeTodayPO = personalStakeTodayPORepository.findByMemberIdAndCalDate(personalMemberPO.getMemberId(), now);
+        if(personalStakeTodayPO == null) {
+            personalStakeTodayPO = new PersonalStakeTodayPO();
+
+            personalStakeTodayPO.setMemberId(personalMemberPO.getMemberId());
+            personalStakeTodayPO.setAllStakeAmt(diceHmacBean.getRollerBean().getAmt());
+            personalStakeTodayPO.setCalDate(new Date());
+            personalStakeTodayPO.setCreateTime(now);
+            personalStakeTodayPO.setUpdateTime(now);
+
+            if (diceHmacBean.isWin()) {
+                personalStakeTodayPO.setAllWinAmt(diceHmacBean.getRollerBean().getAmt());
+                personalStakeTodayPO.setAllLoseAmt(BigDecimal.ZERO);
+                personalStakeTodayPO.setAllWinGames(1);
+                personalStakeTodayPO.setAllLoseGames(0);
+            } else {
+                personalStakeTodayPO.setAllWinAmt(BigDecimal.ZERO);
+                personalStakeTodayPO.setAllLoseAmt(diceHmacBean.getRollerBean().getAmt());
+                personalStakeTodayPO.setAllWinGames(0);
+                personalStakeTodayPO.setAllLoseGames(1);
+            }
+
+        } else {
+            personalStakeTodayPO.setAllStakeAmt(personalStakeTodayPO.getAllStakeAmt().add(diceHmacBean.getRollerBean().getAmt()));
+            personalStakeTodayPO.setUpdateTime(now);
+
+            if (diceHmacBean.isWin()) {
+                personalStakeTodayPO.setAllWinAmt(personalStakeTodayPO.getAllLoseAmt().add(diceHmacBean.getRollerBean().getAmt()));
+                personalStakeTodayPO.setAllWinGames(personalStakeTodayPO.getAllWinGames() + 1);
+            } else {
+                personalStakeTodayPO.setAllLoseAmt(personalStakeTodayPO.getAllLoseAmt().add(diceHmacBean.getRollerBean().getAmt()));
+                personalStakeTodayPO.setAllLoseGames(personalStakeTodayPO.getAllLoseGames() + 1);
+            }
+
+        }
+
+        BigDecimal winningPos = new BigDecimal(personalStakeTodayPO.getAllWinGames() / (personalStakeTodayPO.getAllWinGames() + personalStakeTodayPO.getAllLoseGames())).setScale(2);
+        personalStakeTodayPO.setWinningPos(winningPos);
+        personalStakeTodayPO = personalStakeTodayPORepository.save(personalStakeTodayPO);
+
+
+        // NOTE: 保存总历史数据
+        PersonalStakeHistoryPO personalStakeHistoryPO = personalStakeHistoryPORepository.findByMemberId(personalMemberPO.getMemberId());
+        if (personalStakeHistoryPO == null) {
+            personalStakeHistoryPO = new PersonalStakeHistoryPO();
+
+            personalStakeHistoryPO.setMemberId(personalMemberPO.getMemberId());
+            personalStakeHistoryPO.setAllStakeAmt(diceHmacBean.getRollerBean().getAmt());
+            personalStakeHistoryPO.setCreateTime(now);
+            personalStakeHistoryPO.setUpdateTime(now);
+
+            if (diceHmacBean.isWin()) {
+                personalStakeHistoryPO.setAllWinAmt(diceHmacBean.getRollerBean().getAmt());
+                personalStakeHistoryPO.setAllLoseAmt(BigDecimal.ZERO);
+                personalStakeHistoryPO.setAllWinGames(1);
+                personalStakeHistoryPO.setAllLoseGames(0);
+            } else {
+                personalStakeHistoryPO.setAllWinAmt(BigDecimal.ZERO);
+                personalStakeHistoryPO.setAllLoseAmt(diceHmacBean.getRollerBean().getAmt());
+                personalStakeHistoryPO.setAllWinGames(0);
+                personalStakeHistoryPO.setAllLoseGames(1);
+
+            }
+
+        } else {
+            personalStakeHistoryPO.setAllStakeAmt(personalStakeHistoryPO.getAllStakeAmt().add(diceHmacBean.getRollerBean().getAmt()));
+            personalStakeHistoryPO.setUpdateTime(now);
+
+            if (diceHmacBean.isWin()) {
+                personalStakeHistoryPO.setAllWinAmt(personalStakeHistoryPO.getAllWinAmt().add(diceHmacBean.getRollerBean().getAmt()));
+                personalStakeHistoryPO.setAllWinGames(personalStakeHistoryPO.getAllWinGames() + 1);
+            } else {
+                personalStakeHistoryPO.setAllLoseAmt(personalStakeHistoryPO.getAllLoseAmt().add(diceHmacBean.getRollerBean().getAmt()));
+                personalStakeHistoryPO.setAllLoseGames(personalStakeHistoryPO.getAllLoseGames() + 1);
+
+            }
+        }
+
+
+        BigDecimal hisWinningPos = new BigDecimal(personalStakeHistoryPO.getAllWinGames() / (personalStakeHistoryPO.getAllWinGames() + personalStakeHistoryPO.getAllLoseGames())).setScale(2);
+        personalStakeHistoryPO.setWinningPos(hisWinningPos);
+        personalStakeHistoryPO = personalStakeHistoryPORepository.save(personalStakeHistoryPO);
 
         return new AsyncResult<>("更新成功");
     }
