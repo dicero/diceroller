@@ -8,8 +8,6 @@
   <properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
 		<diceroller.version>0.0.1-SNAPSHOT</diceroller.version>
 		<commons-io.version>1.4</commons-io.version>
 		<commons-lang3.version>3.3.2</commons-lang3.version>
