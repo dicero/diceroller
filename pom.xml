@@ -20,7 +20,7 @@
 		<springfox.version>2.2.2</springfox.version>
 		<javamelodyVersion>1.62.0</javamelodyVersion>
 		<spatial4j.version>0.5</spatial4j.version>
-        <mapstruct.version>1.2.0.Beta1</mapstruct.version>
+        <mapstruct.version>1.2.0.Beta3</mapstruct.version>
         <lombok.version>1.16.14</lombok.version>
         <web3j.version>3.1.1</web3j.version>
         <logback.version>1.2.3</logback.version>
