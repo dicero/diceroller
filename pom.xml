@@ -201,8 +201,6 @@
 					<source>1.8</source>
 					<target>1.8</target>
                     <encoding>UTF-8</encoding>
-                    <fork>true</fork>
-                    <executable>/opt/jdk1.8.0_151</executable>
 				</configuration>
 			</plugin>
 		</plugins>
