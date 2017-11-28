@@ -7,6 +7,7 @@
 
   <properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
 		<diceroller.version>0.0.1-SNAPSHOT</diceroller.version>
 		<commons-io.version>1.4</commons-io.version>
 		<commons-lang3.version>3.3.2</commons-lang3.version>
@@ -195,6 +196,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
