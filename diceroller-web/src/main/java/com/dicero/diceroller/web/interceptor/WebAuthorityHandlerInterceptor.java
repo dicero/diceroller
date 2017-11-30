@@ -3,6 +3,7 @@ package com.dicero.diceroller.web.interceptor;
 import com.alibaba.fastjson.JSON;
 import com.dicero.diceroller.common.bean.result.RestCode;
 import com.dicero.diceroller.common.bean.result.RestResponse;
+import com.dicero.diceroller.web.hepler.HelperCookie;
 import com.dicero.diceroller.web.hepler.WebLoginer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
@@ -30,8 +31,8 @@ public class WebAuthorityHandlerInterceptor extends HandlerInterceptorAdapter {
 			WebAccess auth = ((HandlerMethod) handler).getMethodAnnotation(WebAccess.class);
 			if (auth != null) {
 
-			    // FIXME: 测试写死账号 WebLoginer webLoginer = HelperCookie.getLoginWeb(request);
-                WebLoginer webLoginer = new WebLoginer(2000000014, "alex");
+			    // FIXME: 测试写死账号
+                WebLoginer webLoginer = HelperCookie.getLoginWeb(request);
 				if(webLoginer != null) {
 					return super.preHandle(request, response, handler);
 				}

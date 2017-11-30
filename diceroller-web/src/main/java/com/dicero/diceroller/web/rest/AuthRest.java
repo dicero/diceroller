@@ -56,9 +56,7 @@ public class AuthRest extends AbstractRest {
     }
 
     @ApiOperation(value = "登出")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String", paramType = "query"),
-    })
+    @ApiImplicitParams({ })
     @RequestMapping(method = { RequestMethod.POST }, path="/logout", produces = "application/json")
     public RestResponse logout(final HttpServletRequest request) {
         return new RestExecuteContrl() {
