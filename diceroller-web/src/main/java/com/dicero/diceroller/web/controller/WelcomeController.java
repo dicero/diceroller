@@ -16,6 +16,8 @@
 
 package com.dicero.diceroller.web.controller;
 
+import com.dicero.diceroller.web.interceptor.InterfaceType;
+import com.dicero.diceroller.web.interceptor.WebAccess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,16 +51,19 @@ public class WelcomeController {
 
 
 	@RequestMapping("/index")
+    @WebAccess(InterfaceType.PAGE)
 	public String index(Map<String, Object> model) {
 		return "view/index";
 	}
 
     @RequestMapping("/play")
+    @WebAccess(InterfaceType.PAGE)
     public String play(Map<String, Object> model) {
         return "view/index";
     }
 
     @RequestMapping("/verify")
+    @WebAccess(InterfaceType.PAGE)
     public String verify(Map<String, Object> model) {
         return "view/index";
     }
