@@ -57,7 +57,6 @@ public class WelcomeController {
 	}
 
     @RequestMapping("/play")
-    @WebAccess(InterfaceType.PAGE)
     public String play(Map<String, Object> model) {
         return "view/index";
     }
