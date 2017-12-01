@@ -55,7 +55,7 @@ public class WebAuthorityHandlerInterceptor extends HandlerInterceptorAdapter {
 	 */
 	public boolean writerResponse(HttpServletResponse response) {
 		try {
-			response.sendRedirect("/login");
+			response.sendRedirect("/play");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
