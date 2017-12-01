@@ -22,6 +22,7 @@ public class PersonalStakePO extends BasePO {
     private Timestamp updateTime;
     private int memberId;
     private FundTypeEnums fundType;
+    private BigDecimal changeAmt;
     private BigDecimal amt;
     private String stakeId;
     private EffectiveEnums effective;
@@ -78,6 +79,16 @@ public class PersonalStakePO extends BasePO {
 
     public void setFundType(FundTypeEnums fundType) {
         this.fundType = fundType;
+    }
+
+    @Basic
+    @Column(name = "change_amt", nullable = false, precision = 8)
+    public BigDecimal getChangeAmt() {
+        return changeAmt;
+    }
+
+    public void setChangeAmt(BigDecimal changeAmt) {
+        this.changeAmt = changeAmt;
     }
 
     @Basic

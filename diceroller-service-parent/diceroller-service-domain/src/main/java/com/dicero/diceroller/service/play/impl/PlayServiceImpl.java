@@ -145,11 +145,12 @@ public class PlayServiceImpl extends BaseService implements PlayService{
         personalStakePO = personalStakePORepository.save(personalStakePO);
 
         // TODO: 智能合约执行
-        DiceHmacBean diceHmacBean = execute(new DiceHmacBean(personalStakePO.getStakeId(), rollerBean, false));
+        DiceHmacBean diceHmacBean = execute(new DiceHmacBean(personalStakePO.getStakeId(), rollerBean));
 
         // NOTE:保存账单数据
         if(diceHmacBean.isWin()) personalStakePO.setFundType(FundTypeEnums.FI);
         personalStakePO.setEffective(EffectiveEnums.TRUE);
+        personalStakePO.setChangeAmt(diceHmacBean.getChangeAmt());
         personalStakePORepository.save(personalStakePO);
 
         return personalStakePO;
@@ -195,11 +196,48 @@ public class PlayServiceImpl extends BaseService implements PlayService{
                     personalMemberPO.getMemberAccount(), rollerBean.getTargetCondition(),result,  diceHmacBean.getRollerBean().getTarget().doubleValue());
             diceHmacBean.setWin(false);
         }
+        diceHmacBean.setChangeAmt(calculation(diceHmacBean.getRollerBean()));
 
         // NOTE: 异步更新押注数据
         updateState(personalMemberPO, personalStakePO, diceHmacBean);
 
         return diceHmacBean;
+    }
+
+    /**
+     *
+     * 彩A (1.012-9900) 胜率B(0.01-98,当拖动划线的时候都为整数) 滚存C1, 反滚存C2
+     预设A,
+     B=(100/A)取小数点后两位 - (100/A)取整数 * 100
+     C1=99-B+0.99
+     C2=99-C1-0.99=B
+     预设B,
+     A=1/((B/99)取小数点后四位) 取小数点后两位
+     C1=99-B+0.99
+     C2=99-C1-0.99=B
+     * @param rollerBean
+     * @return
+     */
+    public BigDecimal calculation(RollerBean rollerBean){
+
+        BigDecimal b = BigDecimal.ZERO;
+
+        if (rollerBean.getTargetCondition() == 1 ) { // 滚存
+            b = new BigDecimal("99.99").subtract(rollerBean.getTarget()).setScale(2);
+        } else if(rollerBean.getTargetCondition() == 0 ){ // 反滚存
+            b = rollerBean.getTarget().setScale(2);
+        } else {
+            throw CommonDefinedException.SYSTEM_ERROR("calculation 滚存错误");
+        }
+
+        // NOTE: A=1/((B/99)取小数点后四位) 取小数点后两位
+
+
+        BigDecimal a = BigDecimal.ONE.divide(
+                b.divide(new BigDecimal(99)).setScale(4)
+        ).setScale(2);
+
+        return a;
     }
 
 
