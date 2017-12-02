@@ -12,7 +12,7 @@ import com.dicero.diceroller.domain.model.*;
 import com.dicero.diceroller.service.BaseService;
 import com.dicero.diceroller.service.bean.DiceHmacBean;
 import com.dicero.diceroller.service.bean.RollerBean;
-import com.dicero.diceroller.service.bean.StakeVO;
+import com.dicero.diceroller.service.bean.MakeResult;
 import com.dicero.diceroller.service.play.PlayService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
@@ -123,8 +123,8 @@ public class PlayServiceImpl extends BaseService implements PlayService{
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public StakeVO roller(Integer memberId, RollerBean rollerBean) {
-        StakeVO stakeVO = new StakeVO();
+    public MakeResult roller(Integer memberId, String username, RollerBean rollerBean) {
+        MakeResult makeResult = new MakeResult();
         // NOTE:查询以往数据,设置下标
         int nonce = 0;
         List<PersonalStakePO> personalStakePOList = personalStakePORepository.findAllByMemberId(memberId,
@@ -145,6 +145,7 @@ public class PlayServiceImpl extends BaseService implements PlayService{
         personalStakePO.setTargetCondition(rollerBean.getTargetCondition());
         personalStakePO.setChangeAmt(BigDecimal.ZERO);
         personalStakePO.setNonce(nonce);
+        personalStakePO.setUsername("");
         personalStakePO.setCreateTime(now);
         personalStakePO.setUpdateTime(now);
         personalStakePO = personalStakePORepository.save(personalStakePO);
@@ -155,14 +156,16 @@ public class PlayServiceImpl extends BaseService implements PlayService{
         // NOTE:保存账单数据
         if(diceHmacBean.isWin()) personalStakePO.setFundType(FundTypeEnums.FI);
         personalStakePO.setEffective(EffectiveEnums.TRUE);
-        personalStakePO.setChangeAmt(diceHmacBean.getChangeAmt());
+        personalStakePO.setChangeAmt(diceHmacBean.getRollerBean().getChangeAmt());
+        personalStakePO.setRandomResult(diceHmacBean.getRollerBean().getRandomResult());
+        personalStakePO.setPayout(diceHmacBean.getRollerBean().getPayout());
         personalStakePORepository.save(personalStakePO);
 
-        stakeVO.setChangeAmt(personalStakePO.getChangeAmt().toString());
-        stakeVO.setFundType(personalStakePO.getFundType());
-        stakeVO.setRandom(String.valueOf(diceHmacBean.getRandomResult()));
-        stakeVO.setStakeId(personalStakePO.getStakeId());
-        return stakeVO;
+        makeResult.setChangeAmt(personalStakePO.getChangeAmt().toString());
+        makeResult.setFundType(personalStakePO.getFundType());
+        makeResult.setRandomResult(String.valueOf(diceHmacBean.getRollerBean().getRandomResult()));
+        makeResult.setStakeId(personalStakePO.getStakeId());
+        return makeResult;
     }
 
     // NOTE: 色子随机数
@@ -192,6 +195,7 @@ public class PlayServiceImpl extends BaseService implements PlayService{
         log.info("execute 色子随机数, result:{}", result);
 
         RollerBean rollerBean = diceHmacBean.getRollerBean();
+        rollerBean.setRandomResult(result);
         if (rollerBean.getTargetCondition() == 1 && result >= diceHmacBean.getRollerBean().getTarget().doubleValue()) {
             log.info("execute 色子随机数[WIN], memberAccount:{}, targetCondition:{}, result:{}, [>=] target:{} ",
                     personalMemberPO.getMemberAccount(), rollerBean.getTargetCondition(),result,  diceHmacBean.getRollerBean().getTarget().doubleValue());
@@ -205,8 +209,9 @@ public class PlayServiceImpl extends BaseService implements PlayService{
                     personalMemberPO.getMemberAccount(), rollerBean.getTargetCondition(),result,  diceHmacBean.getRollerBean().getTarget().doubleValue());
             diceHmacBean.setWin(false);
         }
-        diceHmacBean.setRandomResult(result);
-        diceHmacBean.setChangeAmt(calculation(diceHmacBean.getRollerBean()));
+
+        // NOTE: 计算金额+记录结果
+        calculationPayout(diceHmacBean.getRollerBean());
 
         // NOTE: 异步更新押注数据
         updateState(personalMemberPO, personalStakePO, diceHmacBean);
@@ -228,7 +233,7 @@ public class PlayServiceImpl extends BaseService implements PlayService{
      * @param rollerBean
      * @return
      */
-    public static BigDecimal calculation(RollerBean rollerBean){
+    public static RollerBean calculationPayout(RollerBean rollerBean){
 
         BigDecimal b = BigDecimal.ZERO;
 
@@ -242,17 +247,17 @@ public class PlayServiceImpl extends BaseService implements PlayService{
 
         // NOTE: A=1/((B/99)取小数点后四位) 取小数点后两位
 
-
         BigDecimal a = BigDecimal.ONE.divide(b.divide(new BigDecimal(99), 4 , BigDecimal.ROUND_HALF_UP), 2 , BigDecimal.ROUND_HALF_UP);
-
-        return a;
+        rollerBean.setPayout(b);
+        rollerBean.setChangeAmt(a);
+        return rollerBean;
     }
 
     // amt=0.00000000&target=50.49&targetCondition=1
     public static void main(String[] args) {
         RollerBean rollerBean = new RollerBean(new BigDecimal("0.00000001"), new BigDecimal("50.49"), 0);
 
-        System.out.println(calculation(rollerBean));
+        System.out.println(calculationPayout(rollerBean));
     }
 
 

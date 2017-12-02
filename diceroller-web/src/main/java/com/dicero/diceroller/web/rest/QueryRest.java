@@ -12,7 +12,7 @@ import com.dicero.diceroller.web.interceptor.WebAccess;
 import com.dicero.diceroller.web.rest.vo.BillVO;
 import com.dicero.diceroller.web.rest.vo.MemberSeedVO;
 import com.dicero.diceroller.web.rest.vo.StakeCollectVO;
-import com.dicero.diceroller.service.bean.StakeVO;
+import com.dicero.diceroller.web.rest.vo.StakeVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -164,8 +164,19 @@ public class QueryRest extends AbstractRest {
 
                 List<StakeVO> data = new ArrayList<>();
                 for (PersonalStakePO personalStakePO : personalStakePOList) {
+
                     StakeVO stakeVO = new StakeVO();
-                    BeanUtils.copyProperties(personalStakePO, stakeVO);
+                    stakeVO.setStakeId(personalStakePO.getStakeId());
+                    stakeVO.setUsername(personalStakePO.getUsername());
+                    stakeVO.setAmt(personalStakePO.getAmt().toString());
+                    stakeVO.setChangeAmt(personalStakePO.getChangeAmt().toString());
+                    stakeVO.setFundType(personalStakePO.getFundType());
+                    stakeVO.setTarget(personalStakePO.getTarget().toString());
+                    stakeVO.setTargetCondition(personalStakePO.getTargetCondition());
+                    stakeVO.setPayout(personalStakePO.getPayout().toString());
+                    stakeVO.setRandomResult(String.valueOf(personalStakePO.getRandomResult()));
+                    stakeVO.setCreateTime(DateUtil.formatDate(personalStakePO.getCreateTime(), "yyyy/MM/dd HH:mm:ss"));
+
                     data.add(stakeVO);
                 }
 

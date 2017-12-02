@@ -3,7 +3,7 @@ package com.dicero.diceroller.web.rest;
 import com.dicero.diceroller.common.bean.extension.CommonDefinedException;
 import com.dicero.diceroller.common.bean.result.RestResponse;
 import com.dicero.diceroller.service.bean.RollerBean;
-import com.dicero.diceroller.service.bean.StakeVO;
+import com.dicero.diceroller.service.bean.MakeResult;
 import com.dicero.diceroller.service.play.PlayService;
 import com.dicero.diceroller.web.hepler.WebLoginer;
 import io.swagger.annotations.Api;
@@ -63,9 +63,9 @@ public class StakeRest extends AbstractRest {
             @Override
             protected RestResponse process() throws Exception {
                 RollerBean rollerBean = new RollerBean(amt, target, targetCondition);
-                StakeVO stakeVO = playService.roller(webLoginer.getId(), rollerBean);
-                if (stakeVO != null) {
-                    return RestResponse.createSuccess(stakeVO);
+                MakeResult makeResult = playService.roller(webLoginer.getId(), webLoginer.getUsername(), rollerBean);
+                if (makeResult != null) {
+                    return RestResponse.createSuccess(makeResult);
                 } else {
                     return RestResponse.createFailure();
                 }

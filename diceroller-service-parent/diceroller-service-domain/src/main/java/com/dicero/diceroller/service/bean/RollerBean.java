@@ -20,4 +20,14 @@ public class RollerBean implements Serializable{
     private BigDecimal amt;
     private BigDecimal target;
     private int targetCondition;
+
+    private BigDecimal payout;
+    private BigDecimal changeAmt;
+    private double randomResult;
+
+    public RollerBean(BigDecimal amt, BigDecimal target, int targetCondition) {
+        this.amt = amt;
+        this.target = target;
+        this.targetCondition = targetCondition;
+    }
 }

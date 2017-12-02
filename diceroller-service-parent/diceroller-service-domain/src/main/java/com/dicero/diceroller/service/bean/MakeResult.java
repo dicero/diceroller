@@ -14,9 +14,9 @@ import java.io.Serializable;
  */
 @Data
 @ToString
-public class StakeVO implements Serializable{
+public class MakeResult implements Serializable{
     private FundTypeEnums fundType;
     private String changeAmt;
     private String stakeId;
-    private String random;
+    private String randomResult;
 }

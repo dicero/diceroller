@@ -28,7 +28,10 @@ public class PersonalStakePO extends BasePO {
     private EffectiveEnums effective;
     private BigDecimal target;
     private int targetCondition;
+    private BigDecimal payout;
     private int nonce;
+    private String username;
+    private double randomResult;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -150,5 +153,35 @@ public class PersonalStakePO extends BasePO {
 
     public void setNonce(int nonce) {
         this.nonce = nonce;
+    }
+
+    @Basic
+    @Column(name = "payout", nullable = false, precision = 2)
+    public BigDecimal getPayout() {
+        return payout;
+    }
+
+    public void setPayout(BigDecimal payout) {
+        this.payout = payout;
+    }
+
+    @Basic
+    @Column(name = "username", nullable = false)
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Basic
+    @Column(name = "random_result", nullable = false)
+    public double getRandomResult() {
+        return randomResult;
+    }
+
+    public void setRandomResult(double randomResult) {
+        this.randomResult = randomResult;
     }
 }
