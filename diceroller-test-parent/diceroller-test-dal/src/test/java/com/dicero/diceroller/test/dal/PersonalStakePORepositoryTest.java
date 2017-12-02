@@ -2,7 +2,6 @@ package com.dicero.diceroller.test.dal;
 
 import com.dicero.diceroller.TestBase;
 import com.dicero.diceroller.common.util.RandomUtil;
-import com.dicero.diceroller.dal.mysql.repository.PersonalInfoPORepository;
 import com.dicero.diceroller.dal.mysql.repository.PersonalStakePORepository;
 import com.dicero.diceroller.domain.enums.EffectiveEnums;
 import com.dicero.diceroller.domain.enums.FundTypeEnums;
@@ -10,8 +9,11 @@ import com.dicero.diceroller.domain.model.PersonalStakePO;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * <p></p>
@@ -28,6 +30,14 @@ public class PersonalStakePORepositoryTest extends TestBase {
         // PersonalStakePO record = PersonalStakePOrepository.findById(1);
         // println(record);
         // Assert.assertNotNull(record);
+    }
+
+    @Test
+    public void findAllByMemberIdAndEffectiveTest() {
+        List<PersonalStakePO> personalStakePOList = PersonalStakePORepository.findAllByMemberIdAndEffective(2000000029, EffectiveEnums.TRUE,
+                new PageRequest(0, 10, new Sort(Sort.Direction.DESC, new String[]{"createTime"})));
+         println(personalStakePOList);
+         Assert.assertNotNull(personalStakePOList);
     }
 
     @Test

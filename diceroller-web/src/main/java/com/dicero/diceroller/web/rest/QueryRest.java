@@ -164,13 +164,13 @@ public class QueryRest extends AbstractRest {
                 List<PersonalStakePO> personalStakePOList = new ArrayList<>();
                 if (queryType == 0) {
                     personalStakePOList = personalStakePORepository.findAllByMemberIdAndEffective(webLoginer.getId(), EffectiveEnums.TRUE,
-                            new PageRequest(page, pageSize, new Sort(Sort.Direction.DESC, new String[]{"createTime"})));
+                            new PageRequest(page - 1 , pageSize, new Sort(Sort.Direction.DESC, new String[]{"createTime"})));
                 } else if(queryType == 1){
                     personalStakePOList = personalStakePORepository.findAllByEffective(EffectiveEnums.TRUE,
-                            new PageRequest(page, pageSize, new Sort(Sort.Direction.DESC, new String[]{"createTime"})));
+                            new PageRequest(page - 1 , pageSize, new Sort(Sort.Direction.DESC, new String[]{"createTime"})));
                 } else {
                     personalStakePOList = personalStakePORepository.findAllByEffective(EffectiveEnums.TRUE,
-                            new PageRequest(page, pageSize, new Sort(Sort.Direction.DESC, new String[]{"createTime"})));
+                            new PageRequest(page - 1 , pageSize, new Sort(Sort.Direction.DESC, new String[]{"createTime"})));
                 }
 
                 List<StakeVO> data = new ArrayList<>();
@@ -350,7 +350,7 @@ public class QueryRest extends AbstractRest {
             @Override
             protected RestResponse process() throws Exception {
                 List<PersonalBillPO> personalBillPOList = personalBillPORepository.findAllByMemberId(webLoginer.getId(),
-                        new PageRequest(page, pageSize, new Sort(Sort.Direction.DESC, new String[]{"createTime"})));
+                        new PageRequest(page - 1, pageSize, new Sort(Sort.Direction.DESC, new String[]{"createTime"})));
                 List<BillVO> data = new ArrayList<>();
 
                 for (PersonalBillPO personalBillPO : personalBillPOList) {
