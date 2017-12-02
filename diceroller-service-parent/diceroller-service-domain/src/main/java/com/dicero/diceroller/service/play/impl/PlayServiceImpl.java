@@ -250,13 +250,22 @@ public class PlayServiceImpl extends BaseService implements PlayService{
 
         BigDecimal a = BigDecimal.ONE.divide(b.divide(new BigDecimal(99), 4 , BigDecimal.ROUND_HALF_UP), 2 , BigDecimal.ROUND_HALF_UP);
         rollerBean.setPayout(b);
-        rollerBean.setChangeAmt(AmtUtil.checkAmt(a.multiply(rollerBean.getAmt())));
+        if (AmtUtil.compareTo(b, new BigDecimal(0)) > 0) {
+
+            rollerBean.setChangeAmt(
+                    AmtUtil.checkAmt(
+                            a.multiply(rollerBean.getAmt()).subtract(rollerBean.getAmt())
+                    )
+            );
+        } else {
+            rollerBean.setChangeAmt(BigDecimal.ZERO);
+        }
         return rollerBean;
     }
 
     // amt=0.00000000&target=50.49&targetCondition=1
     public static void main(String[] args) {
-        RollerBean rollerBean = new RollerBean(new BigDecimal("0.00000001"), new BigDecimal("50.49"), 1);
+        RollerBean rollerBean = new RollerBean(new BigDecimal("0.00000002"), new BigDecimal("54.99"), 1);
         calculationPayout(rollerBean);
         System.out.println(rollerBean.getAmt().toPlainString());
         System.out.println(rollerBean.getChangeAmt().toPlainString());

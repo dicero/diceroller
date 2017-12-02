@@ -53,7 +53,7 @@ public class StakeRest extends AbstractRest {
                 Validate.notNull(target, "target 不能为空");
                 Validate.notNull(targetCondition, "targetCondition 不能为空");
 
-                if (AmtUtil.compareTo(amt, new BigDecimal(0.00000001)) < 0) {
+                if (AmtUtil.compareTo(amt, new BigDecimal(0)) < 0) {
                     throw CommonDefinedException.ILLEGAL_PARAMES_ERROR("amt 金额不能小于0.00000001");
                 }
 
