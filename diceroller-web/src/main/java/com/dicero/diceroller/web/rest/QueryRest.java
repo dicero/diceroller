@@ -144,10 +144,11 @@ public class QueryRest extends AbstractRest {
     @ApiOperation(value = "查询押注")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "page", value = "分页，页数", required = true, dataType = "Integer", paramType = "query"),
-            @ApiImplicitParam(name = "pageSize", value = "分页，每页总数", required = true, dataType = "Integer", paramType = "query")
+            @ApiImplicitParam(name = "pageSize", value = "分页，每页总数", required = true, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "queryType", value = "0查自己, 1查全部, 2查高投注", required = true, dataType = "Integer", paramType = "query")
     })
     @RequestMapping(method = { RequestMethod.POST }, path="/stakes", produces = "application/json")
-    public RestResponse stakes(@ApiIgnore final WebLoginer webLoginer, final int page, final int pageSize) {
+    public RestResponse stakes(@ApiIgnore final WebLoginer webLoginer, final int page, final int pageSize,final int queryType) {
         return new RestExecuteContrl() {
             @Override
             protected void validate() throws Exception {
@@ -159,8 +160,17 @@ public class QueryRest extends AbstractRest {
 
             @Override
             protected RestResponse process() throws Exception {
-                List<PersonalStakePO> personalStakePOList = personalStakePORepository.findAllByMemberIdAndEffective(webLoginer.getId(), EffectiveEnums.TRUE,
-                        new PageRequest(page, pageSize, new Sort(Sort.Direction.DESC, new String[]{"createTime"})));
+                List<PersonalStakePO> personalStakePOList = new ArrayList<>();
+                if (queryType == 0) {
+                    personalStakePOList = personalStakePORepository.findAllByMemberIdAndEffective(webLoginer.getId(), EffectiveEnums.TRUE,
+                            new PageRequest(page, pageSize, new Sort(Sort.Direction.DESC, new String[]{"createTime"})));
+                } else if(queryType == 1){
+                    personalStakePOList = personalStakePORepository.findAllByEffective(EffectiveEnums.TRUE,
+                            new PageRequest(page, pageSize, new Sort(Sort.Direction.DESC, new String[]{"createTime"})));
+                } else {
+                    personalStakePOList = personalStakePORepository.findAllByEffective(EffectiveEnums.TRUE,
+                            new PageRequest(page, pageSize, new Sort(Sort.Direction.DESC, new String[]{"createTime"})));
+                }
 
                 List<StakeVO> data = new ArrayList<>();
                 for (PersonalStakePO personalStakePO : personalStakePOList) {

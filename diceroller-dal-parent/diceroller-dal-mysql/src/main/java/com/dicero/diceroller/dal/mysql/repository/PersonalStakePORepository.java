@@ -19,4 +19,6 @@ public interface PersonalStakePORepository extends JpaRepository<PersonalStakePO
     List<PersonalStakePO> findAllByMemberId(Integer memberId, Pageable pageable);
 
     List<PersonalStakePO> findAllByMemberIdAndEffective(Integer memberId, EffectiveEnums effectiveEnums, Pageable pageable);
+
+    List<PersonalStakePO> findAllByEffective(EffectiveEnums effectiveEnums, Pageable pageable);
 }
