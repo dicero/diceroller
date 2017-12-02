@@ -1,6 +1,7 @@
 package com.dicero.diceroller.service.play.impl;
 
 import com.dicero.diceroller.common.bean.extension.CommonDefinedException;
+import com.dicero.diceroller.common.util.AmtUtil;
 import com.dicero.diceroller.common.util.EncryptUtil;
 import com.dicero.diceroller.common.util.RandomUtil;
 import com.dicero.diceroller.dal.mysql.repository.*;
@@ -249,15 +250,17 @@ public class PlayServiceImpl extends BaseService implements PlayService{
 
         BigDecimal a = BigDecimal.ONE.divide(b.divide(new BigDecimal(99), 4 , BigDecimal.ROUND_HALF_UP), 2 , BigDecimal.ROUND_HALF_UP);
         rollerBean.setPayout(b);
-        rollerBean.setChangeAmt(a);
+        rollerBean.setChangeAmt(AmtUtil.checkAmt(a.multiply(rollerBean.getAmt())));
         return rollerBean;
     }
 
     // amt=0.00000000&target=50.49&targetCondition=1
     public static void main(String[] args) {
-        RollerBean rollerBean = new RollerBean(new BigDecimal("0.00000001"), new BigDecimal("50.49"), 0);
-
-        System.out.println(calculationPayout(rollerBean));
+        RollerBean rollerBean = new RollerBean(new BigDecimal("0.00000001"), new BigDecimal("50.49"), 1);
+        calculationPayout(rollerBean);
+        System.out.println(rollerBean.getAmt().toPlainString());
+        System.out.println(rollerBean.getChangeAmt().toPlainString());
+        System.out.println(rollerBean.getPayout().toPlainString());
     }
 
 
