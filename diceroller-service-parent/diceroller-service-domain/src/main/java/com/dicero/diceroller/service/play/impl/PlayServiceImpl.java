@@ -6,6 +6,7 @@ import com.dicero.diceroller.common.util.RandomUtil;
 import com.dicero.diceroller.dal.mysql.repository.*;
 import com.dicero.diceroller.domain.enums.EffectiveEnums;
 import com.dicero.diceroller.domain.enums.FundTypeEnums;
+import com.dicero.diceroller.domain.enums.TradeStatusEnums;
 import com.dicero.diceroller.domain.enums.TradeTypeEnums;
 import com.dicero.diceroller.domain.model.*;
 import com.dicero.diceroller.service.BaseService;
@@ -258,6 +259,7 @@ public class PlayServiceImpl extends BaseService implements PlayService{
         personalBillPO.setTradeAmt(diceHmacBean.getRollerBean().getAmt());
         personalBillPO.setTradeInfo("押注");
         personalBillPO.setTradeTitle("押注");
+        personalBillPO.setTradeStatus(TradeStatusEnums.FAIL.getValue());
         personalBillPO.setTradeType(diceHmacBean.isWin()? TradeTypeEnums.FI : TradeTypeEnums.FO);
         personalBillPO.setUpdateTime(now);
         personalBillPO.setCreateTime(now);
