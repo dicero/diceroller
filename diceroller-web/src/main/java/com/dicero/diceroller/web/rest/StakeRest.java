@@ -6,11 +6,13 @@ import com.dicero.diceroller.domain.model.PersonalStakePO;
 import com.dicero.diceroller.service.bean.RollerBean;
 import com.dicero.diceroller.service.play.PlayService;
 import com.dicero.diceroller.web.hepler.WebLoginer;
+import com.dicero.diceroller.web.rest.vo.StakeVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.Validate;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -65,7 +67,9 @@ public class StakeRest extends AbstractRest {
                 RollerBean rollerBean = new RollerBean(amt, target, targetCondition);
                 PersonalStakePO personalStakePO = playService.roller(webLoginer.getId(), rollerBean);
                 if (personalStakePO != null) {
-                    return RestResponse.createSuccess(personalStakePO);
+                    StakeVO stakeVO = new StakeVO();
+                    BeanUtils.copyProperties(personalStakePO, stakeVO);
+                    return RestResponse.createSuccess(stakeVO);
                 } else {
                     return RestResponse.createFailure();
                 }

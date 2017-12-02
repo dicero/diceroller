@@ -139,6 +139,7 @@ public class PlayServiceImpl extends BaseService implements PlayService{
         personalStakePO.setEffective(EffectiveEnums.INIT);
         personalStakePO.setTarget(rollerBean.getTarget());
         personalStakePO.setTargetCondition(rollerBean.getTargetCondition());
+        personalStakePO.setChangeAmt(BigDecimal.ZERO);
         personalStakePO.setNonce(nonce);
         personalStakePO.setCreateTime(now);
         personalStakePO.setUpdateTime(now);

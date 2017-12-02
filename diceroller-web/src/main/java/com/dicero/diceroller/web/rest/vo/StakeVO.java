@@ -19,6 +19,6 @@ import java.sql.Timestamp;
 public class StakeVO implements Serializable{
     private Timestamp createTime;
     private FundTypeEnums fundType;
-    private BigDecimal amt;
+    private BigDecimal changeAmt;
     private String stakeId;
 }
