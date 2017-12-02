@@ -4,8 +4,6 @@ import lombok.Data;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
 
 /**
  * <p></p>
@@ -16,21 +14,21 @@ import java.sql.Timestamp;
 @Data
 @ToString
 public class StakeCollectVO implements Serializable {
-    private Timestamp createTime;
-    private BigDecimal allStakeAmt;
-    private BigDecimal allWinAmt;
-    private BigDecimal allLoseAmt;
+    private String createTime;
+    private String allStakeAmt;
+    private String allWinAmt;
+    private String allLoseAmt;
     private int allWinGames;
     private int allLoseGames;
-    private BigDecimal winningPos;
+    private String winningPos;
 
     public StakeCollectVO init(){
-        this.allStakeAmt = BigDecimal.ZERO;
-        this.allWinAmt = BigDecimal.ZERO;
-        this.allLoseAmt = BigDecimal.ZERO;
+        this.allStakeAmt = "0.00";
+        this.allWinAmt = "0.00";
+        this.allLoseAmt = "0.00";
         this.allWinGames = 0;
         this.allLoseGames = 0;
-        this.winningPos = BigDecimal.ZERO;
+        this.winningPos = "0.00";
         return this;
     }
 }

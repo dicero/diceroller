@@ -214,11 +214,23 @@ public class QueryRest extends AbstractRest {
                 StakeCollectVO historyCollect = new StakeCollectVO().init();
 
                 if (personalStakeTodayPO != null) {
-                    BeanUtils.copyProperties(personalStakeTodayPO, todayCollect);
+                    todayCollect.setAllStakeAmt(personalStakeTodayPO.getAllStakeAmt().toPlainString());
+                    todayCollect.setAllWinAmt(personalStakeTodayPO.getAllWinAmt().toPlainString());
+                    todayCollect.setAllWinGames(personalStakeTodayPO.getAllWinGames());
+                    todayCollect.setAllLoseAmt(personalStakeTodayPO.getAllLoseAmt().toPlainString());
+                    todayCollect.setAllLoseGames(personalStakeTodayPO.getAllLoseGames());
+                    todayCollect.setWinningPos(personalStakeTodayPO.getWinningPos().toPlainString());
+                    todayCollect.setCreateTime(DateUtil.formatDate(new Date(),"yyyy/MM/dd HH:mm:ss"));
                 }
 
                 if (personalStakeHistoryPO != null) {
-                    BeanUtils.copyProperties(personalStakeHistoryPO, historyCollect);
+                    historyCollect.setAllStakeAmt(personalStakeTodayPO.getAllStakeAmt().toPlainString());
+                    historyCollect.setAllWinAmt(personalStakeTodayPO.getAllWinAmt().toPlainString());
+                    historyCollect.setAllWinGames(personalStakeTodayPO.getAllWinGames());
+                    historyCollect.setAllLoseAmt(personalStakeTodayPO.getAllLoseAmt().toPlainString());
+                    historyCollect.setAllLoseGames(personalStakeTodayPO.getAllLoseGames());
+                    historyCollect.setWinningPos(personalStakeTodayPO.getWinningPos().toPlainString());
+                    historyCollect.setCreateTime(DateUtil.formatDate(new Date(),"yyyy/MM/dd HH:mm:ss"));
                 }
 
                 dataObject.put("todayCollect", todayCollect);
