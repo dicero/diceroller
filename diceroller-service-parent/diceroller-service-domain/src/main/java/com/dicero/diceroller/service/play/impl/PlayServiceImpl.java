@@ -161,7 +161,7 @@ public class PlayServiceImpl extends BaseService implements PlayService{
         personalStakePO.setPayout(diceHmacBean.getRollerBean().getPayout());
         personalStakePORepository.save(personalStakePO);
 
-        makeResult.setChangeAmt(personalStakePO.getChangeAmt().toString());
+        makeResult.setChangeAmt(personalStakePO.getChangeAmt().toPlainString());
         makeResult.setFundType(personalStakePO.getFundType());
         makeResult.setRandomResult(String.valueOf(diceHmacBean.getRollerBean().getRandomResult()));
         makeResult.setStakeId(personalStakePO.getStakeId());

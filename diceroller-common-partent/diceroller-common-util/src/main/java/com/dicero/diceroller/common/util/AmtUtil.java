@@ -21,4 +21,5 @@ public class AmtUtil {
     public static BigDecimal check(BigDecimal a, int roundingMode){
         return a.setScale(roundingMode, BigDecimal.ROUND_HALF_UP);
     }
+
 }

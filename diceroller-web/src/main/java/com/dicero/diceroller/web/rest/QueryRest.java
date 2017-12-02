@@ -178,12 +178,12 @@ public class QueryRest extends AbstractRest {
                     StakeVO stakeVO = new StakeVO();
                     stakeVO.setStakeId(personalStakePO.getStakeId());
                     stakeVO.setUsername(personalStakePO.getUsername());
-                    stakeVO.setAmt(personalStakePO.getAmt().toString());
-                    stakeVO.setChangeAmt(personalStakePO.getChangeAmt().toString());
+                    stakeVO.setAmt(personalStakePO.getAmt().toPlainString());
+                    stakeVO.setChangeAmt(personalStakePO.getChangeAmt().toPlainString());
                     stakeVO.setFundType(personalStakePO.getFundType());
-                    stakeVO.setTarget(personalStakePO.getTarget().toString());
+                    stakeVO.setTarget(personalStakePO.getTarget().toPlainString());
                     stakeVO.setTargetCondition(personalStakePO.getTargetCondition());
-                    stakeVO.setPayout(personalStakePO.getPayout().toString());
+                    stakeVO.setPayout(personalStakePO.getPayout().toPlainString());
                     stakeVO.setRandomResult(String.valueOf(personalStakePO.getRandomResult()));
                     stakeVO.setCreateTime(DateUtil.formatDate(personalStakePO.getCreateTime(), "yyyy/MM/dd HH:mm:ss"));
 
