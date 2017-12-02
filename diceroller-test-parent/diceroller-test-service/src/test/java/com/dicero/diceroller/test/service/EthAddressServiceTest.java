@@ -31,19 +31,21 @@ public class EthAddressServiceTest extends TestBase {
         Security.addProvider(new BouncyCastleProvider());
     }
 
-    public static boolean TEST_V = true;
-    public static String TEST_KEYHASH = "243d9080ee35193511ebc1fab00acdfbeb135d0901bbaa0b5b7c66d3df7ea752d354d8b75cdc7b03d3af916cf3e18f00aaca455526322bf1e0352d12de7e7155";
-    public static String TEST_CHAINCODE = "d354d8b75cdc7b03d3af916cf3e18f00aaca455526322bf1e0352d12de7e7155";
-    public static String TEST_PUBLIC = "xpub661MyMwAqRbcGeU4wEhPkAW7BL8Z5PL7X3AUxLq2mrYDMBdhLG16AxQx4GdjsfF8gzz2xCZRh8Bm1QSMCAUKeCGt5Tehb1acfRtnYY2XEw7";
-    public static String TEST_PRIVATE = "xprv9s21ZrQH143K4APbqDAPP2ZNdJJ4fvcG9pEt9xRRDX1EUPJYnigqdA6UD1Y1pT3TuD1M19QjDgMgZSaqG46sAnMkaeUkcdNTPAmho29hBvu";
+    private static boolean TEST_V = false;
+    private static String TEST_KEYHASH = "243d9080ee35193511ebc1fab00acdfbeb135d0901bbaa0b5b7c66d3df7ea752d354d8b75cdc7b03d3af916cf3e18f00aaca455526322bf1e0352d12de7e7155";
+    private static String TEST_CHAINCODE = "d354d8b75cdc7b03d3af916cf3e18f00aaca455526322bf1e0352d12de7e7155";
+    private static String TEST_PUBLIC = "xpub661MyMwAqRbcGeU4wEhPkAW7BL8Z5PL7X3AUxLq2mrYDMBdhLG16AxQx4GdjsfF8gzz2xCZRh8Bm1QSMCAUKeCGt5Tehb1acfRtnYY2XEw7";
+    private static String TEST_PRIVATE = "xprv9s21ZrQH143K4APbqDAPP2ZNdJJ4fvcG9pEt9xRRDX1EUPJYnigqdA6UD1Y1pT3TuD1M19QjDgMgZSaqG46sAnMkaeUkcdNTPAmho29hBvu";
+
+    private static String passphrase = "crazy horse battery staple";
+    private static String seed = Seed.BITCOIN_SEED;
+
+    private static boolean compressed = true;
+    private static String func = "SHA-256";
+    private static int rounds = 50000;
 
     @Test
     public void bitchSaveTest() throws Exception {
-        boolean compressed = true;
-        String passphrase = "crazy horse battery staple";
-        String seed = Seed.BITCOIN_SEED;
-        String func = "SHA-256";
-        int rounds = 50000;
 
         System.out.println("==== Parent ====");
         byte[] passphraseHash = new Hash(passphrase, rounds, func).hash();
