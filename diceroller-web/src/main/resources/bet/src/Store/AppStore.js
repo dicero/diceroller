@@ -3,23 +3,88 @@ import {observable, action, computed} from "mobx";
 import axios from 'axios';
 import { message } from 'antd';
 export default class AppStore {
-
+    constructor(rootStore) {
+        this.rootStore = rootStore;
+    }
     @observable name = 'qwe';
 
-    @observable balance =  0;
+    @observable balance =  0; //  账户余额
     
-    @observable hasPassword = false;
+    @observable hasPassword = false; // 是否有密码
+
+    houseEdge = 0.01;
+
+    @observable bet =  '0.00000000'; //押注金额
+
+    @observable chance = 49.50; // 胜率
+
+    @observable payout = 2.000; //派彩
+
+    @observable rollOver = true; // 滚存
+
+    @observable showMark = false; // 展示点数
+
+    @observable stakeCollect = {
+        historyCollect: {
+            createTime: null,
+            allStakeAmt: 0,
+            allWinAmt: 0,
+            allLoseAmt: 0,
+            allWinGames: 0,
+            allLoseGames: 0,
+            winningPos: 0
+          },
+          todayCollect: {
+            createTime: null,
+            allStakeAmt: 0,
+            allWinAmt: 0,
+            allLoseAmt: 0,
+            allWinGames: 0,
+            allLoseGames: 0,
+            winningPos: 0
+          }
+    }
+
+    @observable marks = '0';
+
+    @observable changeAmt = '';
+
+    @observable showAnim = false;
+
+    @observable fundType;
 
     @computed
     get hasPasswordToJs() {
         return mobx.toJS(this.hasPassword)
     }
+
     @computed
     get balanceToJs() {
         return mobx.toJS(this.balance)
     }
-    @action.bound
+
+    // 计算盈利
+    @computed
+    get profit() {
+        return this.payout == 0 ? 'N/A' : Number(this.payout * this.bet - this.bet).toFixed(8)
+    }
+    // 计算滚存值
+    @computed
+    get diceRoll() {
+        if(!isFinite(this.chance)) {
+            return '不适合';
+        } else {
+            return this.rollOver ? (99.99 - Number(this.chance)).toFixed(2) : Number(this.chance).toFixed(2)
+        }
+        
+    }
+    // 
+    @computed
+    get stakeCollectToJs() {
+        return mobx.toJS(this.stakeCollect)
+    }
     //  查询余额
+    @action.bound
     queryBalance() {
         axios({
             method: 'post',
@@ -113,5 +178,186 @@ export default class AppStore {
             message.info('两次密码不一致');
         }
 
+    }
+    // 改变下注金额
+    @action.bound
+    changeBetNumber(bet) {
+        const validBetNumber = this.getValidNumber(this.bet, bet, this.balance)
+        this.bet = validBetNumber;
+    }
+    //  倍数按钮
+    @action.bound
+    changeBetBt(number) {
+        let newValue;
+        if (number == 'max') {
+            newValue = Number(this.balance);
+        } else {
+            newValue = parseFloat(this.bet) * number;
+        }
+    
+        if (Number(this.bet) == 0 && number == 2) {
+            newValue = 1 / 1e8;
+        }
+    
+        if (newValue > this.balance) {
+            newValue = this.balance;
+        }
+        newValue = parseFloat(newValue).toFixed(8);
+        if (this.bet == 1 / 1e8 && newValue == 1 / 1e8) {
+            this.bet = (0).toFixed(8);
+        } else {
+            this.bet = parseFloat(newValue).toFixed(8);
+        }
+        
+    }
+    // 设置滚存
+    @action.bound
+    changeRollOver() {
+        this.rollOver = !this.rollOver;
+    }
+    // 改变派彩
+    @action.bound
+    changePayout(value) {
+        this.payout = value;
+        this.calculateChance();
+    }
+    // 改变胜率
+    @action.bound
+    changeChance(value) {
+        this.chance = value;
+        this.calculatePayout();
+    }
+    //  计算胜率
+    @action.bound
+    calculateChance() {
+        this.chance = (100 * (1 - this.houseEdge) / this.payout).toFixed(2)
+    }
+    
+    //  计算派彩
+    @action.bound
+    calculatePayout() {
+        
+        const target = this.chance * 100;
+    
+        const result = Math.floor((10000 - this.houseEdge * 10000) / target * 10e4) / 10e4;
+    
+        this.payout =  String(result);
+    }
+    //  获取下注金额
+    getValidNumber(oldNumber, newNumber, max = false, min = false) {
+        max = parseFloat(max);
+        newNumber = newNumber.replace(',', '.');
+        const split = newNumber.indexOf(',') != -1 ? newNumber.split(',') : newNumber.split('.');
+        
+        if (isNaN(newNumber)) return oldNumber;
+        
+        if (split.length < 3) {
+            if (max) {
+            if (newNumber > max) {
+                return max.toFixed(8);
+            }
+            }
+        
+            if (min) {
+            if (newNumber < min) {
+                return min;
+            }
+            }
+        
+            if (typeof split[1] === 'undefined') {
+            return newNumber;
+            }
+        
+            if (split[1].length < 9) {
+            // console.log(!isNaN(newNumber) ? newNumber : oldNumber)
+            return newNumber;
+            }
+        }
+        
+        return oldNumber;
+    };
+
+    //  投掷
+    @action.bound
+    throwBet() {
+        axios({
+            method: 'post',
+            url: '/rest/stake/make',
+            params: {
+                amt: this.bet,
+                target: this.diceRoll,
+                targetCondition: this.rollOver ? '1' : '0'
+            }
+          })
+            .then((response) => {
+                if (response.data.code === 100) {
+                    let data = response.data.data;
+                    // 输
+                    let balance, changeAmt;
+                    if (data.fundType === 'FO') {
+                        balance = Number(this.balance) - Number(data.changeAmt)
+                        changeAmt = '-' + Number(data.changeAmt).toFixed(8);
+                        this.fundType = false;
+                    } else {
+                        balance = Number(this.balance) + Number(data.changeAmt)
+                        changeAmt = '+' + Number(data.changeAmt).toFixed(8);
+                        this.fundType = true;
+                    }
+                    this.balance = balance.toFixed(8);
+                    this.setMarks(data.randomResult);
+                    this.setAmt(changeAmt)
+                    this.geSakeCollect();
+                    //this.balance = data.balance;
+                }
+            })
+    }
+    // 设置显示点数
+    @action.bound
+    setMarks(value) {
+        this.showMark = true;
+        clearTimeout(this.timeId1);
+        setTimeout(()=>{
+            this.marks = value;
+            this.timeId1 = setTimeout(()=> {
+                this.showMark = false;
+            }, 3000)
+        },0) 
+    }
+    @action.bound
+    setAmt(value) {
+        let that = this;
+        that.showAmt = true;
+        that.changeAmt = value;
+        clearTimeout(this.timeId2);
+        setTimeout(()=>{
+            that.showAnim = true;
+            that.timeId2 = setTimeout(()=> {
+                that.showAmt = false;
+                this.showAnim = false;
+            }, 2000)
+        },0) 
+    }
+    //  查询每日及历史投注数额
+    @action.bound
+    geSakeCollect() {
+        axios({
+            method: 'post',
+            url: '/rest/query/stakeCollect'
+        })
+            .then((response) => {
+                if (response.data.code === 100) {
+                    let data = response.data.data;
+                    let copyStakeCollect = this.stakeCollectToJs;
+                    Object.assign(copyStakeCollect,data);
+                    this.stakeCollect = copyStakeCollect;
+                    //this.balance = data.balance;
+                }
+            })
+    }
+    // get初始化接口
+    @action.bound
+    init() {
+        this.queryBalance();
+        this.geSakeCollect();
     }
 }

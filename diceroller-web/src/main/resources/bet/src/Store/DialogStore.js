@@ -3,6 +3,9 @@ import {observable, action, computed} from "mobx";
 import axios from 'axios';
 import { message } from 'antd';
 export default class DialogStore {
+    constructor(rootStore) {
+        this.rootStore = rootStore;
+    }
     @observable userName = '';
     @observable loginVisible = true;
 
@@ -17,6 +20,7 @@ export default class DialogStore {
             if (response.data.code === 100) {
                 this.userName = response.data.data.username;
                 this.loginVisible = false;
+                this.rootStore.appStore.init();
             } else {
                 this.loginVisible = true;
             } 
@@ -38,6 +42,7 @@ export default class DialogStore {
                         message.info('登陆成功');
                         this.loginVisible = false;
                         this.userName = name;
+                        this.rootStore.appStore.init();
                     break;
                     case 101:
                         message.info('用户名已存在');

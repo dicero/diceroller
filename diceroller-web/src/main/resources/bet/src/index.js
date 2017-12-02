@@ -7,11 +7,12 @@ import registerServiceWorker from './registerServiceWorker';
 import {
     BrowserRouter as Router
 } from 'react-router-dom';
-import AppStore from './Store/AppStore.js';
-import DialogStore from './Store/DialogStore.js';
+import RootStore from './Store/RootStore.js';
+const rootStore = new RootStore()
+const {appStore, dialogStore} = rootStore;
 ReactDOM.render(
     <Router>
-        <Provider appStore = {new AppStore()} dialogStore = {new DialogStore()}>
+        <Provider appStore = {appStore} dialogStore = {dialogStore}>
             <App />
         </Provider>
     </Router>,

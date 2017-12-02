@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-class BetMessages extends Component {
+import {observer, inject} from "mobx-react";
+
+@inject((allStores) => ({
+    stakeCollect: allStores.appStore.stakeCollectToJs,
+}))@observer class BetMessages extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -13,8 +17,12 @@ class BetMessages extends Component {
         })
         
     }
+    componentDidMount() {
+        
+    }
     render() {
         const {tab} = this.state;
+        const {historyCollect,todayCollect} = this.props.stakeCollect
         return(
             <div className="component-betmessage">
                 <div className="tabs">
@@ -32,7 +40,7 @@ class BetMessages extends Component {
                             下注总金额
                         </span>
                         <span>
-                            0.000023822 BTC
+                        {historyCollect.allStakeAmt} BTC
                         </span>
                     </div>
                     <div className="totalProfit amount">
@@ -40,7 +48,7 @@ class BetMessages extends Component {
                             全部利润
                         </span>
                         <span>
-                            0.00000000 BTC
+                        {historyCollect.allWinAmt} BTC
                         </span>
                     </div>
                     <div className="wrapper">
@@ -49,7 +57,7 @@ class BetMessages extends Component {
                                 总共获胜局数
                         </span>
                             <span className="green">
-                                287
+                            {historyCollect.allWinGames}
                         </span>
                         </div>
                         <div className="gameNum">
@@ -57,7 +65,7 @@ class BetMessages extends Component {
                                 全部输掉局数
                         </span>
                             <span className="red">
-                                239
+                            {historyCollect.allLoseGames}
                         </span>
                         </div>
                     </div>
@@ -67,7 +75,7 @@ class BetMessages extends Component {
                                 下注总数
                             </span>
                             <span>
-                                526
+                            {historyCollect.allLoseGames + historyCollect.allWinGames}
                             </span>
                         </div>
                         <div className="winRate">
@@ -75,7 +83,7 @@ class BetMessages extends Component {
                                 胜率
                             </span>
                             <span>
-                                124.00%
+                                {historyCollect.winningPos}%
                             </span>
                         </div>
                     </div>
@@ -87,7 +95,7 @@ class BetMessages extends Component {
                             下注总金额
                         </span>
                         <span>
-                            0.000023822 BTC
+                            {todayCollect.allStakeAmt} BTC
                         </span>
                     </div>
                     <div className="totalProfit amount">
@@ -95,7 +103,7 @@ class BetMessages extends Component {
                             全部利润
                         </span>
                         <span>
-                            0.00000000 BTC
+                        {todayCollect.allWinAmt} BTC
                         </span>
                     </div>
                     <div className="wrapper">
@@ -104,7 +112,7 @@ class BetMessages extends Component {
                                 总共获胜局数
                         </span>
                             <span className="green">
-                                287
+                            {todayCollect.allWinGames}
                         </span>
                         </div>
                         <div className="gameNum">
@@ -112,7 +120,7 @@ class BetMessages extends Component {
                                 全部输掉局数
                         </span>
                             <span className="red">
-                                239
+                            {todayCollect.allLoseGames}
                         </span>
                         </div>
                     </div>
@@ -122,7 +130,7 @@ class BetMessages extends Component {
                                 下注总数
                             </span>
                             <span>
-                                526
+                            {todayCollect.allLoseGames + todayCollect.allWinGames}
                             </span>
                         </div>
                         <div className="winRate">
@@ -130,7 +138,7 @@ class BetMessages extends Component {
                                  机率
                             </span>
                             <span>
-                                124.00%
+                                {todayCollect.winningPos}%
                             </span>
                         </div>
                     </div>

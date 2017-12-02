@@ -1,20 +1,34 @@
 import React, { Component } from 'react';
 import {Row, Col, Input, Button } from 'antd';
-import Pubsub from 'pubsub-js';
-class ManualBet extends Component {
+import {observer, inject} from "mobx-react";
+
+@inject((allStores) => ({
+    bet: allStores.appStore.bet,
+    profit: allStores.appStore.profit,
+    diceRoll: allStores.appStore.diceRoll,
+    payout: allStores.appStore.payout,
+    chance: allStores.appStore.chance,
+    rollOver: allStores.appStore.rollOver,
+    changeBetNumber: allStores.appStore.changeBetNumber,
+    changeBetBt: allStores.appStore.changeBetBt,
+    changeRollOver: allStores.appStore.changeRollOver,
+    changePayout: allStores.appStore.changePayout,
+    changeChance: allStores.appStore.changeChance,
+    throwBet: allStores.appStore.throwBet
+}))@observer class ManualBet extends Component {
     constructor(props) {
         super(props);
         this.state = {
             payout: props.payout,
-            rate: props.rate,
+            chance: props.chance,
             payoutShow: false,
             rateShow: false
-
         }
-        this.handleChangePayout = this.handleChangePayout.bind(this);
+        this.onChangePayout = this.onChangePayout.bind(this);
+        this.onChangeChance = this.onChangeChance.bind(this);
+        this.resetPayout = this.resetPayout.bind(this);
         this.handlePayoutShow = this.handlePayoutShow.bind(this);
-        this.handleChangeRate = this.handleChangeRate.bind(this);
-        this.handleRateShow = this.handleRateShow.bind(this);
+        this.handleChanceShow = this.handleChanceShow.bind(this);
     }
     componentWillMount() {
         
@@ -22,34 +36,85 @@ class ManualBet extends Component {
     componentDidMount() {
         
     }
-    componentWillReceiveProps(nextProps) {
-        if(this.props.payout !== nextProps.payout) {
+
+    
+    handlePayoutShow(isShow,e) {
+        const payout = this.props.payout
+        const input = this.refs.payoutInput.refs.input;
+        if (!this.state.payoutShow) {
+            if (isShow) {
+                this.setState({
+                    payoutShow: isShow,
+                    payout: payout
+                },() => {
+                    if (isShow) {
+                        input.focus();
+                        input.select();
+                    }
+                })
+            }
+        } else {
             this.setState({
-                payout: nextProps.payout
+                payoutShow: isShow
             })
         }
-    }
-    handleChangePayout(e) {
-        this.setState({
-            payout: e.target.value
-        })
+        if (Number(payout) <= 9900 && Number(payout) >= 1.01202) {
+
+        } else {
+            this.resetPayout();
+        }
         e.stopPropagation();
     }
-    handlePayoutShow(isShow,e) {
-        this.setState({
-            payout: this.props.payout,
-            payoutShow: isShow
-        })
+    resetPayout() {
+        this.props.changePayout(this.state.payout);
+    }
+    resetChance() {
+        this.props.changeChance(this.state.chance);
+    }
+    onChangePayout(e) {
+        const value = e.target.value;
+        if(isNaN(value)) {
+            return;
+        } else {
+            this.props.changePayout(e.target.value);
+        }
         e.stopPropagation();
     }
-    handleChangeRate(e) {
-        this.setState({
-            rate: e.target.value
-        })
-        this.props.onChangeRate(e.target.value)
+    onChangeChance(e) {
+        const value = e.target.value;
+        if(isNaN(value)) {
+            return;
+        } else {
+            this.props.changeChance(e.target.value);
+        }
         e.stopPropagation();
     }
-    handleRateShow(isShow,e) {
+    handleChanceShow(isShow,e) {
+        const chance = this.props.chance
+        const input = this.refs.chanceInput.refs.input;
+        if (!this.state.chanceShow) {
+            if (isShow) {
+                this.setState({
+                    rateShow: isShow,
+                    chance: chance
+                },() => {
+                    if (isShow) {
+                        input.focus();
+                        input.select();
+                    }
+                })
+            }
+        } else {
+            this.setState({
+                rateShow: isShow
+            })
+        }
+        if (Number(chance) <= 98 && Number(chance) >= 0.01) {
+
+        } else {
+            this.resetPayout();
+        }
+        e.stopPropagation();
         this.setState({
             rate: this.props.rate,
             rateShow: isShow
@@ -57,19 +122,26 @@ class ManualBet extends Component {
         e.stopPropagation();
     }
 	render() {
-        const {betNum = 0, rate, payout, profit} = this.props;
-        const {onChangeBetValue, onChangePayout, onChangeRate, onChangeBetCount} = this.props;
+        let {bet, profit, diceRoll, payout, chance, rollOver} = this.props;
+        const {changeBetNumber,changeBetBt, changeRollOver, throwBet} = this.props;
         const {payoutShow ,rateShow} = this.state;
-        const rollover = parseFloat(99.99 - rate).toFixed(2)
 		return (
 			<div className="manualBet">
                 <div style={{height:"83px"}}>
                     <div className="fl mr20" style={{width: "340px"}}>
                         <p className="label">押注数额</p>
-                        <Input type="number" size="large" className="betMnoey" value={betNum} onChange={(e) => onChangeBetValue(e)} />
-                        <Button style={{width: "50px"}} type="primary" onClick={(e) => onChangeBetValue(e)}>1/2</Button>
-                        <Button style={{width: "50px"}} type="primary" onClick={(e) => onChangeBetValue(e)}>2x</Button>
-                        <Button style={{width: "50px"}} type="primary" onClick={(e) => onChangeBetValue(e)}>最大</Button>
+                        <Input size="large" className="betMnoey" value={bet} 
+                            onFocus={e => e.target.select()} 
+                            onChange={(e) => changeBetNumber(e.target.value)}/>
+                        <Button style={{width: "50px"}} type="primary" 
+                            onClick={changeBetBt.bind(this,0.5)}
+                        >1/2</Button>
+                        <Button style={{width: "50px"}} type="primary" 
+                            onClick={changeBetBt.bind(this,2)}
+                        >2x</Button>
+                        <Button style={{width: "50px"}} type="primary" 
+                            onClick={changeBetBt.bind(this, 'max')}
+                        >最大</Button>
                     </div>
                     <div className="fl profit" style={{width: "248px"}}>
                         <p className="label">盈利</p>
@@ -77,35 +149,45 @@ class ManualBet extends Component {
                     </div>
                 </div>
                 <div className="winRate">
-                    <div className="fl rollover">
-                        <p>滚存</p>
-                        <div>{rollover}</div>
+                    <div className="fl rollover" onClick={changeRollOver}>
+                        <p>{rollOver? '滚存':'反滚存'}</p>
+                        <div>{diceRoll}</div>
                     </div>
                     <div className="fl has-break pr">
                         <p>派彩</p>
                         <div onClick={this.handlePayoutShow.bind(this, true)}>
                             {payout}
                             <div className={`changePayout ${payoutShow ? '' : 'no'}`} >
-                                <Input type="number" size="large" value={this.state.payout} onChange={this.handleChangePayout} />
-                                <Button type="primary" onClick={(e) => {onChangePayout(this.state.payout);this.handlePayoutShow(false,e)}}>确定</Button>
-                                <Button type="primary" onClick={this.handlePayoutShow.bind(this, false)}>取消</Button>
+                                <Input type="text" size="large" 
+                                value={payout} 
+                                onChange={this.onChangePayout} 
+                                onBlur={this.handlePayoutShow.bind(this,false)}
+                                ref="payoutInput"
+                                />
+                                <Button type="primary">确定</Button>
+                                <Button type="primary" onMouseDown={this.resetPayout.bind(this)}>取消</Button>
                             </div>
                             
                         </div>
                     </div>
                     <div className="fl pr">
                         <p>胜率</p>
-                        <div onClick={this.handleRateShow.bind(this, true)}>
-                            {rate}
+                        <div onClick={this.handleChanceShow.bind(this, true)}>
+                            {chance}
                             <div className={`changeRate ${rateShow ? '' : 'no'}`} >
-                                <Input type="number" size="large" value={this.state.rate} onChange={this.handleChangeRate} />
-                                <Button type="primary" onClick={(e) => {onChangeRate(this.state.rate);this.handleRateShow(false,e)}}>确定</Button>
-                                <Button type="primary" onClick={this.handleRateShow.bind(this, false)}>取消</Button>
+                                <Input type="text" size="large" 
+                                value={chance} 
+                                onChange={this.onChangeChance} 
+                                onBlur={this.handleChanceShow.bind(this,false)}
+                                ref="chanceInput"
+                                />
+                                <Button type="primary">确定</Button>
+                                <Button type="primary" onClick={this.resetChance.bind(this)}>取消</Button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button className="throw" onClick={onChangeBetCount}>投骰</button>
+                <button className="throw" onClick={throwBet}>投骰</button>
 			</div>
 		);
 	}

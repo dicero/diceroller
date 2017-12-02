@@ -17,7 +17,11 @@ const MenuItemGroup = Menu.ItemGroup;
 @inject((allStores) => ({
     loginVisible: allStores.appStore.loginVisible,
     balance: allStores.appStore.balanceToJs,
-    queryBalance: allStores.appStore.queryBalance
+    queryBalance: allStores.appStore.queryBalance,
+    showAmt: allStores.appStore.showAmt,
+    changeAmt: allStores.appStore.changeAmt,
+    showAnim: allStores.appStore.showAnim,
+    fundType: allStores.appStore.fundType
 }))@observer class NavMenu extends Component {
     constructor(props) {
         super(props)
@@ -55,7 +59,23 @@ const MenuItemGroup = Menu.ItemGroup;
         this.setState({ withdrawalVisible });
     }
     render() {
-        const {balance} = this.props;
+        const {balance, showAnim, fundType} = this.props;
+        let changeAmtSy;
+        if(showAnim) {
+            
+            changeAmtSy = {
+                top: '0px'
+            }
+        } else {
+            changeAmtSy = {
+                top: '-33px'
+            }
+        }
+        if (fundType) {
+            changeAmtSy.color= '#ddffa2';
+        } else {
+            changeAmtSy.color= '#ff7591';
+        }
         return (
             <Row type="flex" justify="space-between">
                 <Col span={12}>
@@ -80,14 +100,21 @@ const MenuItemGroup = Menu.ItemGroup;
                     </SubMenu>
                     <SubMenu title={<span>更多</span>}>
                         <Menu.Item key="/hall-of-fame">名人堂</Menu.Item>
-                        <Menu.Item key="/verify">验证</Menu.Item>
+                        <Menu.Item key="/verify"><Link to='/verify'>验证</Link></Menu.Item>
                         <Menu.Item key="/account/affiliate">推荐用户</Menu.Item>
                     </SubMenu>
 
                 </Menu>
                 </Col>
                 <Col span={12}>
-                <span className="totalMoney">{balance}</span>
+                <span style={{position:'relative'}}>
+                    <span className="totalMoney">{balance} BTC</span>
+                    <span className={this.props.showAmt ? "changeAmt" : "changeAmt no"}
+                    style={changeAmtSy}
+                    >{this.props.changeAmt} BTC</span>
+                </span>
+                
+                
                 <Menu
                     onClick={this.handleClick}
                     selectedKeys={[this.state.current]}

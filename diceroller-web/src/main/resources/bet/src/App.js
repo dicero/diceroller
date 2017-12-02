@@ -3,6 +3,7 @@ import { Layout } from 'antd';
 import './App.less';
 
 import NavMenu from './component/Header/NavMenu.js'
+import PageFooter from './component/Footer/PageFooter.js'
 import Routers from './Routers.js';
 
 const { Header, Footer, Sider, Content } = Layout;
@@ -18,7 +19,7 @@ class App extends Component {
 					<Content style={{marginTop: 64 }}>
 						<Routers/>
 					</Content>
-					<Footer style={{ textAlign: 'center' }}>Footer</Footer>
+					<Footer style={{ textAlign: 'center' }}><PageFooter/></Footer>
 				</Layout>
 			</div>
 		);

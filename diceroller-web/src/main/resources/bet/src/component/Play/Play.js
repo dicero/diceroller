@@ -107,6 +107,8 @@ class Play extends Component {
         this.setState({
             betTimes: value
         })
+    }    componentDidMount() {
+        
     }
 	render() {
 		return (
@@ -115,13 +117,7 @@ class Play extends Component {
                     <Content style={{marginRight: "10px"}}>
                     <Tabs type="card">
                         <TabPane tab="手动下注" key="1">
-                            <ManualBet 
-                                {...this.state} 
-                                onChangeBetValue={this.handleChangeBetValue} 
-                                onChangePayout={this.handleChangePayout} 
-                                onChangeRate={this.handleChangeRate}
-                                onChangeBetCount={this.handleChangeBetCount}
-                            />
+                            <ManualBet />
                         </TabPane>
                         <TabPane tab="自动下注" key="2">
                             <AutoBet

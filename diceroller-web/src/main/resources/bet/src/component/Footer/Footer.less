@@ -1,0 +1,71 @@
+.ant-layout-footer {
+    padding: 0px;
+    .component-footer .container {
+        padding: 0 50px;
+        color:#ffffff;
+        a {
+            color:#ffffff;
+        }
+    }
+}
+.component-footer {
+    padding: 75px 0;
+    color: #fff;
+    background: url('../../images/footer.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 15px;
+        position: relative;
+        .left {
+            display: flex;
+            margin-bottom: 7px;
+            li {
+                font-size: 14px;
+                font-weight: 300;
+                display: flex;
+                align-items: center;
+                padding: 5px;
+            }
+        }
+        .logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -webkit-transform: translate(-50%, -50%);
+            .footer-logo {
+                font-size: 12px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                color: hsla(0,0%,100%,.4);
+                img {
+                    height: 28px;
+                    margin-bottom: 15px;
+                }
+            }
+        }
+        .right {
+            margin-bottom: 7px;
+            display: flex;
+            justify-content: flex-end;
+            li {
+                font-size: 14px;
+                font-weight: 300;
+                display: flex;
+                align-items: center;
+                padding: 5px;
+            }
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    }
+}

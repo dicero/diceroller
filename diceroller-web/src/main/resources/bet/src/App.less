@@ -15,6 +15,33 @@
       white-space: nowrap;
       text-transform: uppercase;
     }
+    .changeAmt {
+      position: absolute;
+      left: 0px;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 8px 15px;
+      border-radius: 5px;
+      color: #ffffff;
+      white-space: nowrap;
+      text-transform: uppercase;
+      width: 100%;
+      top: -33px;
+      height: 14px;
+      transition: top 2s;
+    }
+    .ant.changeAmt {
+      top:0px;
+    }
+    .no {
+      display: none;
+    }
+    .changeAmt.red {
+      color: #ff7591
+    }
+    .changeAmt.green {
+      color: #ddffa2;
+    }
     .ant-menu {
       color: #ffffff;
       background: #576a91;
@@ -35,4 +62,90 @@
       }
     }
   }
+  .ant-slider-handle {
+    background-image: url('./images/silder.jpg');
+    width: 28px;
+    height: 26px;
+    border-radius: 0px;
+    border: none;
+    margin-top: -10px;
+  }
+  .is-reversed {
+    .ant-slider:hover{
+      .ant-slider-rail{
+        background: #ff7591;
+        height: 10px;
+      }
+      .ant-slider-track{
+        background: #ddffa2;
+        height: 10px;
+      }
+    }
+    .ant-slider-rail{
+      background: #ff7591;
+      height: 10px;
+    }
+    .ant-slider-track{
+      background: #ddffa2;
+      height: 10px;
+    }
+  }
+  .ant-slider {
+    //margin: 10px 0px;
+  }
+  .ant-slider-step{
+    display: none;
+  }
+  .ant-slider:hover{ 
+    .ant-slider-rail{
+      background: #ddffa2;
+      height: 10px;
+    }
+    .ant-slider-track{
+      background: #ff7591;
+      height: 10px;
+    }
+  }
+  .ant-slider-rail{
+    background: #ddffa2;
+    height: 10px;
+  }
+  .ant-slider-track{
+    background: #ff7591;
+    height: 10px;
+  }
+  .sliderWarp {
+    width: 100%;
+    overflow-x: hidden;
+    position: absolute;
+    top: -52px;
+    z-index: 3;
+    .slider {
+      position: relative;
+      margin: 0px 6px;
+      height: 66px;
+      overflow: hidden;
+      .no{
+        display: none;
+      }
+      .marks {
+        position: absolute;
+        margin-left: -32px;
+        background-image: url(/static/media/1.37cc7eb9.svg);
+        width: 58px;
+        height: 66px;
+        background-color: transparent;
+        top: 0px;
+        font-weight: 600;
+        color: #87d500;
+        text-shadow: 0 1px 0 #fff;
+        font-size: 16px;
+        line-height: 66px;
+        text-align: center;
+        transition: left 1s;
+      }
+    }
+  }
+  
+  
 }
