@@ -53,11 +53,29 @@ export default class AppStore {
 
     @observable fundType;
 
+    @observable myStakes=[];
+
+    @observable allStakes=[];
+
+    @observable highStakes = [];
+
     @computed
     get hasPasswordToJs() {
         return mobx.toJS(this.hasPassword)
     }
 
+    @computed
+    get myStakesToJs() {
+        return mobx.toJS(this.myStakes)
+    }
+    @computed
+    get allStakesToJs() {
+        return mobx.toJS(this.allStakes)
+    }
+    @computed
+    get highStakesToJs() {
+        return mobx.toJS(this.highStakes)
+    }
     @computed
     get balanceToJs() {
         return mobx.toJS(this.balance)
@@ -306,7 +324,8 @@ export default class AppStore {
                     this.balance = balance.toFixed(8);
                     this.setMarks(data.randomResult);
                     this.setAmt(changeAmt)
-                    this.geSakeCollect();
+                    this.getSakeCollect();
+                    this.getAllStakes();
                     //this.balance = data.balance;
                 }
             })
@@ -320,7 +339,7 @@ export default class AppStore {
             this.marks = value;
             this.timeId1 = setTimeout(()=> {
                 this.showMark = false;
-            }, 3000)
+            }, 6000)
         },0) 
     }
     @action.bound
@@ -339,7 +358,7 @@ export default class AppStore {
     }
     //  查询每日及历史投注数额
     @action.bound
-    geSakeCollect() {
+    getSakeCollect() {
         axios({
             method: 'post',
             url: '/rest/query/stakeCollect'
@@ -358,6 +377,48 @@ export default class AppStore {
     @action.bound
     init() {
         this.queryBalance();
-        this.geSakeCollect();
+        this.getSakeCollect();
+        this.getAllStakes();
+        setInterval(() => {
+            this.getAllStakes();
+        }, 5000)
+        
+    }
+    // 获取下注列表
+    @action.bound
+    getStakes(type) {
+        axios({
+            method: 'post',
+            url: '/rest/query/stakes',
+            params: {
+                page: 1,
+                pageSize:10,
+                queryType: type
+            }
+        })
+            .then((response) => {
+                if (response.data.code === 100) {
+                    let data = response.data.data;
+                    switch(type) {
+                        case 0: 
+                            this.myStakes = data;
+                        break;
+                        case 1: 
+                            this.allStakes = data;
+                        break;
+                        case 2: 
+                            this.highStakes = data;
+                        break;
+                    }
+                    //this.balance = data.balance;
+                }
+            })
+    }
+    // 获取所有下注列表
+    @action.bound
+    getAllStakes() {
+        this.getStakes(0);
+        this.getStakes(1);
+        this.getStakes(2);
     }
 }
