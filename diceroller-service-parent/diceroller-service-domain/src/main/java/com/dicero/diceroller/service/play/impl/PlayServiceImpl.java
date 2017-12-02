@@ -15,6 +15,7 @@ import com.dicero.diceroller.service.bean.RollerBean;
 import com.dicero.diceroller.service.play.PlayService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.httpclient.util.DateUtil;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -259,20 +260,20 @@ public class PlayServiceImpl extends BaseService implements PlayService{
         personalBillPO.setTradeAmt(diceHmacBean.getRollerBean().getAmt());
         personalBillPO.setTradeInfo("押注");
         personalBillPO.setTradeTitle("押注");
-        personalBillPO.setTradeStatus(TradeStatusEnums.FAIL.getValue());
+        personalBillPO.setTradeStatus(TradeStatusEnums.SUCCESS.getValue());
         personalBillPO.setTradeType(diceHmacBean.isWin()? TradeTypeEnums.FI : TradeTypeEnums.FO);
         personalBillPO.setUpdateTime(now);
         personalBillPO.setCreateTime(now);
         personalBillPORepository.save(personalBillPO);
 
         // NOTE: 保存每日数据
-        PersonalStakeTodayPO personalStakeTodayPO = personalStakeTodayPORepository.findByMemberIdAndCalDate(personalMemberPO.getMemberId(), now);
+        PersonalStakeTodayPO personalStakeTodayPO = personalStakeTodayPORepository.findByMemberIdAndCalDate(personalMemberPO.getMemberId(), DateUtil.formatDate(new Date(),"yyyMMdd"));
         if(personalStakeTodayPO == null) {
             personalStakeTodayPO = new PersonalStakeTodayPO();
 
             personalStakeTodayPO.setMemberId(personalMemberPO.getMemberId());
             personalStakeTodayPO.setAllStakeAmt(diceHmacBean.getRollerBean().getAmt());
-            personalStakeTodayPO.setCalDate(new Date());
+            personalStakeTodayPO.setCalDate(DateUtil.formatDate(new Date(),"yyyMMdd"));
             personalStakeTodayPO.setCreateTime(now);
             personalStakeTodayPO.setUpdateTime(now);
 
@@ -304,7 +305,7 @@ public class PlayServiceImpl extends BaseService implements PlayService{
 
         BigDecimal winningPos = new BigDecimal(personalStakeTodayPO.getAllWinGames() / (personalStakeTodayPO.getAllWinGames() + personalStakeTodayPO.getAllLoseGames())).setScale(2);
         personalStakeTodayPO.setWinningPos(winningPos);
-        personalStakeTodayPO = personalStakeTodayPORepository.save(personalStakeTodayPO);
+        personalStakeTodayPO = personalStakeTodayPORepository.saveAndFlush(personalStakeTodayPO);
 
 
         // NOTE: 保存总历史数据
@@ -347,7 +348,7 @@ public class PlayServiceImpl extends BaseService implements PlayService{
 
         BigDecimal hisWinningPos = new BigDecimal(personalStakeHistoryPO.getAllWinGames() / (personalStakeHistoryPO.getAllWinGames() + personalStakeHistoryPO.getAllLoseGames())).setScale(2);
         personalStakeHistoryPO.setWinningPos(hisWinningPos);
-        personalStakeHistoryPO = personalStakeHistoryPORepository.save(personalStakeHistoryPO);
+        personalStakeHistoryPO = personalStakeHistoryPORepository.saveAndFlush(personalStakeHistoryPO);
 
         return new AsyncResult<>("更新成功");
     }

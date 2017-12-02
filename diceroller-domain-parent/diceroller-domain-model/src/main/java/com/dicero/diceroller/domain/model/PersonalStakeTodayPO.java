@@ -5,7 +5,6 @@ import com.dicero.diceroller.domain.BasePO;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Date;
 
 /**
  * <p></p>
@@ -26,7 +25,7 @@ public class PersonalStakeTodayPO extends BasePO {
     private int allWinGames;
     private int allLoseGames;
     private BigDecimal winningPos;
-    private Date calDate;
+    private String calDate;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -130,12 +129,12 @@ public class PersonalStakeTodayPO extends BasePO {
     }
 
     @Basic
-    @Column(name = "cal_date", nullable = false)
-    public Date getCalDate() {
+    @Column(name = "cal_date", nullable = false, length = 8)
+    public String getCalDate() {
         return calDate;
     }
 
-    public void setCalDate(Date calDate) {
+    public void setCalDate(String calDate) {
         this.calDate = calDate;
     }
 
