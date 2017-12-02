@@ -12,6 +12,7 @@ import com.dicero.diceroller.domain.model.*;
 import com.dicero.diceroller.service.BaseService;
 import com.dicero.diceroller.service.bean.DiceHmacBean;
 import com.dicero.diceroller.service.bean.RollerBean;
+import com.dicero.diceroller.service.bean.StakeVO;
 import com.dicero.diceroller.service.play.PlayService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
@@ -122,7 +123,8 @@ public class PlayServiceImpl extends BaseService implements PlayService{
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public PersonalStakePO roller(Integer memberId, RollerBean rollerBean) {
+    public StakeVO roller(Integer memberId, RollerBean rollerBean) {
+        StakeVO stakeVO = new StakeVO();
         // NOTE:查询以往数据,设置下标
         int nonce = 0;
         List<PersonalStakePO> personalStakePOList = personalStakePORepository.findAllByMemberId(memberId,
@@ -156,7 +158,11 @@ public class PlayServiceImpl extends BaseService implements PlayService{
         personalStakePO.setChangeAmt(diceHmacBean.getChangeAmt());
         personalStakePORepository.save(personalStakePO);
 
-        return personalStakePO;
+        stakeVO.setChangeAmt(personalStakePO.getChangeAmt().toString());
+        stakeVO.setFundType(personalStakePO.getFundType());
+        stakeVO.setRandom(String.valueOf(diceHmacBean.getRandomResult()));
+        stakeVO.setStakeId(personalStakePO.getStakeId());
+        return stakeVO;
     }
 
     // NOTE: 色子随机数
@@ -199,6 +205,7 @@ public class PlayServiceImpl extends BaseService implements PlayService{
                     personalMemberPO.getMemberAccount(), rollerBean.getTargetCondition(),result,  diceHmacBean.getRollerBean().getTarget().doubleValue());
             diceHmacBean.setWin(false);
         }
+        diceHmacBean.setRandomResult(result);
         diceHmacBean.setChangeAmt(calculation(diceHmacBean.getRollerBean()));
 
         // NOTE: 异步更新押注数据
@@ -221,7 +228,7 @@ public class PlayServiceImpl extends BaseService implements PlayService{
      * @param rollerBean
      * @return
      */
-    public BigDecimal calculation(RollerBean rollerBean){
+    public static BigDecimal calculation(RollerBean rollerBean){
 
         BigDecimal b = BigDecimal.ZERO;
 
@@ -236,11 +243,16 @@ public class PlayServiceImpl extends BaseService implements PlayService{
         // NOTE: A=1/((B/99)取小数点后四位) 取小数点后两位
 
 
-        BigDecimal a = BigDecimal.ONE.divide(
-                b.divide(new BigDecimal(99)).setScale(4)
-        ).setScale(2);
+        BigDecimal a = BigDecimal.ONE.divide(b.divide(new BigDecimal(99), 4 , BigDecimal.ROUND_HALF_UP), 2 , BigDecimal.ROUND_HALF_UP);
 
         return a;
+    }
+
+    // amt=0.00000000&target=50.49&targetCondition=1
+    public static void main(String[] args) {
+        RollerBean rollerBean = new RollerBean(new BigDecimal("0.00000001"), new BigDecimal("50.49"), 0);
+
+        System.out.println(calculation(rollerBean));
     }
 
 

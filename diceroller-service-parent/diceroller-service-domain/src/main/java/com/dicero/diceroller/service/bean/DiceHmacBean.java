@@ -19,6 +19,7 @@ public class DiceHmacBean implements Serializable{
     private RollerBean rollerBean;
     private boolean win;
     private BigDecimal changeAmt;
+    private double randomResult;
 
     public DiceHmacBean(String stakeId, RollerBean rollerBean) {
         this.stakeId = stakeId;

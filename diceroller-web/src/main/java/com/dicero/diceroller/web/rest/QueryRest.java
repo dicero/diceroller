@@ -12,7 +12,7 @@ import com.dicero.diceroller.web.interceptor.WebAccess;
 import com.dicero.diceroller.web.rest.vo.BillVO;
 import com.dicero.diceroller.web.rest.vo.MemberSeedVO;
 import com.dicero.diceroller.web.rest.vo.StakeCollectVO;
-import com.dicero.diceroller.web.rest.vo.StakeVO;
+import com.dicero.diceroller.service.bean.StakeVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -153,8 +153,8 @@ public class QueryRest extends AbstractRest {
             protected void validate() throws Exception {
                 Validate.notNull(page, "page 不能为空");
                 Validate.notNull(pageSize, "pageSize 不能为空");
-                Validate.isTrue(page <= 0, "page 不能小于0");
-                Validate.isTrue(pageSize <= 0, "pageSize 不能小于0");
+                Validate.isTrue(page > 0, "page 不能小于0");
+                Validate.isTrue(pageSize > 0, "pageSize 不能小于0");
             }
 
             @Override
@@ -295,8 +295,8 @@ public class QueryRest extends AbstractRest {
             protected void validate() throws Exception {
                 Validate.notNull(page, "page 不能为空");
                 Validate.notNull(pageSize, "pageSize 不能为空");
-                Validate.isTrue(page <= 0, "page 不能小于0");
-                Validate.isTrue(pageSize <= 0, "pageSize 不能小于0");
+                Validate.isTrue(page > 0, "page 不能小于0");
+                Validate.isTrue(pageSize > 0, "pageSize 不能小于0");
             }
 
             @Override

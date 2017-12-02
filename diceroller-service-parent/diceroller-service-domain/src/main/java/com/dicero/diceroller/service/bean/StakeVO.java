@@ -1,12 +1,10 @@
-package com.dicero.diceroller.web.rest.vo;
+package com.dicero.diceroller.service.bean;
 
 import com.dicero.diceroller.domain.enums.FundTypeEnums;
 import lombok.Data;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
 
 /**
  * <p></p>
@@ -17,8 +15,8 @@ import java.sql.Timestamp;
 @Data
 @ToString
 public class StakeVO implements Serializable{
-    private Timestamp createTime;
     private FundTypeEnums fundType;
-    private BigDecimal changeAmt;
+    private String changeAmt;
     private String stakeId;
+    private String random;
 }

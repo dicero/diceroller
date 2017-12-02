@@ -1,8 +1,8 @@
 package com.dicero.diceroller.service.play;
 
 import com.dicero.diceroller.domain.model.PersonalSeedTmpPO;
-import com.dicero.diceroller.domain.model.PersonalStakePO;
 import com.dicero.diceroller.service.bean.RollerBean;
+import com.dicero.diceroller.service.bean.StakeVO;
 
 /**
  * <p></p>
@@ -24,7 +24,7 @@ public interface PlayService {
     boolean updatePersonalSeedByTmp(Integer memberId, String clientSeed);
 
     // NOTE: 扔色子-true: 胜利, false-失败
-    PersonalStakePO roller(Integer memberId, RollerBean rollerBean);
+    StakeVO roller(Integer memberId, RollerBean rollerBean);
 
 
 
