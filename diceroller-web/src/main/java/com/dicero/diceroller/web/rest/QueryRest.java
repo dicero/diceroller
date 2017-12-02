@@ -18,6 +18,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.httpclient.util.DateUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.springframework.beans.BeanUtils;
@@ -185,7 +186,7 @@ public class QueryRest extends AbstractRest {
             @Override
             protected RestResponse process() throws Exception {
                 DataObject dataObject = new DataObject();
-                PersonalStakeTodayPO personalStakeTodayPO = personalStakeTodayPORepository.findByMemberIdAndCalDate(webLoginer.getId(), new Date());
+                PersonalStakeTodayPO personalStakeTodayPO = personalStakeTodayPORepository.findByMemberIdAndCalDate(webLoginer.getId(), DateUtil.formatDate(new Date(),"yyyMMdd"));
                 PersonalStakeHistoryPO personalStakeHistoryPO = personalStakeHistoryPORepository.findByMemberId(webLoginer.getId());
 
                 StakeCollectVO todayCollect = new StakeCollectVO().init();
