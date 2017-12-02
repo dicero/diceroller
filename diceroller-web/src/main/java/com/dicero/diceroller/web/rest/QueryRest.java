@@ -160,7 +160,7 @@ public class QueryRest extends AbstractRest {
             @Override
             protected RestResponse process() throws Exception {
                 List<PersonalStakePO> personalStakePOList = personalStakePORepository.findAllByMemberIdAndEffective(webLoginer.getId(), EffectiveEnums.TRUE,
-                        new PageRequest(page, pageSize, new Sort(Sort.Direction.DESC, new String[]{"create_time"})));
+                        new PageRequest(page, pageSize, new Sort(Sort.Direction.DESC, new String[]{"createTime"})));
 
                 List<StakeVO> data = new ArrayList<>();
                 for (PersonalStakePO personalStakePO : personalStakePOList) {
@@ -302,7 +302,7 @@ public class QueryRest extends AbstractRest {
             @Override
             protected RestResponse process() throws Exception {
                 List<PersonalBillPO> personalBillPOList = personalBillPORepository.findAllByMemberId(webLoginer.getId(),
-                        new PageRequest(page, pageSize, new Sort(Sort.Direction.DESC, new String[]{"create_time"})));
+                        new PageRequest(page, pageSize, new Sort(Sort.Direction.DESC, new String[]{"createTime"})));
                 List<BillVO> data = new ArrayList<>();
 
                 for (PersonalBillPO personalBillPO : personalBillPOList) {
