@@ -1,6 +1,7 @@
 package com.dicero.diceroller.core.coin.util.crypto.symmetric.aes;
 
-import org.springframework.security.crypto.codec.Base64;
+
+import com.dicero.diceroller.core.coin.util.bitcoin.bip32.Base64;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
