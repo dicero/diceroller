@@ -256,6 +256,7 @@ public class PlayServiceImpl extends BaseService implements PlayService{
         personalBillPO.setStakeId(personalStakePO.getStakeId());
         personalBillPO.setStakeStatus("1");
         personalBillPO.setTradeAmt(diceHmacBean.getRollerBean().getAmt());
+        personalBillPO.setTradeInfo("押注");
         personalBillPO.setTradeTitle("押注");
         personalBillPO.setTradeType(diceHmacBean.isWin()? TradeTypeEnums.FI : TradeTypeEnums.FO);
         personalBillPO.setUpdateTime(now);
