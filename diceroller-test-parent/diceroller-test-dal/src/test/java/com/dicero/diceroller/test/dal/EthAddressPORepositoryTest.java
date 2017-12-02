@@ -1,5 +1,7 @@
 package com.dicero.diceroller.test.dal;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.dicero.diceroller.TestBase;
 import com.dicero.diceroller.dal.mysql.repository.EthAddressPORepository;
 import com.dicero.diceroller.domain.model.EthAddressPO;
@@ -36,9 +38,24 @@ public class EthAddressPORepositoryTest extends TestBase {
     }
 
     @Test
-    public void updateHasUseByIdTest() {
-         int row = EthAddressPORepository.updateHasUseById(1, 1);
-         println(row);
-         Assert.assertNotNull(row);
+    public void saveTest() {
+        EthAddressPO ethAddressPO = new EthAddressPO();
+        ethAddressPO.setHasUse(0);
+        ethAddressPO.setAddress("--");
+        ethAddressPO.setXpub("--");
+        ethAddressPO.setXpri("--");
+        ethAddressPO.setCreateTime(now);
+        ethAddressPO.setUpdateTime(now);
+        ethAddressPO = EthAddressPORepository.save(ethAddressPO);
+        println(ethAddressPO);
+        Assert.assertNotNull(ethAddressPO);
     }
+
+    @Test
+    public void updateHasUseByIdTest() {
+        int row = EthAddressPORepository.updateHasUseById(1, 1);
+        println(row);
+        Assert.assertNotNull(row);
+    }
+
 }

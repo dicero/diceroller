@@ -17,7 +17,8 @@ public class EthAddressPO extends BasePO{
     private int id;
 
     private String address;
-    private String pkey;
+    private String xpub;
+    private String xpri;
     private Integer hasUse;
 
     private Timestamp createTime;
@@ -45,14 +46,26 @@ public class EthAddressPO extends BasePO{
     }
 
     @Basic
-    @Column(name = "pkey", nullable = false)
-    public String getPkey() {
-        return pkey;
+    @Column(name = "x_pub", nullable = false)
+    public String getXpub() {
+        return xpub;
     }
 
-    public void setPkey(String pkey) {
-        this.pkey = pkey;
+    public void setXpub(String xpub) {
+        this.xpub = xpub;
     }
+
+    @Basic
+    @Column(name = "x_pri", nullable = false)
+    public String getXpri() {
+        return xpri;
+    }
+
+
+    public void setXpri(String xpri) {
+        this.xpri = xpri;
+    }
+
 
     @Basic
     @Column(name = "has_use", nullable = false)
