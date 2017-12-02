@@ -156,7 +156,7 @@ public class PersonalStakePO extends BasePO {
     }
 
     @Basic
-    @Column(name = "payout", nullable = false, precision = 2)
+    @Column(name = "payout", precision = 2)
     public BigDecimal getPayout() {
         return payout;
     }
@@ -176,7 +176,7 @@ public class PersonalStakePO extends BasePO {
     }
 
     @Basic
-    @Column(name = "random_result", nullable = false)
+    @Column(name = "random_result" )
     public double getRandomResult() {
         return randomResult;
     }
