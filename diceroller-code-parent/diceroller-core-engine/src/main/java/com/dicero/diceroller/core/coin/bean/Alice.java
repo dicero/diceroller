@@ -12,6 +12,6 @@ import org.web3j.crypto.Credentials;
 public class Alice {
     static final String PRIVATE_KEY = "336d5149928f21592503f662cd43434093261cc4b486fdc488170248d6f31610";
 
-    public static final Credentials CREDENTIALS = Credentials.create(EncryptUtil.SHA256(PRIVATE_KEY+"1"));
+    public static final Credentials CREDENTIALS = Credentials.create(EncryptUtil.SHA256(PRIVATE_KEY));
     public static final String ADDRESS = CREDENTIALS.getAddress();
 }

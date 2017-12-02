@@ -1,10 +1,10 @@
 package com.dicero.diceroller.test.core;
 
-import com.dicero.diceroller.common.util.EncryptUtil;
-import com.dicero.diceroller.common.util.RandomUtil;
 import com.dicero.diceroller.core.coin.util.Web3jConstants;
 import org.junit.Test;
-import org.web3j.crypto.*;
+import org.web3j.crypto.Credentials;
+import org.web3j.crypto.RawTransaction;
+import org.web3j.crypto.TransactionEncoder;
 import org.web3j.protocol.core.Response;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.utils.Convert;
@@ -21,22 +21,13 @@ import static org.junit.Assert.*;
  * @version 2017/11/18
  */
 public class CreateHDAccountTest extends AbstractEtheTest {
-    public static void main(String[] args) {
-        String seed = RandomUtil.randomStringOrNumber(128);
-        System.out.println("seed " + seed);
-        String hash = EncryptUtil.SHA256(seed);
-        System.out.println("hash " + hash);
-        String privateKey = "";
-        String publicKey = "";
-    }
 
     @Test
     public void testCreateHDAccountFromScratch() throws Exception {
 
         // create new private/public key pair
-        String seed = EncryptUtil.SHA256("hello");
-        String privateKey = "";
-        String publicKey = "";
+        String privateKey = "8146a7f1203c0245fc3667aac0a33152105f7fb529819bf92446b32ae0907f40";
+        String publicKey = "450385487739067603829999356683711586476030450243678157791393210568068752322638";
 
         // create credentials + address from private/public key pair
         Credentials credentials = Credentials.create(privateKey, publicKey);
