@@ -18,8 +18,10 @@ public class StakeVO {
     private String createTime;
     private FundTypeEnums fundType;
     private String changeAmt;
+    private String changeAmtTag;
     private String amt;
     private String target;
+    private String targetTag;
     private int targetCondition;
     private String payout;
     private String randomResult;

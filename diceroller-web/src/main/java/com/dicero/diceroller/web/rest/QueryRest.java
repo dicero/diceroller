@@ -4,6 +4,7 @@ import com.dicero.diceroller.common.bean.result.RestResponse;
 import com.dicero.diceroller.common.util.EncryptUtil;
 import com.dicero.diceroller.dal.mysql.repository.*;
 import com.dicero.diceroller.domain.enums.EffectiveEnums;
+import com.dicero.diceroller.domain.enums.FundTypeEnums;
 import com.dicero.diceroller.domain.model.*;
 import com.dicero.diceroller.service.personal.PersonalService;
 import com.dicero.diceroller.service.play.PlayService;
@@ -180,8 +181,22 @@ public class QueryRest extends AbstractRest {
                     stakeVO.setUsername(personalStakePO.getUsername());
                     stakeVO.setAmt(personalStakePO.getAmt().toPlainString());
                     stakeVO.setChangeAmt(personalStakePO.getChangeAmt().toPlainString());
+
+                    if (personalStakePO.getFundType().equals(FundTypeEnums.FI)) {
+                        stakeVO.setChangeAmtTag("+" + personalStakePO.getChangeAmt().toPlainString());
+                    } else {
+                        stakeVO.setChangeAmtTag("-" + personalStakePO.getChangeAmt().toPlainString());
+                    }
+
                     stakeVO.setFundType(personalStakePO.getFundType());
                     stakeVO.setTarget(personalStakePO.getTarget().toPlainString());
+
+                    if (personalStakePO.getTargetCondition() == 1) {
+                        stakeVO.setTargetTag(">" + personalStakePO.getTarget().toPlainString());
+                    } else {
+                        stakeVO.setTargetTag("<" + personalStakePO.getTarget().toPlainString());
+                    }
+
                     stakeVO.setTargetCondition(personalStakePO.getTargetCondition());
                     stakeVO.setPayout(personalStakePO.getPayout().toPlainString());
                     stakeVO.setRandomResult(String.valueOf(personalStakePO.getRandomResult()));
