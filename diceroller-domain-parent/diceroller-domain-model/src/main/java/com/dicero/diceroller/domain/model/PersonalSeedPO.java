@@ -22,6 +22,7 @@ public class PersonalSeedPO extends BasePO {
     private String clientSeed;
     private String serverSeedHash;
     private int defaultUse;
+    private int sumNonce;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -95,7 +96,15 @@ public class PersonalSeedPO extends BasePO {
         this.serverSeedHash = serverSeedHash;
     }
 
+    @Basic
+    @Column(name = "sum_nonce", nullable = false, length = 10)
+    public int getSumNonce() {
+        return sumNonce;
+    }
 
+    public void setSumNonce(int sumNonce) {
+        this.sumNonce = sumNonce;
+    }
 
     @Basic
     @Column(name = "default_use", nullable = false)

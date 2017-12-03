@@ -16,4 +16,5 @@ public class MemberSeedVO {
     private String clientSeed;
     private String serverSeedHash;
     private int defaultUse;
+    private int sumNonce;
 }

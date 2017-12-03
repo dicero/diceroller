@@ -4,6 +4,9 @@ import com.dicero.diceroller.domain.enums.EffectiveEnums;
 import com.dicero.diceroller.domain.model.PersonalStakePO;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,4 +24,9 @@ public interface PersonalStakePORepository extends JpaRepository<PersonalStakePO
     List<PersonalStakePO> findAllByMemberIdAndEffective(Integer memberId, EffectiveEnums effectiveEnums, Pageable pageable);
 
     List<PersonalStakePO> findAllByEffective(EffectiveEnums effectiveEnums, Pageable pageable);
+
+    @Transactional
+    @Modifying
+    @Query("update PersonalStakePO set seedId=?2, updateTime=now() where id = ?1")
+    int updateSeedIdById(Integer id, int seedId);
 }

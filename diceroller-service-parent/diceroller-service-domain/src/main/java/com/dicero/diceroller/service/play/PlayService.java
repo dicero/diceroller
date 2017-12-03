@@ -21,7 +21,7 @@ public interface PlayService {
     PersonalSeedTmpPO createPersonalSeedTmp(Integer memberId);
 
     // NOTE: 根据临时种子，更新用户新种子
-    boolean updatePersonalSeedByTmp(Integer memberId, String clientSeed);
+    boolean updatePersonalSeedByTmp(Integer newSeedId, Integer memberId, String clientSeed);
 
     // NOTE: 扔色子-true: 胜利, false-失败
     MakeResult roller(Integer memberId, String username, RollerBean rollerBean);

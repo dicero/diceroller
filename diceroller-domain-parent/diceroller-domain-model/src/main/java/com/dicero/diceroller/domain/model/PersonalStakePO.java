@@ -25,6 +25,7 @@ public class PersonalStakePO extends BasePO {
     private BigDecimal changeAmt;
     private BigDecimal amt;
     private String stakeId;
+    private int seedId;
     private EffectiveEnums effective;
     private BigDecimal target;
     private int targetCondition;
@@ -143,6 +144,17 @@ public class PersonalStakePO extends BasePO {
 
     public void setTargetCondition(int targetCondition) {
         this.targetCondition = targetCondition;
+    }
+
+
+    @Basic
+    @Column(name = "seed_id", nullable = false)
+    public int getSeedId() {
+        return seedId;
+    }
+
+    public void setSeedId(int seedId) {
+        this.seedId = seedId;
     }
 
     @Basic

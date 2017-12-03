@@ -85,21 +85,23 @@ public class MemberRest extends AbstractRest {
 
     @ApiOperation(value = "修改用户种子")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "clientSeed", value = "客户端种子", required = true, dataType = "String", paramType = "query")
+            @ApiImplicitParam(name = "newClientSeed", value = "客户端种子", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "newSeedId", value = "客户端种子", required = true, dataType = "Integer", paramType = "query")
     })
     @WebAccess
     @RequestMapping(method = { RequestMethod.POST }, path="/seed", produces = "application/json")
-    public RestResponse seed(@ApiIgnore final WebLoginer webLoginer , final String clientSeed) {
+    public RestResponse seed(@ApiIgnore final WebLoginer webLoginer , final int newSeedId, final String clientSeed) {
         return new RestExecuteContrl() {
             @Override
             protected void validate() throws Exception {
                 Validate.notBlank(clientSeed, "clientSeed 不能为空");
+                Validate.notNull(newSeedId, "newSeedId 不能为空");
                 Validate.isTrue(clientSeed.length() > 30, "clientSeed 不能少于30个字符串");
             }
 
             @Override
             protected RestResponse process() throws Exception {
-                boolean result = playService.updatePersonalSeedByTmp(webLoginer.getId(), clientSeed);
+                boolean result = playService.updatePersonalSeedByTmp(newSeedId, webLoginer.getId(), clientSeed);
                 return result ? RestResponse.createSuccess() : RestResponse.createFailure();
             }
         }.run();

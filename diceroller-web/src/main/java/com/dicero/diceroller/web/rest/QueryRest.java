@@ -279,29 +279,6 @@ public class QueryRest extends AbstractRest {
     }
 
     @WebAccess
-    @ApiOperation(value = "查询可用种子")
-    @ApiImplicitParams({})
-    @RequestMapping(method = { RequestMethod.POST }, path="/availableSeed", produces = "application/json")
-    public RestResponse availableSeed(@ApiIgnore final WebLoginer webLoginer) {
-        return new RestExecuteContrl() {
-            @Override
-            protected void validate() throws Exception { }
-
-            @Override
-            protected RestResponse process() throws Exception {
-                DataObject dataObject = new DataObject();
-
-                PersonalSeedTmpPO personalSeedTmpPO = playService.createPersonalSeedTmp(webLoginer.getId());
-
-                dataObject.put("clientSeed", personalSeedTmpPO.getClientSeed());
-                dataObject.put("serverSeedHash", EncryptUtil.SHA256(personalSeedTmpPO.getServerSeed()));
-
-                return RestResponse.createSuccess(dataObject.getData());
-            }
-        }.run();
-    }
-
-    @WebAccess
     @ApiOperation(value = "查询拥有种子")
     @ApiImplicitParams({})
     @RequestMapping(method = { RequestMethod.POST }, path="/possessSeed", produces = "application/json")
@@ -315,14 +292,28 @@ public class QueryRest extends AbstractRest {
             protected RestResponse process() throws Exception {
                 DataObject dataObject = new DataObject();
 
-                List<PersonalSeedPO> personalSeedPOList = personalSeedPORepository.findAllByMemberId(webLoginer.getId());
+                List<PersonalSeedPO> personalSeedPOList = personalSeedPORepository.findAllByMemberId(webLoginer.getId(), new PageRequest(0, 2, new Sort(Sort.Direction.DESC, new String[] { "defaultUse", "createTime" }) ));
                 List<MemberSeedVO> memberSeedVOList = new ArrayList<>();
 
                 for (PersonalSeedPO personalSeedPO : personalSeedPOList) {
                     MemberSeedVO memberSeedVO = new MemberSeedVO();
-                    BeanUtils.copyProperties(personalSeedPO, memberSeedVO);
+                    if (personalSeedPO != null) {
+                        BeanUtils.copyProperties(personalSeedPO, memberSeedVO);
+                        if (personalSeedPO.getDefaultUse() == 1) {
+                            personalSeedPO.setServerSeedHash("");
+                        }
+                    }
+
                     memberSeedVOList.add(memberSeedVO);
                 }
+
+
+                // NOTE: 查询可用种子
+                PersonalSeedTmpPO personalSeedTmpPO = playService.createPersonalSeedTmp(webLoginer.getId());
+
+                dataObject.put("newClientSeed", personalSeedTmpPO.getClientSeed());
+                dataObject.put("newServerSeedHash", EncryptUtil.SHA256(personalSeedTmpPO.getServerSeed()));
+                dataObject.put("newSeedId", personalSeedTmpPO.getId());
 
                 dataObject.put("list", memberSeedVOList);
                 return RestResponse.createSuccess(dataObject.getData());

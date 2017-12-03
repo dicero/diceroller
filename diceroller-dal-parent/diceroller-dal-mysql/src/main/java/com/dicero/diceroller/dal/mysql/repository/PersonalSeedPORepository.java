@@ -1,6 +1,7 @@
 package com.dicero.diceroller.dal.mysql.repository;
 
 import com.dicero.diceroller.domain.model.PersonalSeedPO;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -18,10 +19,15 @@ public interface PersonalSeedPORepository extends JpaRepository<PersonalSeedPO, 
 
     PersonalSeedPO findByMemberIdAndDefaultUse(Integer memberId, int defaultUse);
 
-    List<PersonalSeedPO> findAllByMemberId(Integer memberId);
+    List<PersonalSeedPO> findAllByMemberId(Integer memberId,  Pageable pageable);
 
     @Transactional
     @Modifying
     @Query("update PersonalSeedPO set defaultUse=?2, updateTime=now() where id = ?1")
     int updateDefaultUseById(Integer id, int defaultUse);
+
+    @Transactional
+    @Modifying
+    @Query("update PersonalSeedPO set sumNonce=?2, updateTime=now() where id = ?1")
+    int updateSumNonceUseById(Integer id, int sumNonce);
 }

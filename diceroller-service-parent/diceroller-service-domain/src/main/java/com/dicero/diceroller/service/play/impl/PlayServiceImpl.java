@@ -12,8 +12,8 @@ import com.dicero.diceroller.domain.enums.TradeTypeEnums;
 import com.dicero.diceroller.domain.model.*;
 import com.dicero.diceroller.service.BaseService;
 import com.dicero.diceroller.service.bean.DiceHmacBean;
-import com.dicero.diceroller.service.bean.RollerBean;
 import com.dicero.diceroller.service.bean.MakeResult;
+import com.dicero.diceroller.service.bean.RollerBean;
 import com.dicero.diceroller.service.play.PlayService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
@@ -22,7 +22,6 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +29,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 /**
@@ -53,6 +54,7 @@ import java.util.concurrent.Future;
 @Slf4j
 @Service
 public class PlayServiceImpl extends BaseService implements PlayService{
+    ExecutorService fixedThreadPool = Executors.newFixedThreadPool(50);
 
     @Autowired PersonalSeedPORepository personalSeedPORepository;
     @Autowired PersonalBillPORepository personalBillPORepository;
@@ -94,8 +96,8 @@ public class PlayServiceImpl extends BaseService implements PlayService{
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public boolean updatePersonalSeedByTmp(Integer memberId, String clientSeed) {
-        PersonalSeedTmpPO personalSeedTmpPO = personalSeedTmpPORepository.findByMemberIdAndClientSeedAndDefaultOver(memberId, clientSeed, 0);
+    public boolean updatePersonalSeedByTmp(Integer newSeedId, Integer memberId, String clientSeed) {
+        PersonalSeedTmpPO personalSeedTmpPO = personalSeedTmpPORepository.findByIdAndMemberIdAndClientSeedAndDefaultOver(newSeedId, memberId, clientSeed, 0);
         if (personalSeedTmpPO != null ) {
 
             // NOTE: 更新老的数据
@@ -111,6 +113,7 @@ public class PlayServiceImpl extends BaseService implements PlayService{
             defaultPersonalSeedPO.setCreateTime(now());
             defaultPersonalSeedPO.setUpdateTime(now());
             defaultPersonalSeedPO.setDefaultUse(1);
+            defaultPersonalSeedPO.setSumNonce(0);
             personalSeedPORepository.save(defaultPersonalSeedPO);
 
             // NOTE: 废弃临时种子
@@ -134,7 +137,6 @@ public class PlayServiceImpl extends BaseService implements PlayService{
             nonce = personalStakePOList.get(0).getNonce() + 1;
         }
 
-
         // NOTE: 保存数据
         PersonalStakePO personalStakePO = new PersonalStakePO();
         personalStakePO.setMemberId(memberId);
@@ -147,6 +149,7 @@ public class PlayServiceImpl extends BaseService implements PlayService{
         personalStakePO.setChangeAmt(BigDecimal.ZERO);
         personalStakePO.setNonce(nonce);
         personalStakePO.setUsername(username);
+        personalStakePO.setSeedId(0); // NOTE: 后面在更新
         personalStakePO.setCreateTime(now());
         personalStakePO.setUpdateTime(now());
         personalStakePO = personalStakePORepository.save(personalStakePO);
@@ -186,7 +189,7 @@ public class PlayServiceImpl extends BaseService implements PlayService{
         }
 
         // NOTE: 查询种子
-        PersonalSeedPO personalSeedPO = personalSeedPORepository.findByMemberIdAndDefaultUse(personalMemberPO.getMemberId(), 1);
+        PersonalSeedPO personalSeedPO = personalSeedPORepository.findByMemberIdAndDefaultUse(personalStakePO.getMemberId(), 1);
         if (personalSeedPO == null) {
             throw CommonDefinedException.SYSTEM_ERROR("找不到种子数据");
         }
@@ -215,7 +218,14 @@ public class PlayServiceImpl extends BaseService implements PlayService{
         calculationPayout(diceHmacBean.getRollerBean());
 
         // NOTE: 异步更新押注数据
-        updateState(personalMemberPO, personalStakePO, diceHmacBean);
+        fixedThreadPool.execute(new Runnable() {
+            @Override
+            public void run() {
+                // NOTE: 异步更新押注数据
+                updateState(personalMemberPO, personalStakePO, personalSeedPO, diceHmacBean);
+            }
+        });
+
 
         return diceHmacBean;
     }
@@ -274,8 +284,7 @@ public class PlayServiceImpl extends BaseService implements PlayService{
 
 
     // NOTE: 异步更新押注数据
-    @Async
-    public Future<String> updateState(PersonalMemberPO personalMemberPO, PersonalStakePO personalStakePO, DiceHmacBean diceHmacBean) {
+    public Future<String> updateState(PersonalMemberPO personalMemberPO, PersonalStakePO personalStakePO, PersonalSeedPO personalSeedPO, DiceHmacBean diceHmacBean) {
 
         // FIXME: 更新账户余额
 
@@ -378,6 +387,13 @@ public class PlayServiceImpl extends BaseService implements PlayService{
         BigDecimal hisWinningPos = new BigDecimal(personalStakeHistoryPO.getAllWinGames() / (personalStakeHistoryPO.getAllWinGames() + personalStakeHistoryPO.getAllLoseGames())).setScale(2);
         personalStakeHistoryPO.setWinningPos(hisWinningPos);
         personalStakeHistoryPO = personalStakeHistoryPORepository.saveAndFlush(personalStakeHistoryPO);
+
+        // NOTE: 更新种子使用次数
+        personalSeedPO.setSumNonce(personalSeedPO.getSumNonce() + 1);
+        personalSeedPORepository.updateSumNonceUseById(personalSeedPO.getId(), personalSeedPO.getSumNonce());
+
+        // NOTE: 押注数据更新种子
+        personalStakePORepository.updateSeedIdById(personalStakePO.getId(), personalSeedPO.getId());
 
         return new AsyncResult<>("更新成功");
     }

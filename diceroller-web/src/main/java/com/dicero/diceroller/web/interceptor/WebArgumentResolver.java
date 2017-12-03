@@ -1,6 +1,5 @@
 package com.dicero.diceroller.web.interceptor;
 
-import com.dicero.diceroller.web.hepler.HelperCookie;
 import com.dicero.diceroller.web.hepler.WebLoginer;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -23,8 +22,9 @@ public class WebArgumentResolver implements HandlerMethodArgumentResolver {
 			WebDataBinderFactory arg3) throws Exception {
         HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
         // FIXME: 写死账户 return HelperCookie.getLoginWeb(request);
-        // WebLoginer webLoginer = new WebLoginer(2000000014, "alex");
-        return HelperCookie.getLoginWeb(request);
+        WebLoginer webLoginer = new WebLoginer(2000000014, "alex");
+//        return HelperCookie.getLoginWeb(request);
+        return webLoginer;
     }
 
 	@Override
