@@ -58,8 +58,8 @@ public class TssTradeServiceImpl extends BaseService implements TssTradeService 
 
         tradeOrderPO.setRemark("交易");
         tradeOrderPO.setStatus(TradeStatusEnums.INIT);
-        tradeOrderPO.setCreateTime(now);
-        tradeOrderPO.setUpdateTime(now);
+        tradeOrderPO.setCreateTime(now());
+        tradeOrderPO.setUpdateTime(now());
         tradeOrderPORepository.save(tradeOrderPO);
 
 

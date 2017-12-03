@@ -84,8 +84,8 @@ public class PlayServiceImpl extends BaseService implements PlayService{
             personalSeedTmpPO.setMemberId(memberId);
             personalSeedTmpPO.setServerSeed(serverSeed);
             personalSeedTmpPO.setClientSeed(clientSeed);
-            personalSeedTmpPO.setCreateTime(now);
-            personalSeedTmpPO.setUpdateTime(now);
+            personalSeedTmpPO.setCreateTime(now());
+            personalSeedTmpPO.setUpdateTime(now());
             personalSeedTmpPO = personalSeedTmpPORepository.save(personalSeedTmpPO);
         }
 
@@ -108,8 +108,8 @@ public class PlayServiceImpl extends BaseService implements PlayService{
             defaultPersonalSeedPO.setClientSeed(personalSeedTmpPO.getClientSeed());
             defaultPersonalSeedPO.setServerSeed(personalSeedTmpPO.getServerSeed());
             defaultPersonalSeedPO.setServerSeedHash(EncryptUtil.SHA256(personalSeedTmpPO.getServerSeed()));
-            defaultPersonalSeedPO.setCreateTime(now);
-            defaultPersonalSeedPO.setUpdateTime(now);
+            defaultPersonalSeedPO.setCreateTime(now());
+            defaultPersonalSeedPO.setUpdateTime(now());
             defaultPersonalSeedPO.setDefaultUse(1);
             personalSeedPORepository.save(defaultPersonalSeedPO);
 
@@ -147,8 +147,8 @@ public class PlayServiceImpl extends BaseService implements PlayService{
         personalStakePO.setChangeAmt(BigDecimal.ZERO);
         personalStakePO.setNonce(nonce);
         personalStakePO.setUsername(username);
-        personalStakePO.setCreateTime(now);
-        personalStakePO.setUpdateTime(now);
+        personalStakePO.setCreateTime(now());
+        personalStakePO.setUpdateTime(now());
         personalStakePO = personalStakePORepository.save(personalStakePO);
 
         // TODO: 智能合约执行
@@ -291,8 +291,8 @@ public class PlayServiceImpl extends BaseService implements PlayService{
         personalBillPO.setTradeTitle("押注");
         personalBillPO.setTradeStatus(TradeStatusEnums.SUCCESS.getValue());
         personalBillPO.setTradeType(diceHmacBean.isWin()? TradeTypeEnums.FI : TradeTypeEnums.FO);
-        personalBillPO.setUpdateTime(now);
-        personalBillPO.setCreateTime(now);
+        personalBillPO.setUpdateTime(now());
+        personalBillPO.setCreateTime(now());
         personalBillPORepository.save(personalBillPO);
 
         // NOTE: 保存每日数据
@@ -303,8 +303,8 @@ public class PlayServiceImpl extends BaseService implements PlayService{
             personalStakeTodayPO.setMemberId(personalMemberPO.getMemberId());
             personalStakeTodayPO.setAllStakeAmt(diceHmacBean.getRollerBean().getAmt());
             personalStakeTodayPO.setCalDate(DateUtil.formatDate(new Date(),"yyyMMdd"));
-            personalStakeTodayPO.setCreateTime(now);
-            personalStakeTodayPO.setUpdateTime(now);
+            personalStakeTodayPO.setCreateTime(now());
+            personalStakeTodayPO.setUpdateTime(now());
 
             if (diceHmacBean.isWin()) {
                 personalStakeTodayPO.setAllWinAmt(diceHmacBean.getRollerBean().getAmt());
@@ -320,7 +320,7 @@ public class PlayServiceImpl extends BaseService implements PlayService{
 
         } else {
             personalStakeTodayPO.setAllStakeAmt(personalStakeTodayPO.getAllStakeAmt().add(diceHmacBean.getRollerBean().getAmt()));
-            personalStakeTodayPO.setUpdateTime(now);
+            personalStakeTodayPO.setUpdateTime(now());
 
             if (diceHmacBean.isWin()) {
                 personalStakeTodayPO.setAllWinAmt(personalStakeTodayPO.getAllLoseAmt().add(diceHmacBean.getRollerBean().getAmt()));
@@ -344,8 +344,8 @@ public class PlayServiceImpl extends BaseService implements PlayService{
 
             personalStakeHistoryPO.setMemberId(personalMemberPO.getMemberId());
             personalStakeHistoryPO.setAllStakeAmt(diceHmacBean.getRollerBean().getAmt());
-            personalStakeHistoryPO.setCreateTime(now);
-            personalStakeHistoryPO.setUpdateTime(now);
+            personalStakeHistoryPO.setCreateTime(now());
+            personalStakeHistoryPO.setUpdateTime(now());
 
             if (diceHmacBean.isWin()) {
                 personalStakeHistoryPO.setAllWinAmt(diceHmacBean.getRollerBean().getAmt());
@@ -362,7 +362,7 @@ public class PlayServiceImpl extends BaseService implements PlayService{
 
         } else {
             personalStakeHistoryPO.setAllStakeAmt(personalStakeHistoryPO.getAllStakeAmt().add(diceHmacBean.getRollerBean().getAmt()));
-            personalStakeHistoryPO.setUpdateTime(now);
+            personalStakeHistoryPO.setUpdateTime(now());
 
             if (diceHmacBean.isWin()) {
                 personalStakeHistoryPO.setAllWinAmt(personalStakeHistoryPO.getAllWinAmt().add(diceHmacBean.getRollerBean().getAmt()));

@@ -97,8 +97,8 @@ public abstract  class AbstractSettlementStrategy extends BaseService {
         drClearingOrderInnerPO.setAccountNo(drClearAccount.getAccountNo());
         drClearingOrderInnerPO.setAmt(amt);
         drClearingOrderInnerPO.setDrcr(DRCREnums.DR);
-        drClearingOrderInnerPO.setCreateTime(now);
-        drClearingOrderInnerPO.setUpdateTime(now);
+        drClearingOrderInnerPO.setCreateTime(now());
+        drClearingOrderInnerPO.setUpdateTime(now());
         clearingOrderInnerPOList.add(drClearingOrderInnerPO);
 
         // NOTE 内场-贷方
@@ -111,8 +111,8 @@ public abstract  class AbstractSettlementStrategy extends BaseService {
         crClearingOrderInnerPO.setAccountNo(crClearAccount.getAccountNo());
         crClearingOrderInnerPO.setAmt(amt);
         crClearingOrderInnerPO.setDrcr(DRCREnums.CR);
-        crClearingOrderInnerPO.setCreateTime(now);
-        crClearingOrderInnerPO.setUpdateTime(now);
+        crClearingOrderInnerPO.setCreateTime(now());
+        crClearingOrderInnerPO.setUpdateTime(now());
         clearingOrderInnerPOList.add(crClearingOrderInnerPO);
     }
 
@@ -128,8 +128,8 @@ public abstract  class AbstractSettlementStrategy extends BaseService {
         clearingOrderOuterPO.setPartyRole(outerClearingEntity.getPartyRoleEnums());
         clearingOrderOuterPO.setAmt(amt);
         clearingOrderOuterPO.setClearingCode(clearingCode);
-        clearingOrderOuterPO.setCreateTime(now);
-        clearingOrderOuterPO.setUpdateTime(now);
+        clearingOrderOuterPO.setCreateTime(now());
+        clearingOrderOuterPO.setUpdateTime(now());
     }
 
 }

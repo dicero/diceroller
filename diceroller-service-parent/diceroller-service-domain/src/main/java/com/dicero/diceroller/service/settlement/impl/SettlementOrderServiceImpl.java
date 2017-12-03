@@ -35,8 +35,8 @@ public class SettlementOrderServiceImpl extends BaseService implements Settlemen
         settlementCarrierPO.setSettlementType(settlementTypeEnums);
         settlementCarrierPO.setStatus(SettlementStatusEnums.W);
         settlementCarrierPO.setSummary("" + settlementTypeEnums.getDesc());
-        settlementCarrierPO.setCreateTime(now);
-        settlementCarrierPO.setUpdateTime(now);
+        settlementCarrierPO.setCreateTime(now());
+        settlementCarrierPO.setUpdateTime(now());
         settlementCarrierPO = settlementCarrierPORepository.save(settlementCarrierPO);
         if(settlementCarrierPO == null ) {
             throw CommonDefinedException.SYSTEM_ERROR("创建 清结算载体失败: "+ settlementCarrierPO);
@@ -50,8 +50,8 @@ public class SettlementOrderServiceImpl extends BaseService implements Settlemen
         settlementOrderPO.setSessionId(RandomUtil.randomUuid("SId"));
         settlementOrderPO.setPaymentSeqNo(tradeOrderPO.getTradeVoucherNo());
         settlementOrderPO.setStatus(SettlementStatusEnums.W);
-        settlementOrderPO.setCreateTime(now);
-        settlementOrderPO.setUpdateTime(now);
+        settlementOrderPO.setCreateTime(now());
+        settlementOrderPO.setUpdateTime(now());
         return settlementOrderPORepository.save(settlementOrderPO);
     }
 }

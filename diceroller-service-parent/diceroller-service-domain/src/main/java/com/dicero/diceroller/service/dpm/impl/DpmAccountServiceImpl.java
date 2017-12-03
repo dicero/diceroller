@@ -81,8 +81,8 @@ public class DpmAccountServiceImpl extends BaseService implements DpmAccountServ
                 innerAccountDetailPO.setTxnRemark("内场交易记录");
                 innerAccountDetailPO.setBeforeAmt(innerAccountPO.getBalance());
                 innerAccountDetailPO.setAfterAmt(balance);
-                innerAccountDetailPO.setCreateTime(now);
-                innerAccountDetailPO.setUpdateTime(now);
+                innerAccountDetailPO.setCreateTime(now());
+                innerAccountDetailPO.setUpdateTime(now());
 
                 innerAccountPO.setBalance(balance);
                 innerAccountPORepository.save(innerAccountPO);
@@ -133,8 +133,8 @@ public class DpmAccountServiceImpl extends BaseService implements DpmAccountServ
         outerAccountDetailPO.setTxnRemark("内场交易记录");
         outerAccountDetailPO.setBeforeAmt(outerAccountSubsetPO.getBalance());
         outerAccountDetailPO.setAfterAmt(balance);
-        outerAccountDetailPO.setCreateTime(now);
-        outerAccountDetailPO.setUpdateTime(now);
+        outerAccountDetailPO.setCreateTime(now());
+        outerAccountDetailPO.setUpdateTime(now());
 
         outerAccountSubsetPO.setBalance(balance);
         outerAccountSubsetPORepository.saveAndFlush(outerAccountSubsetPO);

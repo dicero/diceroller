@@ -33,10 +33,6 @@ public class StakeRest extends AbstractRest {
 
     @Autowired PlayService playService;
 
-    public static void main(String[] args) {
-        System.out.println(new BigDecimal("0.00000001").setScale(8,BigDecimal.ROUND_HALF_UP).compareTo(new BigDecimal(0.00000001).setScale(8,BigDecimal.ROUND_HALF_UP)));
-    }
-
     // NOTE: 派彩A (1.012-9900) 胜率B(0.01-98,当拖动划线的时候都为整数) 滚存C1, 反滚存C2
     @ApiOperation(value = "手动下注")
     @ApiImplicitParams({

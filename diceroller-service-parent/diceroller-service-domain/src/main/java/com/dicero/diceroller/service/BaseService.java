@@ -15,9 +15,12 @@ import java.util.List;
  * @version 2017/10/31
  */
 public class BaseService {
-    public static Timestamp now = new Timestamp(new Date().getTime());
 
     @PersistenceContext EntityManager em;
+
+    public static Timestamp now(){
+        return new Timestamp(new Date().getTime());
+    }
 
     @Transactional
     public boolean batchInsert(List list) {

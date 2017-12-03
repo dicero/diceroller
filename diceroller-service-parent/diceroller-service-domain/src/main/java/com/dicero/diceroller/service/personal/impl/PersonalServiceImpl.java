@@ -47,8 +47,8 @@ public class PersonalServiceImpl extends BaseService implements PersonalService 
     public PersonalMemberPO register(String loginUsername) {
         PersonalMemberPO personalMemberPO = new PersonalMemberPO();
         personalMemberPO.setMemberAccount(loginUsername);
-        personalMemberPO.setCreateTime(now);
-        personalMemberPO.setUpdateTime(now);
+        personalMemberPO.setCreateTime(now());
+        personalMemberPO.setUpdateTime(now());
         personalMemberPO =  personalMemberPORepository.save(personalMemberPO);
 
 
@@ -64,16 +64,16 @@ public class PersonalServiceImpl extends BaseService implements PersonalService 
         PersonalInfoPO personalInfoPO = new PersonalInfoPO();
         personalInfoPO.setMemberId(personalMemberPO.getMemberId());
         personalInfoPO.setNotifyBitAddress(ethAddressPO.getAddress());
-        personalInfoPO.setCreateTime(now);
-        personalInfoPO.setUpdateTime(now);
+        personalInfoPO.setCreateTime(now());
+        personalInfoPO.setUpdateTime(now());
         personalInfoPORepository.save(personalInfoPO);
 
         // NOTE: 初始化用户种子
         PersonalSeedPO personalSeedPO = new PersonalSeedPO();
         personalSeedPO.setMemberId(personalInfoPO.getMemberId());
         personalSeedPO.setDefaultUse(1);
-        personalSeedPO.setCreateTime(now);
-        personalSeedPO.setUpdateTime(now);
+        personalSeedPO.setCreateTime(now());
+        personalSeedPO.setUpdateTime(now());
         personalSeedPO.setServerSeed(playService.createServerSeed());
         personalSeedPO.setClientSeed(playService.createClientSeed());
         personalSeedPO.setServerSeedHash(EncryptUtil.SHA256(personalSeedPO.getServerSeed()));
