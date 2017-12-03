@@ -90,18 +90,18 @@ public class MemberRest extends AbstractRest {
     })
     @WebAccess
     @RequestMapping(method = { RequestMethod.POST }, path="/seed", produces = "application/json")
-    public RestResponse seed(@ApiIgnore final WebLoginer webLoginer , final int newSeedId, final String clientSeed) {
+    public RestResponse seed(@ApiIgnore final WebLoginer webLoginer , final int newSeedId, final String newClientSeed) {
         return new RestExecuteContrl() {
             @Override
             protected void validate() throws Exception {
-                Validate.notBlank(clientSeed, "clientSeed 不能为空");
+                Validate.notBlank(newClientSeed, "clientSeed 不能为空");
                 Validate.notNull(newSeedId, "newSeedId 不能为空");
-                Validate.isTrue(clientSeed.length() > 30, "clientSeed 不能少于30个字符串");
+                Validate.isTrue(newClientSeed.length() > 30, "clientSeed 不能少于30个字符串");
             }
 
             @Override
             protected RestResponse process() throws Exception {
-                boolean result = playService.updatePersonalSeedByTmp(newSeedId, webLoginer.getId(), clientSeed);
+                boolean result = playService.updatePersonalSeedByTmp(newSeedId, webLoginer.getId(), newClientSeed);
                 return result ? RestResponse.createSuccess() : RestResponse.createFailure();
             }
         }.run();
