@@ -96,7 +96,7 @@ public class MemberRest extends AbstractRest {
             protected void validate() throws Exception {
                 Validate.notBlank(newClientSeed, "clientSeed 不能为空");
                 Validate.notNull(newSeedId, "newSeedId 不能为空");
-                Validate.isTrue(newClientSeed.length() > 30, "clientSeed 不能少于30个字符串");
+                Validate.isTrue(newClientSeed.length() < 30, "clientSeed 不能大于30个字符串");
             }
 
             @Override
