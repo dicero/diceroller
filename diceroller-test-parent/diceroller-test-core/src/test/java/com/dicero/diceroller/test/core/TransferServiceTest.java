@@ -38,13 +38,16 @@ public class TransferServiceTest  extends AbstractEtheTest {
      */
     @Test
     public void testSendFunds() throws Exception {
-        BigDecimal amountEther = BigDecimal.valueOf(0.123);
+        BigDecimal amountEther = BigDecimal.valueOf(0.1);
         BigInteger amountWei = Convert.toWei(amountEther, Convert.Unit.KETHER).toBigInteger();
 
         ensureFunds(Alice.ADDRESS, amountWei);
 
         BigInteger fromBalanceBefore = getBalanceWei(Alice.ADDRESS);
         BigInteger toBalanceBefore = getBalanceWei(Bob.ADDRESS);
+
+        System.out.println("Alice: "+ getBalanceWei(Alice.ADDRESS));
+        System.out.println("Bob: "+ getBalanceWei(Bob.ADDRESS));
 
         // this is the method to test here
         RemoteCall<TransactionReceipt> txReceipt = Transfer.sendFunds(

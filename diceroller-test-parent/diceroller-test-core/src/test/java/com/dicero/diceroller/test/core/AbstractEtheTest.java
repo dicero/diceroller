@@ -36,6 +36,7 @@ public class AbstractEtheTest extends TestBase {
 
     @Before
     public void setUp() throws Exception {
+        // FIXME: geth  --datadir './'  --dev console -rpc -rpcaddr=localhost -rpcport=8545
         web3j = Web3jUtils.buildHttpClient(Web3jConstants.CLIENT_IP, Web3jConstants.CLIENT_PORT);
     }
 
