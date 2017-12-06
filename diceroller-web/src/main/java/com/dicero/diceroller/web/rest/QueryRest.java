@@ -1,5 +1,6 @@
 package com.dicero.diceroller.web.rest;
 
+import com.dicero.diceroller.common.bean.result.RestCode;
 import com.dicero.diceroller.common.bean.result.RestResponse;
 import com.dicero.diceroller.common.util.EncryptUtil;
 import com.dicero.diceroller.dal.mysql.repository.*;
@@ -10,10 +11,7 @@ import com.dicero.diceroller.service.personal.PersonalService;
 import com.dicero.diceroller.service.play.PlayService;
 import com.dicero.diceroller.web.hepler.WebLoginer;
 import com.dicero.diceroller.web.interceptor.WebAccess;
-import com.dicero.diceroller.web.rest.vo.BillVO;
-import com.dicero.diceroller.web.rest.vo.MemberSeedVO;
-import com.dicero.diceroller.web.rest.vo.StakeCollectVO;
-import com.dicero.diceroller.web.rest.vo.StakeVO;
+import com.dicero.diceroller.web.rest.vo.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -142,6 +140,38 @@ public class QueryRest extends AbstractRest {
     }
 
     @WebAccess
+    @ApiOperation(value = "根据押注id，查询押注数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "stakeId", value = "押注id", required = true, dataType = "String", paramType = "query")
+    })
+    @RequestMapping(method = { RequestMethod.POST }, path="/stakeById", produces = "application/json")
+    public RestResponse stakeById(@ApiIgnore final WebLoginer webLoginer, final String stakeId) {
+        return new RestExecuteContrl() {
+            @Override
+            protected void validate() throws Exception {
+                Validate.notBlank(stakeId, "stakeId 不能为空");
+            }
+
+            @Override
+            protected RestResponse process() throws Exception {
+                VerifyStakeVO verifyStakeVO = new VerifyStakeVO();
+                PersonalStakePO personalStakePO = personalStakePORepository.findByStakeIdAndMemberId(stakeId, webLoginer.getId());
+                if (personalStakePO != null) {
+                    StakeVO stakeVO = personalStakeDTO(personalStakePO);
+                    BeanUtils.copyProperties(stakeVO, verifyStakeVO);
+                    PersonalSeedPO personalSeedPO = personalSeedPORepository.findOne(personalStakePO.getSeedId());
+                    verifyStakeVO.setServerSeedHashEd(personalSeedPO.getServerSeedHash());
+                    verifyStakeVO.setClientSeedEd(personalSeedPO.getClientSeed() + "-" + personalStakePO.getNonce());
+                    return RestResponse.createSuccess(verifyStakeVO);
+                } else {
+                    return RestResponse.createFailure(RestCode.DATA_NOT_EXIST);
+                }
+
+            }
+        }.run();
+    }
+
+    @WebAccess
     @ApiOperation(value = "查询押注")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "page", value = "分页，页数", required = true, dataType = "Integer", paramType = "query"),
@@ -176,31 +206,7 @@ public class QueryRest extends AbstractRest {
                 List<StakeVO> data = new ArrayList<>();
                 for (PersonalStakePO personalStakePO : personalStakePOList) {
 
-                    StakeVO stakeVO = new StakeVO();
-                    stakeVO.setStakeId(personalStakePO.getStakeId());
-                    stakeVO.setUsername(personalStakePO.getUsername());
-                    stakeVO.setAmt(personalStakePO.getAmt().toPlainString());
-                    stakeVO.setChangeAmt(personalStakePO.getChangeAmt().toPlainString());
-
-                    if (personalStakePO.getFundType().equals(FundTypeEnums.FI)) {
-                        stakeVO.setChangeAmtTag("+" + personalStakePO.getChangeAmt().toPlainString());
-                    } else {
-                        stakeVO.setChangeAmtTag("-" + personalStakePO.getChangeAmt().toPlainString());
-                    }
-
-                    stakeVO.setFundType(personalStakePO.getFundType());
-                    stakeVO.setTarget(personalStakePO.getTarget().toPlainString());
-
-                    if (personalStakePO.getTargetCondition() == 1) {
-                        stakeVO.setTargetTag(">" + personalStakePO.getTarget().toPlainString());
-                    } else {
-                        stakeVO.setTargetTag("<" + personalStakePO.getTarget().toPlainString());
-                    }
-
-                    stakeVO.setTargetCondition(personalStakePO.getTargetCondition());
-                    stakeVO.setPayout(personalStakePO.getPayout().toPlainString());
-                    stakeVO.setRandomResult(String.valueOf(personalStakePO.getRandomResult()));
-                    stakeVO.setCreateTime(DateUtil.formatDate(personalStakePO.getCreateTime(), "yyyy/MM/dd HH:mm:ss"));
+                    StakeVO stakeVO = personalStakeDTO(personalStakePO);
 
                     data.add(stakeVO);
                 }
@@ -208,6 +214,35 @@ public class QueryRest extends AbstractRest {
                 return RestResponse.createSuccess(data);
             }
         }.run();
+    }
+
+    private StakeVO personalStakeDTO(PersonalStakePO personalStakePO) {
+        StakeVO stakeVO = new StakeVO();
+        stakeVO.setStakeId(personalStakePO.getStakeId());
+        stakeVO.setUsername(personalStakePO.getUsername());
+        stakeVO.setAmt(personalStakePO.getAmt().toPlainString());
+        stakeVO.setChangeAmt(personalStakePO.getChangeAmt().toPlainString());
+
+        if (personalStakePO.getFundType().equals(FundTypeEnums.FI)) {
+            stakeVO.setChangeAmtTag("+" + personalStakePO.getChangeAmt().toPlainString());
+        } else {
+            stakeVO.setChangeAmtTag("-" + personalStakePO.getChangeAmt().toPlainString());
+        }
+
+        stakeVO.setFundType(personalStakePO.getFundType());
+        stakeVO.setTarget(personalStakePO.getTarget().toPlainString());
+
+        if (personalStakePO.getTargetCondition() == 1) {
+            stakeVO.setTargetTag(">" + personalStakePO.getTarget().toPlainString());
+        } else {
+            stakeVO.setTargetTag("<" + personalStakePO.getTarget().toPlainString());
+        }
+
+        stakeVO.setTargetCondition(personalStakePO.getTargetCondition());
+        stakeVO.setPayout(personalStakePO.getPayout().toPlainString());
+        stakeVO.setRandomResult(String.valueOf(personalStakePO.getRandomResult()));
+        stakeVO.setCreateTime(DateUtil.formatDate(personalStakePO.getCreateTime(), "yyyy/MM/dd HH:mm:ss"));
+        return stakeVO;
     }
 
     @WebAccess

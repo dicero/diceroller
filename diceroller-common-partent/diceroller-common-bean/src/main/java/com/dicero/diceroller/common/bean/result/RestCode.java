@@ -24,6 +24,9 @@ public abstract class RestCode {
     // NOTE: 重复的请求
     public static CodeMessage DUPLICATE_REQUEST_NO = new CodeMessage(103,"重复的请求");
 
+    // NOTE: 数据不存在
+    public static CodeMessage DATA_NOT_EXIST = new CodeMessage(104,"数据不存在");
+
     // NOTE: 请求参数校检不通过
     public static CodeMessage PARAMES_ERROR = new CodeMessage(198,"请求参数校检不通过");
 

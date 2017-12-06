@@ -19,6 +19,8 @@ import java.util.List;
 public interface PersonalStakePORepository extends JpaRepository<PersonalStakePO, Integer> {
     PersonalStakePO findByStakeId(String stakeId);
 
+    PersonalStakePO findByStakeIdAndMemberId(String stakeId, Integer memberId);
+
     List<PersonalStakePO> findAllByMemberId(Integer memberId, Pageable pageable);
 
     List<PersonalStakePO> findAllByMemberIdAndEffective(Integer memberId, EffectiveEnums effectiveEnums, Pageable pageable);
