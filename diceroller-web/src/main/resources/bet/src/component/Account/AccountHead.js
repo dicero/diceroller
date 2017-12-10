@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import {observer, inject} from "mobx-react";
-import { Layout, Tabs ,Menu} from 'antd';
+import {Menu} from 'antd';
 import './Head.less';
 import {
     Link
 } from 'react-router-dom'
-const {Content, Sider } = Layout;
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
 
 @inject((allStores) => ({
     userName: allStores.dialogStore.userNameToJs

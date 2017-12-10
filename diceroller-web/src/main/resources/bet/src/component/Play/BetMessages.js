@@ -34,13 +34,13 @@ import {observer, inject} from "mobx-react";
                     </div>
                 </div>
                 <div className={`message ${tab===1 ? '':'no'}`}>
-                    <img src="../../../images/reload.svg" />
+                    {/* <img src="../../../images/reload.svg" alt=''/> */}
                     <div className="totalAmount amount">
                         <span className="label">
                             下注总金额
                         </span>
                         <span>
-                        {historyCollect.allStakeAmt} BTC
+                        {historyCollect.allStakeAmt} ETH
                         </span>
                     </div>
                     <div className="totalProfit amount">
@@ -48,7 +48,7 @@ import {observer, inject} from "mobx-react";
                             全部利润
                         </span>
                         <span>
-                        {historyCollect.allWinAmt} BTC
+                        {historyCollect.allWinAmt} ETH
                         </span>
                     </div>
                     <div className="wrapper">
@@ -89,13 +89,13 @@ import {observer, inject} from "mobx-react";
                     </div>
                 </div>
                 <div className={`message ${tab===2 ? '':'no'}`}>
-                    <img src="../../../images/reload.svg" />
+                    {/* <img src="../../../images/reload.svg" alt=''/> */}
                     <div className="totalAmount amount">
                         <span className="label">
                             下注总金额
                         </span>
                         <span>
-                            {todayCollect.allStakeAmt} BTC
+                            {todayCollect.allStakeAmt} ETH
                         </span>
                     </div>
                     <div className="totalProfit amount">
@@ -103,7 +103,7 @@ import {observer, inject} from "mobx-react";
                             全部利润
                         </span>
                         <span>
-                        {todayCollect.allWinAmt} BTC
+                        {todayCollect.allWinAmt} ETH
                         </span>
                     </div>
                     <div className="wrapper">

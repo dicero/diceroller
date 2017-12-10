@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import {Row, Col, Input, Button } from 'antd';
-import Pubsub from 'pubsub-js';
+import {Input, Button } from 'antd';
 class AutoBet extends Component {
     constructor(props) {
         super(props);
@@ -57,7 +56,7 @@ class AutoBet extends Component {
         e.stopPropagation();
     }
 	render() {
-        const {betNum = 0, rate, payout, profit, loseScale, winScale, loseSwitch, winSwitch, betTimes} = this.props;
+        const {betNum = 0, rate, payout, loseScale, winScale, loseSwitch, winSwitch, betTimes} = this.props;
         const {onChangeBetValue, onChangePayout, onChangeRate, onChangeBetCount, onChangeWinSwitch, onChangeLoseSwitch, onChangeLoseScale, onChangeWinScale, onChangeBetTimes} = this.props;
         const {payoutShow ,rateShow} = this.state;
         const rollover = parseFloat(99.99 - rate).toFixed(2)
@@ -74,7 +73,7 @@ class AutoBet extends Component {
                     <div className="fl betTime pr" style={{width: "248px"}}>
                         <p className="label">投掷次数</p>
                         <Input type="number" size="large" className="betMnoey" value={betTimes} onChange={(e) => onChangeBetTimes(e.target.value)} />
-                        {parseInt(betTimes)? null : <span>（没有限制）</span>}
+                        {parseInt(betTimes) ? null : <span>（没有限制）</span>}
                     </div>
                 </div>
                 <div className="winRate">

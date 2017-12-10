@@ -55,7 +55,7 @@ class PageFooter extends Component {
                     </div>
                     <Link to="/play" className="logo">  
                         <div className="footer-logo">
-                            <img src="../../images/logo.svg" alt="logo"/>
+                            {/* <img src="../../images/logo.svg" alt="logo"/> */}
                             <span>© 2013 - 2017 Diceroller.</span>
                         </div>
                     </Link>

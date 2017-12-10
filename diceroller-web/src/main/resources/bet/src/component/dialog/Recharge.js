@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Modal , message, Button} from 'antd';
+import {Modal , message} from 'antd';
 import './Recharge.less';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 const info = () => {

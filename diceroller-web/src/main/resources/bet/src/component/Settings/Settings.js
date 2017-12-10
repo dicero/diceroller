@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import {observer, inject} from "mobx-react";
-import { Layout, Tabs, Icon, Input} from 'antd';
+import { Layout, Icon, Input} from 'antd';
 import './Settings.less';
-import {
-    Link
-} from 'react-router-dom';
 import Head from '../Account/AccountHead.js';
-const {Content, Sider } = Layout;
+const {Content } = Layout;
 
 @inject((allStores) => ({
     userName: allStores.dialogStore.userNameToJs,
@@ -53,7 +50,7 @@ const {Content, Sider } = Layout;
         this.props.verifyHasPassword();
     }
     render() {
-        const {userName, hasPassword, setPassword, updatePassword} = this.props;
+        const {hasPassword, setPassword, updatePassword} = this.props;
         const { oldPassword, password , newPassword} = this.state;
         const suffix1 = password ? <Icon type="close-circle" onClick={this.emitEmpty1} /> : null;
         const suffix2 = newPassword ? <Icon type="close-circle" onClick={this.emitEmpty2} /> : null;

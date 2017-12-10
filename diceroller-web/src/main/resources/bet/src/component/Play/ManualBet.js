@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Row, Col, Input, Button } from 'antd';
+import {Input, Button } from 'antd';
 import {observer, inject} from "mobx-react";
 
 @inject((allStores) => ({
