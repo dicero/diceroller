@@ -6,7 +6,7 @@ set -o pipefail
 baseDir="./diceroller-code-parent/diceroller-core-engine/src/main/resources/solidity"
 
 targets="
-greeter/Greeter
+greeter/TxAttackWallet
 "
 
 for target in ${targets}; do

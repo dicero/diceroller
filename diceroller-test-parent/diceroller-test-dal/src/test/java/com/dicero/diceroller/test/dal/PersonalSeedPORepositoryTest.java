@@ -1,6 +1,7 @@
 package com.dicero.diceroller.test.dal;
 
 import com.dicero.diceroller.TestBase;
+import com.dicero.diceroller.common.util.EncryptUtil;
 import com.dicero.diceroller.dal.mysql.repository.PersonalSeedPORepository;
 import com.dicero.diceroller.domain.model.PersonalSeedPO;
 import org.junit.Assert;
@@ -42,7 +43,7 @@ public class PersonalSeedPORepositoryTest extends TestBase {
         record.setMemberId(2000000021);
         record.setClientSeed("2222223333334444445555666");
         record.setServerSeed("2222223333334444445555666");
-        record.setServerSeedHash("2222223333334444445555666");
+        record.setServerSeedHash(EncryptUtil.SHA256(record.getServerSeed()));
         record.setDefaultUse(1);
         record.setCreateTime(now);
         record.setUpdateTime(now);
