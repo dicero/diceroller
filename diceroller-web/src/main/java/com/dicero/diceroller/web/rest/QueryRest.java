@@ -335,7 +335,7 @@ public class QueryRest extends AbstractRest {
                     if (personalSeedPO != null) {
                         BeanUtils.copyProperties(personalSeedPO, memberSeedVO);
                         if (personalSeedPO.getDefaultUse() == 1) {
-                            personalSeedPO.setServerSeedHash("");
+                            memberSeedVO.setServerSeed("");
                         }
                     }
 
