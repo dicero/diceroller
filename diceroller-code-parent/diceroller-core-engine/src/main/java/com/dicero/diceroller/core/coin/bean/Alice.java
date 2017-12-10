@@ -11,7 +11,7 @@ import org.web3j.utils.Numeric;
  * @version 2017/11/18
  */
 public class Alice {
-    static final String PRIVATE_KEY = "0xa392604efc2fad9c0b3da43b5f698a2e3f270f170d859912be0d54742275c5f6";
+    static final String PRIVATE_KEY = "8f55aacc7e6b085cc85fccb7059b7fb4ff6529384eadce2a731df6fd52bc93c3";
     static final String PUBLIC_KEY =  "0a8a36cfcfaf801d50e6c0cd1167c84dcee79444080d3c26e96006b8fbace951427e20f92632e4ccb543ee6d0ae9b9ab8dae005a3b49b991b15f941808959678";
     static final ECKeyPair KEY_PAIR = new ECKeyPair(Numeric.toBigInt(PRIVATE_KEY), Numeric.toBigInt(PUBLIC_KEY));
 

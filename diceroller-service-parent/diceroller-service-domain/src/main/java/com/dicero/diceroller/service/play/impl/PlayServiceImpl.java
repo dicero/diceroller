@@ -97,7 +97,7 @@ public class PlayServiceImpl extends BaseService implements PlayService{
     @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean updatePersonalSeedByTmp(Integer newSeedId, Integer memberId, String clientSeed) {
-        PersonalSeedTmpPO personalSeedTmpPO = personalSeedTmpPORepository.findByIdAndMemberIdAndClientSeedAndDefaultOver(newSeedId, memberId, clientSeed, 0);
+        PersonalSeedTmpPO personalSeedTmpPO = personalSeedTmpPORepository.findByIdAndMemberIdAndDefaultOver(newSeedId, memberId, 0);
         if (personalSeedTmpPO != null ) {
 
             // NOTE: 更新老的数据
@@ -107,9 +107,9 @@ public class PlayServiceImpl extends BaseService implements PlayService{
             // NOTE: 更换种子
             PersonalSeedPO defaultPersonalSeedPO = new PersonalSeedPO();
             defaultPersonalSeedPO.setMemberId(memberId);
-            defaultPersonalSeedPO.setClientSeed(personalSeedTmpPO.getClientSeed());
+            defaultPersonalSeedPO.setClientSeed(clientSeed);
             defaultPersonalSeedPO.setServerSeed(personalSeedTmpPO.getServerSeed());
-            defaultPersonalSeedPO.setServerSeedHash(EncryptUtil.SHA256(personalSeedTmpPO.getServerSeed()));
+            defaultPersonalSeedPO.setServerSeedHash(EncryptUtil.SHA256(defaultPersonalSeedPO.getServerSeed()));
             defaultPersonalSeedPO.setCreateTime(now());
             defaultPersonalSeedPO.setUpdateTime(now());
             defaultPersonalSeedPO.setDefaultUse(1);
@@ -259,7 +259,7 @@ public class PlayServiceImpl extends BaseService implements PlayService{
         // NOTE: A=1/((B/99)取小数点后四位) 取小数点后两位
 
         BigDecimal a = BigDecimal.ONE.divide(b.divide(new BigDecimal(99), 4 , BigDecimal.ROUND_HALF_UP), 2 , BigDecimal.ROUND_HALF_UP);
-        rollerBean.setPayout(b);
+        rollerBean.setPayout(a);
         if (AmtUtil.compareTo(b, new BigDecimal(0)) > 0) {
 
             rollerBean.setChangeAmt(

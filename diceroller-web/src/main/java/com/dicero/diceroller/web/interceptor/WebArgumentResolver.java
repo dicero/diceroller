@@ -22,7 +22,7 @@ public class WebArgumentResolver implements HandlerMethodArgumentResolver {
 	public Object resolveArgument(MethodParameter arg0, ModelAndViewContainer arg1, NativeWebRequest webRequest,
 			WebDataBinderFactory arg3) throws Exception {
         HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
-        // FIXME: 写死账户 return HelperCookie.getLoginWeb(request);
+//         FIXME: 写死账户 return HelperCookie.getLoginWeb(request);
 //        WebLoginer webLoginer = new WebLoginer(2000000014, "alex");
 //        return webLoginer;
         return HelperCookie.getLoginWeb(request);

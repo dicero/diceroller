@@ -52,9 +52,13 @@ public class AbstractEthe {
         });
 
 
+
         // NOTE: To receive all new transactions as they are added to the blockchain:
         Subscription subscription2 = web3j.transactionObservable().subscribe(tx -> {
             System.out.println("To receive all new transactions: " + tx);
+            System.out.println("To receive all new transactions getFrom: " + tx.getFrom());
+            System.out.println("To receive all new transactions getPublicKey: " + tx.getPublicKey());
+            System.out.println("To receive all new transactions getGas: " + tx.getGas());
         });
 
         // NOTE: To receive all pending transactions as they are submitted to the network (i.e. before they have been grouped into a block together):

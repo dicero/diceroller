@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface PersonalSeedTmpPORepository extends JpaRepository<PersonalSeedTmpPO, Integer> {
     PersonalSeedTmpPO findByMemberIdAndDefaultOver(Integer memberId, int defaultOver);
 
-    PersonalSeedTmpPO findByIdAndMemberIdAndClientSeedAndDefaultOver(Integer id, Integer memberId, String clientSeed, int defaultOver);
+    PersonalSeedTmpPO findByIdAndMemberIdAndDefaultOver(Integer id, Integer memberId, int defaultOver);
 
     @Transactional
     @Modifying
