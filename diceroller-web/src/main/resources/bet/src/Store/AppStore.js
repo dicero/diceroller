@@ -380,7 +380,7 @@ export default class AppStore {
         this.getSakeCollect();
         this.getAllStakes();
         setInterval(() => {
-            //this.getAllStakes();
+            this.getAllStakes();
         }, 5000)
         
     }
