@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Slider, InputNumber, Row, Col, Icon} from 'antd';
+import { Slider, Row, Col} from 'antd';
 import {observer, inject} from "mobx-react";
 
 @inject((allStores) => ({
@@ -10,9 +10,6 @@ import {observer, inject} from "mobx-react";
   showMark: allStores.appStore.showMark,
   marks: allStores.appStore.marks
 }))@observer class RateSlider extends Component {
-    constructor(props) {
-      super(props)
-    }
     tipFormatter(value) {
       return this.props.diceRoll;
     }
@@ -35,7 +32,7 @@ import {observer, inject} from "mobx-react";
     }
     render() {
       const {diceRoll, rollOver} = this.props;
-      let min, max;
+      
       const marks = {
         0: {
           style: {
@@ -53,13 +50,7 @@ import {observer, inject} from "mobx-react";
           label: 100
         }
       }
-      if (rollOver) {
-        min = 2;
-        max = 99;
-      } else {
-        min = 1;
-        max = 98;
-      }
+  
       return (
         <div style={{marginTop: "70px", position: 'relative'}}>
           <div className="sliderWarp">

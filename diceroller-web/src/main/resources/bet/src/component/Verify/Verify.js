@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Layout, Tabs} from 'antd';
+import { Layout} from 'antd';
 import './Verify.less';
 import {
     Link
 } from 'react-router-dom'
-const {Content, Sider } = Layout;
+const {Content } = Layout;
 
 class Verify extends Component {
     render() {

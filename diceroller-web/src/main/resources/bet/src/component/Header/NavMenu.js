@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
-import { Menu, Icon, Row, Col, Input ,Modal ,Button} from 'antd';
-import PubSub from 'pubsub-js';
+import { Menu, Icon, Row, Col } from 'antd';
 import {observer, inject} from "mobx-react";
 import {
     Link
 } from 'react-router-dom';
-import axios from 'axios';
 import Equity from '../dialog/Equity.js';
 import BetDetail from '../dialog/BetDetail.js';
 import Recharge from '../dialog/Recharge.js';
 import Withdrawal from '../dialog/Withdrawal.js';
 import Login from '../dialog/Login.js';
 const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
 
 @inject((allStores) => ({
     loginVisible: allStores.appStore.loginVisible,
@@ -35,8 +32,6 @@ const MenuItemGroup = Menu.ItemGroup;
         this.setEquityVisible = this.setEquityVisible.bind(this);
         this.setRechargeVisible = this.setRechargeVisible.bind(this);
         this.setWithdrawalVisible = this.setWithdrawalVisible.bind(this);
-        console.log(this.props.name)
-        console.log(PubSub)
     }
     componentDidMount() {
         // window.totalMoney = this.state.totalMoney;
@@ -85,7 +80,7 @@ const MenuItemGroup = Menu.ItemGroup;
                     mode="horizontal"
                 >
                     <Menu.Item key="play">
-                        <Link to='/play'>Diceroller</Link>
+                        <Link to='/play' style={{fontFamily: "serif",fontSize: "24px"}}>Diceroller</Link>
                     </Menu.Item>
                     <Menu.Item key="app">
                         <span onClick={() => this.setEquityVisible(true)}>公平性</span>
@@ -100,18 +95,18 @@ const MenuItemGroup = Menu.ItemGroup;
                     </SubMenu>
                     <SubMenu title={<span>更多</span>}>
                         <Menu.Item key="/hall-of-fame">名人堂</Menu.Item>
-                        <Menu.Item key="/verify"><Link to='/verify'>验证</Link></Menu.Item>
-                        <Menu.Item key="/account/affiliate">推荐用户</Menu.Item>
+                        <Menu.Item key="/verify"><Link to='/verify'> 公平性验证</Link></Menu.Item>
+                        <Menu.Item key="/contract"><Link to='/contract'> 智能合约</Link></Menu.Item>
                     </SubMenu>
 
                 </Menu>
                 </Col>
                 <Col span={12}>
                 <span style={{position:'relative'}}>
-                    <span className="totalMoney">{balance} BTC</span>
+                    <span className="totalMoney">{balance} ETH</span>
                     <span className={this.props.showAmt ? "changeAmt" : "changeAmt no"}
                     style={changeAmtSy}
-                    >{this.props.changeAmt} BTC</span>
+                    >{this.props.changeAmt} ETH</span>
                 </span>
                 
                 

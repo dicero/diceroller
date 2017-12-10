@@ -7,11 +7,51 @@ export default class DialogStore {
         this.rootStore = rootStore;
     }
     @observable userName = '';
-    @observable loginVisible = true;
 
+    @observable loginVisible = true;
+    
+    @observable equity = {
+        cur: {
+            serverSeed: '暂无',
+            clientSeed: '暂无',
+            serverSeedHash: '暂无',
+            sumNonce: '暂无',
+        },
+        pre: {
+            serverSeed: '暂无',
+            clientSeed: '暂无',
+            serverSeedHash: '暂无',
+            sumNonce: '暂无',
+        },
+        new: {
+            newClientSeed: '暂无',
+            newServerSeedHash: '暂无',
+            newSeedId: '暂无'
+        }
+    }
+
+    @observable userSeed = ''; //用户种子id
+
+    @observable queryBetId = ''; //  查询id
+
+    @observable stakeDetail = {} // 押注数据
+     
+    @observable betDetailVisible = false;
     @computed
     get userNameToJs() {
         return mobx.toJS(this.userName)
+    }
+    @computed
+    get equityToJs() {
+        return mobx.toJS(this.equity)
+    }
+    @action.bound
+    setUserSeend(id) {
+        this.userSeed = id;
+    }
+    @action.bound
+    setQueryBetId(id) {
+        this.queryBetId = id;
     }
     @action.bound
     isShowLogin() {
@@ -36,7 +76,6 @@ export default class DialogStore {
             }
           })
             .then((response) => {
-                let msg = '';
                 switch(response.data.code) {
                     case 100:
                         message.info('登陆成功');
@@ -58,5 +97,66 @@ export default class DialogStore {
                     break;
                 }
             })
+    }
+    //  查询拥有的种子
+    @action.bound
+    queryPosessSeed() {
+        let copyEquity = this.equityToJs;
+        axios({
+            method: 'post',
+            url: '/rest/query/possessSeed'
+          })
+          .then((response) =>{
+                if (response.data.code === 100) {
+                    let data = response.data.data;
+                    copyEquity.cur = data.list[0];
+                    copyEquity.pre = data.list[1] ? data.list[1] : copyEquity.pre;
+                    copyEquity.new.newClientSeed =  data.newClientSeed;
+                    copyEquity.new.newSeedId =  data.newSeedId;
+                    copyEquity.new.newServerSeedHash =  data.newServerSeedHash;
+                    this.equity = copyEquity;
+                    this.setUserSeend(data.newClientSeed);
+                }
+          })
+    }
+    //  更改种子
+    @action.bound
+    changeSeed() {
+        axios({
+            method: 'post',
+            url: '/rest/member/seed',
+            params: {
+                newClientSeed: this.userSeed,
+                newSeedId: this.equity.new.newSeedId
+            }
+          })
+          .then((response) =>{
+              if(response.data.code === 100) {
+                  this.queryPosessSeed()
+              }
+          })
+    }
+    //  根据押注id，查询押注数据
+    @action.bound
+    queryStakeById(queryBetId) {
+        axios({
+            method: 'post',
+            url: '/rest/query/stakeById',
+            params: {
+                stakeId: queryBetId
+            }
+        })
+            .then((response) => {
+                if (response.data.code === 100) {
+                    let data = response.data.data;
+                    this.stakeDetail = data;
+                    this.setBetDetailVisible(true);
+                }
+            })
+    }
+    //  设置押注详情显示展示
+    @action.bound
+    setBetDetailVisible(flag) {
+        this.betDetailVisible = flag
     }
 }

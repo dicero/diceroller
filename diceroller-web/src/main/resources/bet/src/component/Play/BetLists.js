@@ -1,77 +1,146 @@
 import React, { Component } from 'react';
-import { Table , Tabs} from 'antd';
+import {Tabs} from 'antd';
 import {observer, inject} from "mobx-react";
+import {velocityHelpers, VelocityTransitionGroup} from 'velocity-react';
+import 'velocity-animate/velocity.ui'
 const TabPane = Tabs.TabPane;
+const duration = 500;
+const Animations = {
+    // Register these with UI Pack so that we can use stagger later.
+    In: velocityHelpers.registerEffect({
+      calls: [
+        [{
+          transformPerspective: [ 800, 800 ],
+          transformOriginX: [ '50%', '50%' ],
+          transformOriginY: [ '100%', '100%' ],
+          marginBottom: 0,
+          opacity: 1,
+          rotateX: [0, 130],
+        }, 1, {
+          easing: 'ease-out',
+          display: 'block',
+        }]
+      ],
+    }),
+  
+    Out: velocityHelpers.registerEffect({
+      calls: [
+        [{
+          transformPerspective: [ 800, 800 ],
+          transformOriginX: [ '50%', '50%' ],
+          transformOriginY: [ '0%', '0%' ],
+          marginBottom: -30,
+          opacity: 0,
+          rotateX: -70,
+        }, 1, {
+          easing: 'ease-out',
+          display: 'block',
+        }]
+      ],
+    }),
+  };
+  const enterAnimation = {
+    animation: Animations.In,
+    stagger: duration,
+    duration: duration,
+    backwards: true,
+    display: 'block',
+    style: {
+      // Since we're staggering, we want to keep the display at "none" until Velocity runs
+      // the display attribute at the start of the animation.
+      display: 'none',
+    },
+  };
+  const leaveAnimation = {
+    animation: Animations.Out,
+    stagger: duration,
+    duration: duration,
+    backwards: true,
+  };
+  const groupStyle = {
+	display: "flex",
+    flexDirection: "column",
+    width: "100%"
+  };
 @inject((allStores) => ({
     myStakes: allStores.appStore.myStakesToJs,
     allStakes: allStores.appStore.allStakesToJs,
     highStakes: allStores.appStore.highStakesToJs,
+    queryStakeById: allStores.dialogStore.queryStakeById,
 }))@observer class BetLists extends Component {
+	buildLi(data) {
+		return data.map((item, index) => {
+			let changeAmtTag ; 
+			if (item.fundType === 'FO') {
+				changeAmtTag = <span className="red">{item.changeAmtTag.slice(1)}</span>
+			} else {
+				changeAmtTag = <span className="green">{item.changeAmtTag.slice(1)}</span>
+			}
+		  return (
+			<li key={item.stakeId}>
+				<span>
+					<a onClick={this.props.queryStakeById.bind(this, item.stakeId)}>
+					{item.stakeId}
+					</a>
+				</span>
+				<span>{item.username}</span>
+				<span>{item.createTime}</span>
+				<span>{item.amt}</span>
+				<span>{item.payout}</span>
+				<span>{item.targetTag}</span>
+				<span>{item.randomResult}</span>
+				{changeAmtTag}
+			</li>
+			)
+	  })
+	}
     render() {
-        const columns = [{
-            title: '押注ID',
-            dataIndex: 'stakeId',
-            key: 'stakeId',
-            render: text => <a href="#">{text}</a>,
-          }, {
-            title: ' 用户',
-            dataIndex: 'username',
-            key: 'username',
-          }, {
-            title: '时间',
-            dataIndex: 'createTime',
-            key: 'createTime',
-          },
-          {
-            title: '押注',
-            dataIndex: 'amt',
-            key: 'amt',
-          },
-          {
-            title: '派彩',
-            dataIndex: 'payout',
-            key: 'payout',
-            render: text => {
-                return <span>{text}x</span>
-            }
-          },
-          {
-            title: '游戏',
-            dataIndex: 'targetTag',
-            key: 'targetTag',
-            render: text => {
-                return <span>{text}</span>
-            }
-          },
-          {
-            title: '投掷',
-            dataIndex: 'randomResult',
-            key: 'randomResult',
-          },
-          {
-            title: '盈利',
-            dataIndex: 'changeAmtTag',
-            key: 'changeAmtTag',
-            render: text => {
-                if (parseFloat(text) > 0) {
-                    return <span className="green">{text.slice(1)}</span>
-                } else {
-                    return <span className="red">{text.slice(1)}</span>
-                }
-            },
-          }];
-        return(
+          const title = ['押注ID', '用户', '时间', '押注', '派彩', '游戏', '投掷', '盈利'];
+          const titleItem = title.map((item, index) => {
+              return <strong key={item}><span>{item}</span></strong>
+          })
+		  const myStakesItems = this.buildLi(this.props.myStakes)
+		  const allStakesItems = this.buildLi(this.props.allStakes)
+		  const highStakesItems = this.buildLi(this.props.highStakes)
+          return(
+            
             <div style={{background: "#ffffff", paddingTop: '30px'}}>
                 <div className="betLists">
                     <Tabs defaultActiveKey="1">
                         <TabPane tab="我的押注" key="1">
-                            <Table pagination={false} columns={columns} dataSource={this.props.myStakes} />
+							<VelocityTransitionGroup
+								component='ul'
+								style={groupStyle} 
+								enter={enterAnimation} 
+								leave={leaveAnimation}
+							>
+                                <li>{titleItem}</li>
+                                {myStakesItems}
+                            </VelocityTransitionGroup> 
                         </TabPane>
                         <TabPane tab="所有押注" key="2">
-                            <Table pagination={false} columns={columns} dataSource={this.props.allStakes} />
+							<VelocityTransitionGroup
+								component='ul'
+								style={groupStyle} 
+								enter={enterAnimation} 
+								leave={leaveAnimation}
+							>
+                                <li>{titleItem}</li>
+                                {allStakesItems}
+                            </VelocityTransitionGroup> 
+                            {/* <Table pagination={false} columns={columns} dataSource={this.props.allStakes} /> */}
                         </TabPane>
                         <TabPane tab="大额赌注玩家" key="3">
-                            <Table pagination={false} columns={columns} dataSource={this.props.highStakes} />
+						<VelocityTransitionGroup
+								component='ul'
+								style={groupStyle} 
+								enter={enterAnimation} 
+								leave={leaveAnimation}
+							>
+                                <li>{titleItem}</li>
+                                {highStakesItems}
+                            </VelocityTransitionGroup> 
+                            {/* <Table pagination={false} columns={columns} dataSource={this.props.highStakes} /> */}
                         </TabPane>
                     </Tabs>
                 </div>

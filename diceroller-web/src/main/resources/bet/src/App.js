@@ -6,7 +6,7 @@ import NavMenu from './component/Header/NavMenu.js'
 import PageFooter from './component/Footer/PageFooter.js'
 import Routers from './Routers.js';
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Header, Footer, Content } = Layout;
 
 class App extends Component {
 	render() {

@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import {Modal , message, Button} from 'antd';
+import {Modal} from 'antd';
 import './Withdrawal.less';
 
 class Withdrawal extends Component {
-    constructor(props) {
-        super(props);
-    }
     handleOk = (e) => {
       console.log(e);
       this.props.setWithdrawalVisible(false)

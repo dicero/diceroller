@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Modal , message, Button, Input, Icon} from 'antd';
+import {Modal , Input, Icon} from 'antd';
 import './Login.less';
 import {observer, inject} from "mobx-react";
 

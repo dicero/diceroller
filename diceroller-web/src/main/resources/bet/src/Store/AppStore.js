@@ -84,7 +84,7 @@ export default class AppStore {
     // 计算盈利
     @computed
     get profit() {
-        return this.payout == 0 ? 'N/A' : Number(this.payout * this.bet - this.bet).toFixed(8)
+        return this.payout === 0 ? 'N/A' : Number(this.payout * this.bet - this.bet).toFixed(8)
     }
     // 计算滚存值
     @computed
@@ -207,13 +207,13 @@ export default class AppStore {
     @action.bound
     changeBetBt(number) {
         let newValue;
-        if (number == 'max') {
+        if (number === 'max') {
             newValue = Number(this.balance);
         } else {
             newValue = parseFloat(this.bet) * number;
         }
     
-        if (Number(this.bet) == 0 && number == 2) {
+        if (Number(this.bet) === 0 && number === 2) {
             newValue = 1 / 1e8;
         }
     
@@ -221,7 +221,7 @@ export default class AppStore {
             newValue = this.balance;
         }
         newValue = parseFloat(newValue).toFixed(8);
-        if (this.bet == 1 / 1e8 && newValue == 1 / 1e8) {
+        if (this.bet === 1 / 1e8 && newValue === 1 / 1e8) {
             this.bet = (0).toFixed(8);
         } else {
             this.bet = parseFloat(newValue).toFixed(8);
@@ -265,7 +265,7 @@ export default class AppStore {
     getValidNumber(oldNumber, newNumber, max = false, min = false) {
         max = parseFloat(max);
         newNumber = newNumber.replace(',', '.');
-        const split = newNumber.indexOf(',') != -1 ? newNumber.split(',') : newNumber.split('.');
+        const split = newNumber.indexOf(',') !== -1 ? newNumber.split(',') : newNumber.split('.');
         
         if (isNaN(newNumber)) return oldNumber;
         
@@ -380,7 +380,7 @@ export default class AppStore {
         this.getSakeCollect();
         this.getAllStakes();
         setInterval(() => {
-            this.getAllStakes();
+            //this.getAllStakes();
         }, 5000)
         
     }
@@ -408,6 +408,8 @@ export default class AppStore {
                         break;
                         case 2: 
                             this.highStakes = data;
+                        break;
+                        default:
                         break;
                     }
                     //this.balance = data.balance;

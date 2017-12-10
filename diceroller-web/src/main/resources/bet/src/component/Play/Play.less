@@ -357,5 +357,37 @@
 		.green {
 			color: rgb(147, 204, 88);;
 		}
+		li {
+			display: flex;
+			overflow: hidden;
+			width: 100%;
+			font-size: 14px;
+			color: #5a5d78;
+			will-change: height,background;
+			strong {
+				font-size: 14px;
+				font-weight: 400;
+				width: 12.5%;
+				padding: 15px 0;
+				text-align: center;
+				text-transform: uppercase;
+				color: #a3a4b3;
+			}
+			span {
+				width: 12.5%;
+				padding: 15px 0;
+				text-align: center;
+				display: inline-block;
+				a {
+					color: inherit;
+					text-decoration: underline;
+				}
+			}
+		}
+		li:nth-child(2n) {
+			overflow: hidden;
+			border-radius: 3px;
+			background: #f2f4f8;
+		}
 	}
   }
