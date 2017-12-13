@@ -275,11 +275,17 @@ public class PlayServiceImpl extends BaseService implements PlayService{
 
     // amt=0.00000000&target=50.49&targetCondition=1
     public static void main(String[] args) {
-        RollerBean rollerBean = new RollerBean(new BigDecimal("0.00000002"), new BigDecimal("54.99"), 1);
-        calculationPayout(rollerBean);
-        System.out.println(rollerBean.getAmt().toPlainString());
-        System.out.println(rollerBean.getChangeAmt().toPlainString());
-        System.out.println(rollerBean.getPayout().toPlainString());
+//        RollerBean rollerBean = new RollerBean(new BigDecimal("0.00000002"), new BigDecimal("54.99"), 1);
+//        calculationPayout(rollerBean);
+//        System.out.println(rollerBean.getAmt().toPlainString());
+//        System.out.println(rollerBean.getChangeAmt().toPlainString());
+//        System.out.println(rollerBean.getPayout().toPlainString());
+        double i = 1 * 100;
+        double j = 3 * 100;
+        System.out.println(new BigDecimal(i / j).setScale(0, BigDecimal.ROUND_HALF_UP));
+//        System.out.println(new BigDecimal(1).divide(new BigDecimal(2)).setScale(0, BigDecimal.ROUND_HALF_UP).toPlainString());
+//        System.out.println(new BigDecimal(1).divide(new BigDecimal(3), 0, BigDecimal.ROUND_HALF_UP).toPlainString());
+//        System.out.println(new BigDecimal(1).divide(new BigDecimal(4)).setScale(0, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)).toPlainString());
     }
 
 
