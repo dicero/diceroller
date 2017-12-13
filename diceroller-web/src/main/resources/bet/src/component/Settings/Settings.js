@@ -68,6 +68,7 @@ const {Content } = Layout;
                         value={oldPassword}
                         onChange={this.onChangeOldPassword}
                         ref={node => this.oldPasswordInput = node}
+                        type={"password"}
                     />)}
                     <Input
                         placeholder="新密码"
@@ -76,6 +77,7 @@ const {Content } = Layout;
                         value={password}
                         onChange={this.onChangePassword}
                         ref={node => this.passwordInput = node}
+                        type={"password"}
                     />
                     <Input
                         placeholder="确定新密码"
@@ -84,6 +86,7 @@ const {Content } = Layout;
                         value={newPassword}
                         onChange={this.onChangeNewPassword}
                         ref={node => this.newPasswordInput = node}
+                        type={"password"}
                     />
                     {!hasPassword&&<button onClick={ ()=> {
                         this.emitEmpty()
