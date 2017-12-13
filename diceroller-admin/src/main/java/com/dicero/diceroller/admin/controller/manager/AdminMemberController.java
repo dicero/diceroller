@@ -1,10 +1,7 @@
 package com.dicero.diceroller.admin.controller.manager;
 
 import com.dicero.diceroller.access.AdminAccess;
-import com.dicero.diceroller.dal.mysql.repository.PersonalInfoPORepository;
-import com.dicero.diceroller.dal.mysql.repository.PersonalMemberPORepository;
-import com.dicero.diceroller.dal.mysql.repository.PersonalStakeHistoryPORepository;
-import com.dicero.diceroller.dal.mysql.repository.PersonalStakePORepository;
+import com.dicero.diceroller.dal.mysql.repository.*;
 import com.dicero.diceroller.domain.enums.AdminRole;
 import com.dicero.diceroller.domain.model.PersonalInfoPO;
 import com.dicero.diceroller.domain.model.PersonalMemberPO;
@@ -34,6 +31,7 @@ import java.util.List;
 @Controller
 @RequestMapping(value="manager/member")
 public class AdminMemberController {
+    @Autowired PersonalSeedPORepository personalSeedPORepository;
     @Autowired PersonalMemberPORepository personalMemberPORepository;
     @Autowired PersonalInfoPORepository personalInfoPORepository;
     @Autowired PersonalStakeHistoryPORepository personalStakeHistoryPORepository;
@@ -110,6 +108,7 @@ public class AdminMemberController {
             model.addAttribute("personalInfoPO", personalInfoPO);
             PersonalMemberPO personalMemberPO = personalMemberPORepository.findByMemberId(memberId);
             model.addAttribute("personalMemberPO", personalMemberPO);
+            // PersonalSeedPO personalSeedPO = personalSeedPORepository.findAllByMemberId(memberId);
 
             buildPersonalStakeData(model, memberId);
         }

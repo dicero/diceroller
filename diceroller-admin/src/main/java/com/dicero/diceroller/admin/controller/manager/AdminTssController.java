@@ -40,7 +40,12 @@ public class AdminTssController {
     @AdminAccess({AdminRole.SUPER_ADMIN, AdminRole.ADMIN})
     @RequestMapping(value="/", method= RequestMethod.GET)
     public String queryGet(Model model) {
-        model.addAttribute("orderQueryForm", new OrderQueryForm());
+
+        OrderQueryForm form = new OrderQueryForm();
+        form.setNo("P0001711040018250SEQ0375221");
+        form.setNoTypeEnums(NoTypeEnums.PAYMENT_SEQ_NO);
+
+        model.addAttribute("orderQueryForm",form );
         model.addAttribute("NoTypeEnums", NoTypeEnums.values());
         return "tss/query";
     }

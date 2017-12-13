@@ -30,7 +30,7 @@ public class MemberInfoQueryForm implements Serializable {
         ACCOUNT_NAME("登录名称"),
         PHONE("手机号码"),
         EMAIL("电子邮箱"),
-        BIT_ADDRESS("比特币地址");
+        BIT_ADDRESS("以太坊地址");
 
         private String desc;
 

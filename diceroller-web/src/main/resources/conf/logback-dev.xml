@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <property name="LOG_DIR" value="logs" />
-    <!--<property name="LOG_DIR" value="/home/dev/logs" />-->
+    <property name="LOG_DIR" value="/opt/logs" />
     <property name="LOG_PRO" value="web" />
     <substitutionProperty name="default_pattern" value="%n               ----- %msg%n" />
     

@@ -2,7 +2,7 @@
 PROJECT=$1
 PROFILE=$2
 LOCATION='./../'
-LOGS='/home/dev/logs'
+LOGS='/opt/logs'
 #PORT=$4
 echo '部署项目[ '${PROJECT}' ], 环境 '${PROFILE}
 #mvn clean package -Dmaven.test.skip=true
