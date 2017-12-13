@@ -8,8 +8,10 @@ export default class DialogStore {
     }
     @observable userName = '';
 
-    @observable loginVisible = true;
+    @observable registerVisible = true;
     
+    @observable loginVisible = false;
+
     @observable equity = {
         cur: {
             serverSeed: '暂无',
@@ -54,15 +56,19 @@ export default class DialogStore {
         this.queryBetId = id;
     }
     @action.bound
+    setLoginShow(value) {
+        this.loginVisible = value;
+    }
+    @action.bound
     isShowLogin() {
         axios.post('/rest/query/state')
         .then((response) => {
             if (response.data.code === 100) {
                 this.userName = response.data.data.username;
-                this.loginVisible = false;
+                this.registerVisible = false;
                 this.rootStore.appStore.init();
             } else {
-                this.loginVisible = true;
+                this.registerVisible = true;
             } 
         })
     }
@@ -79,7 +85,7 @@ export default class DialogStore {
                 switch(response.data.code) {
                     case 100:
                         message.info('登陆成功');
-                        this.loginVisible = false;
+                        this.registerVisible = false;
                         this.userName = name;
                         this.rootStore.appStore.init();
                     break;
@@ -95,6 +101,28 @@ export default class DialogStore {
                     default:
                         message.info('请求失败');
                     break;
+                }
+            })
+    }
+    @action.bound
+    login(name, password) {
+        axios({
+            method: 'post',
+            url: '/rest/auth/login',
+            params: {
+                username: name,
+                password: password
+            }
+          })
+            .then((response) => {
+                if (response.data.code === 100) {
+                    message.info('登录成功');
+                    this.loginVisible = false;
+                    this.registerVisible = false;
+                    this.userName = name;
+                    this.rootStore.appStore.init();
+                } else {
+                    message.info('用户名或密码错误！');
                 }
             })
     }

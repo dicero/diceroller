@@ -8,11 +8,11 @@ import Equity from '../dialog/Equity.js';
 import BetDetail from '../dialog/BetDetail.js';
 import Recharge from '../dialog/Recharge.js';
 import Withdrawal from '../dialog/Withdrawal.js';
-import Login from '../dialog/Login.js';
+import Register from '../dialog/Register.js';
 const SubMenu = Menu.SubMenu;
 
 @inject((allStores) => ({
-    loginVisible: allStores.appStore.loginVisible,
+    registerVisible: allStores.appStore.registerVisible,
     balance: allStores.appStore.balanceToJs,
     queryBalance: allStores.appStore.queryBalance,
     showAmt: allStores.appStore.showAmt,
@@ -140,7 +140,7 @@ const SubMenu = Menu.SubMenu;
                         <Link to='/account/settings'><Icon type="user" />账户</Link>
                     </Menu.Item>
                 </Menu>
-                <Login/>
+                <Register/>
                 </Col>
             </Row>
         );
