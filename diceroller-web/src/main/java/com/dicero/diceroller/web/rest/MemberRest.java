@@ -1,6 +1,8 @@
 package com.dicero.diceroller.web.rest;
 
+import com.dicero.diceroller.common.bean.extension.CommonDefinedException;
 import com.dicero.diceroller.common.bean.result.RestResponse;
+import com.dicero.diceroller.common.util.AmtUtil;
 import com.dicero.diceroller.dal.mysql.repository.PersonalMemberPORepository;
 import com.dicero.diceroller.service.personal.PersonalService;
 import com.dicero.diceroller.service.play.PlayService;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
+
+import java.math.BigDecimal;
 
 /**
  * <p></p>
@@ -103,6 +107,33 @@ public class MemberRest extends AbstractRest {
             protected RestResponse process() throws Exception {
                 boolean result = playService.updatePersonalSeedByTmp(newSeedId, webLoginer.getId(), newClientSeed);
                 return result ? RestResponse.createSuccess() : RestResponse.createFailure();
+            }
+        }.run();
+    }
+
+    @ApiOperation(value = "提现")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "address", value = "地址", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "amt", value = "金额", required = true, dataType = "BigDecimal", paramType = "query")
+    })
+    @WebAccess
+    @RequestMapping(method = { RequestMethod.POST }, path="/withdraw", produces = "application/json")
+    public RestResponse withdraw(@ApiIgnore final WebLoginer webLoginer , final String address, final BigDecimal amt) {
+        return new RestExecuteContrl() {
+            @Override
+            protected void validate() throws Exception {
+                Validate.notNull(amt, "amt 不能为空");
+
+                if (AmtUtil.compareTo(amt, new BigDecimal(0)) < 0) {
+                    throw CommonDefinedException.ILLEGAL_PARAMES_ERROR("amt 金额不能小于0.00000001");
+                }
+
+                Validate.notNull(address, "address 不能为空");
+            }
+
+            @Override
+            protected RestResponse process() throws Exception {
+                return RestResponse.createSuccess();// : RestResponse.createFailure();
             }
         }.run();
     }

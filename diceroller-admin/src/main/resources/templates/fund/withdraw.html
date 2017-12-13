@@ -1,0 +1,156 @@
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>会员信息查询 <small></small></h5>
+                        <div class="ibox-tools">
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form method="post" action="/manager/member/query" class="form-horizontal">
+
+                            #springBind("memberInfoQueryForm.queryMemberType")
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">会员标识类型</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control m-b" name="${status.expression}">
+                                        #foreach( $memberType in $QueryMemberType )
+                                            #if($status.value && $status.value==$memberType)
+                                            <option checked="" value="$memberType"  >$memberType.getDesc()</option>
+                                            #else
+                                             <option value="$memberType"  >$memberType.getDesc()</option>
+                                            #end
+                                        #end
+                                    </select>
+                                </div>
+                            </div>
+
+                            #springBind("memberInfoQueryForm.memberValue")
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">标识</label>
+                                <div class="col-sm-4">
+                                    <input type="text" name="${status.expression}" value="$!{status.value}" class="form-control">
+                                    <span class="help-block m-b-none error-text">${status.errorMessage}</span>
+                                </div>
+                                <div class="col-sm-4 col-sm-offset-2" style="margin-left:0px;">
+                                    <button class="btn btn-primary" type="submit">查询</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- info -->
+            #if($personalMemberPO)
+            <div class="col-sm-12">
+            <div class="wrapper wrapper-content">
+                <div class="row animated fadeInRight">
+                    <div class="col-sm-4">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>个人资料</h5>
+                            </div>
+                            <div>
+                                <!--<div class="ibox-content no-padding border-left-right">-->
+                                    <!--<img alt="image" class="img-responsive" src="img/profile_big.jpg">-->
+                                <!--</div>-->
+                                <div class="ibox-content profile-content">
+                                    <h4>登录名: <strong>$!personalMemberPO.getMemberAccount()</strong></h4>
+                                    <p>联系电话: $!personalInfoPO.getNotifyPhone()</p>
+                                    <p>电子邮件: $!personalInfoPO.getNotifyEmail()</p>
+                                    <p><i class="fa fa-map-marker"></i> 比特币地址: $!personalInfoPO.getNotifyBitAddress()</p>
+                                    <p>注册时间: $!dateTool.format('yyyy-MM-dd HH:mm:ss', $!personalMemberPO.getCreateTime())</p>
+                                    <div class="row m-t-lg">
+                                        <div class="col-sm-12">
+                                            <span class="line" style="display: none;">5,3,9,6,5,9,7,3,5,2</span><svg class="peity" height="16" width="32"><polygon fill="#1ab394" points="0 15 0 7.166666666666666 3.5555555555555554 10.5 7.111111111111111 0.5 10.666666666666666 5.5 14.222222222222221 7.166666666666666 17.77777777777778 0.5 21.333333333333332 3.833333333333332 24.888888888888886 10.5 28.444444444444443 7.166666666666666 32 12.166666666666666 32 15"></polygon><polyline fill="transparent" points="0 7.166666666666666 3.5555555555555554 10.5 7.111111111111111 0.5 10.666666666666666 5.5 14.222222222222221 7.166666666666666 17.77777777777778 0.5 21.333333333333332 3.833333333333332 24.888888888888886 10.5 28.444444444444443 7.166666666666666 32 12.166666666666666" stroke="#169c81" stroke-width="1" stroke-linecap="square"></polyline></svg>
+                                            <h5>总押注金额: <strong>$!numberTool.format("#0.00000000", $!personalStakeHistoryPO.getAllStakeAmt())</strong> </h5>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <span class="bar" style="display: none;">5,3,9,6,5,9,7,3,5,2</span><svg class="peity" height="16" width="32"><rect fill="#1ab394" x="0" y="7.111111111111111" width="2.3" height="8.88888888888889"></rect><rect fill="#d7d7d7" x="3.3" y="10.666666666666668" width="2.3" height="5.333333333333333"></rect><rect fill="#1ab394" x="6.6" y="0" width="2.3" height="16"></rect><rect fill="#d7d7d7" x="9.899999999999999" y="5.333333333333334" width="2.3" height="10.666666666666666"></rect><rect fill="#1ab394" x="13.2" y="7.111111111111111" width="2.3" height="8.88888888888889"></rect><rect fill="#d7d7d7" x="16.5" y="0" width="2.3" height="16"></rect><rect fill="#1ab394" x="19.799999999999997" y="3.555555555555557" width="2.3" height="12.444444444444443"></rect><rect fill="#d7d7d7" x="23.099999999999998" y="10.666666666666668" width="2.3" height="5.333333333333333"></rect><rect fill="#1ab394" x="26.4" y="7.111111111111111" width="2.3" height="8.88888888888889"></rect><rect fill="#d7d7d7" x="29.7" y="12.444444444444445" width="2.3" height="3.5555555555555554"></rect></svg>
+                                            <h5>总胜利场数: <strong> $!personalStakeHistoryPO.getAllWinGames()</strong> </h5>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <span class="bar" style="display: none;">5,3,2,-1,-3,-2,2,3,5,2</span><svg class="peity" height="16" width="32"><rect fill="#1ab394" x="0" y="0" width="2.3" height="10"></rect><rect fill="#d7d7d7" x="3.3" y="4" width="2.3" height="6"></rect><rect fill="#1ab394" x="6.6" y="6" width="2.3" height="4"></rect><rect fill="#d7d7d7" x="9.899999999999999" y="10" width="2.3" height="2"></rect><rect fill="#1ab394" x="13.2" y="10" width="2.3" height="6"></rect><rect fill="#d7d7d7" x="16.5" y="10" width="2.3" height="4"></rect><rect fill="#1ab394" x="19.799999999999997" y="6" width="2.3" height="4"></rect><rect fill="#d7d7d7" x="23.099999999999998" y="4" width="2.3" height="6"></rect><rect fill="#1ab394" x="26.4" y="0" width="2.3" height="10"></rect><rect fill="#d7d7d7" x="29.7" y="6" width="2.3" height="4"></rect></svg>
+                                            <h5>总失败场数: <strong> $!personalStakeHistoryPO.getAllLoseGames()</strong> </h5>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <span class="bar" style="display: none;">5,3,9,6,5,9,7,3,5,2</span><svg class="peity" height="16" width="32"><rect fill="#1ab394" x="0" y="7.111111111111111" width="2.3" height="8.88888888888889"></rect><rect fill="#d7d7d7" x="3.3" y="10.666666666666668" width="2.3" height="5.333333333333333"></rect><rect fill="#1ab394" x="6.6" y="0" width="2.3" height="16"></rect><rect fill="#d7d7d7" x="9.899999999999999" y="5.333333333333334" width="2.3" height="10.666666666666666"></rect><rect fill="#1ab394" x="13.2" y="7.111111111111111" width="2.3" height="8.88888888888889"></rect><rect fill="#d7d7d7" x="16.5" y="0" width="2.3" height="16"></rect><rect fill="#1ab394" x="19.799999999999997" y="3.555555555555557" width="2.3" height="12.444444444444443"></rect><rect fill="#d7d7d7" x="23.099999999999998" y="10.666666666666668" width="2.3" height="5.333333333333333"></rect><rect fill="#1ab394" x="26.4" y="7.111111111111111" width="2.3" height="8.88888888888889"></rect><rect fill="#d7d7d7" x="29.7" y="12.444444444444445" width="2.3" height="3.5555555555555554"></rect></svg>
+                                            <h5>总盈利金额: <strong>$!numberTool.format("#0.00000000", $!personalStakeHistoryPO.getAllWinAmt())</strong> </h5>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <span class="bar" style="display: none;">5,3,2,-1,-3,-2,2,3,5,2</span><svg class="peity" height="16" width="32"><rect fill="#1ab394" x="0" y="0" width="2.3" height="10"></rect><rect fill="#d7d7d7" x="3.3" y="4" width="2.3" height="6"></rect><rect fill="#1ab394" x="6.6" y="6" width="2.3" height="4"></rect><rect fill="#d7d7d7" x="9.899999999999999" y="10" width="2.3" height="2"></rect><rect fill="#1ab394" x="13.2" y="10" width="2.3" height="6"></rect><rect fill="#d7d7d7" x="16.5" y="10" width="2.3" height="4"></rect><rect fill="#1ab394" x="19.799999999999997" y="6" width="2.3" height="4"></rect><rect fill="#d7d7d7" x="23.099999999999998" y="4" width="2.3" height="6"></rect><rect fill="#1ab394" x="26.4" y="0" width="2.3" height="10"></rect><rect fill="#d7d7d7" x="29.7" y="6" width="2.3" height="4"></rect></svg>
+                                            <h5>总赔金额: <strong>$!numberTool.format("#0.00000000", $!personalStakeHistoryPO.getAllLoseAmt())</strong> </h5>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <span class="line" style="display: none;">5,3,9,6,5,9,7,3,5,2</span><svg class="peity" height="16" width="32"><polygon fill="#1ab394" points="0 15 0 7.166666666666666 3.5555555555555554 10.5 7.111111111111111 0.5 10.666666666666666 5.5 14.222222222222221 7.166666666666666 17.77777777777778 0.5 21.333333333333332 3.833333333333332 24.888888888888886 10.5 28.444444444444443 7.166666666666666 32 12.166666666666666 32 15"></polygon><polyline fill="transparent" points="0 7.166666666666666 3.5555555555555554 10.5 7.111111111111111 0.5 10.666666666666666 5.5 14.222222222222221 7.166666666666666 17.77777777777778 0.5 21.333333333333332 3.833333333333332 24.888888888888886 10.5 28.444444444444443 7.166666666666666 32 12.166666666666666" stroke="#169c81" stroke-width="1" stroke-linecap="square"></polyline></svg>
+                                            <h5>总胜率: <strong>$!numberTool.format("#000.00", $!personalStakeHistoryPO.getWinningPos()) %</strong> </h5>
+                                        </div>
+
+                                    </div>
+                                    <div class="user-button">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> 发送消息</button>
+                                            </div>
+                                            <!--<div class="col-sm-6">-->
+                                                <!--<button type="button" class="btn btn-default btn-sm btn-block"><i class="fa fa-coffee"></i> 赞助</button>-->
+                                            <!--</div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>最新押注信息</h5>
+                                <div class="ibox-tools">
+                                    <a class="close-link">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+
+                                <div>
+                                    <div class="feed-activity-list">
+
+                                        #foreach( $personalStakePO in $personalStakePOList)
+                                        <div class="feed-element">
+                                            <a href="#" class="pull-left">
+                                                $!personalStakePO.getStakeId()
+                                            </a>
+                                            <div class="media-body ">
+                                                <strong> $!personalStakePO.getFundType().getDesc()</strong> 金额: <strong>$!numberTool.format("#000.00", $!personalStakePO.getAmt())</strong>.
+                                                <br>
+                                                <small class="text-muted">$!dateTool.format('yyyy-MM-dd HH:mm:ss', $!personalStakePO.getCreateTime())</small>
+
+                                            </div>
+                                        </div>
+                                        #end
+
+                                    </div>
+
+                                    <button class="btn btn-primary btn-block m"><i class="fa fa-arrow-down"></i> 显示更多</button>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            </div>
+            #else
+                <div class="col-sm-12">
+                    找不到会员信息
+                </div>
+            #end
+            <!-- info -->
+
+
+
+        </div>

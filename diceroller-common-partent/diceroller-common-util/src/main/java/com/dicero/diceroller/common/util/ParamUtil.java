@@ -26,8 +26,8 @@ public class ParamUtil {
 			  sb.append(ok.toString()).append( "=" ).append( 
 			      ((String[])ov)[0]).append (iterator.hasNext() ? "&" : ""); 
 		  } else {
-              if (ov.toString().toLowerCase().contains("username".toLowerCase())
-                      || ov.toString().toLowerCase().contains("password".toLowerCase())) {
+              if (ok.toString().toLowerCase().contains("username".toLowerCase())
+                      || ok.toString().toLowerCase().contains("password".toLowerCase())) {
                   sb.append(ok.toString()).append( "=" ).append("******").append(iterator.hasNext() ? "&" : "");
               } else {
                   sb.append(ok.toString()).append( "=" ).append(ov.toString()).append(iterator.hasNext() ? "&" : "");

@@ -40,7 +40,7 @@ public class AdminMemberController {
     @Autowired PersonalStakePORepository personalStakePORepository;
 
 
-    @AdminAccess({AdminRole.ADMIN})
+    @AdminAccess({AdminRole.SUPER_ADMIN, AdminRole.ADMIN})
     @RequestMapping(value="", method= RequestMethod.GET )
     public String query(Model model) {
         model.addAttribute("memberInfoQueryForm", new MemberInfoQueryForm());
@@ -48,7 +48,7 @@ public class AdminMemberController {
         return "member/query";
     }
 
-    @AdminAccess({AdminRole.ADMIN})
+    @AdminAccess({AdminRole.SUPER_ADMIN, AdminRole.ADMIN})
     @RequestMapping(value="/query", method = RequestMethod.POST )
     public String queryPost(@Valid MemberInfoQueryForm memberInfoQueryForm,
                         BindingResult result, Model model) {

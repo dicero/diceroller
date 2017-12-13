@@ -1,6 +1,5 @@
 package com.dicero.diceroller;
 
-import com.dicero.diceroller.common.util.ParamUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -48,14 +47,14 @@ public class WebParamsAspect {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
 
-        // 记录下请求内容
-        logger.info("Request: ====>>> 地址[URL]: {}, 请求方法[{}]:, IP来源: {}, 参数: {}, Request End: 耗时{}" ,
-                request.getRequestURL().toString(),
-                request.getMethod(),
-                request.getRemoteAddr(),
-                // joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName(),
-                ParamUtil.getBodyParam(request.getParameterMap()),
-                (System.currentTimeMillis() - startTime.get()) + "（毫秒） ===="
-        );
+//        // 记录下请求内容
+//        logger.info("Request: ====>>> 地址[URL]: {}, 请求方法[{}]:, IP来源: {}, 参数: {}, Request End: 耗时{}" ,
+//                request.getRequestURL().toString(),
+//                request.getMethod(),
+//                request.getRemoteAddr(),
+//                // joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName(),
+//                ParamUtil.getBodyParam(request.getParameterMap()),
+//                (System.currentTimeMillis() - startTime.get()) + "（毫秒） ===="
+//        );
     }
 }
