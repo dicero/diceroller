@@ -23,4 +23,18 @@ public class PersonalAdvisePORepositoryTest extends TestBase {
         // println(record);
         // Assert.assertNotNull(record);
     }
+
+    @Test
+    public void saveTest() {
+        PersonalAdvisePO record = new PersonalAdvisePO();
+        record.setContent("");
+        record.setReaded(0);
+        record.setEmail("112223@gmail.com");
+        record.setMemberId(111222);
+        record.setCreateTime(now);
+        record.setUpdateTime(now);
+        record = PersonalAdvisePORepository.save(record);
+         println(record);
+         Assert.assertNotNull(record);
+    }
 }

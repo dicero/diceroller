@@ -8,6 +8,8 @@ import com.dicero.diceroller.common.bean.result.RestResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +23,9 @@ import java.util.Map;
 public class AbstractRest {
 
     boolean isMockMode = false;
-
+    public static Timestamp now(){
+        return new Timestamp(new Date().getTime());
+    }
 
     // NOTE: 构建返回数据
     public class DataObject {

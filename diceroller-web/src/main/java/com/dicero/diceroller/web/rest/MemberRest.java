@@ -3,7 +3,9 @@ package com.dicero.diceroller.web.rest;
 import com.dicero.diceroller.common.bean.extension.CommonDefinedException;
 import com.dicero.diceroller.common.bean.result.RestResponse;
 import com.dicero.diceroller.common.util.AmtUtil;
+import com.dicero.diceroller.dal.mysql.repository.PersonalAdvisePORepository;
 import com.dicero.diceroller.dal.mysql.repository.PersonalMemberPORepository;
+import com.dicero.diceroller.domain.model.PersonalAdvisePO;
 import com.dicero.diceroller.service.personal.PersonalService;
 import com.dicero.diceroller.service.play.PlayService;
 import com.dicero.diceroller.web.hepler.WebLoginer;
@@ -34,6 +36,7 @@ import java.math.BigDecimal;
 @RequestMapping("/rest/member")
 public class MemberRest extends AbstractRest {
     @Autowired PersonalMemberPORepository personalMemberPORepository;
+    @Autowired PersonalAdvisePORepository personalAdvisePORepository;
     @Autowired PersonalService personalService;
     @Autowired PlayService playService;
 
@@ -134,6 +137,42 @@ public class MemberRest extends AbstractRest {
             @Override
             protected RestResponse process() throws Exception {
                 return RestResponse.createSuccess();// : RestResponse.createFailure();
+            }
+        }.run();
+    }
+
+    @ApiOperation(value = "建议")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "email", value = "联系邮箱", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "content", value = "建议内容", required = true, dataType = "Text", paramType = "query")
+    })
+    @WebAccess
+    @RequestMapping(method = { RequestMethod.POST }, path="/advise", produces = "application/json")
+    public RestResponse advise(@ApiIgnore final WebLoginer webLoginer , final String email, final String content) {
+        return new RestExecuteContrl() {
+            @Override
+            protected void validate() throws Exception {
+                Validate.notNull(content, "content 不能为空");
+                Validate.isTrue(content.length() > 2, "content 不能小于2个字符串");
+                Validate.isTrue(content.length() < 3000, "content 不能大于3000个字符串");
+            }
+
+            @Override
+            protected RestResponse process() throws Exception {
+                PersonalAdvisePO record = new PersonalAdvisePO();
+                record.setContent(content);
+                record.setReaded(0);
+                record.setEmail(email);
+                record.setMemberId(webLoginer.getId());
+                record.setSubmitUsername(webLoginer.getUsername());
+                record.setCreateTime(now());
+                record.setUpdateTime(now());
+                record = personalAdvisePORepository.save(record);
+                if (record != null) {
+                    return RestResponse.createSuccess();
+                } else {
+                    return RestResponse.createFailure();
+                }
             }
         }.run();
     }

@@ -133,7 +133,7 @@ public class QueryRest extends AbstractRest {
             @Override
             protected RestResponse process() throws Exception {
                 DataObject dataObject = new DataObject();
-                dataObject.put("balance", "0.00000002");
+                dataObject.put("balance", "200.00000002");
                 return RestResponse.createSuccess(dataObject.getData());
             }
         }.run();

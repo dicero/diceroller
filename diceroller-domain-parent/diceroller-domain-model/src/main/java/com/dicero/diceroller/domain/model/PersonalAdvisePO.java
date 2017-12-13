@@ -18,6 +18,7 @@ public class PersonalAdvisePO extends BasePO {
     private Timestamp createTime;
     private Timestamp updateTime;
     private int memberId;
+    private String submitUsername;
     private String email;
     private String content;
     private int readed;
@@ -51,6 +52,16 @@ public class PersonalAdvisePO extends BasePO {
 
     public void setUpdateTime(Timestamp updateTime) {
         this.updateTime = updateTime;
+    }
+
+    @Basic
+    @Column(name = "submit_username", nullable = false)
+    public String getSubmitUsername() {
+        return submitUsername;
+    }
+
+    public void setSubmitUsername(String submitUsername) {
+        this.submitUsername = submitUsername;
     }
 
     @Basic
