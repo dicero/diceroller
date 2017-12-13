@@ -187,4 +187,27 @@ export default class DialogStore {
     setBetDetailVisible(flag) {
         this.betDetailVisible = flag
     }
+    // 取款
+    @action.bound
+    withDrawal(address, amt) {
+        if(this.rootStore.appStore.balance < amt) {
+            message.info('提现金额大于账户余额');
+            return 
+        }
+        axios({
+            method: 'post',
+            url: '/rest/member/withdraw',
+            params: {
+                address: address,
+                amt: amt
+            }
+        })
+            .then((response) => {
+                if (response.data.code === 100) {
+                    message.info('提现申请成功');
+                } else {
+                    message.info('提现申请失败');
+                }
+            })
+    }
 }

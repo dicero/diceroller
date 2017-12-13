@@ -39,7 +39,7 @@ import Login from './Login.js';
             >
             <div className="register">
                 <h2>Diceroller</h2>
-                <h3>最受欢迎的和最值得信赖的比特币博彩网站</h3>
+                <h3>最受欢迎的和最值得信赖的以太坊博彩网站</h3>
                 <div className="form">
                 <Input
                     placeholder="Enter your userName"

@@ -68,7 +68,7 @@ class PageFooter extends Component {
                             </li>
                             <li>
                                 <Link to="/play">
-                                    比特币论坛
+                                    以太坊论坛
                                 </Link>
                             </li>
                             <li>
