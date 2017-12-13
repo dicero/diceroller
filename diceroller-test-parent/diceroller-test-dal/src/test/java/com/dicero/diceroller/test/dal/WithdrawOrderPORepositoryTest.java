@@ -23,4 +23,15 @@ public class WithdrawOrderPORepositoryTest extends TestBase {
         // println(record);
         // Assert.assertNotNull(record);
     }
+
+    @Test
+    public void saveTest() {
+         WithdrawOrderPO record = new WithdrawOrderPO();
+         record.setMemberId(1231312321);
+         record.setPaymentSeqNo("dddd");
+         record.setAddress("dddddd");
+        record = WithdrawOrderPORepository.save(record);
+         println(record);
+         Assert.assertNotNull(record);
+    }
 }

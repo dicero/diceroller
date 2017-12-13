@@ -1,5 +1,7 @@
 package com.dicero.diceroller.service.tss;
 
+import java.math.BigDecimal;
+
 /**
  * <p></p>
  *
@@ -15,7 +17,7 @@ public interface TssOrderService {
     void storeRechargeOrder();
 
     // NOTE: 提现单
-    void storeWithdrawOrder();
+    boolean storeWithdrawOrder(String requestNo, Integer memberId, String username, BigDecimal amt, String address);
 
     // NOTE: 赠送单
     void storePresentOrder();

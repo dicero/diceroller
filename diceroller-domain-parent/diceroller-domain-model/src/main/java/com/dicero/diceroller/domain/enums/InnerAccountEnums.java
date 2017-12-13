@@ -10,6 +10,7 @@ public enum InnerAccountEnums {
 
     // NOTE: 存款-比特币
     BANK_BIT("1001001"),
+    BANK_ETH("1001002"), //  以太坊
 
     // NOTE: 管理-比特币
     CTL_BIT("1002001"),

@@ -1,6 +1,7 @@
 package com.dicero.diceroller.domain.model;
 
 import com.dicero.diceroller.domain.BasePO;
+import com.dicero.diceroller.domain.enums.AuditTypeEnums;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -18,7 +19,7 @@ public class AuditLogPO extends BasePO {
     private Timestamp createTime;
     private Timestamp updateTime;
     private int auditId;
-    private String auditType;
+    private AuditTypeEnums auditType;
     private String beginStatus;
     private String endStatus;
     private String operator;
@@ -65,13 +66,13 @@ public class AuditLogPO extends BasePO {
         this.auditId = auditId;
     }
 
-    @Basic
     @Column(name = "audit_type", nullable = false, length = 20)
-    public String getAuditType() {
+    @Enumerated(EnumType.STRING)
+    public AuditTypeEnums getAuditType() {
         return auditType;
     }
 
-    public void setAuditType(String auditType) {
+    public void setAuditType(AuditTypeEnums auditType) {
         this.auditType = auditType;
     }
 

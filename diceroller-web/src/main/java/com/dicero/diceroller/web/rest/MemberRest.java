@@ -3,11 +3,13 @@ package com.dicero.diceroller.web.rest;
 import com.dicero.diceroller.common.bean.extension.CommonDefinedException;
 import com.dicero.diceroller.common.bean.result.RestResponse;
 import com.dicero.diceroller.common.util.AmtUtil;
+import com.dicero.diceroller.common.util.RandomUtil;
 import com.dicero.diceroller.dal.mysql.repository.PersonalAdvisePORepository;
 import com.dicero.diceroller.dal.mysql.repository.PersonalMemberPORepository;
 import com.dicero.diceroller.domain.model.PersonalAdvisePO;
 import com.dicero.diceroller.service.personal.PersonalService;
 import com.dicero.diceroller.service.play.PlayService;
+import com.dicero.diceroller.service.tss.TssOrderService;
 import com.dicero.diceroller.web.hepler.WebLoginer;
 import com.dicero.diceroller.web.interceptor.WebAccess;
 import io.swagger.annotations.Api;
@@ -37,6 +39,7 @@ import java.math.BigDecimal;
 public class MemberRest extends AbstractRest {
     @Autowired PersonalMemberPORepository personalMemberPORepository;
     @Autowired PersonalAdvisePORepository personalAdvisePORepository;
+    @Autowired TssOrderService tssOrderService;
     @Autowired PersonalService personalService;
     @Autowired PlayService playService;
 
@@ -136,7 +139,9 @@ public class MemberRest extends AbstractRest {
 
             @Override
             protected RestResponse process() throws Exception {
-                return RestResponse.createSuccess();// : RestResponse.createFailure();
+                String requestNo = RandomUtil.randomUuid("W", 3);
+                boolean result = tssOrderService.storeWithdrawOrder(requestNo, webLoginer.getId(), webLoginer.getUsername(), amt, address);
+                return result ? RestResponse.createSuccess(): RestResponse.createFailure();
             }
         }.run();
     }
