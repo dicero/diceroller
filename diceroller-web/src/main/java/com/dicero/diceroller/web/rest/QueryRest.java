@@ -71,7 +71,7 @@ public class QueryRest extends AbstractRest {
                 DataObject dataObject = new DataObject();
                 if (personalMemberPO != null) {
                     dataObject.put("username", webLoginer.getUsername());
-                    dataObject.put("accessToken", personalMemberPO.getAccessToken());
+                    dataObject.put("accessToken", personalMemberPO.getPlayAccessToken());
                     return RestResponse.createSuccess(dataObject.getData());
                 } else {
                     return RestResponse.createFailure(RestCode.USER_NOT_LOGIN);

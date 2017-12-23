@@ -27,6 +27,9 @@ public abstract class RestCode {
     // NOTE: 数据不存在
     public static CodeMessage DATA_NOT_EXIST = new CodeMessage(104,"数据不存在");
 
+    // NOTE: 等待上一次的结果，才能继续
+    public static CodeMessage PLAY_WALT = new CodeMessage(105,"等待上一次的结果，才能继续");
+
     // NOTE: 请求参数校检不通过
     public static CodeMessage PARAMES_ERROR = new CodeMessage(198,"请求参数校检不通过");
 

@@ -3,11 +3,18 @@ package com.dicero.diceroller.service.personal.impl;
 import com.dicero.diceroller.common.bean.extension.CommonDefinedException;
 import com.dicero.diceroller.common.util.EncryptUtil;
 import com.dicero.diceroller.common.util.MD5Util;
-import com.dicero.diceroller.dal.mysql.repository.*;
-import com.dicero.diceroller.domain.model.*;
+import com.dicero.diceroller.dal.mysql.repository.EthAddressPORepository;
+import com.dicero.diceroller.dal.mysql.repository.PersonalInfoPORepository;
+import com.dicero.diceroller.dal.mysql.repository.PersonalMemberPORepository;
+import com.dicero.diceroller.dal.mysql.repository.PersonalSeedPORepository;
+import com.dicero.diceroller.domain.model.EthAddressPO;
+import com.dicero.diceroller.domain.model.PersonalInfoPO;
+import com.dicero.diceroller.domain.model.PersonalMemberPO;
+import com.dicero.diceroller.domain.model.PersonalSeedPO;
 import com.dicero.diceroller.service.BaseService;
 import com.dicero.diceroller.service.personal.PersonalService;
 import com.dicero.diceroller.service.play.PlayService;
+import com.dicero.diceroller.service.tss.TssTradeService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -28,6 +35,7 @@ import java.util.List;
 @Service
 public class PersonalServiceImpl extends BaseService implements PersonalService {
     @Autowired PlayService playService;
+    @Autowired TssTradeService tssTradeService;
     @Autowired PersonalSeedPORepository personalSeedPORepository;
     @Autowired PersonalMemberPORepository personalMemberPORepository;
     @Autowired PersonalInfoPORepository personalInfoPORepository;
@@ -48,11 +56,12 @@ public class PersonalServiceImpl extends BaseService implements PersonalService 
     public PersonalMemberPO register(String loginUsername) {
         PersonalMemberPO personalMemberPO = new PersonalMemberPO();
         personalMemberPO.setMemberAccount(loginUsername);
-        personalMemberPO.setAccessToken(createAccessToken());
+        personalMemberPO.setPlayAccessToken(createPlayAccessToken());
         personalMemberPO.setCreateTime(now());
         personalMemberPO.setUpdateTime(now());
         personalMemberPO =  personalMemberPORepository.save(personalMemberPO);
 
+        System.out.println("------createPlayAccessToken-----");
 
         // NOTE: 获取充值地址
         List<EthAddressPO> records = ethAddressPORepository.findByHasUse(0, new PageRequest(0, 1, new Sort(Sort.Direction.ASC, new String[] { "id" })  ));
@@ -81,6 +90,10 @@ public class PersonalServiceImpl extends BaseService implements PersonalService 
         personalSeedPO.setServerSeedHash(EncryptUtil.SHA256(personalSeedPO.getServerSeed()));
         personalSeedPORepository.save(personalSeedPO);
 
+        System.out.println("下单授权-----");
+        // NOTE: 下单授权
+        tssTradeService.createAccessTrade(personalMemberPO.getMemberId());
+
         return personalMemberPO;
     }
 
@@ -105,8 +118,8 @@ public class PersonalServiceImpl extends BaseService implements PersonalService 
         return false;
     }
 
-    private String createAccessToken() {
-        return EncryptUtil.SHA256("dice2099311X" + System.currentTimeMillis() + RandomStringUtils.randomAlphanumeric(6) );
+    private String createPlayAccessToken() {
+        return MD5Util.sign("901"+ System.currentTimeMillis() + RandomStringUtils.randomAlphanumeric(6), "dice2099311X");
     }
 
     private String md5Password(String password){

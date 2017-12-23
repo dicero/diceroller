@@ -12,7 +12,7 @@ public abstract interface SocketEventEnum {
 	public static final String SCAN = "SCAN";
 	
 	/** 推送 */
-	public static final String PUSH_NEW_LOCAGE = "PUSH_NEW_LOCAGE";
+	public static final String PUSH = "PUSH";
 	
 	/** 错误 */
 	public static final String ERROR = "ERROR";

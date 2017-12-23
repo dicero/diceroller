@@ -1,11 +1,13 @@
 package com.dicero.diceroller.web.rest;
 
 import com.dicero.diceroller.common.bean.extension.CommonDefinedException;
+import com.dicero.diceroller.common.bean.result.RestCode;
 import com.dicero.diceroller.common.bean.result.RestResponse;
 import com.dicero.diceroller.common.util.AmtUtil;
-import com.dicero.diceroller.service.bean.RollerBean;
 import com.dicero.diceroller.service.bean.MakeResult;
+import com.dicero.diceroller.service.bean.RollerBean;
 import com.dicero.diceroller.service.play.PlayService;
+import com.dicero.diceroller.service.tss.TssTradeService;
 import com.dicero.diceroller.web.hepler.WebLoginer;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -32,6 +34,7 @@ import java.math.BigDecimal;
 public class StakeRest extends AbstractRest {
 
     @Autowired PlayService playService;
+    @Autowired TssTradeService tssTradeService;
 
     // NOTE: 派彩A (1.012-9900) 胜率B(0.01-98,当拖动划线的时候都为整数) 滚存C1, 反滚存C2
     @ApiOperation(value = "手动下注")
@@ -73,9 +76,15 @@ public class StakeRest extends AbstractRest {
             @Override
             protected RestResponse process() throws Exception {
                 RollerBean rollerBean = new RollerBean(AmtUtil.checkAmt(amt), AmtUtil.check(target, 2), targetCondition);
+
+                // NOTE:查询授权状态
+                if(!tssTradeService.judgeAccess(webLoginer.getId())) {
+                    return RestResponse.createFailure(RestCode.PLAY_WALT);
+                }
+
                 MakeResult makeResult = playService.roller(webLoginer.getId(), webLoginer.getUsername(), rollerBean);
                 if (makeResult != null) {
-                    return RestResponse.createSuccess(makeResult);
+                    return RestResponse.createSuccess();
                 } else {
                     return RestResponse.createFailure();
                 }

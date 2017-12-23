@@ -1,8 +1,11 @@
 package com.dicero.diceroller.domain.model;
 
 import com.dicero.diceroller.domain.BasePO;
+import com.dicero.diceroller.domain.enums.AccessNodeEnums;
+import com.dicero.diceroller.domain.enums.TradeStatusEnums;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 /**
@@ -12,15 +15,25 @@ import java.sql.Timestamp;
  * @version 2017/10/29
  */
 @Entity
-@Table(name = "tr_personal_member")
-public class PersonalMemberPO extends BasePO {
+@Table(name = "t_tss_access")
+public class TradeAccessPO extends BasePO {
+    private int id;
     private Timestamp createTime;
     private Timestamp updateTime;
     private int memberId;
-    private String pwd;
-    private String memberAccount;
-    private String playAccessToken;
+    private AccessNodeEnums node;
+    private int version;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     @Basic
     @Column(name = "create_time", nullable = false)
@@ -42,8 +55,8 @@ public class PersonalMemberPO extends BasePO {
         this.updateTime = updateTime;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Basic
     @Column(name = "member_id", nullable = false)
     public int getMemberId() {
         return memberId;
@@ -53,33 +66,25 @@ public class PersonalMemberPO extends BasePO {
         this.memberId = memberId;
     }
 
-    @Basic
-    @Column(name = "pwd", nullable = true, length = 40)
-    public String getPwd() {
-        return pwd;
-    }
-
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
-    }
 
     @Basic
-    @Column(name = "member_account", nullable = true, length = 20)
-    public String getMemberAccount() {
-        return memberAccount;
+    @Column(name = "node", nullable = false, length = 5)
+    @Enumerated(EnumType.STRING)
+    public AccessNodeEnums getNode() {
+        return node;
     }
 
-    public void setMemberAccount(String memberAccount) {
-        this.memberAccount = memberAccount;
+    public void setNode(AccessNodeEnums node) {
+        this.node = node;
     }
 
     @Basic
-    @Column(name = "play_access_token", nullable = true, length = 256)
-    public String getPlayAccessToken() {
-        return playAccessToken;
+    @Column(name = "version", nullable = false)
+    public int getVersion() {
+        return version;
     }
 
-    public void setPlayAccessToken(String playAccessToken) {
-        this.playAccessToken = playAccessToken;
+    public void setVersion(int version) {
+        this.version = version;
     }
 }

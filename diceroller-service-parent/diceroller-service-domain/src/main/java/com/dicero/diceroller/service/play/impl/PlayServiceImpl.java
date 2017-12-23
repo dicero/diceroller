@@ -1,6 +1,8 @@
 package com.dicero.diceroller.service.play.impl;
 
 import com.dicero.diceroller.common.bean.extension.CommonDefinedException;
+import com.dicero.diceroller.common.bean.result.SocketEvent;
+import com.dicero.diceroller.common.bean.result.SocketEventEnum;
 import com.dicero.diceroller.common.util.AmtUtil;
 import com.dicero.diceroller.common.util.EncryptUtil;
 import com.dicero.diceroller.common.util.RandomUtil;
@@ -14,7 +16,9 @@ import com.dicero.diceroller.service.BaseService;
 import com.dicero.diceroller.service.bean.DiceHmacBean;
 import com.dicero.diceroller.service.bean.MakeResult;
 import com.dicero.diceroller.service.bean.RollerBean;
+import com.dicero.diceroller.service.play.GamesWebSocketService;
 import com.dicero.diceroller.service.play.PlayService;
+import com.dicero.diceroller.service.tss.TssTradeService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.httpclient.util.DateUtil;
@@ -56,6 +60,8 @@ import java.util.concurrent.Future;
 public class PlayServiceImpl extends BaseService implements PlayService{
     ExecutorService fixedThreadPool = Executors.newFixedThreadPool(50);
 
+    @Autowired TssTradeService tssTradeService;
+    @Autowired GamesWebSocketService gamesWebSocketService;
     @Autowired PersonalSeedPORepository personalSeedPORepository;
     @Autowired PersonalBillPORepository personalBillPORepository;
     @Autowired PersonalStakePORepository personalStakePORepository;
@@ -129,6 +135,7 @@ public class PlayServiceImpl extends BaseService implements PlayService{
     @Override
     public MakeResult roller(Integer memberId, String username, RollerBean rollerBean) {
         MakeResult makeResult = new MakeResult();
+
         // NOTE:查询以往数据,设置下标
         int nonce = 0;
         List<PersonalStakePO> personalStakePOList = personalStakePORepository.findAllByMemberId(memberId,
@@ -167,7 +174,7 @@ public class PlayServiceImpl extends BaseService implements PlayService{
 
         makeResult.setChangeAmt(personalStakePO.getChangeAmt().toPlainString());
         makeResult.setFundType(personalStakePO.getFundType());
-        makeResult.setRandomResult(String.valueOf(diceHmacBean.getRollerBean().getRandomResult()));
+        makeResult.setRandomResult(String.valueOf(personalStakePO));
         makeResult.setStakeId(personalStakePO.getStakeId());
         return makeResult;
     }
@@ -223,6 +230,10 @@ public class PlayServiceImpl extends BaseService implements PlayService{
             public void run() {
                 // NOTE: 异步更新押注数据
                 updateState(personalMemberPO, personalStakePO, personalSeedPO, diceHmacBean);
+
+                // NOTE: 发送websocket通知
+                sendWebsocket(personalMemberPO, personalStakePO, personalSeedPO, diceHmacBean);
+
             }
         });
 
@@ -288,6 +299,31 @@ public class PlayServiceImpl extends BaseService implements PlayService{
 //        System.out.println(new BigDecimal(1).divide(new BigDecimal(4)).setScale(0, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)).toPlainString());
     }
 
+
+    // NOTE: 异步发送websocket通知
+    public Future<String> sendWebsocket(PersonalMemberPO personalMemberPO, PersonalStakePO personalStakePO, PersonalSeedPO personalSeedPO, DiceHmacBean diceHmacBean) {
+
+        // NOTE: 重置下单授权
+        tssTradeService.resetAccess(personalMemberPO.getMemberId());
+
+        MakeResult makeResult = new MakeResult();
+        if(diceHmacBean.isWin()) {
+            makeResult.setFundType(FundTypeEnums.FI);
+        } else {
+            makeResult.setFundType(FundTypeEnums.FO);
+        }
+        makeResult.setChangeAmt(diceHmacBean.getRollerBean().getChangeAmt().toPlainString());
+        makeResult.setRandomResult(String.valueOf(diceHmacBean.getRollerBean().getRandomResult()));
+        makeResult.setStakeId(personalStakePO.getStakeId());
+
+        SocketEvent socketEvent = new SocketEvent();
+        socketEvent.setEvent(SocketEventEnum.PUSH);
+        socketEvent.setData(makeResult);
+
+        gamesWebSocketService.sendNotify(personalMemberPO.getPlayAccessToken(), socketEvent);
+
+        return new AsyncResult<>("发送成功");
+    }
 
     // NOTE: 异步更新押注数据
     public Future<String> updateState(PersonalMemberPO personalMemberPO, PersonalStakePO personalStakePO, PersonalSeedPO personalSeedPO, DiceHmacBean diceHmacBean) {
