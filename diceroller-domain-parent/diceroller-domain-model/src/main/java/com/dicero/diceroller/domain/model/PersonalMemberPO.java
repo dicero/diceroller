@@ -19,6 +19,7 @@ public class PersonalMemberPO extends BasePO {
     private int memberId;
     private String pwd;
     private String memberAccount;
+    private String accessToken;
 
 
     @Basic
@@ -72,4 +73,13 @@ public class PersonalMemberPO extends BasePO {
         this.memberAccount = memberAccount;
     }
 
+    @Basic
+    @Column(name = "access_token", nullable = true, length = 256)
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
 }

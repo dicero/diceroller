@@ -1,57 +1,120 @@
-pragma solidity ^0.4.12;
+pragma solidity ^0.4.16;
 
-contract TxAttackWallet {
-    address public walletAddress;
-    mapping( address => uint ) _balances;
-    uint _supply;
-
-    event Transfer(address indexed from, address indexed to, uint value);
-    event CoinTransfer(address sender, address receiver, uint amount);
-
-    function TxAttackWallet( uint initial_balance, address wallet) {
-        _balances[msg.sender] = initial_balance;
-        _supply = initial_balance;
-        walletAddress = wallet;
+contract SafeMath {
+    function safeMul(uint a, uint b) internal returns (uint) {
+        uint c = a * b;
+        assert(a == 0 || c / a == b);
+        return c;
     }
 
-    function getOwner() public constant returns (address) {
-        return walletAddress;
+    function safeSub(uint a, uint b) internal returns (uint) {
+        assert(b <= a);
+        return a - b;
     }
 
-    function getSender() public constant returns (address) {
+    function safeAdd(uint a, uint b) internal returns (uint) {
+        uint c = a + b;
+        assert(c>=a && c>=b);
+        return c;
+    }
+
+    function assert(bool assertion) internal {
+        if (!assertion) throw;
+    }
+}
+
+contract TxAttackWallet is SafeMath {
+    struct Wallet {
+        address delegate;
+        uint supply;
+    }
+
+
+    mapping (address => mapping (address => uint)) public tokens;
+    mapping(address => uint) balances;
+    uint public totalSupply;
+    address public admin;
+
+    Wallet[] public wallets;
+
+
+    function TxAttackWallet() {
+        admin = msg.sender;
+        totalSupply = 10;
+    }
+
+
+    event Deposit(address token, address user, uint amount, uint balance);
+    event Withdraw(address token, address user, uint amount, uint balance);
+    event Trade(address token, address user, uint amount, uint balance);
+
+
+    function totalSupply() public constant returns (uint supply) {
+        return totalSupply;
+    }
+
+    // Test
+    function sender() public constant returns (address) {
         return msg.sender;
     }
 
-    function getOwnerBalance() public constant returns (uint) {
-        return walletAddress.balance;
+//    function deposit() public payable {
+//        tokens[0][msg.sender] = safeAdd(tokens[0][msg.sender], msg.value);
+//        Deposit(0, msg.sender, msg.value, tokens[0][msg.sender]);
+//    }
+
+
+    function build(address delegate) public returns (uint) {
+        wallets.push(Wallet({
+            delegate: delegate,
+            supply: 0
+        }));
+
+        return wallets[0].supply;
     }
 
-    function getSenderBalance() public constant returns (uint) {
-        return msg.sender.balance;
+    function voterSupply(address delegate) public constant returns (uint) {
+        return wallets[0].supply;
     }
 
-    /* Very simple trade function */
-    function sendCoin(address receiver, uint amount) returns(bool sufficient) {
-        if (_balances[msg.sender] < amount) return false;
-        _balances[msg.sender] -= amount;
-        _balances[receiver] += amount;
-        CoinTransfer(msg.sender, receiver, amount);
-        return true;
+//    function depositToken(address token, uint amount)  constant public returns (bool success)  {
+//        if (token==0) throw;
+//        if (transferFrom(msg.sender, this, amount)) throw;
+//        tokens[token][msg.sender] = safeAdd(tokens[token][msg.sender], amount);
+//        wallets[0].supply = wallets[0].supply + amount;
+//        Deposit(token, msg.sender, amount, tokens[token][msg.sender]);
+//        return true;
+//    }
+//
+//    function tradeToken(address token, uint amount) constant returns (bool success) {
+//        if (token==0) throw;
+//        if (tokens[token][msg.sender] < amount) throw;
+//        tokens[token][msg.sender] = safeSub(tokens[token][msg.sender], amount);
+////        Trade(token, msg.sender, amount, tokens[token][msg.sender]);
+//        return true;
+//    }
+//
+//    function withdrawToken(address token, uint amount) public {
+//        if (token==0) throw;
+//        if (tokens[token][msg.sender] < amount) throw;
+//        tokens[token][msg.sender] = safeSub(tokens[token][msg.sender], amount);
+////        if (transferFrom(this, msg.sender, amount)) throw;
+//        Withdraw(token, msg.sender, amount, tokens[token][msg.sender]);
+//    }
+
+    function balanceOf(address token, address user) public constant returns (uint) {
+        return tokens[token][user];
     }
 
-    function transferTo(address from, address to, uint value) public returns (bool ok) {
-//        if( _balances[from] < value ) {
-//            throw;
-//        }
+//    event Transfer(address indexed _from, address indexed _to, uint _value);
+//
+//    function transferFrom(address _from, address _to, uint _value) returns (bool success) {
+//        if (balances[_from] >= _value  && balances[_to] + _value > balances[_to]) {
+//            balances[_to] += _value;
+//            balances[_from] -= _value;
+//            Transfer(_from, _to, _value);
+//            return true;
+//        } else { return false; }
+//    }
 
-
-        to.transfer(value);
-        Transfer( from, to, value );
-        return true;
-    }
-
-
-    function show() public pure returns (string) {
-        return "11";
-    }
 }

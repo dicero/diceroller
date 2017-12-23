@@ -9,6 +9,7 @@ import com.dicero.diceroller.service.BaseService;
 import com.dicero.diceroller.service.personal.PersonalService;
 import com.dicero.diceroller.service.play.PlayService;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -47,6 +48,7 @@ public class PersonalServiceImpl extends BaseService implements PersonalService 
     public PersonalMemberPO register(String loginUsername) {
         PersonalMemberPO personalMemberPO = new PersonalMemberPO();
         personalMemberPO.setMemberAccount(loginUsername);
+        personalMemberPO.setAccessToken(createAccessToken());
         personalMemberPO.setCreateTime(now());
         personalMemberPO.setUpdateTime(now());
         personalMemberPO =  personalMemberPORepository.save(personalMemberPO);
@@ -101,6 +103,10 @@ public class PersonalServiceImpl extends BaseService implements PersonalService 
             return true;
         }
         return false;
+    }
+
+    private String createAccessToken() {
+        return EncryptUtil.SHA256("dice2099311X" + System.currentTimeMillis() + RandomStringUtils.randomAlphanumeric(6) );
     }
 
     private String md5Password(String password){
