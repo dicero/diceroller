@@ -67,9 +67,15 @@ public class QueryRest extends AbstractRest {
 
             @Override
             protected RestResponse process() throws Exception {
+                PersonalMemberPO personalMemberPO = personalMemberPORepository.findByMemberId(webLoginer.getId());
                 DataObject dataObject = new DataObject();
-                dataObject.put("username", webLoginer.getUsername());
-                return RestResponse.createSuccess(dataObject.getData());
+                if (personalMemberPO != null) {
+                    dataObject.put("username", webLoginer.getUsername());
+                    dataObject.put("accessToken", personalMemberPO.getAccessToken());
+                    return RestResponse.createSuccess(dataObject.getData());
+                } else {
+                    return RestResponse.createFailure(RestCode.USER_NOT_LOGIN);
+                }
             }
         }.run();
     }

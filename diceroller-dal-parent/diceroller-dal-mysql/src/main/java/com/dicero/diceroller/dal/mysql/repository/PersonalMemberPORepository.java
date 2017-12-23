@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface PersonalMemberPORepository extends JpaRepository<PersonalMemberPO, Integer> {
     PersonalMemberPO findByMemberId(Integer memberId);
     PersonalMemberPO findByMemberAccount(String memberAccount);
+    PersonalMemberPO findByAccessToken(String accessToken);
 
     @Transactional
     @Modifying
