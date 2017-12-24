@@ -45,9 +45,12 @@ public class AuthRest extends AbstractRest {
             @Override
             protected RestResponse process() throws Exception {
                 PersonalMemberPO personalMemberPO = personalService.login(username, password);
+                DataObject dataObject = new DataObject();
                 if (personalMemberPO != null) {
+                    dataObject.put("username", personalMemberPO.getMemberAccount());
+                    dataObject.put("accessToken", personalMemberPO.getPlayAccessToken());
                     HelperCookie.setLoginWeb(request, personalMemberPO);
-                    return RestResponse.createSuccess();
+                    return RestResponse.createSuccess(dataObject);
                 } else {
                     return RestResponse.createFailure();
                 }
@@ -100,8 +103,11 @@ public class AuthRest extends AbstractRest {
                 }
                 personalMemberPO = personalService.register(username);
                 if (personalMemberPO != null) {
+                    DataObject dataObject = new DataObject();
+                    dataObject.put("username", personalMemberPO.getMemberAccount());
+                    dataObject.put("accessToken", personalMemberPO.getPlayAccessToken());
                     HelperCookie.setLoginWeb(request, personalMemberPO);
-                    return RestResponse.createSuccess();
+                    return RestResponse.createSuccess(dataObject);
                 } else {
                     return RestResponse.createFailure();
                 }
