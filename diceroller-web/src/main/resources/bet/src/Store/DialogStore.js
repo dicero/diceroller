@@ -103,8 +103,13 @@ export default class DialogStore {
                         message.info(this.words.message.drcg);
                         this.registerVisible = false;
                         this.userName = name;
-                        this.createWebSocket(response.data.data.accessToken);
                         this.rootStore.appStore.init();
+                        this.createWebSocket(response.data.data.accessToken);
+                        if (response.data.data.playAccess === '1') {
+                            this.setLoading(false);
+                        } else {
+                            this.setLoading(true);
+                        }
                     break;
                     case 101:
                         message.info(this.words.message.yhmycz);
@@ -137,8 +142,13 @@ export default class DialogStore {
                     this.loginVisible = false;
                     this.registerVisible = false;
                     this.userName = name;
-                    this.createWebSocket(response.data.data.accessToken);
                     this.rootStore.appStore.init();
+                    this.createWebSocket(response.data.data.accessToken);
+                        if (response.data.data.playAccess === '1') {
+                            this.setLoading(false);
+                        } else {
+                            this.setLoading(true);
+                        }
                 } else {
                     message.info(this.words.message.zhhmmcw);
                 }
