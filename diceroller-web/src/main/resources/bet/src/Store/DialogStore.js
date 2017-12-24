@@ -90,7 +90,6 @@ export default class DialogStore {
     }
     @action.bound
     register(name) {
-        
         axios({
             method: 'post',
             url: '/rest/auth/register',
@@ -104,6 +103,7 @@ export default class DialogStore {
                         message.info(this.words.message.drcg);
                         this.registerVisible = false;
                         this.userName = name;
+                        this.createWebSocket(response.data.data.accessToken);
                         this.rootStore.appStore.init();
                     break;
                     case 101:
@@ -137,6 +137,7 @@ export default class DialogStore {
                     this.loginVisible = false;
                     this.registerVisible = false;
                     this.userName = name;
+                    this.createWebSocket(response.data.data.accessToken);
                     this.rootStore.appStore.init();
                 } else {
                     message.info(this.words.message.zhhmmcw);
