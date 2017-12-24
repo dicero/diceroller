@@ -235,7 +235,7 @@ export default class DialogStore {
     @action.bound
     createWebSocket(access_token) {
         console.log('createWebSocket')
-        let socket = new WebSocket('ws:192.168.1.104:8080/games?access_token=' + access_token);
+        let socket = new WebSocket('ws:47.100.107.97/games?access_token=' + access_token);
         socket.onopen = (event) => { 
             console.log('socket-onopen')
             // 发送一个初始化消息
