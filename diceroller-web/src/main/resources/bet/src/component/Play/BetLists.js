@@ -67,6 +67,7 @@ const Animations = {
     allStakes: allStores.appStore.allStakesToJs,
     highStakes: allStores.appStore.highStakesToJs,
     queryStakeById: allStores.dialogStore.queryStakeById,
+    words: allStores.appStore.wordsToJs
 }))@observer class BetLists extends Component {
 	buildLi(data) {
 		return data.map((item, index) => {
@@ -95,7 +96,8 @@ const Animations = {
 	  })
 	}
     render() {
-          const title = ['押注ID', '用户', '时间', '押注', '派彩', '游戏', '投掷', '盈利'];
+          const {words} = this.props;
+          const title = [words.betLists.yzid, words.betLists.yh, words.betLists.sj, words.betLists.yz, words.betLists.pc, words.betLists.yx, words.betLists.tz, words.betLists.yl];
           const titleItem = title.map((item, index) => {
               return <strong key={item}><span>{item}</span></strong>
           })
@@ -107,7 +109,7 @@ const Animations = {
             <div style={{background: "#ffffff", paddingTop: '30px'}}>
                 <div className="betLists">
                     <Tabs defaultActiveKey="1">
-                        <TabPane tab="我的押注" key="1">
+                        <TabPane tab={words.betLists.wdyz} key="1">
 							<VelocityTransitionGroup
 								component='ul'
 								style={groupStyle} 
@@ -118,7 +120,7 @@ const Animations = {
                                 {myStakesItems}
                             </VelocityTransitionGroup> 
                         </TabPane>
-                        <TabPane tab="所有押注" key="2">
+                        <TabPane tab={words.betLists.syyz} key="2">
 							<VelocityTransitionGroup
 								component='ul'
 								style={groupStyle} 
@@ -130,7 +132,7 @@ const Animations = {
                             </VelocityTransitionGroup> 
                             {/* <Table pagination={false} columns={columns} dataSource={this.props.allStakes} /> */}
                         </TabPane>
-                        <TabPane tab="大额赌注玩家" key="3">
+                        <TabPane tab={words.betLists.dedzwj} key="3">
 						<VelocityTransitionGroup
 								component='ul'
 								style={groupStyle} 

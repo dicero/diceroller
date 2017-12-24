@@ -120,7 +120,7 @@ class AutoBet extends Component {
                     </div>
                 </div>
                 <button className="throw" onClick={onChangeBetCount}>自动投骰</button>
-			</div>
+            </div>
 		);
 	}
 }

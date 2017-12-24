@@ -14,7 +14,8 @@ import {observer, inject} from "mobx-react";
     changeRollOver: allStores.appStore.changeRollOver,
     changePayout: allStores.appStore.changePayout,
     changeChance: allStores.appStore.changeChance,
-    throwBet: allStores.appStore.throwBet
+    throwBet: allStores.appStore.throwBet,
+    words: allStores.appStore.wordsToJs
 }))@observer class ManualBet extends Component {
     constructor(props) {
         super(props);
@@ -122,14 +123,14 @@ import {observer, inject} from "mobx-react";
         e.stopPropagation();
     }
 	render() {
-        let {bet, profit, diceRoll, payout, chance, rollOver} = this.props;
+        let {bet, profit, diceRoll, payout, chance, rollOver, words} = this.props;
         const {changeBetNumber,changeBetBt, changeRollOver, throwBet} = this.props;
         const {payoutShow ,rateShow} = this.state;
 		return (
 			<div className="manualBet">
                 <div style={{height:"83px"}}>
                     <div className="fl mr20" style={{width: "340px"}}>
-                        <p className="label">押注数额</p>
+                        <p className="label">{words.play.yzse}</p>
                         <Input size="large" className="betMnoey" value={bet} 
                             onFocus={e => e.target.select()} 
                             onChange={(e) => changeBetNumber(e.target.value)}/>
@@ -141,20 +142,20 @@ import {observer, inject} from "mobx-react";
                         >2x</Button>
                         <Button style={{width: "50px"}} type="primary" 
                             onClick={changeBetBt.bind(this, 'max')}
-                        >最大</Button>
+                        >{words.play.zd}</Button>
                     </div>
                     <div className="fl profit" style={{width: "248px"}}>
-                        <p className="label">盈利</p>
+                        <p className="label">{words.play.yl}</p>
                         <span>{profit}</span>
                     </div>
                 </div>
                 <div className="winRate">
                     <div className="fl rollover" onClick={changeRollOver}>
-                        <p>{rollOver? '滚存':'反滚存'}</p>
+                        <p>{rollOver? words.play.gc : words.play.fgc}</p>
                         <div>{diceRoll}</div>
                     </div>
                     <div className="fl has-break pr">
-                        <p>派彩</p>
+                        <p>{words.play.pc}</p>
                         <div onClick={this.handlePayoutShow.bind(this, true)}>
                             {payout}
                             <div className={`changePayout ${payoutShow ? '' : 'no'}`} >
@@ -164,14 +165,14 @@ import {observer, inject} from "mobx-react";
                                 onBlur={this.handlePayoutShow.bind(this,false)}
                                 ref="payoutInput"
                                 />
-                                <Button type="primary">确定</Button>
-                                <Button type="primary" onMouseDown={this.resetPayout.bind(this)}>取消</Button>
+                                <Button type="primary">{words.play.qd}</Button>
+                                <Button type="primary" onMouseDown={this.resetPayout.bind(this)}>{words.play.qx}</Button>
                             </div>
                             
                         </div>
                     </div>
                     <div className="fl pr">
-                        <p>胜率</p>
+                        <p>{words.play.sl}</p>
                         <div onClick={this.handleChanceShow.bind(this, true)}>
                             {chance}
                             <div className={`changeRate ${rateShow ? '' : 'no'}`} >
@@ -181,13 +182,13 @@ import {observer, inject} from "mobx-react";
                                 onBlur={this.handleChanceShow.bind(this,false)}
                                 ref="chanceInput"
                                 />
-                                <Button type="primary">确定</Button>
-                                <Button type="primary" onClick={this.resetChance.bind(this)}>取消</Button>
+                                <Button type="primary">{words.play.qd}</Button>
+                                <Button type="primary" onClick={this.resetChance.bind(this)}>{words.play.qx}</Button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button className="throw" onClick={throwBet}>投骰</button>
+                <button className="throw" onClick={throwBet}>{words.play.ts}</button>
 			</div>
 		);
 	}

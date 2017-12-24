@@ -6,7 +6,8 @@ import {observer, inject} from "mobx-react";
 @inject((allStores) => ({
     loginVisible: allStores.dialogStore.loginVisible,
     login: allStores.dialogStore.login,
-    setLoginShow: allStores.dialogStore.setLoginShow
+    setLoginShow: allStores.dialogStore.setLoginShow,
+    words: allStores.appStore.wordsToJs
 }))@observer class Login extends Component {
     constructor(props) {
         super(props);
@@ -30,12 +31,13 @@ import {observer, inject} from "mobx-react";
         this.setState({ passWord: e.target.value });
     }
     render() {
+        const {words} = this.props;
         const { userName, passWord } = this.state;
         const suffix1 = userName ? <Icon type="close-circle" onClick={this.emitEmpty1} /> : null;
         const suffix2 = passWord ? <Icon type="close-circle" onClick={this.emitEmpty2} /> : null;
         return(
             <Modal
-            title="登录"
+            title={words.login.dl}
             visible={this.props.loginVisible}
             footer={null}
             wrapClassName="login"
@@ -45,10 +47,10 @@ import {observer, inject} from "mobx-react";
             >
             <div className="login">
                 <h2>Diceroller</h2>
-                <h3>最受欢迎的和最值得信赖的以太坊博彩网站</h3>
+                <h3>{words.login.title}</h3>
                 <div className="form">
                 <Input
-                    placeholder="Enter your userName"
+                    placeholder={words.login.placeholderName}
                     prefix={<Icon type="user" />}
                     suffix={suffix1}
                     value={userName}
@@ -56,7 +58,7 @@ import {observer, inject} from "mobx-react";
                     ref={node => this.userNameInput = node}
                 />
                 <Input
-                    placeholder="Enter your passWord"
+                    placeholder={words.login.placeholderPassword}
                     prefix={<Icon type="lock" />}
                     suffix={suffix2}
                     value={passWord}
@@ -64,9 +66,9 @@ import {observer, inject} from "mobx-react";
                     ref={node => this.passWordInput = node}
                     type={"password"}
                 />
-                <button onClick={this.props.login.bind(this,userName,passWord)}>登录</button>
+                <button onClick={this.props.login.bind(this,userName,passWord)}>{words.login.dl}</button>
                 </div>
-                <p>忘记密码？<strong onClick={this.props.setLoginShow.bind(this, false)}>回到建立账户页面</strong></p>
+                <p>{words.login.wjmm}<strong onClick={this.props.setLoginShow.bind(this, false)}>{words.login.hd}</strong></p>
             </div>
           </Modal>
         )

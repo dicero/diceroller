@@ -4,10 +4,15 @@ import './Contract.less';
 import {
     Link
 } from 'react-router-dom'
+import {observer, inject} from "mobx-react";
 const {Content } = Layout;
 
-class Contract extends Component {
+@inject((allStores) => ({
+    words: allStores.appStore.wordsToJs
+}))@observer class Contract extends Component {
+    
     render() {
+        const {words} = this.props;
 const seedCode = `pragma solidity ^0.4.0;
 /*
 This vSlice token contract is based on the ERC20 token contract. Additional
@@ -229,14 +234,14 @@ contract Token is ERC20, Lockable {
 `;
         return (
             <div className="verify">
-                <h2>智能合约 <Link to="/play"><span><svg class="account__close" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><path d="m585 5.611l-1.611-1.611-6.389 6.389-6.389-6.389-1.611 1.611 6.389 6.389-6.389 6.389 1.611 1.611 6.389-6.389 6.389 6.389 1.611-1.611-6.389-6.389 6.389-6.389" transform="translate(-569-4)" fill="#fff"></path></g></svg></span></Link></h2>
+                <h2>{words.contract.znhy} <Link to="/play"><span><svg class="account__close" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><path d="m585 5.611l-1.611-1.611-6.389 6.389-6.389-6.389-1.611 1.611 6.389 6.389-6.389 6.389 1.611 1.611 6.389-6.389 6.389 6.389 1.611-1.611-6.389-6.389 6.389-6.389" transform="translate(-569-4)" fill="#fff"></path></g></svg></span></Link></h2>
                 <Layout  >
                 <Content style={{width:"910px",margin:"0 auto"}}>
                     <div>
-                       <h3>WIN MASSIVE AMOUNTS OF ETHER!</h3>
-                        <p>1.Register Account And Recharge</p>
-                        <p>2.Payouts are Nearly Instant</p>
-                        <p>3.Play from Anywhere</p>
+                       <h3>{words.contract.h3}</h3>
+                        <p>{words.contract.p1}</p>
+                        <p>{words.contract.p2}</p>
+                        <p>{words.contract.p3}</p>
                         <pre className="verify__code">{seedCode}</pre>
                     </div>
                 </Content>

@@ -3,6 +3,7 @@ import {observer, inject} from "mobx-react";
 
 @inject((allStores) => ({
     stakeCollect: allStores.appStore.stakeCollectToJs,
+    words: allStores.appStore.wordsToJs
 }))@observer class BetMessages extends Component {
     constructor(props) {
         super(props)
@@ -21,23 +22,24 @@ import {observer, inject} from "mobx-react";
         
     }
     render() {
+        const {words} = this.props;
         const {tab} = this.state;
         const {historyCollect,todayCollect} = this.props.stakeCollect
         return(
             <div className="component-betmessage">
                 <div className="tabs">
                     <div className={`tab ${tab===1 ? 'active':''}` } onClick={(e) => this.handleTabChange(1)}>
-                        全部
+                        {words.betMessage.qb}
                     </div>
                     <div className={`tab ${tab===2 ? 'active':''}` } onClick={(e) => this.handleTabChange(2)}>
-                        当前
+                        {words.betMessage.dq}
                     </div>
                 </div>
                 <div className={`message ${tab===1 ? '':'no'}`}>
                     {/* <img src="../../../images/reload.svg" alt=''/> */}
                     <div className="totalAmount amount">
                         <span className="label">
-                            下注总金额
+                            {words.betMessage.xzzje}
                         </span>
                         <span>
                         {historyCollect.allStakeAmt} ETH
@@ -45,7 +47,7 @@ import {observer, inject} from "mobx-react";
                     </div>
                     <div className="totalProfit amount">
                         <span className="label">
-                            全部利润
+                            {words.betMessage.qblr}
                         </span>
                         <span>
                         {historyCollect.allWinAmt} ETH
@@ -54,7 +56,7 @@ import {observer, inject} from "mobx-react";
                     <div className="wrapper">
                         <div className="gameNum">
                             <span className="label">
-                                总共获胜局数
+                            {words.betMessage.zghsjs}
                         </span>
                             <span className="green">
                             {historyCollect.allWinGames}
@@ -62,7 +64,7 @@ import {observer, inject} from "mobx-react";
                         </div>
                         <div className="gameNum">
                             <span className="label">
-                                全部输掉局数
+                            {words.betMessage.qbsdjs}
                         </span>
                             <span className="red">
                             {historyCollect.allLoseGames}
@@ -72,7 +74,7 @@ import {observer, inject} from "mobx-react";
                     <div className="wrapper">
                         <div className="totalGame">
                             <span className="label">
-                                下注总数
+                            {words.betMessage.xzzs}
                             </span>
                             <span>
                             {historyCollect.allLoseGames + historyCollect.allWinGames}
@@ -80,7 +82,7 @@ import {observer, inject} from "mobx-react";
                         </div>
                         <div className="winRate">
                             <span className="label">
-                                胜率
+                            {words.betMessage.sl}
                             </span>
                             <span>
                                 {historyCollect.winningPos}%
@@ -92,7 +94,7 @@ import {observer, inject} from "mobx-react";
                     {/* <img src="../../../images/reload.svg" alt=''/> */}
                     <div className="totalAmount amount">
                         <span className="label">
-                            下注总金额
+                        {words.betMessage.xzzje}
                         </span>
                         <span>
                             {todayCollect.allStakeAmt} ETH
@@ -100,7 +102,7 @@ import {observer, inject} from "mobx-react";
                     </div>
                     <div className="totalProfit amount">
                         <span className="label">
-                            全部利润
+                        {words.betMessage.qblr}
                         </span>
                         <span>
                         {todayCollect.allWinAmt} ETH
@@ -109,7 +111,7 @@ import {observer, inject} from "mobx-react";
                     <div className="wrapper">
                         <div className="gameNum">
                             <span className="label">
-                                总共获胜局数
+                            {words.betMessage.zghsjs}
                         </span>
                             <span className="green">
                             {todayCollect.allWinGames}
@@ -117,7 +119,7 @@ import {observer, inject} from "mobx-react";
                         </div>
                         <div className="gameNum">
                             <span className="label">
-                                全部输掉局数
+                            {words.betMessage.qbsdjs}
                         </span>
                             <span className="red">
                             {todayCollect.allLoseGames}
@@ -127,7 +129,7 @@ import {observer, inject} from "mobx-react";
                     <div className="wrapper">
                         <div className="totalGame">
                             <span className="label">
-                                下注总数
+                            {words.betMessage.xzzs}
                             </span>
                             <span>
                             {todayCollect.allLoseGames + todayCollect.allWinGames}
@@ -135,7 +137,7 @@ import {observer, inject} from "mobx-react";
                         </div>
                         <div className="winRate">
                             <span className="label">
-                                 机率
+                            {words.betMessage.jl}
                             </span>
                             <span>
                                 {todayCollect.winningPos}%

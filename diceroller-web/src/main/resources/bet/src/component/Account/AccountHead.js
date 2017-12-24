@@ -7,7 +7,8 @@ import {
 } from 'react-router-dom'
 
 @inject((allStores) => ({
-    userName: allStores.dialogStore.userNameToJs
+    userName: allStores.dialogStore.userNameToJs,
+    words: allStores.appStore.wordsToJs
 }))@observer class Head extends Component {
     state = {
         current: 'settings',
@@ -18,7 +19,7 @@ import {
         });
     }
     render() {
-        const {userName} = this.props;
+        const {userName, words} = this.props;
         return(
             <div className="head">
                 <div>
@@ -28,8 +29,8 @@ import {
                         selectedKeys={[this.state.current]}
                         mode="horizontal"
                     >
-                        <Menu.Item key="settings"><Link to="/account/settings">设置</Link></Menu.Item>
-                        <Menu.Item key="mail">安全</Menu.Item>
+                        <Menu.Item key="settings"><Link to="/account/settings">{words.accountHead.sz}</Link></Menu.Item>
+                        <Menu.Item key="mail">{words.accountHead.aq}</Menu.Item>
                     </Menu>
                 </div>    
             </div>
