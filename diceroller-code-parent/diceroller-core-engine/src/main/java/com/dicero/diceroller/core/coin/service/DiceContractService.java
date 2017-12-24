@@ -52,10 +52,6 @@ public class DiceContractService extends AbstractEthe {
         } catch (Exception e) { System.out.println("balanceOf : "); e.printStackTrace(); }
         return null;
 
-        try {
-            System.out.println("// Contract 用户 (balanceOf-getBalance- " + msg + "): " + Web3jUtils.weiToEther(contract.getBalance(address).send());
-        } catch (Exception e) { System.out.println("getBalance : "); e.printStackTrace(); }
-        return null;
     }
 
 
