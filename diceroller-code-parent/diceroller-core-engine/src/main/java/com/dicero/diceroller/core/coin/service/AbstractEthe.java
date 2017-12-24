@@ -2,6 +2,7 @@ package com.dicero.diceroller.core.coin.service;
 
 
 import com.dicero.diceroller.core.coin.util.Web3jConstants;
+import com.dicero.diceroller.core.coin.util.Web3jUtils;
 import okhttp3.OkHttpClient;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
@@ -66,8 +67,11 @@ public class AbstractEthe {
         Subscription subscription2 = web3j.transactionObservable().subscribe(tx -> {
             System.out.println("["+count + "]To receive all new transactions: " + tx);
             System.out.println("["+count + "]To receive all new transactions getFrom: " + tx.getFrom());
+            System.out.println("["+count + "]To receive all new transactions getTo: " + tx.getTo());
+            System.out.println("["+count + "]To receive all new transactions getValue: " + Web3jUtils.weiToEther(tx.getValue()));
             System.out.println("["+count + "]To receive all new transactions getGas: " + tx.getGas());
             System.out.println("["+count + "]To receive all new transactions getGasPrice: " + tx.getGasPrice());
+            System.out.println("["+count + "]To receive all new transactions getHash: " + tx.getHash());
             count++;
         });
 

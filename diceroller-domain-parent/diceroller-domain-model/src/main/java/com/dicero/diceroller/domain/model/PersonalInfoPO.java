@@ -97,7 +97,7 @@ public class PersonalInfoPO extends BasePO {
     }
 
     @Basic
-    @Column(name = "eth_gas_price", nullable = true, length = 15)
+    @Column(name = "eth_gas_price", columnDefinition = "bigint",nullable = true, length = 20)
     public BigInteger getEthGasPrice() {
         return ethGasPrice;
     }
@@ -107,7 +107,7 @@ public class PersonalInfoPO extends BasePO {
     }
 
     @Basic
-    @Column(name = "eth_gas_limit", nullable = true, length = 15)
+    @Column(name = "eth_gas_limit",  columnDefinition = "bigint", nullable = true, length = 20)
     public BigInteger getEthGasLimit() {
         return ethGasLimit;
     }
