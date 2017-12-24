@@ -6,10 +6,13 @@ import AutoBet from './AutoBet.js';
 import BetMessages from './BetMessages.js';
 import RateSlider from './RateSlider.js';
 import BetLists from './BetLists.js';
+import {observer, inject} from "mobx-react";
 const {Content, Sider } = Layout;
 const TabPane = Tabs.TabPane;
 
-class Play extends Component {
+@inject((allStores) => ({
+    words: allStores.appStore.wordsToJs
+}))@observer class Play extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -111,15 +114,16 @@ class Play extends Component {
         
     }
 	render() {
+        const {words} = this.props;
 		return (
 			<div className="play">
 				<Layout style={{width:"910px",margin:"0 auto"}}>
                     <Content style={{marginRight: "10px"}}>
                     <Tabs type="card">
-                        <TabPane tab="手动下注" key="1">
+                        <TabPane tab={words.play.sdxz} key="1">
                             <ManualBet />
                         </TabPane>
-                        <TabPane tab="自动下注" key="2">
+                        <TabPane tab={words.play.zdxz} key="2">
                             <AutoBet
                                 {...this.state} 
                                 onChangeBetValue={this.handleChangeBetValue} 

@@ -4,7 +4,8 @@ import './Withdrawal.less';
 import {observer, inject} from "mobx-react";
 
 @inject((allStores) => ({
-    withDrawal: allStores.dialogStore.withDrawal
+    withDrawal: allStores.dialogStore.withDrawal,
+    words: allStores.appStore.wordsToJs
 }))@observer class Withdrawal extends Component {
     constructor(props) {
         super(props);
@@ -32,9 +33,10 @@ import {observer, inject} from "mobx-react";
     }
     render() {
         const {address, amt} = this.state;
+        const {words} = this.props;
         return(
             <Modal
-            title="取款"
+            title={words.nav.qk}
             visible={this.props.withdrawalVisible}
             onOk={this.handleOk}
             onCancel={this.handleCancel}
@@ -44,15 +46,15 @@ import {observer, inject} from "mobx-react";
             <div className="withdrawal">
                <div className="withdrawaCoins">
                    <label>
-                    <span>以太坊地址</span>
+                    <span>{words.withdrawal.dz}</span>
                     <input type="type" value={address} onChange={this.onChangeAddress} />
                    </label>
                    <label>
-                    <span>金额 (最小 0.004)</span>
+                    <span>{words.withdrawal.je}</span>
                     <input type="type" value={amt} onChange={this.onChangeSum} />
                    </label>
                </div>
-               <button onClick={this.props.withDrawal.bind(this,address,amt)}>取款</button>
+               <button onClick={this.props.withDrawal.bind(this,address,amt)}>{words.withdrawal.qk}</button>
             </div>
           </Modal>
         )

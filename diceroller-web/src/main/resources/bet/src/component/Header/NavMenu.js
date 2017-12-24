@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Menu, Icon, Row, Col } from 'antd';
+import { Menu, Icon, Row, Col, Select} from 'antd';
 import {observer, inject} from "mobx-react";
 import {
     Link
@@ -10,6 +10,7 @@ import Recharge from '../dialog/Recharge.js';
 import Withdrawal from '../dialog/Withdrawal.js';
 import Register from '../dialog/Register.js';
 const SubMenu = Menu.SubMenu;
+const Option = Select.Option;
 
 @inject((allStores) => ({
     registerVisible: allStores.appStore.registerVisible,
@@ -18,18 +19,24 @@ const SubMenu = Menu.SubMenu;
     showAmt: allStores.appStore.showAmt,
     changeAmt: allStores.appStore.changeAmt,
     showAnim: allStores.appStore.showAnim,
-    fundType: allStores.appStore.fundType
+    fundType: allStores.appStore.fundType,
+    words: allStores.appStore.wordsToJs,
+    setLanguageCf: allStores.appStore.setLanguageCf,
+    equityVisible: allStores.dialogStore.equityVisible,
+    setEquityVisible: allStores.dialogStore.setEquityVisible,
+    ethGasLimit: allStores.appStore.ethGasLimit,
+    ethGasPrice: allStores.appStore.ethGasPrice
 }))@observer class NavMenu extends Component {
     constructor(props) {
         super(props)
         this.state = {
             current: 'play',
             totalMoney: '0.00000090',
-            equityVisible: false,
+            //equityVisible: false,
             rechargeVisible: false,
             withdrawalVisible: false,
         }
-        this.setEquityVisible = this.setEquityVisible.bind(this);
+        //this.setEquityVisible = this.setEquityVisible.bind(this);
         this.setRechargeVisible = this.setRechargeVisible.bind(this);
         this.setWithdrawalVisible = this.setWithdrawalVisible.bind(this);
     }
@@ -44,9 +51,9 @@ const SubMenu = Menu.SubMenu;
             current: e.key,
         });
     }
-    setEquityVisible(equityVisible) {
-        this.setState({ equityVisible });
-    }
+    // setEquityVisible(equityVisible) {
+    //     this.setState({ equityVisible });
+    // }
     setRechargeVisible(rechargeVisible) {
         this.setState({ rechargeVisible });
     }
@@ -54,7 +61,7 @@ const SubMenu = Menu.SubMenu;
         this.setState({ withdrawalVisible });
     }
     render() {
-        const {balance, showAnim, fundType} = this.props;
+        const {balance, showAnim, fundType, words, setLanguageCf, equityVisible, setEquityVisible, ethGasLimit, ethGasPrice} = this.props;
         let changeAmtSy;
         if(showAnim) {
             
@@ -73,7 +80,7 @@ const SubMenu = Menu.SubMenu;
         }
         return (
             <Row type="flex" justify="space-between">
-                <Col span={12}>
+                <Col span={7}>
                 <Menu
                     onClick={this.handleClick}
                     selectedKeys={[this.state.current]}
@@ -83,32 +90,34 @@ const SubMenu = Menu.SubMenu;
                         <Link to='/play' style={{fontFamily: "serif",fontSize: "24px"}}>Diceroller</Link>
                     </Menu.Item>
                     <Menu.Item key="app">
-                        <span onClick={() => this.setEquityVisible(true)}>公平性</span>
-                        <Equity 
-                            setEquityVisible={this.setEquityVisible} 
-                            equityVisible={this.state.equityVisible}
-                        />
+                        <span onClick={() => setEquityVisible(true)}>{words.nav.gpx}</span>
+                        { equityVisible && <Equity 
+                            setEquityVisible={setEquityVisible} 
+                            equityVisible={equityVisible}
+                        /> }
                         <BetDetail/>
                     </Menu.Item>
-                    <SubMenu title={<span>帮助</span>}>
+                    {/* <SubMenu title={<span>{words.nav.bz}</span>}>
                         <Menu.Item key="/faq">FAQ</Menu.Item>
-                    </SubMenu>
-                    <SubMenu title={<span>更多</span>}>
-                        <Menu.Item key="/hall-of-fame">名人堂</Menu.Item>
-                        <Menu.Item key="/verify"><Link to='/verify'> 公平性验证</Link></Menu.Item>
-                        <Menu.Item key="/contract"><Link to='/contract'> 智能合约</Link></Menu.Item>
+                    </SubMenu> */}
+                    <SubMenu title={<span>{words.nav.gd}</span>}>
+                        <Menu.Item key="/verify"><Link to='/verify'>{words.nav.gpxyz}</Link></Menu.Item>
+                        <Menu.Item key="/contract"><Link to='/contract'>{words.nav.znhy}</Link></Menu.Item>
+                        <Menu.Item key="/faq">FAQ</Menu.Item>
                     </SubMenu>
 
                 </Menu>
                 </Col>
-                <Col span={12}>
+                <Col span={17}>
                 <span style={{position:'relative'}}>
                     <span className="totalMoney">{balance} ETH</span>
                     <span className={this.props.showAmt ? "changeAmt" : "changeAmt no"}
                     style={changeAmtSy}
                     >{this.props.changeAmt} ETH</span>
                 </span>
-                
+                <span style={{position:'relative'}}>
+                    <span className="totalMoney">GasLimit {ethGasLimit} W,GasPrice {ethGasPrice} W</span>
+                </span>
                 
                 <Menu
                     onClick={this.handleClick}
@@ -120,24 +129,29 @@ const SubMenu = Menu.SubMenu;
                     <a href="https://ant.design" target="_blank" rel="noopener noreferrer">Navigation Four - Link</a>
                 </Menu.Item> */}
                     <Menu.Item key="充值">
-                        <span onClick={() => this.setRechargeVisible(true)}>充值</span>
+                        <span onClick={() => this.setRechargeVisible(true)}>{words.nav.cz}</span>
                         <Recharge
                             setRechargeVisible={this.setRechargeVisible} 
                             rechargeVisible={this.state.rechargeVisible}
                         />
                     </Menu.Item>
                     <Menu.Item key="取款">
-                        <span onClick={() => this.setWithdrawalVisible(true)}>取款</span>
+                        <span onClick={() => this.setWithdrawalVisible(true)}>{words.nav.qk}</span>
                         <Withdrawal
                             setWithdrawalVisible={this.setWithdrawalVisible} 
                             withdrawalVisible={this.state.withdrawalVisible}
                         />
                     </Menu.Item>
-                    <Menu.Item key="水龙头">
-                        水龙头
+                    <Menu.Item key="语言">
+                        <Select defaultValue="ZH"onChange={setLanguageCf}>
+                            <Option value="ZH">ZH</Option>
+                            <Option value="EN">EN</Option>
+                            <Option value="RU">RU</Option>
+                            <Option value="JP">JP</Option>
+                        </Select>
                     </Menu.Item>
                     <Menu.Item key="/account">
-                        <Link to='/account/settings'><Icon type="user" />账户</Link>
+                        <Link to='/account/settings'><Icon type="user" />{words.nav.zh}</Link>
                     </Menu.Item>
                 </Menu>
                 <Register/>

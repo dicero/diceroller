@@ -1,5 +1,17 @@
 .App {
   text-align: center;
+  .loading {
+    background: rgba(142, 158, 195, 0.5) url('./images/loading.gif');
+    background-repeat: no-repeat;
+    background-position: center;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 1000;
+    background-size: 150px;
+  }
   .ant-layout-header {
     background: #576a91;
     z-index: 999;
@@ -13,7 +25,8 @@
       color: #ffffff;
       //margin-right: 8px;
       white-space: nowrap;
-      text-transform: uppercase;
+      margin-right: 5px;
+      // text-transform: uppercase;
     }
     .changeAmt {
       position: absolute;

@@ -2,6 +2,7 @@ import mobx from "mobx";
 import {observable, action, computed} from "mobx";
 import axios from 'axios';
 import { message } from 'antd';
+import {languageCf} from '../Config.js';
 export default class AppStore {
     constructor(rootStore) {
         this.rootStore = rootStore;
@@ -15,6 +16,10 @@ export default class AppStore {
     houseEdge = 0.01;
 
     @observable bet =  '0.00000000'; //押注金额
+
+    @observable ethGasLimit = '21000';//手续费上限
+
+    @observable ethGasPrice = '2000000000000'; //手续费
 
     @observable chance = 49.50; // 胜率
 
@@ -59,6 +64,11 @@ export default class AppStore {
 
     @observable highStakes = [];
 
+    @observable language = 'ZH';
+
+    @observable words = languageCf[this.language];
+
+
     @computed
     get hasPasswordToJs() {
         return mobx.toJS(this.hasPassword)
@@ -101,6 +111,11 @@ export default class AppStore {
     get stakeCollectToJs() {
         return mobx.toJS(this.stakeCollect)
     }
+
+    @computed
+    get wordsToJs() {
+        return mobx.toJS(this.words);
+    }
     //  查询余额
     @action.bound
     queryBalance() {
@@ -112,6 +127,8 @@ export default class AppStore {
                 if (response.data.code === 100) {
                     let data = response.data.data;
                     this.balance = data.balance;
+                    this.ethGasLimit = data.ethGasLimit;
+                    this.ethGasPrice = data.ethGasPrice;
                 }
             })
     }
@@ -134,10 +151,11 @@ export default class AppStore {
     //  设置密码
     @action.bound
     setPassword(key1, key2) {
+        
         key1 = key1.trim()
         key2 = key2.trim()
         if (!key1) {
-            message.info('密码不能为空');
+            message.info(this.words.message.mmbnwk);
         } else {
             if (key1 === key2) {
                 axios({
@@ -149,14 +167,14 @@ export default class AppStore {
                   })
                     .then((response) => {
                         if (response.data.code === 100) {
-                            message.info('密码设置成功');
+                            message.info(this.words.message.mmszcg);
                             this.hasPassword = true;
                         } else if (response.data.code === 198){
-                            message.info('密码不能少于10个字符串');
+                            message.info(this.words.message.mmbunxy);
                         }
                     })
             } else {
-                message.info('两次密码不一致');
+                message.info(this.words.message.lcmmbyz);
             }
         }
         
@@ -169,11 +187,11 @@ export default class AppStore {
         key2 = key2.trim()
         key3 = key3.trim()
         if (!key3) { 
-            message.info('旧密码不能为空');
+            message.info(this.words.message.jmmbnwk);
             return false;
         }
         if (!key1) {
-            message.info('新密码不能为空');
+            message.info(this.words.message.xmmbnwk);
             return false;
         }
         if (key1 === key2) {
@@ -187,15 +205,14 @@ export default class AppStore {
               })
                 .then((response) => {
                     if (response.data.code === 100) {
-                        message.info('密码设置成功');
+                        message.info(this.words.message.mmszcg);
                     } else{
-                        message.info('旧密码不正确');
+                        message.info(this.words.message.jmmbzq);
                     }
                 })
         } else {
-            message.info('两次密码不一致');
+            message.info(this.words.message.lcmmbyz);
         }
-
     }
     // 改变下注金额
     @action.bound
@@ -309,24 +326,26 @@ export default class AppStore {
           })
             .then((response) => {
                 if (response.data.code === 100) {
-                    let data = response.data.data;
-                    // 输
-                    let balance, changeAmt;
-                    if (data.fundType === 'FO') {
-                        balance = Number(this.balance) - Number(data.changeAmt)
-                        changeAmt = '-' + Number(data.changeAmt).toFixed(8);
-                        this.fundType = false;
-                    } else {
-                        balance = Number(this.balance) + Number(data.changeAmt)
-                        changeAmt = '+' + Number(data.changeAmt).toFixed(8);
-                        this.fundType = true;
-                    }
-                    this.balance = balance.toFixed(8);
-                    this.setMarks(data.randomResult);
-                    this.setAmt(changeAmt)
-                    this.getSakeCollect();
-                    this.getAllStakes();
-                    //this.balance = data.balance;
+                    this.rootStore.dialogStore.setLoading(true);
+                    
+                    // let data = response.data.data;
+                    // // 输
+                    // let balance, changeAmt;
+                    // if (data.fundType === 'FO') {
+                    //     balance = Number(this.balance) - Number(data.changeAmt)
+                    //     changeAmt = '-' + Number(data.changeAmt).toFixed(8);
+                    //     this.fundType = false;
+                    // } else {
+                    //     balance = Number(this.balance) + Number(data.changeAmt)
+                    //     changeAmt = '+' + Number(data.changeAmt).toFixed(8);
+                    //     this.fundType = true;
+                    // }
+                    // this.balance = balance.toFixed(8);
+                    // this.setMarks(data.randomResult);
+                    // this.setAmt(changeAmt)
+                    // this.getSakeCollect();
+                    // this.getAllStakes();
+                    // //this.balance = data.balance;
                 }
             })
     }
@@ -382,7 +401,7 @@ export default class AppStore {
         setInterval(() => {
             this.getAllStakes();
         }, 5000)
-        
+        //this.createWebSocket();
     }
     // 获取下注列表
     @action.bound
@@ -423,4 +442,12 @@ export default class AppStore {
         this.getStakes(1);
         this.getStakes(2);
     }
+    
+    // 切换语言
+    @action.bound
+    setLanguageCf(value) {
+        this.language = value;
+        this.words = languageCf[this.language];
+    }
+    
 }

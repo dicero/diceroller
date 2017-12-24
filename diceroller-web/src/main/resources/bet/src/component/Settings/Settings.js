@@ -10,7 +10,8 @@ const {Content } = Layout;
     hasPassword: allStores.appStore.hasPasswordToJs,
     verifyHasPassword: allStores.appStore.verifyHasPassword,
     setPassword: allStores.appStore.setPassword,
-    updatePassword: allStores.appStore.updatePassword
+    updatePassword: allStores.appStore.updatePassword,
+    words: allStores.appStore.wordsToJs
 }))@observer class Settings extends Component {
     constructor(props) {
         super(props);
@@ -50,7 +51,7 @@ const {Content } = Layout;
         this.props.verifyHasPassword();
     }
     render() {
-        const {hasPassword, setPassword, updatePassword} = this.props;
+        const {hasPassword, setPassword, updatePassword, words} = this.props;
         const { oldPassword, password , newPassword} = this.state;
         const suffix1 = password ? <Icon type="close-circle" onClick={this.emitEmpty1} /> : null;
         const suffix2 = newPassword ? <Icon type="close-circle" onClick={this.emitEmpty2} /> : null;
@@ -59,10 +60,10 @@ const {Content } = Layout;
             <div className="settings">
                 <Head/>
                 <Layout className="settings">
-                    <h5>设置新密码</h5>
+                    <h5>{words.settings.szxmm}</h5>
                     <Content style={{width:"300px",margin:"0 auto"}}>
                     {hasPassword&&(<Input
-                        placeholder="旧密码"
+                        placeholder={words.settings.placeholderJmm}
                         prefix={<Icon type="lock" />}
                         suffix={suffix3}
                         value={oldPassword}
@@ -71,7 +72,7 @@ const {Content } = Layout;
                         type={"password"}
                     />)}
                     <Input
-                        placeholder="新密码"
+                        placeholder={words.settings.placeholderXmm}
                         prefix={<Icon type="lock" />}
                         suffix={suffix1}
                         value={password}
@@ -80,7 +81,7 @@ const {Content } = Layout;
                         type={"password"}
                     />
                     <Input
-                        placeholder="确定新密码"
+                        placeholder={words.settings.placeholderQdxmm}
                         prefix={<Icon type="lock" />}
                         suffix={suffix2}
                         value={newPassword}
@@ -91,11 +92,11 @@ const {Content } = Layout;
                     {!hasPassword&&<button onClick={ ()=> {
                         this.emitEmpty()
                         setPassword(password, newPassword)
-                    }}>设置</button>}
+                    }}>{words.settings.sz}</button>}
                     {hasPassword&&<button onClick={ () => {
                         this.emitEmpty()
                         updatePassword(password, newPassword, oldPassword)
-                    }}>更改</button>}
+                    }}>{words.settings.gg}</button>}
                     </Content>
                 </Layout>
             </div>

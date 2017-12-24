@@ -7,7 +7,8 @@ import Login from './Login.js';
     registerVisible: allStores.dialogStore.registerVisible,
     isShowLogin: allStores.dialogStore.isShowLogin,
     register: allStores.dialogStore.register,
-    setLoginShow: allStores.dialogStore.setLoginShow
+    setLoginShow: allStores.dialogStore.setLoginShow,
+    words: allStores.appStore.wordsToJs
 }))@observer class Register extends Component {
     constructor(props) {
         super(props);
@@ -26,11 +27,12 @@ import Login from './Login.js';
         this.props.isShowLogin();
     }
     render() {
+        const {words} = this.props;
         const { userName } = this.state;
         const suffix = userName ? <Icon type="close-circle" onClick={this.emitEmpty} /> : null;
         return(
             <Modal
-            title="登录"
+            title={words.login.zc}
             visible={this.props.registerVisible}
             footer={null}
             wrapClassName="register"
@@ -39,19 +41,19 @@ import Login from './Login.js';
             >
             <div className="register">
                 <h2>Diceroller</h2>
-                <h3>最受欢迎的和最值得信赖的以太坊博彩网站</h3>
+                <h3>{words.register.title}</h3>
                 <div className="form">
                 <Input
-                    placeholder="Enter your userName"
+                    placeholder={words.register.placeholder}
                     prefix={<Icon type="user" />}
                     suffix={suffix}
                     value={userName}
                     onChange={this.onChangeUserName}
                     ref={node => this.userNameInput = node}
                 />
-                <button onClick={this.props.register.bind(this,userName)}>加入</button>
+                <button onClick={this.props.register.bind(this,userName)}>{words.register.jr}</button>
                 </div>
-                <p>已经有一个账户了？<strong onClick={this.props.setLoginShow.bind(this, true)}>在这里登录</strong></p>
+                <p>{words.register.yyzh}<strong onClick={this.props.setLoginShow.bind(this, true)}>{words.register.zzldl}</strong></p>
             </div>
             <Login/>
           </Modal>

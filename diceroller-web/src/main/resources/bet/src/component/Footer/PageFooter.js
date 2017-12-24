@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import './Footer.less';
 import { Link } from 'react-router-dom';
+import {observer, inject} from "mobx-react";
 
-class PageFooter extends Component {
+@inject((allStores) => ({
+    words: allStores.appStore.wordsToJs
+}))@observer class PageFooter extends Component {
+    
     render() {
+        const {words, setLanguageCf} = this.props;
         return (
             <footer className="component-footer">
                 <div className="container">
@@ -11,44 +16,39 @@ class PageFooter extends Component {
                         <ul className="left">
                             <li>
                                 <Link to="/play">
-                                主页
+                                {words.foot.zy}
                                 </Link>
                             </li>
                             <li>
                                 <Link to="/play">
-                                博客
+                                {words.foot.bk}
                                 </Link>
                             </li>
                             <li>
                                 <Link to="/play">
-                                公平性
+                                {words.foot.gpx}
                                 </Link>
                             </li>
                             <li>
                                 <Link to="/play">
-                                FAQ
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/play">
-                                ZH
+                                {words.foot.faq}
                                 </Link>
                             </li>
                         </ul>
                         <ul className="left">
                             <li>
                                 <Link to="/play">
-                                推荐
+                                {words.foot.tj}
                                 </Link>
                             </li>
                             <li>
                                 <Link to="/play">
-                                帮助
+                                {words.foot.bz}
                                 </Link>
                             </li>
                             <li>
                                 <Link to="/play">
-                                联系我们
+                                {words.foot.lxwm}
                                 </Link>
                             </li>
                         </ul>
@@ -63,34 +63,34 @@ class PageFooter extends Component {
                         <ul className="right">
                             <li>
                                 <Link to="/play">
-                                    Forum
+                                {words.foot.Forum}
                                 </Link>
                             </li>
                             <li>
                                 <Link to="/play">
-                                    以太坊论坛
+                                {words.foot.ytflt}
                                 </Link>
                             </li>
                             <li>
                                 <Link to="/play">
-                                    facebook
+                                {words.foot.facebook}
                                 </Link>
                             </li>
                             <li>
                                 <Link to="/play">
-                                    Twitter
+                                {words.foot.Twitter}
                                 </Link>
                             </li>
                         </ul>
                         <ul className="right">
                             <li>
                                 <Link to="/play">
-                                    Reddit
+                                {words.foot.Reddit}
                                 </Link>
                             </li>
                             <li>
                                 <Link to="/play">
-                                    博彩沉迷预防
+                                {words.foot.bccmyf}
                                 </Link>
                             </li>
                         </ul>
