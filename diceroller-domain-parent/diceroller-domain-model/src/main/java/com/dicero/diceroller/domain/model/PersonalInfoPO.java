@@ -3,6 +3,7 @@ package com.dicero.diceroller.domain.model;
 import com.dicero.diceroller.domain.BasePO;
 
 import javax.persistence.*;
+import java.math.BigInteger;
 import java.sql.Timestamp;
 
 /**
@@ -21,6 +22,8 @@ public class PersonalInfoPO extends BasePO {
     private String notifyEmail;
     private String notifyPhone;
     private String notifyBitAddress;
+    private BigInteger ethGasPrice;
+    private BigInteger ethGasLimit;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -91,6 +94,26 @@ public class PersonalInfoPO extends BasePO {
 
     public void setNotifyBitAddress(String notifyBitAddress) {
         this.notifyBitAddress = notifyBitAddress;
+    }
+
+    @Basic
+    @Column(name = "eth_gas_price", nullable = true, length = 15)
+    public BigInteger getEthGasPrice() {
+        return ethGasPrice;
+    }
+
+    public void setEthGasPrice(BigInteger ethGasPrice) {
+        this.ethGasPrice = ethGasPrice;
+    }
+
+    @Basic
+    @Column(name = "eth_gas_limit", nullable = true, length = 15)
+    public BigInteger getEthGasLimit() {
+        return ethGasLimit;
+    }
+
+    public void setEthGasLimit(BigInteger ethGasLimit) {
+        this.ethGasLimit = ethGasLimit;
     }
 
     @Override

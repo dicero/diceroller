@@ -3,6 +3,7 @@ package com.dicero.diceroller.service.personal.impl;
 import com.dicero.diceroller.common.bean.extension.CommonDefinedException;
 import com.dicero.diceroller.common.util.EncryptUtil;
 import com.dicero.diceroller.common.util.MD5Util;
+import com.dicero.diceroller.core.coin.util.Web3jConstants;
 import com.dicero.diceroller.dal.mysql.repository.EthAddressPORepository;
 import com.dicero.diceroller.dal.mysql.repository.PersonalInfoPORepository;
 import com.dicero.diceroller.dal.mysql.repository.PersonalMemberPORepository;
@@ -46,6 +47,8 @@ public class PersonalServiceImpl extends BaseService implements PersonalService 
     public PersonalMemberPO login(String loginUsername, String loginPassword) {
         PersonalMemberPO personalMemberPO = personalMemberPORepository.findByMemberAccount(loginUsername);
         if(personalMemberPO != null && StringUtils.isNotBlank(personalMemberPO.getPwd()) && verifyMd5Password(loginPassword, personalMemberPO.getPwd())) {
+            // NOTE: 更新playAccessToken
+            personalMemberPORepository.updatePasswordByMemberId(personalMemberPO.getMemberId(), createPlayAccessToken());
             return personalMemberPO;
         }
         return null;
@@ -61,8 +64,6 @@ public class PersonalServiceImpl extends BaseService implements PersonalService 
         personalMemberPO.setUpdateTime(now());
         personalMemberPO =  personalMemberPORepository.save(personalMemberPO);
 
-        System.out.println("------createPlayAccessToken-----");
-
         // NOTE: 获取充值地址
         List<EthAddressPO> records = ethAddressPORepository.findByHasUse(0, new PageRequest(0, 1, new Sort(Sort.Direction.ASC, new String[] { "id" })  ));
         if(CollectionUtils.isEmpty(records)) {
@@ -75,6 +76,8 @@ public class PersonalServiceImpl extends BaseService implements PersonalService 
         PersonalInfoPO personalInfoPO = new PersonalInfoPO();
         personalInfoPO.setMemberId(personalMemberPO.getMemberId());
         personalInfoPO.setNotifyBitAddress(ethAddressPO.getAddress());
+        personalInfoPO.setEthGasPrice(Web3jConstants.GAS_PRICE);
+        personalInfoPO.setEthGasLimit(Web3jConstants.GAS_LIMIT_ETHER_TX);
         personalInfoPO.setCreateTime(now());
         personalInfoPO.setUpdateTime(now());
         personalInfoPORepository.save(personalInfoPO);
@@ -90,7 +93,6 @@ public class PersonalServiceImpl extends BaseService implements PersonalService 
         personalSeedPO.setServerSeedHash(EncryptUtil.SHA256(personalSeedPO.getServerSeed()));
         personalSeedPORepository.save(personalSeedPO);
 
-        System.out.println("下单授权-----");
         // NOTE: 下单授权
         tssTradeService.createAccessTrade(personalMemberPO.getMemberId());
 

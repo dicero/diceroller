@@ -19,6 +19,11 @@ public interface PersonalMemberPORepository extends JpaRepository<PersonalMember
 
     @Transactional
     @Modifying
+    @Query("update PersonalMemberPO set playAccessToken=?2, updateTime=now() where memberId = ?1")
+    int updatePlayAccessTokenByMemberId(Integer memberId, String playAccessToken);
+
+    @Transactional
+    @Modifying
     @Query("update PersonalMemberPO set pwd=?2, updateTime=now() where memberId = ?1")
     int updatePasswordByMemberId(Integer memberId, String pwd);
 }

@@ -9,6 +9,7 @@ import com.dicero.diceroller.domain.enums.FundTypeEnums;
 import com.dicero.diceroller.domain.model.*;
 import com.dicero.diceroller.service.personal.PersonalService;
 import com.dicero.diceroller.service.play.PlayService;
+import com.dicero.diceroller.service.tss.TssTradeService;
 import com.dicero.diceroller.web.hepler.WebLoginer;
 import com.dicero.diceroller.web.interceptor.WebAccess;
 import com.dicero.diceroller.web.rest.vo.*;
@@ -48,6 +49,7 @@ public class QueryRest extends AbstractRest {
 
     @Autowired PlayService playService;
     @Autowired PersonalService personalService;
+    @Autowired TssTradeService tssTradeService;
     @Autowired PersonalStakeTodayPORepository personalStakeTodayPORepository;
     @Autowired PersonalStakeHistoryPORepository personalStakeHistoryPORepository;
     @Autowired PersonalBillPORepository personalBillPORepository;
@@ -72,6 +74,7 @@ public class QueryRest extends AbstractRest {
                 if (personalMemberPO != null) {
                     dataObject.put("username", webLoginer.getUsername());
                     dataObject.put("accessToken", personalMemberPO.getPlayAccessToken());
+                    dataObject.put("playAccess", tssTradeService.queryAccess(webLoginer.getId()) == true ? "1" : "0");
                     return RestResponse.createSuccess(dataObject.getData());
                 } else {
                     return RestResponse.createFailure(RestCode.USER_NOT_LOGIN);
@@ -139,6 +142,11 @@ public class QueryRest extends AbstractRest {
             @Override
             protected RestResponse process() throws Exception {
                 DataObject dataObject = new DataObject();
+                PersonalInfoPO personalInfoPO = personalInfoPORepository.findByMemberId(webLoginer.getId());
+                if (personalInfoPO != null) {
+                    dataObject.put("ethGasPrice", personalInfoPO.getEthGasPrice());
+                    dataObject.put("ethGasLimit", personalInfoPO.getEthGasLimit());
+                }
                 dataObject.put("balance", "200.00000002");
                 return RestResponse.createSuccess(dataObject.getData());
             }
