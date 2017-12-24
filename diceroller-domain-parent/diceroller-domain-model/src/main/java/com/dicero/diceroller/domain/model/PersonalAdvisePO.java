@@ -75,7 +75,7 @@ public class PersonalAdvisePO extends BasePO {
     }
 
     @Basic
-    @Column(name = "email", nullable = true, length = 20)
+    @Column(name = "email", nullable = false, length = 20)
     public String getEmail() {
         return email;
     }

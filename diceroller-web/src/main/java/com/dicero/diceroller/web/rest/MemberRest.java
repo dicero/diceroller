@@ -148,7 +148,7 @@ public class MemberRest extends AbstractRest {
 
     @ApiOperation(value = "建议")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "email", value = "联系邮箱", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "email", value = "联系邮箱", required = false, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "content", value = "建议内容", required = true, dataType = "Text", paramType = "query")
     })
     @WebAccess

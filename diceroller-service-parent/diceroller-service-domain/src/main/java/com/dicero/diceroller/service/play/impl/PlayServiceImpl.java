@@ -306,6 +306,12 @@ public class PlayServiceImpl extends BaseService implements PlayService{
         // NOTE: 重置下单授权
         tssTradeService.resetAccess(personalMemberPO.getMemberId());
 
+        try {
+            log.info("异步发送websocket通知, 押注ID:{}, 休眠时间:{}", personalStakePO.getSeedId(), "sleep 5 s");
+            Thread.sleep(50000L);
+        } catch (Exception e) { }
+
+
         MakeResult makeResult = new MakeResult();
         if(diceHmacBean.isWin()) {
             makeResult.setFundType(FundTypeEnums.FI);
