@@ -5,6 +5,7 @@ import com.dicero.diceroller.common.bean.result.RestResponse;
 import com.dicero.diceroller.dal.mysql.repository.PersonalMemberPORepository;
 import com.dicero.diceroller.domain.model.PersonalMemberPO;
 import com.dicero.diceroller.service.personal.PersonalService;
+import com.dicero.diceroller.service.tss.TssTradeService;
 import com.dicero.diceroller.web.hepler.HelperCookie;
 import io.swagger.annotations.*;
 import org.apache.commons.lang3.Validate;
@@ -26,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/rest/auth")
 public class AuthRest extends AbstractRest {
     @Autowired PersonalMemberPORepository personalMemberPORepository;
+    @Autowired TssTradeService tssTradeService;
     @Autowired PersonalService personalService;
 
     @ApiOperation(value = "登录")
@@ -49,8 +51,9 @@ public class AuthRest extends AbstractRest {
                 if (personalMemberPO != null) {
                     dataObject.put("username", personalMemberPO.getMemberAccount());
                     dataObject.put("accessToken", personalMemberPO.getPlayAccessToken());
+                    dataObject.put("playAccess", tssTradeService.queryAccess(personalMemberPO.getMemberId()) == true ? "1" : "0");
                     HelperCookie.setLoginWeb(request, personalMemberPO);
-                    return RestResponse.createSuccess(dataObject);
+                    return RestResponse.createSuccess(dataObject.getData());
                 } else {
                     return RestResponse.createFailure();
                 }
@@ -106,8 +109,9 @@ public class AuthRest extends AbstractRest {
                     DataObject dataObject = new DataObject();
                     dataObject.put("username", personalMemberPO.getMemberAccount());
                     dataObject.put("accessToken", personalMemberPO.getPlayAccessToken());
+                    dataObject.put("playAccess", tssTradeService.queryAccess(personalMemberPO.getMemberId()) == true ? "1" : "0");
                     HelperCookie.setLoginWeb(request, personalMemberPO);
-                    return RestResponse.createSuccess(dataObject);
+                    return RestResponse.createSuccess(dataObject.getData());
                 } else {
                     return RestResponse.createFailure();
                 }
