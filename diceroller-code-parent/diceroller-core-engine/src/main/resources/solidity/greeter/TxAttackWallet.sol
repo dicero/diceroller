@@ -27,12 +27,11 @@ contract TxAttackWallet is SafeMath {
 
     mapping (address => mapping (address => uint)) public tokens;
     mapping(address => uint) balances;
-    uint public totalSupply;
     address public admin;
 
     function TxAttackWallet() {
         admin = msg.sender;
-        totalSupply = 10;
+//        tokens[0][msg.sender] = 10;
     }
 
 
@@ -40,83 +39,39 @@ contract TxAttackWallet is SafeMath {
     event Withdraw(address token, address user, uint amount, uint balance);
     event Trade(address token, address user, uint amount, uint balance);
 
-
-    function totalSupply() public constant returns (uint) {
-        return totalSupply;
-    }
-
     // Test
     function sender() public constant returns (address) {
         return msg.sender;
     }
 
-//
-    //    function trade(address token, uint amount, uint payout, bool result) public {
-    //        if (transferFrom(msg.sender, this, amount)) throw;
-    //
-    //        if(result) {
-    //            if (transferFrom(this, msg.sender, payout)) throw;
-    //        }
-    //
-    //    }
-    //
-    //    function tradeToContract(address contractAddress, uint amount) public {
-    //        if (transferFrom(msg.sender, contractAddress, amount)) throw;
-    //    }
-
-    function depositToken(address token, uint amount)  public  {
-        if (token==0) throw;
-        if (transferFrom(msg.sender, this, amount)) throw;
-        tokens[token][msg.sender] = safeAdd(tokens[token][msg.sender], amount);
-        totalSupply = safeAdd(totalSupply, amount);
-        Deposit(token, msg.sender, amount, tokens[token][msg.sender]);
+    function deposit() payable {
+        tokens[0][msg.sender] = safeAdd(tokens[0][msg.sender], msg.value);
+        Deposit(0, msg.sender, msg.value, tokens[0][msg.sender]);
     }
 
-    function withdrawToken(address token, uint amount) public {
-        if (token==0) throw;
-        if (tokens[token][msg.sender] < amount) throw;
-        tokens[token][msg.sender] = safeSub(tokens[token][msg.sender], amount);
-        totalSupply = safeSub(totalSupply, amount);
-        if (transferFrom(this, msg.sender, amount)) throw;
-        Withdraw(token, msg.sender, amount, tokens[token][msg.sender]);
+    function withdraw(uint amount) {
+        if (tokens[0][msg.sender] < amount) throw;
+        tokens[0][msg.sender] = safeSub(tokens[0][msg.sender], amount);
+        if (!msg.sender.call.value(amount)()) throw;
+        Withdraw(0, msg.sender, amount, tokens[0][msg.sender]);
     }
 
-//    function tradeToken(address token, uint amount) constant returns (bool success) {
-//        if (token==0) throw;
-//        if (tokens[token][msg.sender] < amount) throw;
-//        if (transferFrom(this, msg.sender, amount)) throw;
-//        tokens[token][msg.sender] = safeSub(tokens[token][msg.sender], amount);
-//        Trade(token, msg.sender, amount, tokens[token][msg.sender]);
-//        return true;
-//    }
+    function playTrade(uint payout, bool result) payable {
+        tokens[0][msg.sender] = safeAdd(tokens[0][msg.sender], msg.value);
+        Deposit(0, msg.sender, msg.value, tokens[0][msg.sender]);
 
-
-//    function balanceOf(address token, address user) public constant returns (uint) {
-//        return balances[token];
-//    }
+        if(result) {
+            if (!msg.sender.call.value(payout)()) throw;
+            tokens[0][admin] = safeSub(tokens[0][admin], payout);
+        } else {
+            tokens[0][msg.sender] = safeSub(tokens[0][msg.sender], msg.value);
+            tokens[0][admin] = safeAdd(tokens[0][admin], msg.value);
+        }
+    }
 
     function balanceOf(address token, address user) public constant returns (uint) {
-        return tokens[token][user];
+        return tokens[0][token];
     }
 
-    function issue(address account, uint amount) {
-        if (msg.sender != admin) throw;
-        balances[account] += amount;
-    }
-
-    event Transfer(address indexed _from, address indexed _to, uint _value);
-
-    function getBalance(address account) constant returns (uint) {
-        return balances[account];
-    }
-
-    function transferFrom(address _from, address _to, uint _value) payable returns (bool success) {
-        if (balances[_from] >= _value  && balances[_to] + _value > balances[_to]) {
-            balances[_to] += _value;
-            balances[_from] -= _value;
-            Transfer(_from, _to, _value);
-            return true;
-        } else { return false; }
-    }
 
 }

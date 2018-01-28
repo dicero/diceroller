@@ -49,7 +49,7 @@ public class PersonalServiceImpl extends BaseService implements PersonalService 
         if(personalMemberPO != null && StringUtils.isNotBlank(personalMemberPO.getPwd()) && verifyMd5Password(loginPassword, personalMemberPO.getPwd())) {
             // NOTE: 更新playAccessToken
             String playAccessToken = createPlayAccessToken();
-            personalMemberPORepository.updatePasswordByMemberId(personalMemberPO.getMemberId(), playAccessToken);
+            personalMemberPORepository.updatePlayAccessTokenByMemberId(personalMemberPO.getMemberId(), playAccessToken);
             personalMemberPO.setPlayAccessToken(playAccessToken);
             return personalMemberPO;
         }

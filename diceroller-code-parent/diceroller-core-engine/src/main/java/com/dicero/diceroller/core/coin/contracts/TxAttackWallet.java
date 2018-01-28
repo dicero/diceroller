@@ -35,7 +35,7 @@ import rx.functions.Func1;
  * <p>Generated with web3j version 3.1.1.
  */
 public final class TxAttackWallet extends Contract {
-    private static final String BINARY = "6060604052341561000f57600080fd5b60038054600160a060020a03191633600160a060020a0316179055600a60025561064b8061003e6000396000f3006060604052600436106100a35763ffffffff7c010000000000000000000000000000000000000000000000000000000060003504166318160ddd81146100a857806323b872dd146100cd578063338b5dea146100fe578063508493bc1461012257806367e404ce14610147578063867904b4146101765780639e281a9814610198578063f7888aec146101ba578063f851a440146101df578063f8b2cb4f146101f2575b600080fd5b34156100b357600080fd5b6100bb610211565b60405190815260200160405180910390f35b6100ea600160a060020a0360043581169060243516604435610217565b604051901515815260200160405180910390f35b341561010957600080fd5b610120600160a060020a03600435166024356102d7565b005b341561012d57600080fd5b6100bb600160a060020a03600435811690602435166103eb565b341561015257600080fd5b61015a610405565b604051600160a060020a03909116815260200160405180910390f35b341561018157600080fd5b610120600160a060020a0360043516602435610409565b34156101a357600080fd5b610120600160a060020a0360043516602435610446565b34156101c557600080fd5b6100bb600160a060020a036004358116906024351661058c565b34156101ea57600080fd5b61015a6105b5565b34156101fd57600080fd5b6100bb600160a060020a03600435166105c4565b60025490565b600160a060020a0383166000908152600160205260408120548290108015906102595750600160a060020a038316600090815260016020526040902054828101115b156102cc57600160a060020a03808416600081815260016020526040808220805487019055928716808252908390208054869003905590917fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef9085905190815260200160405180910390a35060016102d0565b5060005b9392505050565b600160a060020a03821615156102ec57600080fd5b6102f7333083610217565b1561030157600080fd5b600160a060020a03808316600090815260208181526040808320339094168352929052205461033090826105df565b600160a060020a03808416600090815260208181526040808320339094168352929052205560025461036290826105df565b600255600160a060020a0380831660009081526020818152604080832033948516845290915290819020547fdcbc1c05240f31ff3ad067ef1ee35ce4997762752e3a095284754544f4c709d79285929091859151600160a060020a0394851681529290931660208301526040808301919091526060820192909252608001905180910390a15050565b600060208181529281526040808220909352908152205481565b3390565b60035433600160a060020a0390811691161461042457600080fd5b600160a060020a03909116600090815260016020526040902080549091019055565b600160a060020a038216151561045b57600080fd5b600160a060020a0380831660009081526020818152604080832033909416835292905220548190101561048d57600080fd5b600160a060020a0380831660009081526020818152604080832033909416835292905220546104bc90826105fc565b600160a060020a0380841660009081526020818152604080832033909416835292905220556002546104ee90826105fc565b6002556104fc303383610217565b1561050657600080fd5b600160a060020a0380831660009081526020818152604080832033948516845290915290819020547ff341246adaac6f497bc2a656f546ab9e182111d630394f0c57c710a59a2cb5679285929091859151600160a060020a0394851681529290931660208301526040808301919091526060820192909252608001905180910390a15050565b600160a060020a0391821660009081526020818152604080832093909416825291909152205490565b600354600160a060020a031681565b600160a060020a031660009081526001602052604090205490565b60008282016102d08482108015906105f75750838210155b610610565b600061060a83831115610610565b50900390565b80151561061c57600080fd5b505600a165627a7a7230582011ee35529952cc3a00f5356f00cfa711df9c8830f99ef0eb35e2cdd90372723d0029";
+    private static final String BINARY = "6060604052341561000f57600080fd5b60028054600160a060020a03191633600160a060020a031617905561060a806100396000396000f3006060604052600436106100825763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416630244dfc881146100875780632e1a7d4d14610099578063508493bc146100af57806367e404ce146100e6578063d0e30db014610115578063f7888aec1461011d578063f851a44014610142575b600080fd5b6100976004356024351515610155565b005b34156100a457600080fd5b610097600435610337565b34156100ba57600080fd5b6100d4600160a060020a036004358116906024351661046c565b60405190815260200160405180910390f35b34156100f157600080fd5b6100f9610486565b604051600160a060020a03909116815260200160405180910390f35b61009761048a565b341561012857600080fd5b6100d4600160a060020a036004358116906024351661053f565b341561014d57600080fd5b6100f9610568565b33600160a060020a031660009081526000805160206105bf83398151915260205260409020546101859034610577565b33600160a060020a03811660009081526000805160206105bf83398151915260205260408082208490557fdcbc1c05240f31ff3ad067ef1ee35ce4997762752e3a095284754544f4c709d793919291349151600160a060020a0394851681529290931660208301526040808301919091526060820192909252608001905180910390a1801561029b5733600160a060020a03168260405160006040518083038185876187965a03f192505050151561023c57600080fd5b600254600160a060020a031660009081526000805160206105bf833981519152602052604090205461026e908361059b565b600254600160a060020a031660009081526000805160206105bf8339815191526020526040902055610333565b33600160a060020a031660009081526000805160206105bf83398151915260205260409020546102cb903461059b565b600160a060020a0333811660009081526000805160206105bf8339815191526020526040808220939093556002549091168152205461030a9034610577565b600254600160a060020a031660009081526000805160206105bf83398151915260205260409020555b5050565b33600160a060020a031660009081526000805160206105bf83398151915260205260409020548190101561036a57600080fd5b33600160a060020a031660009081526000805160206105bf833981519152602052604090205461039a908261059b565b33600160a060020a031660008181526000805160206105bf833981519152602052604090819020929092559082905160006040518083038185876187965a03f19250505015156103e957600080fd5b33600160a060020a03811660009081526000805160206105bf8339815191526020526040808220547ff341246adaac6f497bc2a656f546ab9e182111d630394f0c57c710a59a2cb567939185919051600160a060020a0394851681529290931660208301526040808301919091526060820192909252608001905180910390a150565b600060208181529281526040808220909352908152205481565b3390565b33600160a060020a031660009081526000805160206105bf83398151915260205260409020546104ba9034610577565b33600160a060020a03811660009081526000805160206105bf83398151915260205260408082208490557fdcbc1c05240f31ff3ad067ef1ee35ce4997762752e3a095284754544f4c709d793919291349151600160a060020a0394851681529290931660208301526040808301919091526060820192909252608001905180910390a1565b50600160a060020a031660009081526000805160206105bf833981519152602052604090205490565b600254600160a060020a031681565b600082820161059484821080159061058f5750838210155b6105af565b9392505050565b60006105a9838311156105af565b50900390565b8015156105bb57600080fd5b505600ad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb5a165627a7a723058204968a0ca29d6b8a8a858d38792a48e25db33f97c0c22156be89973728de925d80029";
 
     private TxAttackWallet(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
         super(BINARY, contractAddress, web3j, credentials, gasPrice, gasLimit);
@@ -156,63 +156,19 @@ public final class TxAttackWallet extends Contract {
         });
     }
 
-    public List<TransferEventResponse> getTransferEvents(TransactionReceipt transactionReceipt) {
-        final Event event = new Event("Transfer", 
-                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}, new TypeReference<Address>() {}),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
-        List<EventValues> valueList = extractEventParameters(event, transactionReceipt);
-        ArrayList<TransferEventResponse> responses = new ArrayList<TransferEventResponse>(valueList.size());
-        for (EventValues eventValues : valueList) {
-            TransferEventResponse typedResponse = new TransferEventResponse();
-            typedResponse._from = (String) eventValues.getIndexedValues().get(0).getValue();
-            typedResponse._to = (String) eventValues.getIndexedValues().get(1).getValue();
-            typedResponse._value = (BigInteger) eventValues.getNonIndexedValues().get(0).getValue();
-            responses.add(typedResponse);
-        }
-        return responses;
-    }
-
-    public Observable<TransferEventResponse> transferEventObservable(DefaultBlockParameter startBlock, DefaultBlockParameter endBlock) {
-        final Event event = new Event("Transfer", 
-                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}, new TypeReference<Address>() {}),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
-        EthFilter filter = new EthFilter(startBlock, endBlock, getContractAddress());
-        filter.addSingleTopic(EventEncoder.encode(event));
-        return web3j.ethLogObservable(filter).map(new Func1<Log, TransferEventResponse>() {
-            @Override
-            public TransferEventResponse call(Log log) {
-                EventValues eventValues = extractEventParameters(event, log);
-                TransferEventResponse typedResponse = new TransferEventResponse();
-                typedResponse._from = (String) eventValues.getIndexedValues().get(0).getValue();
-                typedResponse._to = (String) eventValues.getIndexedValues().get(1).getValue();
-                typedResponse._value = (BigInteger) eventValues.getNonIndexedValues().get(0).getValue();
-                return typedResponse;
-            }
-        });
-    }
-
-    public RemoteCall<BigInteger> totalSupply() {
-        Function function = new Function("totalSupply", 
-                Arrays.<Type>asList(), 
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
-        return executeRemoteCallSingleValueReturn(function, BigInteger.class);
-    }
-
-    public RemoteCall<TransactionReceipt> transferFrom(String _from, String _to, BigInteger _value, BigInteger weiValue) {
+    public RemoteCall<TransactionReceipt> playTrade(BigInteger payout, Boolean result, BigInteger weiValue) {
         Function function = new Function(
-                "transferFrom", 
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(_from), 
-                new org.web3j.abi.datatypes.Address(_to), 
-                new org.web3j.abi.datatypes.generated.Uint256(_value)), 
+                "playTrade", 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(payout), 
+                new org.web3j.abi.datatypes.Bool(result)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function, weiValue);
     }
 
-    public RemoteCall<TransactionReceipt> depositToken(String token, BigInteger amount) {
+    public RemoteCall<TransactionReceipt> withdraw(BigInteger amount) {
         Function function = new Function(
-                "depositToken", 
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(token), 
-                new org.web3j.abi.datatypes.generated.Uint256(amount)), 
+                "withdraw", 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(amount)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
@@ -232,22 +188,12 @@ public final class TxAttackWallet extends Contract {
         return executeRemoteCallSingleValueReturn(function, String.class);
     }
 
-    public RemoteCall<TransactionReceipt> issue(String account, BigInteger amount) {
+    public RemoteCall<TransactionReceipt> deposit(BigInteger weiValue) {
         Function function = new Function(
-                "issue", 
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(account), 
-                new org.web3j.abi.datatypes.generated.Uint256(amount)), 
+                "deposit", 
+                Arrays.<Type>asList(), 
                 Collections.<TypeReference<?>>emptyList());
-        return executeRemoteCallTransaction(function);
-    }
-
-    public RemoteCall<TransactionReceipt> withdrawToken(String token, BigInteger amount) {
-        Function function = new Function(
-                "withdrawToken", 
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(token), 
-                new org.web3j.abi.datatypes.generated.Uint256(amount)), 
-                Collections.<TypeReference<?>>emptyList());
-        return executeRemoteCallTransaction(function);
+        return executeRemoteCallTransaction(function, weiValue);
     }
 
     public RemoteCall<BigInteger> balanceOf(String token, String user) {
@@ -263,13 +209,6 @@ public final class TxAttackWallet extends Contract {
                 Arrays.<Type>asList(), 
                 Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}));
         return executeRemoteCallSingleValueReturn(function, String.class);
-    }
-
-    public RemoteCall<BigInteger> getBalance(String account) {
-        Function function = new Function("getBalance", 
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(account)), 
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
-        return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 
     public static RemoteCall<TxAttackWallet> deploy(Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
@@ -316,13 +255,5 @@ public final class TxAttackWallet extends Contract {
         public BigInteger amount;
 
         public BigInteger balance;
-    }
-
-    public static class TransferEventResponse {
-        public String _from;
-
-        public String _to;
-
-        public BigInteger _value;
     }
 }
