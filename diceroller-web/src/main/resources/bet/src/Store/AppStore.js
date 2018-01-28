@@ -326,26 +326,26 @@ export default class AppStore {
           })
             .then((response) => {
                 if (response.data.code === 100) {
-                    this.rootStore.dialogStore.setLoading(true);
+                    //this.rootStore.dialogStore.setLoading(true);
                     
-                    // let data = response.data.data;
-                    // // 输
-                    // let balance, changeAmt;
-                    // if (data.fundType === 'FO') {
-                    //     balance = Number(this.balance) - Number(data.changeAmt)
-                    //     changeAmt = '-' + Number(data.changeAmt).toFixed(8);
-                    //     this.fundType = false;
-                    // } else {
-                    //     balance = Number(this.balance) + Number(data.changeAmt)
-                    //     changeAmt = '+' + Number(data.changeAmt).toFixed(8);
-                    //     this.fundType = true;
-                    // }
-                    // this.balance = balance.toFixed(8);
-                    // this.setMarks(data.randomResult);
-                    // this.setAmt(changeAmt)
-                    // this.getSakeCollect();
-                    // this.getAllStakes();
-                    // //this.balance = data.balance;
+                    let data = response.data.data;
+                    // 输
+                    let balance, changeAmt;
+                    if (data.fundType === 'FO') {
+                        balance = Number(this.balance) - Number(data.changeAmt)
+                        changeAmt = '-' + Number(data.changeAmt).toFixed(8);
+                        this.fundType = false;
+                    } else {
+                        balance = Number(this.balance) + Number(data.changeAmt)
+                        changeAmt = '+' + Number(data.changeAmt).toFixed(8);
+                        this.fundType = true;
+                    }
+                    this.balance = balance.toFixed(8);
+                    this.setMarks(data.randomResult);
+                    this.setAmt(changeAmt)
+                    this.getSakeCollect();
+                    this.getAllStakes();
+                    //this.balance = data.balance;
                 }
             })
     }
