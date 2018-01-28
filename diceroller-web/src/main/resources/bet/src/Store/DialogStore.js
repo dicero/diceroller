@@ -76,12 +76,12 @@ export default class DialogStore {
                 this.userName = response.data.data.username;
                 this.registerVisible = false;
                 this.rootStore.appStore.init();
-                this.createWebSocket(response.data.data.accessToken);
-                if (response.data.data.playAccess === '1') {
-                    this.setLoading(false);
-                } else {
-                    this.setLoading(true);
-                }
+                // this.createWebSocket(response.data.data.accessToken);
+                // if (response.data.data.playAccess === '1') {
+                //     this.setLoading(false);
+                // } else {
+                //     this.setLoading(true);
+                // }
                 
             } else {
                 this.registerVisible = true;
@@ -104,7 +104,7 @@ export default class DialogStore {
                         this.registerVisible = false;
                         this.userName = name;
                         this.rootStore.appStore.init();
-                        this.createWebSocket(response.data.data.accessToken);
+                        //this.createWebSocket(response.data.data.accessToken);
                         if (response.data.data.playAccess === '1') {
                             this.setLoading(false);
                         } else {
@@ -143,12 +143,12 @@ export default class DialogStore {
                     this.registerVisible = false;
                     this.userName = name;
                     this.rootStore.appStore.init();
-                    this.createWebSocket(response.data.data.accessToken);
-                        if (response.data.data.playAccess === '1') {
-                            this.setLoading(false);
-                        } else {
-                            this.setLoading(true);
-                        }
+                    //this.createWebSocket(response.data.data.accessToken);
+                        // if (response.data.data.playAccess === '1') {
+                        //     this.setLoading(false);
+                        // } else {
+                        //     this.setLoading(true);
+                        // }
                 } else {
                     message.info(this.words.message.zhhmmcw);
                 }
