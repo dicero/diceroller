@@ -84,7 +84,7 @@ public class StakeRest extends AbstractRest {
 
                 MakeResult makeResult = playService.roller(webLoginer.getId(), webLoginer.getUsername(), rollerBean);
                 if (makeResult != null) {
-                    return RestResponse.createSuccess();
+                    return RestResponse.createSuccess(makeResult);
                 } else {
                     return RestResponse.createFailure();
                 }

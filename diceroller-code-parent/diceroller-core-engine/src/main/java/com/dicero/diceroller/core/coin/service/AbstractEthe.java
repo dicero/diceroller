@@ -1,12 +1,9 @@
 package com.dicero.diceroller.core.coin.service;
 
 
-import com.dicero.diceroller.core.coin.util.Web3jConstants;
 import com.dicero.diceroller.core.coin.util.Web3jUtils;
-import okhttp3.OkHttpClient;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
-import org.web3j.protocol.http.HttpService;
 import rx.Subscription;
 
 /**
@@ -18,29 +15,9 @@ import rx.Subscription;
 public class AbstractEthe {
 
     static Web3j web3j = null;
-    static String clientUrl = null;
 
     public AbstractEthe(String [] args) {
-
-        clientUrl = argsToUrl(args);
-        OkHttpClient httpClient = createOkHttpClient();
-        HttpService httpService = new HttpService(httpClient);
-        web3j = Web3j.build(httpService);
-    }
-
-    private static OkHttpClient createOkHttpClient() {
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        return builder.build();
-    }
-
-    public String argsToUrl(String [] args) {
-        String ip = Web3jConstants.CLIENT_IP;
-        String port = Web3jConstants.CLIENT_PORT;
-
-        if(args.length >= 1) { ip = args[0]; }
-        if(args.length >= 2) { port = args[1]; }
-
-        return String.format("http://%s:%s", ip, port);
+        web3j = EtheService.web3j();
     }
 
     private static int count = 1;
@@ -59,7 +36,9 @@ public class AbstractEthe {
 
         // NOTE: To receive all new blocks as they are added to the blockchain:
         Subscription subscription = web3j.blockObservable(false).subscribe(tx -> {
-//            System.out.println("To receive all new blocks: " + tx);
+            System.out.println("To receive all new blocks: " + tx);
+            tx.getBlock().getAuthor();
+
         });
 
 
