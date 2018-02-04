@@ -174,7 +174,7 @@ public class PlayServiceImpl extends BaseService implements PlayService{
 
         makeResult.setChangeAmt(personalStakePO.getChangeAmt().toPlainString());
         makeResult.setFundType(personalStakePO.getFundType());
-        makeResult.setRandomResult(String.valueOf(personalStakePO));
+        makeResult.setRandomResult(String.valueOf(diceHmacBean.getRollerBean().getRandomResult()));
         makeResult.setStakeId(personalStakePO.getStakeId());
         return makeResult;
     }

@@ -23,8 +23,14 @@ public class ParamUtil {
 	      if(ov == null) {
 	    	  sb.append(ok.toString()).append("=").append("null").append(iterator.hasNext() ? "&" : ""); 
 	      } else if(ov instanceof String[]){
-			  sb.append(ok.toString()).append( "=" ).append( 
-			      ((String[])ov)[0]).append (iterator.hasNext() ? "&" : ""); 
+              if (ok.toString().toLowerCase().contains("username".toLowerCase())
+                      || ok.toString().toLowerCase().contains("password".toLowerCase())) {
+                  sb.append(ok.toString()).append( "=" ).append("******").append(iterator.hasNext() ? "&" : "");
+              } else {
+                  sb.append(ok.toString()).append( "=" ).append(
+                          ((String[])ov)[0]).append (iterator.hasNext() ? "&" : "");
+              }
+
 		  } else {
               if (ok.toString().toLowerCase().contains("username".toLowerCase())
                       || ok.toString().toLowerCase().contains("password".toLowerCase())) {
